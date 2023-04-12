@@ -36,9 +36,7 @@ let targets: [Target] = [
         sources: ["Sources/**"],
         resources: ["Resources/**"],
         scripts: scripts,
-        dependencies: [
-            
-        ],
+        dependencies: [],
         settings: .settings(base: env.baseSetting)
     )
 ]
