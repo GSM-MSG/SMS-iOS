@@ -23,6 +23,18 @@ public extension TargetDependency.Domain {
 }
 
 public extension TargetDependency.Core {
+    static let JwtStoreTesting = TargetDependency.project(
+        target: ModulePaths.Core.JwtStore.targetName(type: .testing),
+        path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)
+    )
+    static let JwtStoreInterface = TargetDependency.project(
+        target: ModulePaths.Core.JwtStore.targetName(type: .interface),
+        path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)
+    )
+    static let JwtStore = TargetDependency.project(
+        target: ModulePaths.Core.JwtStore.targetName(type: .sources),
+        path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)
+    )
     static let DesignSystem = TargetDependency.project(
         target: ModulePaths.Core.DesignSystem.targetName(type: .sources),
         path: .relativeToCore(ModulePaths.Core.DesignSystem.rawValue)
