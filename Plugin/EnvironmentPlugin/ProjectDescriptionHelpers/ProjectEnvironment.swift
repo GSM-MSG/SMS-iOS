@@ -13,5 +13,5 @@ public let env = ProjectEnvironment(
     organizationName: "com.msg",
     deploymentTarget: .iOS(targetVersion: "15.0", devices: [.iphone, .ipad]),
     platform: .iOS,
-    baseSetting: [:]
+    baseSetting: SettingsDictionary()
 )

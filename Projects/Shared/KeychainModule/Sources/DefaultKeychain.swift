@@ -1,7 +1,7 @@
 import Foundation
 import KeychainModuleInterface
 
-struct KeychainImpl: Keychain {
+struct DefaultKeychain: Keychain {
     func save(key: String, value: String) {
         let query: NSDictionary = [
             kSecClass: kSecClassGenericPassword,

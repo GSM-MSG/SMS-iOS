@@ -8,5 +8,8 @@ let project = Project.makeModule(
     targets: [.interface, .testing, .unitTest],
     internalDependencies: [
         .Shared.KeychainModuleInterface
+    ],
+    testingDependencies: [
+        .Shared.KeychainModuleTesting
     ]
 )

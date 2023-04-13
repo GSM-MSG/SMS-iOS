@@ -119,7 +119,9 @@ public extension Project {
         var testTargetDependencies = [
             targets.contains(.demo) ?
                 TargetDependency.target(name: "\(name)DemoApp") :
-                TargetDependency.target(name: name)
+                TargetDependency.target(name: name),
+            .SPM.Quick,
+            .SPM.Nimble
         ]
         if targets.contains(.testing) {
             testTargetDependencies.append(.target(name: "\(name)Testing"))
@@ -208,8 +210,7 @@ extension Scheme {
             buildAction: .buildAction(targets: ["\(name)"]),
             testAction: .targets(
                 ["\(name)Tests"],
-                configuration: target,
-                options: .options(coverage: true, codeCoverageTargets: ["\(name)"])
+                configuration: target
             ),
             runAction: .runAction(configuration: target),
             archiveAction: .archiveAction(configuration: target),
