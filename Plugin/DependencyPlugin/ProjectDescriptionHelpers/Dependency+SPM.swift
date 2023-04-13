@@ -5,6 +5,7 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.SPM {
+    static let Quick = TargetDependency.external(name: "Quick")
     static let Emdpoint = TargetDependency.external(name: "Emdpoint")
 }
 
