@@ -42,6 +42,10 @@ public extension TargetDependency.Core {
 }
 
 public extension TargetDependency.Shared {
+    static let DateUtil = TargetDependency.project(
+        target: ModulePaths.Shared.DateUtil.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.DateUtil.rawValue)
+    )
     static let KeychainModuleTesting = TargetDependency.project(
         target: ModulePaths.Shared.KeychainModule.targetName(type: .testing),
         path: .relativeToShared(ModulePaths.Shared.KeychainModule.rawValue)

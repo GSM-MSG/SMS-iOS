@@ -41,6 +41,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String {
+        case DateUtil
         case KeychainModule
         case UtilityModule
         case GlobalThirdPartyLibrary
