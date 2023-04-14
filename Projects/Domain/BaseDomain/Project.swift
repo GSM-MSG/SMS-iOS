@@ -14,5 +14,8 @@ let project = Project.makeModule(
         .Shared.GlobalThirdPartyLibrary,
         .Shared.DateUtil,
         .Shared.UtilityModule
+    ],
+    additionalPlistRows: [
+        "BASE_URL": .string("$(BASE_URL)")
     ]
 )
