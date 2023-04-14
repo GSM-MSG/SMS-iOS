@@ -9,7 +9,7 @@ let project = Project.makeModule(
     internalDependencies: [
         .Shared.KeychainModuleInterface
     ],
-    testingDependencies: [
+    unitTestDependencies: [
         .Shared.KeychainModuleTesting
     ]
 )
