@@ -6,7 +6,7 @@ public extension String {
             .withFullDate,
             .withTime,
             .withDashSeparatorInDate,
-            .withColonSeparatorInTime,
+            .withColonSeparatorInTime
         ]
     ) -> Date {
         let formatter = ISO8601DateFormatter()

@@ -3,6 +3,7 @@ import Foundation
 
 #if DEV
 struct SMSLoggingInterceptor: InterceptorType {
+    // swiftlint: disable line_length
     func willRequest(_ request: URLRequest, endpoint: EndpointType) {
         let url = request.description
         let method = request.httpMethod ?? "unknown method"
@@ -21,7 +22,7 @@ struct SMSLoggingInterceptor: InterceptorType {
     func didReceive(_ result: Result<DataResponse, EmdpointError>, endpoint: EndpointType) {
         switch result {
         case let .success(response):
-            onSuceed(response, endpoint: endpoint, isFromError: false)
+            onSucceed(response, endpoint: endpoint, isFromError: false)
         case let .failure(error):
             onFail(error, endpoint: endpoint)
         }
@@ -29,7 +30,7 @@ struct SMSLoggingInterceptor: InterceptorType {
 }
 
 private extension SMSLoggingInterceptor {
-    func onSuceed(
+    func onSucceed(
         _ response: DataResponse,
         endpoint: EndpointType,
         isFromError: Bool
@@ -52,7 +53,7 @@ private extension SMSLoggingInterceptor {
 
     func onFail(_ error: EmdpointError, endpoint: EndpointType) {
         if let resopnse = error.response {
-            onSuceed(resopnse, endpoint: endpoint, isFromError: true)
+            onSucceed(resopnse, endpoint: endpoint, isFromError: true)
             return
         }
         var log = "네트워크 통신 실패"
