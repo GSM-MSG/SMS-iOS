@@ -1,3 +1,4 @@
+import DateUtil
 import Emdpoint
 import Foundation
 import JwtStoreInterface
@@ -21,8 +22,18 @@ open class BaseRetemoteDataSource<Endpoint: SMSEndpoint> {
         #endif
     }
 
+    @discardableResult
     public func request<T: Decodable>(_ endpoint: Endpoint, dto: T.Type) async throws -> T {
-        
+        let res = try await checkIsEndpointNeedsAuth(endpoint)
+        ? authorizedRequest(endpoint)
+        : defaultRequest(endpoint)
+        return try decoder.decode(dto, from: res.data)
+    }
+
+    public func request(_ endpoint: Endpoint) async throws {
+        _ = try await checkIsEndpointNeedsAuth(endpoint)
+        ? authorizedRequest(endpoint)
+        : defaultRequest(endpoint)
     }
 }
 
@@ -35,18 +46,18 @@ private extension BaseRetemoteDataSource {
     }
 
     func authorizedRequest(_ endpoint: Endpoint) async throws -> DataResponse {
-            for _ in 0..<maxRetryCount {
-                do {
-                    try _Concurrency.Task<Never, Never>.checkCancellation()
-                    return try await performRequest(endpoint)
-                } catch {
-                    if checkTokenIsExpired() { try await tokenRefresh() }
-                    continue
-                }
+        for _ in 0..<maxRetryCount {
+            do {
+                try _Concurrency.Task<Never, Never>.checkCancellation()
+                return try await performRequest(endpoint)
+            } catch {
+                if checkTokenIsExpired() { try await tokenRefresh() }
+                continue
             }
-            try _Concurrency.Task<Never, Never>.checkCancellation()
-            return try await performRequest(endpoint)
         }
+        try _Concurrency.Task<Never, Never>.checkCancellation()
+        return try await performRequest(endpoint)
+    }
 
     func performRequest(_ endpoint: Endpoint) async throws -> DataResponse {
         try await client.request(endpoint)
@@ -57,7 +68,7 @@ private extension BaseRetemoteDataSource {
     }
 
     func checkTokenIsExpired() -> Bool {
-        let expired = jwtStore.load(property: .accessExpiresAt)
+        let expired = jwtStore.load(property: .accessExpiresAt).toISODate()
         return Date() > expired
     }
 

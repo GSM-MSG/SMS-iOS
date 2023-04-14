@@ -4,7 +4,7 @@ import DependencyPlugin
 
 let project = Project.makeModule(
     name: ModulePaths.Shared.DateUtil.rawValue,
-    product: .staticLibrary,
+    product: .framework,
     targets: [.unitTest],
     internalDependencies: []
 )

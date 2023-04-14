@@ -12,6 +12,7 @@ let project = Project.makeModule(
     internalDependencies: [
         .Core.JwtStoreInterface,
         .Shared.GlobalThirdPartyLibrary,
+        .Shared.DateUtil,
         .Shared.UtilityModule
     ]
 )
