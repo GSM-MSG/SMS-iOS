@@ -3,7 +3,7 @@ import Foundation
 
 public protocol SMSEndpoint: EndpointType, JwtAuthorizable {
     associatedtype ErrorType: Error
-    var errorMap: [Int: ErrorType] { get }
+    var errorMap: [Int: ErrorType]? { get }
 }
 
 extension SMSEndpoint {

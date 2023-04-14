@@ -73,7 +73,8 @@ private extension BaseRetemoteDataSource {
     }
 
     func tokenRefresh() async throws {
-        return
+        let client = EmdpointClient<RefreshEndpoint>(interceptors: [JwtInterceptor(jwtStore: jwtStore)])
+        _ = try await client.request(.refresh)
     }
 }
 
@@ -93,7 +94,6 @@ private extension Task where Failure == Error {
                     let oneSecond = TimeInterval(1_000_000_000)
                     let delay = UInt64(oneSecond * retryDelay)
                     try await Task<Never, Never>.sleep(nanoseconds: delay)
-                    
                     continue
                 }
             }
