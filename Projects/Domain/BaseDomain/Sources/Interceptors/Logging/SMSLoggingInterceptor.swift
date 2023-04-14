@@ -23,6 +23,7 @@ struct SMSLoggingInterceptor: InterceptorType {
         switch result {
         case let .success(response):
             onSucceed(response, endpoint: endpoint, isFromError: false)
+
         case let .failure(error):
             onFail(error, endpoint: endpoint)
         }
