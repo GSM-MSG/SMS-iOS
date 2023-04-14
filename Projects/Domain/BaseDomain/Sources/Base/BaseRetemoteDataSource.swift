@@ -16,9 +16,14 @@ open class BaseRetemoteDataSource<Endpoint: SMSEndpoint> {
         self.jwtStore = jwtStore
 
         #if DEV
-        self.client = client ?? .init(interceptors: [JwtInterceptor(jwtStore: jwtStore)])
+        self.client = client ?? .init(interceptors: [
+            JwtInterceptor(jwtStore: jwtStore),
+            SMSLoggingInterceptor()
+        ])
         #else
-        self.client = client ?? .init(interceptors: [JwtInterceptor(jwtStore: jwtStore)])
+        self.client = client ?? .init(interceptors: [
+            JwtInterceptor(jwtStore: jwtStore)
+        ])
         #endif
     }
 
