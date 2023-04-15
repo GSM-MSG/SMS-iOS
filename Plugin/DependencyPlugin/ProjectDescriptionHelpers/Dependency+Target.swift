@@ -23,6 +23,18 @@ public extension TargetDependency.Domain {
 }
 
 public extension TargetDependency.Core {
+    static let JwtStoreTesting = TargetDependency.project(
+        target: ModulePaths.Core.JwtStore.targetName(type: .testing),
+        path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)
+    )
+    static let JwtStoreInterface = TargetDependency.project(
+        target: ModulePaths.Core.JwtStore.targetName(type: .interface),
+        path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)
+    )
+    static let JwtStore = TargetDependency.project(
+        target: ModulePaths.Core.JwtStore.targetName(type: .sources),
+        path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)
+    )
     static let DesignSystem = TargetDependency.project(
         target: ModulePaths.Core.DesignSystem.targetName(type: .sources),
         path: .relativeToCore(ModulePaths.Core.DesignSystem.rawValue)
@@ -30,6 +42,22 @@ public extension TargetDependency.Core {
 }
 
 public extension TargetDependency.Shared {
+    static let DateUtil = TargetDependency.project(
+        target: ModulePaths.Shared.DateUtil.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.DateUtil.rawValue)
+    )
+    static let KeychainModuleTesting = TargetDependency.project(
+        target: ModulePaths.Shared.KeychainModule.targetName(type: .testing),
+        path: .relativeToShared(ModulePaths.Shared.KeychainModule.rawValue)
+    )
+    static let KeychainModuleInterface = TargetDependency.project(
+        target: ModulePaths.Shared.KeychainModule.targetName(type: .interface),
+        path: .relativeToShared(ModulePaths.Shared.KeychainModule.rawValue)
+    )
+    static let KeychainModule = TargetDependency.project(
+        target: ModulePaths.Shared.KeychainModule.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.KeychainModule.rawValue)
+    )
     static let UtilityModule = TargetDependency.project(
         target: ModulePaths.Shared.UtilityModule.targetName(type: .sources),
         path: .relativeToShared(ModulePaths.Shared.UtilityModule.rawValue)

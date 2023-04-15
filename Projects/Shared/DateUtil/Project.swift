@@ -3,7 +3,8 @@ import ProjectDescriptionHelpers
 import DependencyPlugin
 
 let project = Project.makeModule(
-    name: ModulePaths.Shared.UtilityModule.rawValue,
+    name: ModulePaths.Shared.DateUtil.rawValue,
     product: .framework,
-    targets: [.unitTest]
+    targets: [.unitTest],
+    internalDependencies: []
 )
