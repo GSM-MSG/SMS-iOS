@@ -42,6 +42,10 @@ public extension TargetDependency.Core {
 }
 
 public extension TargetDependency.Shared {
+    static let ViewUtil = TargetDependency.project(
+        target: ModulePaths.Shared.ViewUtil.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.ViewUtil.rawValue)
+    )
     static let DateUtil = TargetDependency.project(
         target: ModulePaths.Shared.DateUtil.targetName(type: .sources),
         path: .relativeToShared(ModulePaths.Shared.DateUtil.rawValue)
