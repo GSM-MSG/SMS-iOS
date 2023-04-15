@@ -31,12 +31,15 @@ final class DateComponentUtilSpec: QuickSpec {
                 it("mockDate.day는 1이다") {
                     expect { mockDate.day }.to(equal(1))
                 }
+
                 it("mockDate.hour는 1이다") {
                     expect { mockDate.hour }.to(equal(10))
                 }
+
                 it("mockDate.minute는 1이다") {
                     expect { mockDate.minute }.to(equal(10))
                 }
+
                 it("mockDate.second는 1이다") {
                     expect { mockDate.second }.to(equal(10))
                 }
