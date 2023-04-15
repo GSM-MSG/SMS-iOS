@@ -8,7 +8,9 @@ let project = Project.makeModule(
     targets: [.unitTest],
     internalDependencies: [
         .Core.DesignSystem,
+        .Shared.DateUtil,
         .Shared.GlobalThirdPartyLibrary,
+        .Shared.ViewUtil,
         .Shared.UtilityModule
     ]
 )
