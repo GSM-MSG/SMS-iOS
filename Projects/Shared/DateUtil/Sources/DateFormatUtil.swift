@@ -7,10 +7,12 @@ public extension String {
             .withTime,
             .withDashSeparatorInDate,
             .withColonSeparatorInTime
-        ]
+        ],
+        timeZone: TimeZone = .current
     ) -> Date {
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = options
+        formatter.timeZone = timeZone
         return formatter.date(from: self) ?? .init()
     }
 

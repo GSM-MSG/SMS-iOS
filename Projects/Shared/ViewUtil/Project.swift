@@ -3,7 +3,7 @@ import ProjectDescriptionHelpers
 import DependencyPlugin
 
 let project = Project.makeModule(
-    name: ModulePaths.Shared.KeychainModule.rawValue,
+    name: ModulePaths.Shared.ViewUtil.rawValue,
     product: .staticLibrary,
-    targets: [.interface, .testing]
+    targets: []
 )
