@@ -1,6 +1,6 @@
-import UIKit
+import SwiftUI
 
-public extension UIColor.SMSColorSystem {
+public extension Color.SMSColorSystem {
     // swiftlint:disable identifier_name
     enum Primary: SMSColorable {
         case p1
@@ -9,12 +9,12 @@ public extension UIColor.SMSColorSystem {
     }
 }
 
-public extension UIColor.SMSColorSystem.Primary {
-    var color: UIColor {
+public extension Color.SMSColorSystem.Primary {
+    var color: Color {
         switch self {
-        case .p1: return DesignSystemAsset.Primary.p1.color
-        case .p2: return DesignSystemAsset.Primary.p2.color
-        case .p3: return DesignSystemAsset.Primary.p3.color
+        case .p1: return DesignSystemAsset.Primary.p1.swiftUIColor
+        case .p2: return DesignSystemAsset.Primary.p2.swiftUIColor
+        case .p3: return DesignSystemAsset.Primary.p3.swiftUIColor
         }
     }
 }

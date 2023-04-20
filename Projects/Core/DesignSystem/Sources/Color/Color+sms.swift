@@ -1,6 +1,6 @@
-import UIKit
+import SwiftUI
 
-public extension UIColor {
+public extension Color {
     enum SMSColorSystem {
         case primary(Primary)
         case sub(Sub)
@@ -8,7 +8,7 @@ public extension UIColor {
         case system(System)
     }
 
-    static func sms(_ style: SMSColorSystem) -> UIColor {
+    static func sms(_ style: SMSColorSystem) -> Color {
         switch style {
         case let .primary(colorable as SMSColorable),
             let .neutral(colorable as SMSColorable),

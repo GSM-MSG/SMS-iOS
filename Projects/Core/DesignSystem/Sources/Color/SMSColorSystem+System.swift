@@ -1,6 +1,6 @@
-import UIKit
+import SwiftUI
 
-public extension UIColor.SMSColorSystem {
+public extension Color.SMSColorSystem {
     enum System: SMSColorable {
         case error
         case positive
@@ -9,13 +9,13 @@ public extension UIColor.SMSColorSystem {
     }
 }
 
-public extension UIColor.SMSColorSystem.System {
-    var color: UIColor {
+public extension Color.SMSColorSystem.System {
+    var color: Color {
         switch self {
-        case .error: return DesignSystemAsset.System.error.color
-        case .positive: return DesignSystemAsset.System.positive.color
-        case .black: return DesignSystemAsset.System.black.color
-        case .white: return DesignSystemAsset.System.white.color
+        case .error: return DesignSystemAsset.System.error.swiftUIColor
+        case .positive: return DesignSystemAsset.System.positive.swiftUIColor
+        case .black: return DesignSystemAsset.System.black.swiftUIColor
+        case .white: return DesignSystemAsset.System.white.swiftUIColor
         }
     }
 }
