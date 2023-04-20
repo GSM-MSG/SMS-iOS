@@ -1,7 +1,6 @@
-import UIKit
+import SwiftUI
 
-public extension UIFont {
-    // swiftlint: disable identifier_name
+public extension Font {
     enum SMSFontSystem: SMSFontable {
         case headline1
         case headline2
@@ -14,40 +13,40 @@ public extension UIFont {
         case caption2
     }
 
-    static func sms(_ style: SMSFontSystem) -> UIFont {
+    static func sms(_ style: SMSFontSystem) -> Font {
         return style.font
     }
 }
 
-public extension UIFont.SMSFontSystem {
-    var font: UIFont {
+public extension Font.SMSFontSystem {
+    var font: Font {
         switch self {
         case .headline1:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.bold, size: 40) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 40))
 
         case .headline2:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.bold, size: 32) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 32))
 
         case .headline3:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.bold, size: 28) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 28))
 
         case .title1:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.bold, size: 20) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 20))
 
         case .title2:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.bold, size: 17) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 17))
 
         case .body1:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.regular, size: 15) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.regular.font(size: 15))
 
         case .body2:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.regular, size: 14) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.regular.font(size: 14))
 
         case .caption1:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.regular, size: 13) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.regular.font(size: 13))
 
         case .caption2:
-            return UIFont(font: DesignSystemFontFamily.Pretendard.regular, size: 12) ?? .init()
+            return Font(DesignSystemFontFamily.Pretendard.regular.font(size: 12))
         }
     }
 }
