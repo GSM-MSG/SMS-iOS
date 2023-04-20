@@ -1,7 +1,7 @@
 import UIKit
 
 public extension UIColor.SMSColorSystem {
-    // swiftlint: disable identifier_name
+    // swiftlint:disable identifier_name
     enum Sub: SMSColorable {
         case s1
         case s2
