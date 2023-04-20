@@ -4,7 +4,7 @@ public struct SMSText: View {
     var text: String
     var font: Font.SMSFontSystem
 
-    public init(text: String, font: Font.SMSFontSystem = .body1) {
+    public init(_ text: String, font: Font.SMSFontSystem = .body1) {
         self.text = text
         self.font = font
     }
