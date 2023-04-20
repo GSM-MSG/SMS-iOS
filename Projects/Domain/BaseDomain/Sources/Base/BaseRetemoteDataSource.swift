@@ -3,7 +3,7 @@ import Emdpoint
 import Foundation
 import JwtStoreInterface
 
-open class BaseRetemoteDataSource<Endpoint: SMSEndpoint> {
+open class BaseRemoteDataSource<Endpoint: SMSEndpoint> {
     private let jwtStore: any JwtStore
     private let client: EmdpointClient<Endpoint>
     private let decoder = JSONDecoder()
