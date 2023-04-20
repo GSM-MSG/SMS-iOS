@@ -4,7 +4,7 @@ import Nimble
 import Quick
 
 final class DateFormatUtilSpec: QuickSpec {
-    // swiftlint: disable function_body_length
+    // swiftlint:disable function_body_length
     override func spec() {
         var mockDate: Date!
 
