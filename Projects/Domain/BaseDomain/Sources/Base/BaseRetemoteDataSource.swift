@@ -41,7 +41,7 @@ open class BaseRemoteDataSource<Endpoint: SMSEndpoint> {
 private extension BaseRemoteDataSource {
     @discardableResult
     func retryingRequest(_ endpoint: Endpoint) async throws -> DataResponse {
-        try await Task.retrying(maxRetryCount: maxRetryCount) {
+        try await Task.retrying(priority: Task.currentPriority, maxRetryCount: maxRetryCount) {
             try await self.performRequest(endpoint)
         }
         .value
