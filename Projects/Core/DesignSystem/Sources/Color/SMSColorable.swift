@@ -1,5 +1,5 @@
-import UIKit
+import SwiftUI
 
 protocol SMSColorable {
-    var color: UIColor { get }
+    var color: Color { get }
 }

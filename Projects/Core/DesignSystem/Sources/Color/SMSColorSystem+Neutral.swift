@@ -1,6 +1,6 @@
-import UIKit
+import SwiftUI
 
-public extension UIColor.SMSColorSystem {
+public extension Color.SMSColorSystem {
     enum Neutral: SMSColorable {
         case n10
         case n20
@@ -10,14 +10,14 @@ public extension UIColor.SMSColorSystem {
     }
 }
 
-public extension UIColor.SMSColorSystem.Neutral {
-    var color: UIColor {
+public extension Color.SMSColorSystem.Neutral {
+    var color: Color {
         switch self {
-        case .n10: return DesignSystemAsset.Neutral.n10.color
-        case .n20: return DesignSystemAsset.Neutral.n20.color
-        case .n30: return DesignSystemAsset.Neutral.n30.color
-        case .n40: return DesignSystemAsset.Neutral.n40.color
-        case .n50: return DesignSystemAsset.Neutral.n50.color
+        case .n10: return DesignSystemAsset.Neutral.n10.swiftUIColor
+        case .n20: return DesignSystemAsset.Neutral.n20.swiftUIColor
+        case .n30: return DesignSystemAsset.Neutral.n30.swiftUIColor
+        case .n40: return DesignSystemAsset.Neutral.n40.swiftUIColor
+        case .n50: return DesignSystemAsset.Neutral.n50.swiftUIColor
         }
     }
 }
