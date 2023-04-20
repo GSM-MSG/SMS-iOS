@@ -29,57 +29,26 @@ open class BaseRemoteDataSource<Endpoint: SMSEndpoint> {
 
     @discardableResult
     public func request<T: Decodable>(_ endpoint: Endpoint, dto: T.Type) async throws -> T {
-        let res = try await checkIsEndpointNeedsAuth(endpoint)
-        ? authorizedRequest(endpoint)
-        : defaultRequest(endpoint)
-        return try decoder.decode(dto, from: res.data)
+        let response = try await retryingRequest(endpoint)
+        return try decoder.decode(dto, from: response.data)
     }
 
     public func request(_ endpoint: Endpoint) async throws {
-        _ = try await checkIsEndpointNeedsAuth(endpoint)
-        ? authorizedRequest(endpoint)
-        : defaultRequest(endpoint)
+        try await retryingRequest(endpoint)
     }
 }
 
-private extension BaseRetemoteDataSource {
-    func defaultRequest(_ endpoint: Endpoint) async throws -> DataResponse {
+private extension BaseRemoteDataSource {
+    @discardableResult
+    func retryingRequest(_ endpoint: Endpoint) async throws -> DataResponse {
         try await Task.retrying(maxRetryCount: maxRetryCount) {
             try await self.performRequest(endpoint)
         }
         .value
     }
 
-    func authorizedRequest(_ endpoint: Endpoint) async throws -> DataResponse {
-        for _ in 0..<maxRetryCount {
-            do {
-                try _Concurrency.Task<Never, Never>.checkCancellation()
-                return try await performRequest(endpoint)
-            } catch {
-                if checkTokenIsExpired() { try await tokenRefresh() }
-                continue
-            }
-        }
-        try _Concurrency.Task<Never, Never>.checkCancellation()
-        return try await performRequest(endpoint)
-    }
-
     func performRequest(_ endpoint: Endpoint) async throws -> DataResponse {
         try await client.request(endpoint)
-    }
-
-    func checkIsEndpointNeedsAuth(_ endpoint: Endpoint) -> Bool {
-        endpoint.jwtTokenType == .accessToken
-    }
-
-    func checkTokenIsExpired() -> Bool {
-        let expired = jwtStore.load(property: .accessExpiresAt).toISODate()
-        return Date() > expired
-    }
-
-    func tokenRefresh() async throws {
-        let client = EmdpointClient<RefreshEndpoint>(interceptors: [JwtInterceptor(jwtStore: jwtStore)])
-        _ = try await client.request(.refresh)
     }
 }
 
