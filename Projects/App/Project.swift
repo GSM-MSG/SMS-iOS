@@ -36,7 +36,11 @@ let targets: [Target] = [
         sources: ["Sources/**"],
         resources: ["Resources/**"],
         scripts: scripts,
-        dependencies: [],
+        dependencies: [
+            .Feature.SigninFeature,
+            .Domain.AuthDomain,
+            .Core.JwtStore
+        ],
         settings: .settings(base: env.baseSetting)
     )
 ]
