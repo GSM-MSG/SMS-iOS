@@ -6,6 +6,10 @@ let project = Project.makeModule(
     name: ModulePaths.Feature.SigninFeature.rawValue,
     product: .staticLibrary,
     targets: [.interface, .unitTest],
+    externalDependencies: [
+        .SPM.GAuthSignin,
+        .SPM.Needle
+    ],
     internalDependencies: [
         .Feature.BaseFeature,
         .Domain.AuthDomainInterface
