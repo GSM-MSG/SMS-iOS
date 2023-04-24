@@ -23,7 +23,7 @@ let settings: Settings =
               configurations: configurations,
               defaultSettings: .recommended)
 
-let scripts: [TargetScript] = isCI ? [] : [.swiftLint]
+let scripts: [TargetScript] = isCI ? [] : [.swiftLint, .needle]
 
 let targets: [Target] = [
     .init(
@@ -39,7 +39,8 @@ let targets: [Target] = [
         dependencies: [
             .Feature.SigninFeature,
             .Domain.AuthDomain,
-            .Core.JwtStore
+            .Core.JwtStore,
+            .Shared.KeychainModule
         ],
         settings: .settings(base: env.baseSetting)
     )

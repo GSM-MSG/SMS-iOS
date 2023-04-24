@@ -5,7 +5,7 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.SPM {
-    static let Needle = TargetDependency.external(name: "Needle")
+    static let Needle = TargetDependency.external(name: "NeedleFoundation")
     static let GAuthSignin = TargetDependency.external(name: "GAuthSignin")
     static let Nimble = TargetDependency.external(name: "Nimble")
     static let Quick = TargetDependency.external(name: "Quick")
