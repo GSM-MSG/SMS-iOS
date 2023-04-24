@@ -1,9 +1,16 @@
-//
-//  SMSApp.swift
-//  SMS
-//
-//  Created by sunghun on 2023/04/24.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import BaseFeature
+import DesignSystem
+import SwiftUI
 
-import Foundation
+@main
+struct SMSApp: App {
+    init() {
+        registerProviderFactories()
+    }
+
+    var body: some Scene {
+        WindowGroup {
+            AppComponent().signinComponent.makeView()
+        }
+    }
+}
