@@ -1,9 +1,32 @@
-//
-//  AppComponent.swift
-//  SMS
-//
-//  Created by sunghun on 2023/04/24.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import NeedleFoundation
+import SwiftUI
+import AuthDomainInterface
+import AuthDomain
+import SigninFeature
+import BaseDomain
+import JwtStore
+import JwtStoreInterface
+import KeychainModule
+import KeychainModuleInterface
 
-import Foundation
+final class AppComponent: BootstrapComponent {
+    func makeRootView() -> some View {
+        signinComponent.makeView()
+    }
+
+    var signinComponent: SigninComponent {
+        SigninComponent(parent: self)
+    }
+
+    var authDomainComponentProtocol: any AuthDomainComponentProtocol {
+        AuthDomainComponent(parent: self)
+    }
+
+    var jwtStoreComponentProtocol: any JwtStoreComponentProtocol {
+        JwtStoreComponent(parent: self)
+    }
+
+    var keychainComponentProtocol: any KeychainComponentProtocol {
+        KeychainComponent(parent: self)
+    }
+}
