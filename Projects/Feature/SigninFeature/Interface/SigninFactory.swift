@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol SiginFactory {
+public protocol SigninFactory {
     associatedtype ViewType = View
     func makeView() -> ViewType
 }

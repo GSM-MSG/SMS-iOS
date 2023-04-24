@@ -1,9 +1,20 @@
-//
-//  SigninModel.swift
-//  SigninFeatureInterface
-//
-//  Created by sunghun on 2023/04/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
 import Foundation
+
+final class SigninModel: ObservableObject, SigninStateProtocol {
+    @Published var code: String = ""
+    @Published var isError: Bool = false
+}
+
+extension SigninModel: SigninActionProtocol {
+    func signin(code: String) {
+        print("sadf")
+    }
+
+    func onApper() {
+        print("asdf")
+    }
+
+    func updateIsError(isError: Bool) {
+        self.isError = isError
+    }
+}

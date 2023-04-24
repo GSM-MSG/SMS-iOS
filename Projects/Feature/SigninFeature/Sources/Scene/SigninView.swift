@@ -5,10 +5,10 @@ import GlobalThirdPartyLibrary
 import ViewUtil
 import UtilityModule
 
-struct SigninViewController: View {
+struct SigninView: View {
     @StateObject var container: MVIContainer<SigninIntentProtocol, SigninStateProtocol>
-    private var intent: any SigninIntentProtocol
-    private var state: any SigninStateProtocol
+    var intent: any SigninIntentProtocol { container.intent }
+    var state: any SigninStateProtocol { container.model }
 
     var body: some View {
         HStack {
@@ -16,7 +16,7 @@ struct SigninViewController: View {
                 .multilineTextAlignment(.center)
 
             GAuthButtonView { code in
-                intent.signin(code: code)
+                container.intent.signin(code: code)
             }
         }
 //        .alert("title", isPresented: Binding(get: { state.isError }, set: { _ in intent.showAlert() })) {

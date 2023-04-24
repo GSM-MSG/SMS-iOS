@@ -1,9 +1,35 @@
-//
-//  SigninIntent.swift
-//  SigninFeatureInterface
-//
-//  Created by sunghun on 2023/04/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import Combine
+import AuthDomainInterface
 
-import Foundation
+final class SigninIntent: SigninIntentProtocol {
+    private let loginUseCase: any LoginUseCase
+    private weak var model: SigninActionProtocol?
+
+    init(
+        loginUseCase: any LoginUseCase,
+        model: any SigninActionProtocol
+    ) {
+        self.loginUseCase = loginUseCase
+        self.model = model
+    }
+
+    func onApper() {
+        model?.onApper()
+    }
+
+    func signin(code: String) {
+        Task {
+            do {
+                try await loginUseCase.execute(code: code)
+            } catch {
+                model?.updateIsError(isError: true)
+            }
+        }
+    }
+
+    func presentToAlert() {
+    }
+
+    func dismissToAlert() {
+    }
+}

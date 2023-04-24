@@ -1,9 +1,10 @@
-//
-//  SigninModelProtocol.swift
-//  SigninFeatureInterface
-//
-//  Created by sunghun on 2023/04/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+protocol SigninStateProtocol {
+    var code: String { get }
+    var isError: Bool { get }
+}
 
-import Foundation
+protocol SigninActionProtocol: AnyObject {
+    func onApper()
+    func signin(code: String)
+    func updateIsError(isError: Bool)
+}
