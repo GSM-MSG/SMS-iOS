@@ -1,3 +1,4 @@
+import AuthDomainInterface
 import BaseDomain
 
 final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthEndpoint>, RemoteAuthDataSource {

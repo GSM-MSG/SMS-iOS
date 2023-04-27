@@ -1,6 +1,6 @@
 import AuthDomainInterface
 
-struct RemoteAuthDataSourceMock: RemoteAuthDataSource {
+struct AuthRepositoryMock: AuthRepository {
     func login(code: String) async throws {
         if code.isEmpty {
             throw AuthDomainError.invalidGAuthCode
