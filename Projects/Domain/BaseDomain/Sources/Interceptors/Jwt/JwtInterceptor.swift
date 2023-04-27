@@ -56,7 +56,7 @@ private extension JwtInterceptor {
         completion: @escaping (Result<URLRequest, EmdpointError>) -> Void
     ) {
 #if DEV || STAGE
-        let client = EmdpointClient<RefreshEndpoint>(interceptors: [DotoriLoggingInterceptor()])
+        let client = EmdpointClient<RefreshEndpoint>(interceptors: [SMSLoggingInterceptor()])
 #else
         let client = EmdpointClient<RefreshEndpoint>()
 #endif
