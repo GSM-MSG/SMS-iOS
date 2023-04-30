@@ -3,7 +3,7 @@ import AuthDomainInterface
 
 final class SigninIntent: SigninIntentProtocol {
     private let loginUseCase: any LoginUseCase
-    private weak var model: SigninActionProtocol?
+    private weak var model: (any SigninActionProtocol)?
 
     init(
         loginUseCase: any LoginUseCase,
