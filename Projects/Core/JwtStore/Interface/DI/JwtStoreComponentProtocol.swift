@@ -1,5 +1,5 @@
 import NeedleFoundation
 
 public protocol JwtStoreComponentProtocol {
-    var jwtStore: JwtStore { get }
+    var jwtStore: any JwtStore { get }
 }
