@@ -17,6 +17,7 @@ final class SigninIntent: SigninIntentProtocol {
         Task {
             do {
                 try await loginUseCase.execute(code: code)
+                model?.updateIsSuccess(isSuccess: true)
             } catch {
                 model?.updateIsError(isError: true)
             }

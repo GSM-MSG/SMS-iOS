@@ -7,8 +7,7 @@ let project = Project.makeModule(
     product: .framework,
     targets: [.interface, .unitTest],
     externalDependencies: [
-        .SPM.GAuthSignin,
-        .SPM.Needle
+        .SPM.GAuthSignin
     ],
     internalDependencies: [
         .Domain.AuthDomainInterface,

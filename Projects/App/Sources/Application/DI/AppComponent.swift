@@ -3,6 +3,7 @@ import SwiftUI
 import AuthDomainInterface
 import AuthDomain
 import SigninFeature
+import SigninFeatureInterface
 import BaseDomain
 import JwtStore
 import JwtStoreInterface
@@ -14,7 +15,7 @@ final class AppComponent: BootstrapComponent {
         signinComponent.makeView()
     }
 
-    var signinComponent: SigninComponent {
+    var signinComponent: any SigninComponentProtocol {
         SigninComponent(parent: self)
     }
 

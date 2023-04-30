@@ -6,6 +6,9 @@ let project = Project.makeModule(
     name: ModulePaths.Feature.BaseFeature.rawValue,
     product: .framework,
     targets: [.unitTest],
+    externalDependencies: [
+        .SPM.Needle
+    ],
     internalDependencies: [
         .Core.DesignSystem,
         .Shared.DateUtil,

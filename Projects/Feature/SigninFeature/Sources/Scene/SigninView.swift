@@ -25,14 +25,12 @@ struct SigninView: View {
 
             Spacer()
 
-            HStack {
-                GAuthButtonView { code in
-                    container.intent.signin(code: code)
-                }
-                .padding(.horizontal, 20)
-                .frame(height: 50)
-                .padding(.bottom, 88)
+            GAuthButtonView { code in
+                container.intent.signin(code: code)
             }
+            .padding(.horizontal, 20)
+            .frame(height: 50)
+            .padding(.bottom, 88)
         }
         .background {
             SMSImage(.background)

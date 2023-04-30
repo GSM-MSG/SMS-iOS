@@ -1,11 +1,5 @@
 import SwiftUI
 
-fileprivate extension DesignSystemImages {
-    var suiImage: SwiftUI.Image {
-        SwiftUI.Image(uiImage: self.image)
-    }
-}
-
 public struct SMSImage: View {
     public enum Image {
         case background
@@ -31,7 +25,7 @@ public struct SMSImage: View {
     private func smsImageToImage() -> SwiftUI.Image {
         switch image {
         case .background:
-            return DesignSystemAsset.Images.background.suiImage
+            return DesignSystemAsset.Images.background.swiftUIImage
         }
     }
 }
