@@ -13,10 +13,6 @@ final class SigninIntent: SigninIntentProtocol {
         self.model = model
     }
 
-    func onApper() {
-        model?.onApper()
-    }
-
     func signin(code: String) {
         Task {
             do {
@@ -25,11 +21,5 @@ final class SigninIntent: SigninIntentProtocol {
                 model?.updateIsError(isError: true)
             }
         }
-    }
-
-    func presentToAlert() {
-    }
-
-    func dismissToAlert() {
     }
 }

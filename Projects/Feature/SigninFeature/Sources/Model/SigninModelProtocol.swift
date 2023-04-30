@@ -4,7 +4,5 @@ protocol SigninStateProtocol {
 }
 
 protocol SigninActionProtocol: AnyObject {
-    func onApper()
-    func signin(code: String)
     func updateIsError(isError: Bool)
 }
