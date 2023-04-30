@@ -7,13 +7,13 @@ public protocol AuthDomainDependency: Dependency {
 }
 
 public final class AuthDomainComponent: Component<AuthDomainDependency>, AuthDomainComponentProtocol {
-    public var loginUseCase: LoginUseCase {
+    public var loginUseCase: any LoginUseCase {
         LoginUseCaseImpl(authRepository: authRepository)
     }
-    public var authRepository: AuthRepository {
+    public var authRepository: any AuthRepository {
         AuthRepositoryImpl(remoteAuthDataSource: remoteAuthDataSource)
     }
-    var remoteAuthDataSource: RemoteAuthDataSource {
+    var remoteAuthDataSource: any RemoteAuthDataSource {
         RemoteAuthDataSourceImpl(jwtStore: dependency.jwtStoreComponentProtocol.jwtStore)
     }
 }
