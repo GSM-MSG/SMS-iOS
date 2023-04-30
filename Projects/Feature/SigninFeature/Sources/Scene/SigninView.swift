@@ -12,7 +12,7 @@ struct SigninView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Text("Student\nManagement\nService")
+            Text("STUDENT\nMANAGEMENT\nSERVICE")
                 .multilineTextAlignment(.center)
                 .padding(.top, 124)
                 .font(.sms(.headline1))
