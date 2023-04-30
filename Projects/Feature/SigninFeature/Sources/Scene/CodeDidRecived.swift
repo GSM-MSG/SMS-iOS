@@ -1,6 +1,7 @@
 import UIKit
 import SwiftUI
 import GAuthSignin
+import BaseFeature
 
 struct GAuthButtonView: UIViewRepresentable {
     private let completion: (String) -> Void
@@ -14,7 +15,11 @@ struct GAuthButtonView: UIViewRepresentable {
             .first?
             .rootViewController
         else { return gauthButton }
-        gauthButton.prepare(clientID: "dfeb634a690a4f76ba9148829171338e2817e94461c34b1794bb3e586b4296bf", redirectURI: "https://sms.msg-team.com/login", presenting: topViewController) { code in
+        gauthButton.prepare(
+            clientID: Bundle.module.object(forInfoDictionaryKey: "CLIENT_ID") as? String ?? "",
+            redirectURI: Bundle.module.object(forInfoDictionaryKey: "REDIREDCT_URI") as? String ?? "",
+            presenting: topViewController
+        ) { code in
             completion(code)
         }
         return gauthButton
@@ -26,3 +31,10 @@ struct GAuthButtonView: UIViewRepresentable {
         self.completion = completion
     }
 }
+
+private extension Foundation.Bundle {
+    static let module = Bundle(for: BundleFinder.self)
+}
+
+private final class BundleFinder {}
+

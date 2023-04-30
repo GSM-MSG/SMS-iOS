@@ -12,5 +12,9 @@ let project = Project.makeModule(
         .Shared.GlobalThirdPartyLibrary,
         .Shared.ViewUtil,
         .Shared.UtilityModule
+    ],
+    additionalPlistRows: [
+        "CLIENT_ID": .string("$(CLIENT_ID)"),
+        "REDIREDCT_URI": .string("$(REDIREDCT_URI)")
     ]
 )
