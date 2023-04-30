@@ -7,7 +7,7 @@ public protocol JwtStoreDependency: Dependency {
 }
 
 public final class JwtStoreComponent: Component<JwtStoreDependency>, JwtStoreComponentProtocol {
-    public var jwtStore: JwtStore {
+    public var jwtStore: any JwtStore {
         KeychainJwtStore(keychain: dependency.keychainComponentProtocol.keychain)
     }
 }
