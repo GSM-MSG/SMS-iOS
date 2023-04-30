@@ -11,22 +11,38 @@ struct SigninView: View {
     var state: any SigninStateProtocol { container.model }
 
     var body: some View {
-        HStack {
+        VStack(spacing: 0) {
             Text("Student\nManagement\nService")
                 .multilineTextAlignment(.center)
+                .padding(.top, 124)
+                .font(.sms(.headline1))
+                .foregroundColor(.sms(.system(.white)))
 
-            GAuthButtonView { code in
-                container.intent.signin(code: code)
+            Text("학생 정보 통합관리 서비스")
+                .font(.sms(.title2))
+                .foregroundColor(.sms(.system(.white)))
+                .padding(.top, 16)
+
+            Spacer()
+
+            HStack {
+                GAuthButtonView { code in
+                    container.intent.signin(code: code)
+                }
+                .padding(.horizontal, 20)
+                .frame(height: 50)
+                .padding(.bottom, 88)
             }
         }
-//        .alert("title", isPresented: Binding(get: { state.isError }, set: { _ in intent.showAlert() })) {
-//            Button("OK", role: .destructive) { print("asdf") }
-//            Button("cancel", role: .cancel) { print("qw1wqe")}
-//        }
-//        .alert(isPresented: Binding(get: { state.isError }, set: { _ in intent.showAlert() })) {
-//            Button("OK", role: .cancel) {
-//                print("Asdf")
-//            }
-//        }
+        .background {
+            SMSImage(.background)
+        }
+        .ignoresSafeArea()
+        .alert(
+            "알수없는 에러가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+            isPresented: Binding(get: { state.isError }, set: { _ in })
+        ) {
+            Button("확인", role: .cancel) { }
+        }
     }
 }
