@@ -1,6 +1,6 @@
 public enum JwtTokenType: String {
     case accessToken = "Authorization"
-    case refreshToken = "refresh-token"
+    case refreshToken = "Refresh-token"
     case none
 }
 
