@@ -4,7 +4,7 @@ import DependencyPlugin
 
 let project = Project.makeModule(
     name: ModulePaths.Feature.SigninFeature.rawValue,
-    product: .framework,
+    product: .staticFramework,
     targets: [.interface, .unitTest],
     externalDependencies: [
         .SPM.GAuthSignin

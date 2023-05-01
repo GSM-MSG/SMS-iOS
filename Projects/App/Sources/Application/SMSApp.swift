@@ -10,7 +10,7 @@ struct SMSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AppComponent().signinComponent.makeView()
+            AppComponent().makeRootView()
         }
     }
 }

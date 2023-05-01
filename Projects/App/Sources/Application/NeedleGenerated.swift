@@ -27,8 +27,8 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 #if !NEEDLE_DYNAMIC
 
 private class JwtStoreDependency5613ee3d4fea5093f6faProvider: JwtStoreDependency {
-    var keychainComponentProtocol: any KeychainComponentProtocol {
-        return appComponent.keychainComponentProtocol
+    var keychainBuildable: any KeychainBuildable {
+        return appComponent.keychainBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -40,8 +40,8 @@ private func factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5(_ component: Needle
     return JwtStoreDependency5613ee3d4fea5093f6faProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class SigninDependencyde06a9d0b22764487733Provider: SigninDependency {
-    var authDomainComponentProtocol: any AuthDomainComponentProtocol {
-        return appComponent.authDomainComponentProtocol
+    var authDomainBuildable: any AuthDomainBuildable {
+        return appComponent.authDomainBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -53,8 +53,8 @@ private func factory2882a056d84a613debccf47b58f8f304c97af4d5(_ component: Needle
     return SigninDependencyde06a9d0b22764487733Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class AuthDomainDependency4518b8977185a5c9ff71Provider: AuthDomainDependency {
-    var jwtStoreComponentProtocol: any JwtStoreComponentProtocol {
-        return appComponent.jwtStoreComponentProtocol
+    var jwtStoreBuildable: any JwtStoreBuildable {
+        return appComponent.jwtStoreBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -69,7 +69,7 @@ private func factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5(_ component: Needle
 #else
 extension JwtStoreComponent: Registration {
     public func registerItems() {
-        keyPathToName[\JwtStoreDependency.keychainComponentProtocol] = "keychainComponentProtocol-any KeychainComponentProtocol"
+        keyPathToName[\JwtStoreDependency.keychainBuildable] = "keychainBuildable-any KeychainBuildable"
     }
 }
 extension AppComponent: Registration {
@@ -85,12 +85,12 @@ extension KeychainComponent: Registration {
 }
 extension SigninComponent: Registration {
     public func registerItems() {
-        keyPathToName[\SigninDependency.authDomainComponentProtocol] = "authDomainComponentProtocol-any AuthDomainComponentProtocol"
+        keyPathToName[\SigninDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
     }
 }
 extension AuthDomainComponent: Registration {
     public func registerItems() {
-        keyPathToName[\AuthDomainDependency.jwtStoreComponentProtocol] = "jwtStoreComponentProtocol-any JwtStoreComponentProtocol"
+        keyPathToName[\AuthDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
     }
 }
 

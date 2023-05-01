@@ -5,14 +5,14 @@ import BaseFeature
 import NeedleFoundation
 
 public protocol SigninDependency: Dependency {
-    var authDomainComponentProtocol: any AuthDomainComponentProtocol { get }
+    var authDomainBuildable: any AuthDomainBuildable { get }
 }
 
-public final class SigninComponent: Component<SigninDependency>, SigninComponentProtocol {
+public final class SigninComponent: Component<SigninDependency>, SigninBuildable {
     public func makeView() -> some View {
         let model = SigninModel()
         let intent = SigninIntent(
-            loginUseCase: dependency.authDomainComponentProtocol.loginUseCase,
+            loginUseCase: dependency.authDomainBuildable.loginUseCase,
             model: model
         )
         let container = MVIContainer(

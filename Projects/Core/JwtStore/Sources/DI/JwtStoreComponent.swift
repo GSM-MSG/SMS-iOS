@@ -3,11 +3,11 @@ import KeychainModuleInterface
 import NeedleFoundation
 
 public protocol JwtStoreDependency: Dependency {
-    var keychainComponentProtocol: any KeychainComponentProtocol { get }
+    var keychainBuildable: any KeychainBuildable { get }
 }
 
-public final class JwtStoreComponent: Component<JwtStoreDependency>, JwtStoreComponentProtocol {
+public final class JwtStoreComponent: Component<JwtStoreDependency>, JwtStoreBuildable {
     public var jwtStore: any JwtStore {
-        KeychainJwtStore(keychain: dependency.keychainComponentProtocol.keychain)
+        KeychainJwtStore(keychain: dependency.keychainBuildable.keychain)
     }
 }

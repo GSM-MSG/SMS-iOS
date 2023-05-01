@@ -1,5 +1,5 @@
 import NeedleFoundation
 
-public protocol JwtStoreComponentProtocol {
+public protocol JwtStoreBuildable {
     var jwtStore: any JwtStore { get }
 }

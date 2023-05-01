@@ -16,8 +16,8 @@ struct GAuthButtonView: UIViewRepresentable {
             .rootViewController
         else { return gauthButton }
         gauthButton.prepare(
-            clientID: Bundle.module.object(forInfoDictionaryKey: "CLIENT_ID") as? String ?? "",
-            redirectURI: Bundle.module.object(forInfoDictionaryKey: "REDIREDCT_URI") as? String ?? "",
+            clientID: Bundle.main.object(forInfoDictionaryKey: "CLIENT_ID") as? String ?? "",
+            redirectURI: Bundle.main.object(forInfoDictionaryKey: "REDIREDCT_URI") as? String ?? "",
             presenting: topViewController
         ) { code in
             completion(code)
@@ -31,10 +31,3 @@ struct GAuthButtonView: UIViewRepresentable {
         self.completion = completion
     }
 }
-
-private extension Foundation.Bundle {
-    static let module = Bundle(for: BundleFinder.self)
-}
-
-private final class BundleFinder {}
-

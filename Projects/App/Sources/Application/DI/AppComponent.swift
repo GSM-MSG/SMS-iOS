@@ -12,22 +12,22 @@ import KeychainModuleInterface
 
 final class AppComponent: BootstrapComponent {
     func makeRootView() -> some View {
-        signinComponent.makeView()
+        signinBuildable.makeView().eraseToAnyView()
     }
 
-    var signinComponent: any SigninComponentProtocol {
+    var signinBuildable: any SigninBuildable {
         SigninComponent(parent: self)
     }
 
-    var authDomainComponentProtocol: any AuthDomainComponentProtocol {
+    var authDomainBuildable: any AuthDomainBuildable {
         AuthDomainComponent(parent: self)
     }
 
-    var jwtStoreComponentProtocol: any JwtStoreComponentProtocol {
+    var jwtStoreBuildable: any JwtStoreBuildable {
         JwtStoreComponent(parent: self)
     }
 
-    var keychainComponentProtocol: any KeychainComponentProtocol {
+    var keychainBuildable: any KeychainBuildable {
         KeychainComponent(parent: self)
     }
 }
