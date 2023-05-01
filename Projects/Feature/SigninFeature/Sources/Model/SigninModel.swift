@@ -1,7 +1,6 @@
 import Foundation
 
 final class SigninModel: ObservableObject, SigninStateProtocol {
-    @Published var code: String = ""
     @Published var isError: Bool = false
     @Published var isSuccess: Bool = false
 }

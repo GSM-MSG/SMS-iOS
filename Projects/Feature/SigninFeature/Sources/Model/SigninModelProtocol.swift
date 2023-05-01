@@ -1,5 +1,4 @@
 protocol SigninStateProtocol {
-    var code: String { get }
     var isError: Bool { get }
     var isSuccess: Bool { get }
 }
