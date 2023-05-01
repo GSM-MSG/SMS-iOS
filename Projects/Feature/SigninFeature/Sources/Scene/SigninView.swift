@@ -30,12 +30,12 @@ struct SigninView: View {
             }
             .padding(.horizontal, 20)
             .frame(height: 50)
-            .padding(.bottom, 88)
+            .padding(.bottom, 54)
         }
         .background {
             SMSImage(.background)
+                .ignoresSafeArea()
         }
-        .ignoresSafeArea()
         .alert(
             "알수없는 에러가 발생했습니다. 잠시 후 다시 시도해 주세요.",
             isPresented: Binding(get: { state.isError }, set: { _ in })
