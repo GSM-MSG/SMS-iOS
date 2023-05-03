@@ -49,7 +49,7 @@ extension FillButtonStyle {
         let configuration: ButtonStyle.Configuration
         @Environment(\.isEnabled) var isEnabled
         var foregroundColor: Color {
-            isEnabled ? .sms(.system(.white)) : .sms(.neutral(.n30))
+            isEnabled ? .sms(.neutral(.n50)) : .sms(.neutral(.n30))
         }
         var backgroundColor: Color {
             isEnabled ? enabledBackgroundColor : .sms(.neutral(.n20))
