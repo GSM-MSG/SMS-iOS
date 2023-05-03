@@ -1,5 +1,23 @@
 import SwiftUI
 
+public extension View {
+    func smsFont(
+        _ style: Font.SMSFontSystem,
+        color: Color.SMSColorSystem
+    ) -> some View {
+        self
+            .font(.sms(style))
+            .foregroundColor(.sms(color))
+    }
+
+    func smsFont(
+        _ style: Font.SMSFontSystem
+    ) -> some View {
+        self
+            .font(.sms(style))
+    }
+}
+
 public extension Font {
     enum SMSFontSystem: SMSFontable {
         case headline1
