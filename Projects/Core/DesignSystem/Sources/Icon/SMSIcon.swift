@@ -35,16 +35,22 @@ public struct SMSIcon: View {
         switch icon {
         case .camera:
             return DesignSystemAsset.Icons.camera.swiftUIImage
+
         case .check:
             return DesignSystemAsset.Icons.check.swiftUIImage
+
         case .downChevron:
             return DesignSystemAsset.Icons.downChevron.swiftUIImage
+
         case .plus:
             return DesignSystemAsset.Icons.plus.swiftUIImage
+
         case .leftArrow:
             return DesignSystemAsset.Icons.leftArrow.swiftUIImage
+
         case .smallPlus:
             return DesignSystemAsset.Icons.smallPlus.swiftUIImage
+
         case .xmark:
             return DesignSystemAsset.Icons.xmark.swiftUIImage
         }
