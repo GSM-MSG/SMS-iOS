@@ -16,9 +16,9 @@ public struct SMSIcon: View {
     }
 
     public enum Icon: CaseIterable {
-        case arrowDown
         case camera
         case check
+        case chevronDown
         case plus
         case rightArrow
         case smallPlus
@@ -33,12 +33,12 @@ public struct SMSIcon: View {
 
     private func iconToImage() -> Image {
         switch icon {
-        case .arrowDown:
-            return DesignSystemAsset.Icons.arrowDown.swiftUIImage
         case .camera:
             return DesignSystemAsset.Icons.camera.swiftUIImage
         case .check:
             return DesignSystemAsset.Icons.check.swiftUIImage
+        case .chevronDown:
+            return DesignSystemAsset.Icons.chevronDown.swiftUIImage
         case .plus:
             return DesignSystemAsset.Icons.plus.swiftUIImage
         case .rightArrow:
