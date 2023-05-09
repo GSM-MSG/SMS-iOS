@@ -6,7 +6,7 @@ public struct SMSChip<Content: View>: View {
     var action: () -> Void
 
     public init(
-        text: String,
+        _ text: String,
         action: @escaping () -> Void = {},
         iconLabel: @escaping () -> Content = {
             SMSIcon(.plus, renderingMode: .template, width: 12, height: 12)
@@ -32,6 +32,6 @@ public struct SMSChip<Content: View>: View {
 
 struct SMSChip_Previews: PreviewProvider {
     static var previews: some View {
-        SMSChip(text: "Text")
+        SMSChip("Text")
     }
 }
