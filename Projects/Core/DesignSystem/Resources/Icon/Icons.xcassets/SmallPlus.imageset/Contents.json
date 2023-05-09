@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "SmallPlus.png",
+      "filename" : "SmallPlus.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "SmallPlus 1.png",
+      "filename" : "SmallPlus 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "SmallPlus 2.png",
+      "filename" : "SmallPlus 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }
