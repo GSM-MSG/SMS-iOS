@@ -2,7 +2,6 @@ import SwiftUI
 
 public struct SMSSelectionControls: View {
     @Binding var isOn: Bool
-    @Environment(\.isEnabled) private var isEnabled: Bool
 
     public init(isOn: Binding<Bool>) {
         _isOn = isOn
@@ -22,8 +21,21 @@ public struct SMSSelectionControls: View {
                         .fill(isOn ? Color.sms(.primary(.p2)) : .clear)
                         .frame(width: 12, height: 12)
                 }
-                .opacity(isEnabled ? 1.0 : 0.5)
             }
         }
+        .buttonStyle(CustomButtonStyle())
+    }
+
+}
+
+private struct CustomButtonStyle: ButtonStyle {
+    @ViewBuilder
+    func makeBody(configuration: Configuration) -> some View {
+        Circle()
+            .fill(configuration.isPressed ? Color.sms(.neutral(.n20)) : Color.clear)
+            .overlay {
+                configuration.label
+            }
+            .frame(width: 32, height: 32)
     }
 }
