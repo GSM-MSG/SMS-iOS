@@ -32,9 +32,6 @@ public struct SMSTextField: View {
                     RoundedRectangle(cornerRadius: 8)
                         .strokeBorder(isFocused ? Color.sms(.primary(.p2)) : Color.sms(.system(.white)))
                 }
-                .onTapGesture {
-                    isFocused = true
-                }
                 .modifier(SMSTextFieldClearModifier(text: $text))
 
             if isError && !errorText.isEmpty {
