@@ -29,8 +29,10 @@ public struct SMSTextField: View {
                 .background(Color.sms(.neutral(.n10)))
                 .cornerRadius(8)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 8)
-                        .strokeBorder(isFocused ? Color.sms(.primary(.p2)) : Color.sms(.system(.white)))
+                    if isFocused {
+                        RoundedRectangle(cornerRadius: 8)
+                            .strokeBorder(Color.sms(.primary(.p2)))
+                    }
                 }
                 .modifier(SMSTextFieldClearModifier(text: $text))
 
@@ -47,20 +49,16 @@ struct SMSTextFieldClearModifier: ViewModifier {
     @Binding var text: String
 
     func body(content: Content) -> some View {
-        ZStack {
+        ZStack(alignment: .trailing) {
             content
 
             if !text.isEmpty {
-                HStack {
-                    Spacer()
-
-                    Button {
-                        self.text = ""
-                    } label: {
-                        SMSIcon(.xmark)
-                    }
-                    .padding()
+                Button {
+                    self.text = ""
+                } label: {
+                    SMSIcon(.xmark)
                 }
+                .padding(12)
             }
         }
     }
