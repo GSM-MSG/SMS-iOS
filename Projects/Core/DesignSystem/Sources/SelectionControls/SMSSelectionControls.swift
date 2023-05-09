@@ -12,15 +12,13 @@ public struct SMSSelectionControls: View {
             self.isOn.toggle()
         } label: {
             ZStack {
-                Group {
-                    Circle()
-                        .stroke(isOn ? Color.sms(.primary(.p2)) : Color.sms(.neutral(.n20)), lineWidth: 2)
-                        .frame(width: 20, height: 20)
+                Circle()
+                    .stroke(isOn ? Color.sms(.primary(.p2)) : Color.sms(.neutral(.n20)), lineWidth: 2)
+                    .frame(width: 20, height: 20)
 
-                    Circle()
-                        .fill(isOn ? Color.sms(.primary(.p2)) : .clear)
-                        .frame(width: 12, height: 12)
-                }
+                Circle()
+                    .fill(isOn ? Color.sms(.primary(.p2)) : .clear)
+                    .frame(width: 12, height: 12)
             }
         }
         .buttonStyle(CustomButtonStyle())
