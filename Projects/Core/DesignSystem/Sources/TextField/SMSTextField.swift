@@ -40,6 +40,9 @@ public struct SMSTextField: View {
                     .font(.sms(.caption1))
                     .foregroundColor(.sms(.system(.error)))
                     .padding(.leading, 8)
+                    .onTapGesture {
+                        isFocused = true
+                    }
             }
         }
     }
