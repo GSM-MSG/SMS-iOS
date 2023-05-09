@@ -1,26 +1,26 @@
 import SwiftUI
 
 public struct SMSChip<Content: View>: View {
-    var iconView: Content
+    var iconLabel: Content
     var text: String
     var action: () -> Void
 
     public init(
         text: String,
-        iconView: @escaping () -> Content = {
+        action: @escaping () -> Void = {},
+        iconLabel: @escaping () -> Content = {
             SMSIcon(.plus, renderingMode: .template, width: 12, height: 12)
-        },
-        action: @escaping () -> Void = {}
+        }
     ) {
-        self.iconView = iconView()
         self.text = text
+        self.iconLabel = iconLabel()
         self.action = action
     }
 
     public var body: some View {
         Button(action: action) {
             HStack(spacing: 4) {
-                iconView
+                iconLabel
 
                 Text(text)
             }
