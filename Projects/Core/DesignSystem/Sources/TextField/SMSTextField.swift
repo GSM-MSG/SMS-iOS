@@ -54,12 +54,12 @@ struct SMSTextFieldClearModifier: ViewModifier {
             if !text.isEmpty {
                 HStack {
                     Spacer()
-                    Button(
-                        action: { self.text = "" },
-                        label: {
-                            SMSIcon(.xmark)
-                        }
-                    )
+
+                    Button {
+                        self.text = ""
+                    } label: {
+                        SMSIcon(.xmark)
+                    }
                     .padding()
                 }
             }
