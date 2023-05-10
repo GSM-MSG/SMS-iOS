@@ -66,6 +66,7 @@ struct SMSBottomSheet<T: View>: ViewModifier {
                             self.content()
                                 .frame(maxWidth: .infinity)
                         }
+                        .padding(.top, 24)
                         .padding(.bottom, 42)
                         .offset(y: -dragHeight)
                     }
