@@ -21,3 +21,11 @@ public struct TopLeadingTitleWrapperView<Content: View>: View {
         }
     }
 }
+
+public extension View {
+    func topLeadingTitleWrapper(_ title: String) -> some View {
+        TopLeadingTitleWrapperView(title) {
+            self
+        }
+    }
+}
