@@ -5,9 +5,11 @@ struct DemoView: View {
     var body: some View {
         VStack {
             Group {
-                TopLeadingTitleWrapperView("이름") {
-                    SMSTextField("이름을 입력.. 해..!", text: .constant(""))
-                }
+                SMSTextField("이름을 입력.. 해..!", text: .constant(""))
+                    .titleWrapper("이름")
+
+                SMSTextField("비밀번호를 입력.. 해..!", text: .constant(""))
+                    .titleWrapper("비밀번호", position: .top(alignment: .trailing))
             }
             .padding(8)
         }
