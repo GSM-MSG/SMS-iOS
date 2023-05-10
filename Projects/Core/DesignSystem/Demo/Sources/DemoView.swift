@@ -12,12 +12,29 @@ struct DemoView: View {
                     .titleWrapper("비밀번호", position: .top(.trailing))
             }
             .padding(8)
+
+            NavigationLink {
+                AView()
+            } label: {
+                Text("A")
+            }
         }
+    }
+}
+
+struct AView: View {
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        Text("A")
+            .smsBackButton(dismiss: dismiss)
     }
 }
 
 struct DemoView_Previews: PreviewProvider {
     static var previews: some View {
-        DemoView()
+        NavigationView {
+            DemoView()
+        }
     }
 }
