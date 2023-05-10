@@ -9,7 +9,7 @@ struct DemoView: View {
                     .titleWrapper("이름")
 
                 SMSTextField("비밀번호를 입력.. 해..!", text: .constant(""))
-                    .titleWrapper("비밀번호", position: .top(alignment: .trailing))
+                    .titleWrapper("비밀번호", position: .top(.trailing))
             }
             .padding(8)
         }

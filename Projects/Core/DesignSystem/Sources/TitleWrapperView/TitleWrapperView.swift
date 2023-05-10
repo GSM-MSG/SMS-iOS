@@ -7,7 +7,7 @@ public struct TitleWrapperView<Content: View>: View {
 
     public init(
         _ text: String,
-        position: TitlePosition = .top(alignment: .leading),
+        position: TitlePosition = .top(.leading),
         @ViewBuilder content: () -> Content
     ) {
         self.text = text

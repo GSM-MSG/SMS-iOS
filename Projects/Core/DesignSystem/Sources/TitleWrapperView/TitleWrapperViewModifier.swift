@@ -6,7 +6,7 @@ public struct TitleWrapperViewModifier: ViewModifier {
 
     public init(
         _ text: String,
-        position: TitlePosition = .top(alignment: .leading)
+        position: TitlePosition = .top(.leading)
     ) {
         self.text = text
         self.titlePosition = position
@@ -15,7 +15,7 @@ public struct TitleWrapperViewModifier: ViewModifier {
     public func body(content: Content) -> some View {
         switch titlePosition {
         case let .top(alignment):
-            VStack(alignment: alignment, spacing: 8) {
+            VStack(alignment: alignment.toSUI, spacing: 8) {
                 Text(text)
                     .smsFont(.body2, color: .neutral(.n40))
 
@@ -23,7 +23,7 @@ public struct TitleWrapperViewModifier: ViewModifier {
             }
 
         case let .bottom(alignment):
-            VStack(alignment: alignment, spacing: 8) {
+            VStack(alignment: alignment.toSUI, spacing: 8) {
                 content
 
                 Text(text)
@@ -36,7 +36,7 @@ public struct TitleWrapperViewModifier: ViewModifier {
 public extension View {
     func titleWrapper(
         _ text: String,
-        position: TitlePosition = .top(alignment: .leading)
+        position: TitlePosition = .top(.leading)
     ) -> some View {
         modifier(TitleWrapperViewModifier(text, position: position))
     }
