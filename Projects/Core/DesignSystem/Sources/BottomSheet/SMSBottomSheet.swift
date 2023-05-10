@@ -88,7 +88,7 @@ struct SMSBottomSheet<T: View>: ViewModifier {
 public extension View {
     func smsBottomSheet<Content: View>(
         isShowing: Binding<Bool>,
-        cornerRadius: CGFloat = 25,
+        cornerRadius: CGFloat = 16,
         content: @escaping () -> Content
     ) -> some View {
         modifier(SMSBottomSheet(
