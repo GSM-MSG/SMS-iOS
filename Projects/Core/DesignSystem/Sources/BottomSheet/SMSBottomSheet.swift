@@ -4,6 +4,8 @@ import ViewUtil
 struct SMSBottomSheet<T: View>: ViewModifier {
     @Binding var isShowing: Bool
     @State private var dragHeight: CGFloat = 0
+    @Environment(\.safeAreaInsets) var safeAreaInsets
+
     var content: () -> T
     var height: CGFloat
     var cornerRadius: CGFloat
@@ -67,7 +69,7 @@ struct SMSBottomSheet<T: View>: ViewModifier {
                                 .frame(maxWidth: .infinity)
                         }
                         .padding(.top, 24)
-                        .padding(.bottom, 42)
+                        .padding(.bottom, safeAreaInsets.bottom + 24)
                         .offset(y: -dragHeight)
                     }
                     .fixedSize(horizontal: false, vertical: true)
