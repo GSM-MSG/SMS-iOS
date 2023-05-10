@@ -5,10 +5,11 @@ struct DemoView: View {
     var body: some View {
         VStack {
             Group {
-                CTAButton(text: "CTA Default", style: .default)
-                CTAButton(text: "CTA Outline", style: .outline)
-                FillButton(text: "Fill Default", style: .default)
-                FillButton(text: "Fill Default", style: .outline)
+                SMSTextField("이름을 입력.. 해..!", text: .constant(""))
+                    .titleWrapper("이름")
+
+                SMSTextField("비밀번호를 입력.. 해..!", text: .constant(""))
+                    .titleWrapper("비밀번호", position: .top(.trailing))
             }
             .padding(8)
         }
