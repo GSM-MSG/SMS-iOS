@@ -1,4 +1,6 @@
+import Combine
 import SwiftUI
+import UIKit
 
 struct SMSBackButtonModifier: ViewModifier {
     let dismiss: DismissAction
@@ -35,16 +37,5 @@ public extension View {
     ) -> some View {
         self
             .modifier(SMSBackButtonModifier(dismiss: dismiss, willDismiss: willDismiss))
-    }
-}
-
-extension UINavigationController: ObservableObject, UIGestureRecognizerDelegate {
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-        interactivePopGestureRecognizer?.delegate = self
-    }
-
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 1
     }
 }
