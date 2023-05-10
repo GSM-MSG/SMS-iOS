@@ -13,7 +13,6 @@ let project = Project.makeModule(
         .Core.DesignSystem,
         .Shared.DateUtil,
         .Shared.GlobalThirdPartyLibrary,
-        .Shared.ViewUtil,
         .Shared.UtilityModule
     ]
 )

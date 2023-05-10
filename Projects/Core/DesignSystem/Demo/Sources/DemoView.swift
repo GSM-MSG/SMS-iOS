@@ -2,14 +2,15 @@ import DesignSystem
 import SwiftUI
 
 struct DemoView: View {
+    @State var isPresentedBottomSheet = false
     var body: some View {
         VStack {
             Group {
-                SMSTextField("이름을 입력.. 해..!", text: .constant(""))
-                    .titleWrapper("이름")
-
-                SMSTextField("비밀번호를 입력.. 해..!", text: .constant(""))
-                    .titleWrapper("비밀번호", position: .top(.trailing))
+                CTAButton(text: "CTA Default", style: .default) {
+                    withAnimation {
+                        isPresentedBottomSheet = true
+                    }
+                }
             }
             .padding(8)
 
@@ -18,6 +19,13 @@ struct DemoView: View {
             } label: {
                 Text("A")
             }
+        }
+        .smsBottomSheet(isShowing: $isPresentedBottomSheet) {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.sms(.neutral(.n20)))
+                .frame(maxWidth: .infinity)
+                .frame(height: 500)
+                .padding(.horizontal)
         }
     }
 }
