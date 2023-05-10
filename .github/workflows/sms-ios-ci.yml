@@ -11,7 +11,7 @@ env:
 
 jobs:
   prepare-dependency:
-    name: CI
+    name: IOS-CI
     runs-on: macos-latest
 
     steps:
