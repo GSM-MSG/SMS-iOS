@@ -11,6 +11,7 @@ let project = Project.makeModule(
         .Feature.InputProfileInfoFeatureInterface,
         .Feature.InputSchoolLifeInfoFeatureInterface,
         .Feature.InputWorkInfoFeatureInterface,
-        .Feature.InputMilitaryInfoFeatureInterface
+        .Feature.InputMilitaryInfoFeatureInterface,
+        .Feature.InputCertificateInfoFeatureInterface
     ]
 )
