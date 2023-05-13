@@ -10,5 +10,6 @@ public final class InputProfileInfoComponent:
     InputMilitaryInfoBuildable {
 
     public func makeView() -> some View {
+        EmptyView()
     }
 }
