@@ -10,6 +10,7 @@ let project = Project.makeModule(
         .Feature.BaseFeature,
         .Feature.InputProfileInfoFeatureInterface,
         .Feature.InputSchoolLifeInfoFeatureInterface,
-        .Feature.InputWorkInfoFeatureInterface
+        .Feature.InputWorkInfoFeatureInterface,
+        .Feature.InputMilitaryInfoFeatureInterface
     ]
 )
