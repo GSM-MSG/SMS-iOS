@@ -10,6 +10,13 @@ public final class InputSchoolLifeInfoComponent:
     InputSchoolListInfoBuildable {
 
     public func makeView() -> some View {
-        EmptyView()
+        let model = InputSchoolLifeInfoModel()
+        let intent = InputSchoolLifeInfoIntent()
+        let container = MVIContainer(
+            intent: intent as InputSchoolLifeInfoIntentProtocol,
+            model: model as InputSchoolLifeInfoStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputSchoolLifeInfoView(container: container)
     }
 }
