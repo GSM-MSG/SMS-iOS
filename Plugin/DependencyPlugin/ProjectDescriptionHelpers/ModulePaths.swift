@@ -10,6 +10,7 @@ public enum ModulePaths {
 
 public extension ModulePaths {
     enum Feature: String {
+        case InputCertificateInfoFeature
         case InputMilitaryInfoFeature
         case InputWorkInfoFeature
         case InputSchoolLifeInfoFeature
