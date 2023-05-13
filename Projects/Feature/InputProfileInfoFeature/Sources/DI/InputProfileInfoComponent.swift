@@ -1,3 +1,4 @@
+import BaseFeature
 import InputProfileInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
@@ -9,6 +10,13 @@ public final class InputProfileInfoComponent:
     InputProfileInfoBuildable {
 
     public func makeView() -> some View {
-        EmptyView()
+        let model = InputProfileInfoModel()
+        let intent = InputProfileInfoIntent()
+        let container = MVIContainer(
+            intent: intent as InputProfileInfoIntentProtocol,
+            model: model as InputProfileInfoStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputProfileInfoView(container: container)
     }
 }

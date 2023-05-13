@@ -2,4 +2,4 @@ import Foundation
 
 protocol InputProfileInfoStateProtocol {}
 
-protocol InputProfileInfoActionProtocol {}
+protocol InputProfileInfoActionProtocol: AnyObject {}

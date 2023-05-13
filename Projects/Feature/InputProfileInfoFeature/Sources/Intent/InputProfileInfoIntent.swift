@@ -1,3 +1,3 @@
 import Foundation
 
-final class InputProfileInfoIntent: ObservableObject, InputProfileInfoIntentProtocol {}
+final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {}
