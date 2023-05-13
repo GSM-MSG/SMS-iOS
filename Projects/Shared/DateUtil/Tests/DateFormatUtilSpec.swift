@@ -18,13 +18,14 @@ final class DateFormatUtilSpec: QuickSpec {
                 second: 10
             )
             mockDate = Calendar.current.date(from: dateComponent)
+            TimeZone.ReferenceType.default = TimeZone(identifier: "GMT") ?? .current
         }
 
         describe("DateFormatUtil에서") {
             context("Date에 toISOString을 기본 options로 실행하면") {
                 it("기본 yyyy-MM-dd'T'HH:mm:ss format 으로 Date가 String으로 변환된다.") {
                     let formattedDateString = mockDate.toISOString()
-                    expect { formattedDateString }.to(equal("2023-01-01T01:10:10"))
+                    expect { formattedDateString }.to(equal("2023-01-01T10:10:10"))
                 }
             }
 
@@ -45,7 +46,7 @@ final class DateFormatUtilSpec: QuickSpec {
             context("String에 toISODate를 기본 options로 실행하면") {
                 it("알맞은 format이라면 String을 Date로 변환시킨다") {
                     let formattedDate = "2023-01-01T10:10:10".toISODate(
-                        timeZone: .init(identifier: "KST") ?? .current
+                        timeZone: .init(identifier: "GMT") ?? .current
                     )
                     expect { formattedDate.year }.to(equal(2023))
                     expect { formattedDate.month }.to(equal(1))
@@ -60,7 +61,7 @@ final class DateFormatUtilSpec: QuickSpec {
                 it("알맞은 format이라면 String을 Date로 변환시킨다") {
                     let formattedDate = "2023-01-01T10:10:10".toISODate(
                         options: .withFullDate,
-                        timeZone: .init(identifier: "KST") ?? .current
+                        timeZone: .init(identifier: "GMT") ?? .current
                     )
                     expect { formattedDate.year }.to(equal(2023))
                     expect { formattedDate.month }.to(equal(1))
