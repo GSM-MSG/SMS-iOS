@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SignupPageWrapView<Selection: Hashable, Content: View>: View {
+struct InputInformationPageWrapView<Selection: Hashable, Content: View>: View {
     @Binding var selection: Selection
     var content: Content
 
@@ -13,9 +13,11 @@ struct SignupPageWrapView<Selection: Hashable, Content: View>: View {
     }
 
     var body: some View {
-        TabView(selection: $selection) {
-            content
+        ZStack(alignment: .topTrailing) {
+            TabView(selection: $selection) {
+                content
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
     }
 }
