@@ -9,6 +9,7 @@ let project = Project.makeModule(
     internalDependencies: [
         .Feature.BaseFeature,
         .Feature.InputProfileInfoFeatureInterface,
-        .Feature.InputSchoolLifeInfoFeatureInterface
+        .Feature.InputSchoolLifeInfoFeatureInterface,
+        .Feature.InputWorkInfoFeatureInterface
     ]
 )
