@@ -13,7 +13,7 @@ protocol InputInformationStateProtocol {
     var phase: InformationPhase { get }
 }
 
-protocol InputInformationActionProtocol {
+protocol InputInformationActionProtocol: AnyObject {
     func prevButtonDidTap()
     func nextButtonDidTap()
 }
