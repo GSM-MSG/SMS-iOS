@@ -1,3 +1,4 @@
+import BaseFeature
 import InputInformationFeatureInterface
 import NeedleFoundation
 import SwiftUI
@@ -9,6 +10,13 @@ public final class InputInformationComponent:
     InputInformationBuildable {
 
     public func makeView() -> some View {
-        EmptyView()
+        let model = InputInformationModel()
+        let intent = InputInformationIntent(model: model)
+        let container = MVIContainer(
+            intent: intent as InputInformationIntentProtocol,
+            model: model as InputInformationStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputInformationView(container: container)
     }
 }
