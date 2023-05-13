@@ -1,9 +1,15 @@
-//
-//  InputWorkInfoComponent.swift
-//  InputWorkInfoFeatureInterface
-//
-//  Created by 최형우 on 2023/05/13.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import BaseFeature
+import InputWorkInfoFeatureInterface
+import NeedleFoundation
+import SwiftUI
 
-import Foundation
+public protocol InputWorkInfoDependency: Dependency {}
+
+public final class InputWorkInfoComponent:
+    Component<InputWorkInfoDependency>,
+    InputWorkInfoBuildable {
+
+    public func makeView() -> some View {
+        EmptyView()
+    }
+}
