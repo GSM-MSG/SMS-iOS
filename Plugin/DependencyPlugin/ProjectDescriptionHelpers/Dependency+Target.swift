@@ -9,6 +9,62 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let InputLanguageInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputLanguageInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputLanguageInfoFeature.rawValue)
+    )
+    static let InputLanguageInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputLanguageInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputLanguageInfoFeature.rawValue)
+    )
+    static let InputCertificateInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputCertificateInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputCertificateInfoFeature.rawValue)
+    )
+    static let InputCertificateInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputCertificateInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputCertificateInfoFeature.rawValue)
+    )
+    static let InputMilitaryInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputMilitaryInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputMilitaryInfoFeature.rawValue)
+    )
+    static let InputMilitaryInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputMilitaryInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputMilitaryInfoFeature.rawValue)
+    )
+    static let InputWorkInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputWorkInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputWorkInfoFeature.rawValue)
+    )
+    static let InputWorkInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputWorkInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputWorkInfoFeature.rawValue)
+    )
+    static let InputSchoolLifeInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputSchoolLifeInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputSchoolLifeInfoFeature.rawValue)
+    )
+    static let InputSchoolLifeInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputSchoolLifeInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputSchoolLifeInfoFeature.rawValue)
+    )
+    static let InputProfileInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputProfileInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputProfileInfoFeature.rawValue)
+    )
+    static let InputProfileInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputProfileInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputProfileInfoFeature.rawValue)
+    )
+    static let InputInformationFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputInformationFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputInformationFeature.rawValue)
+    )
+    static let InputInformationFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputInformationFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputInformationFeature.rawValue)
+    )
     static let SigninFeatureInterface = TargetDependency.project(
         target: ModulePaths.Feature.SigninFeature.targetName(type: .interface),
         path: .relativeToFeature(ModulePaths.Feature.SigninFeature.rawValue)
