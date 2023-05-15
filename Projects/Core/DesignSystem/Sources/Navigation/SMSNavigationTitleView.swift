@@ -4,7 +4,7 @@ public struct SMSNavigationTitleView<Content: View>: View {
     var title: String
     var content: () -> Content
 
-    init(
+    public init(
         title: String = "",
         content: @escaping () -> Content
     ) {

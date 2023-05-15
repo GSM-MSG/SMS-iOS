@@ -8,10 +8,7 @@ struct InputProfileInfoView: View {
     var state: any InputProfileInfoStateProtocol { container.model }
 
     var body: some View {
-        VStack(spacing: 0) {
-            SMSText("정보입력", font: .title2)
-                .padding(.vertical, 13.5)
-
+        SMSNavigationTitleView(title: "정보입력") {
             ScrollView(showsIndicators: false) {
                 Rectangle()
                     .fill(Color.sms(.neutral(.n10)))
