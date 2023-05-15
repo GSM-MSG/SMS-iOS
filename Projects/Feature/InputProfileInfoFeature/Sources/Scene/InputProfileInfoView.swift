@@ -28,7 +28,19 @@ struct InputProfileInfoView: View {
                 }
                 .smsFont(.title1)
 
-                VStack(spacing: 24) {
+                VStack(alignment: .leading, spacing: 24) {
+                    ZStack(alignment: .bottomTrailing) {
+                        SMSIcon(.profile, width: 100, height: 100)
+
+                        SMSIcon(.profileSmallPlus)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 7)
+                                    .strokeBorder(Color.sms(.system(.white)), lineWidth: 4)
+                            }
+                            .offset(x: 5, y: 4)
+                    }
+                    .titleWrapper("사진")
+
                     SMSTextField("1줄 자기소개입력", text: .constant(""))
                         .titleWrapper("자기소개")
 
@@ -52,7 +64,9 @@ struct InputProfileInfoView: View {
                 }
 
                 CTAButton(text: "다음")
+                    .padding(.bottom, 32)
             }
+            .padding(.top, 20)
             .padding(.horizontal, 20)
         }
         .navigationTitle("정보입력")
