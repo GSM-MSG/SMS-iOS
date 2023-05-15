@@ -43,28 +43,19 @@ struct InputProfileInfoView: View {
 
                     SMSTextField(
                         "1줄 자기소개입력",
-                        text: Binding(
-                            get: { state.introduce },
-                            set: intent.updateIntroduce(introduce:)
-                        )
+                        text: Binding(get: { state.introduce }, set: intent.updateIntroduce(introduce:))
                     )
                     .titleWrapper("자기소개")
 
                     SMSTextField(
                         "공개용 이메일입력",
-                        text: Binding(
-                            get: { state.email },
-                            set: intent.updateEmail(email:)
-                        )
+                        text: Binding(get: { state.email }, set: intent.updateEmail(email:))
                     )
                     .titleWrapper("이메일")
 
                     SMSTextField(
                         "Frontend",
-                        text: Binding(
-                            get: { state.major },
-                            set: intent.updateMajor(major:)
-                        )
+                        text: Binding(get: { state.major }, set: intent.updateMajor(major:))
                     )
                     .disabled(true)
                     .overlay(alignment: .trailing) {
@@ -72,22 +63,19 @@ struct InputProfileInfoView: View {
                             .padding(.trailing, 12)
                     }
                     .titleWrapper("분야")
+                    .onTapGesture {
+                        intent.majorSheetIsRequired()
+                    }
 
                     SMSTextField(
                         "https",
-                        text: Binding(
-                            get: { state.portfoiloURL },
-                            set: intent.updatePortfoiloURL(portfoiloURL:)
-                        )
+                        text: Binding(get: { state.portfoiloURL }, set: intent.updatePortfoiloURL(portfoiloURL:))
                     )
                     .titleWrapper("포트폴리오 URL")
 
                     SMSTextField(
                         "예시) Swift, UIKit, SwiftUI",
-                        text: Binding(
-                            get: { state.techStack },
-                            set: intent.updateTechStack(techStack:)
-                        )
+                        text: Binding(get: { state.techStack }, set: intent.updateTechStack(techStack:))
                     )
                     .titleWrapper("세부스택")
                 }
@@ -100,5 +88,14 @@ struct InputProfileInfoView: View {
         }
         .navigationTitle("정보입력")
         .navigationBarTitleDisplayMode(.inline)
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedMajorSheet },
+                set: { _ in intent.majorSheetDismissed() }
+            )
+        ) {
+            Text("ASDAF")
+        }
+        .animation(.default, value: state.isPresentedMajorSheet)
     }
 }

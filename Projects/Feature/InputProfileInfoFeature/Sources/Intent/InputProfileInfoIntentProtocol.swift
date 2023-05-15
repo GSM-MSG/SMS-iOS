@@ -6,4 +6,6 @@ protocol InputProfileInfoIntentProtocol {
     func updateMajor(major: String)
     func updatePortfoiloURL(portfoiloURL: String)
     func updateTechStack(techStack: String)
+    func majorSheetIsRequired()
+    func majorSheetDismissed()
 }

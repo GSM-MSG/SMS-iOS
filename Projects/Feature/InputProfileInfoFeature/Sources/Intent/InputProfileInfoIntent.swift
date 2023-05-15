@@ -26,4 +26,12 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     func updateTechStack(techStack: String) {
         model?.updateTeckStack(techStack: techStack)
     }
+
+    func majorSheetIsRequired() {
+        model?.updateIsPresentedMajorSheet(isPresented: true)
+    }
+
+    func majorSheetDismissed() {
+        model?.updateIsPresentedMajorSheet(isPresented: false)
+    }
 }

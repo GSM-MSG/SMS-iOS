@@ -6,6 +6,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var major: String = ""
     @Published var portfoiloURL: String = ""
     @Published var techStack: String = ""
+    @Published var isPresentedMajorSheet: Bool = false
 }
 
 extension InputProfileInfoModel: InputProfileInfoActionProtocol {
@@ -27,5 +28,9 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
 
     func updateTeckStack(techStack: String) {
         self.techStack = techStack
+    }
+
+    func updateIsPresentedMajorSheet(isPresented: Bool) {
+        self.isPresentedMajorSheet = isPresented
     }
 }

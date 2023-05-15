@@ -6,6 +6,7 @@ protocol InputProfileInfoStateProtocol {
     var major: String { get }
     var portfoiloURL: String { get }
     var techStack: String { get }
+    var isPresentedMajorSheet: Bool { get }
 }
 
 protocol InputProfileInfoActionProtocol: AnyObject {
@@ -14,4 +15,5 @@ protocol InputProfileInfoActionProtocol: AnyObject {
     func updateMajor(major: String)
     func updatePortfoiloURL(portfoiloURL: String)
     func updateTeckStack(techStack: String)
+    func updateIsPresentedMajorSheet(isPresented: Bool)
 }
