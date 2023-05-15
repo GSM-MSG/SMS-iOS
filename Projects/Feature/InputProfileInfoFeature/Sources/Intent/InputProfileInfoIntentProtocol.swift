@@ -1,3 +1,5 @@
 import Foundation
 
-protocol InputProfileInfoIntentProtocol {}
+protocol InputProfileInfoIntentProtocol {
+    
+}
