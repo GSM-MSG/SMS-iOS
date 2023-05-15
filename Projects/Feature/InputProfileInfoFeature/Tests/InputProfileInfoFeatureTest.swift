@@ -7,7 +7,7 @@ final class InputProfileInfoFeatureTests: XCTestCase {
     var model: InputProfileInfoModel!
     var intent: InputProfileInfoIntent!
     var sut: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>!
-             
+
     override func setUp() async throws {
         model = InputProfileInfoModel()
         intent = InputProfileInfoIntent(model: model)
