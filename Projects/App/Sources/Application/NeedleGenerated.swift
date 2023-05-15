@@ -23,6 +23,7 @@ import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
 import NeedleFoundation
+import RootFeature
 import SigninFeature
 import SigninFeatureInterface
 import SwiftUI
@@ -74,6 +75,22 @@ private class InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider: InputSc
 /// ^->AppComponent->InputSchoolLifeInfoComponent
 private func factorydc1feebed8f042db375fe3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider()
+}
+private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
+    var signinBuildable: any SigninBuildable {
+        return appComponent.signinBuildable
+    }
+    var inputInformationBuildable: any InputInformationBuildable {
+        return appComponent.inputInformationBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->RootComponent
+private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return RootDependency3944cc797a4a88956fb5Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class SigninDependencyde06a9d0b22764487733Provider: SigninDependency {
     var authDomainBuildable: any AuthDomainBuildable {
@@ -186,6 +203,12 @@ extension InputSchoolLifeInfoComponent: Registration {
 
     }
 }
+extension RootComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\RootDependency.signinBuildable] = "signinBuildable-any SigninBuildable"
+        keyPathToName[\RootDependency.inputInformationBuildable] = "inputInformationBuildable-any InputInformationBuildable"
+    }
+}
 extension SigninComponent: Registration {
     public func registerItems() {
         keyPathToName[\SigninDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
@@ -242,6 +265,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SigninComponent", factory2882a056d84a613debccf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputMilitaryInfoComponent", factory6e35522c47cca1190471e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputLanguageInfoComponent", factory36893d70245037098109e3b0c44298fc1c149afb)

@@ -1,32 +1,37 @@
-import NeedleFoundation
-import SwiftUI
-import AuthDomainInterface
 import AuthDomain
-import SigninFeature
-import SigninFeatureInterface
+import AuthDomainInterface
+import BaseDomain
+import InputCertificateInfoFeature
+import InputCertificateInfoFeatureInterface
 import InputInformationFeature
 import InputInformationFeatureInterface
+import InputLanguageInfoFeature
+import InputLanguageInfoFeatureInterface
+import InputMilitaryInfoFeature
+import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeature
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
-import InputMilitaryInfoFeature
-import InputMilitaryInfoFeatureInterface
-import InputCertificateInfoFeature
-import InputCertificateInfoFeatureInterface
-import InputLanguageInfoFeature
-import InputLanguageInfoFeatureInterface
-import BaseDomain
+import RootFeature
 import JwtStore
 import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
+import NeedleFoundation
+import SigninFeature
+import SigninFeatureInterface
+import SwiftUI
 
 final class AppComponent: BootstrapComponent {
     func makeRootView() -> some View {
-        signinBuildable.makeView().eraseToAnyView()
+        rootComponent.makeView()
+    }
+
+    var rootComponent: RootComponent {
+        RootComponent(parent: self)
     }
 
     var signinBuildable: any SigninBuildable {
