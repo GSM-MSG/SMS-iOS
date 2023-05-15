@@ -5,6 +5,10 @@ import DependencyPlugin
 let project = Project.makeModule(
     name: ModulePaths.Feature.RootFeature.rawValue,
     product: .staticLibrary,
-    targets: [.interface, .unitTest],
-    internalDependencies: []
+    targets: [.unitTest],
+    internalDependencies: [
+        .Feature.SigninFeatureInterface,
+        .Feature.InputInformationFeatureInterface,
+        .Feature.BaseFeature
+    ]
 )

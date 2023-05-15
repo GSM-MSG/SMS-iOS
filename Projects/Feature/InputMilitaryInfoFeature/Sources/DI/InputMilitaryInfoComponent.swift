@@ -5,7 +5,7 @@ import SwiftUI
 
 public protocol InputMilitaryInfoDependency: Dependency {}
 
-public final class InputProfileInfoComponent:
+public final class InputMilitaryInfoComponent:
     Component<InputMilitaryInfoDependency>,
     InputMilitaryInfoBuildable {
 

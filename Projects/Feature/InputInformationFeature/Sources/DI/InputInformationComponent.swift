@@ -1,9 +1,12 @@
 import BaseFeature
 import InputInformationFeatureInterface
+import InputProfileInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
 
-public protocol InputInformationDependency: Dependency {}
+public protocol InputInformationDependency: Dependency {
+    var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
+}
 
 public final class InputInformationComponent:
     Component<InputInformationDependency>,

@@ -1,3 +1,3 @@
 import Foundation
 
-final class InputCertificateInfoIntent: InputCetrificateInfoIntentProtocol {}
+final class InputCertificateInfoIntent: InputCertificateInfoIntentProtocol {}
