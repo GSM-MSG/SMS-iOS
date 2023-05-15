@@ -19,12 +19,36 @@ public struct DemoView: View {
                 }
             }
             .padding(8)
+
+            NavigationLink {
+                AView()
+            } label: {
+                Text("A")
+            }
         }
+        .smsBottomSheet(isShowing: $isPresentedBottomSheet) {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color.sms(.neutral(.n20)))
+                .frame(maxWidth: .infinity)
+                .frame(height: 500)
+                .padding(.horizontal)
+        }
+    }
+}
+
+struct AView: View {
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        Text("A")
+            .smsBackButton(dismiss: dismiss)
     }
 }
 
 struct DemoView_Previews: PreviewProvider {
     static var previews: some View {
-        DemoView()
+        NavigationView {
+            DemoView()
+        }
     }
 }
