@@ -1,4 +1,5 @@
 import BaseFeature
+import DesignSystem
 import InputProfileInfoFeatureInterface
 import SwiftUI
 import ViewUtil
@@ -19,21 +20,19 @@ struct InputInformationView: View {
     }
 
     var body: some View {
-        NavigationView {
-            InputInformationPageWrapView(
-                selection: Binding(
-                    get: { state.phase },
-                    set: { _ in }
-                )
-            ) {
-                inputProfileInfoBuildable.makeView()
-                    .eraseToAnyView()
-                    .tag(InformationPhase.profile)
+        InputInformationPageWrapView(
+            selection: Binding(
+                get: { state.phase },
+                set: { _ in }
+            )
+        ) {
+            inputProfileInfoBuildable.makeView()
+                .eraseToAnyView()
+                .tag(InformationPhase.profile)
 
-                Text("b")
-                    .tag(InformationPhase.school)
-            }
+            Text("b")
+                .tag(InformationPhase.school)
         }
-        .navigationViewStyle(.stack)
+        .ignoresSafeArea()
     }
 }
