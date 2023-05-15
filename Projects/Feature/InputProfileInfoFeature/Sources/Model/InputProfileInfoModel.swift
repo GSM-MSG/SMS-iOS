@@ -4,7 +4,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var introduce: String = ""
     @Published var email: String = ""
     @Published var major: String = ""
-    @Published var portfoiloURL: String = ""
+    @Published var portfolioURL: String = ""
     @Published var techStack: String = ""
     @Published var isPresentedMajorSheet: Bool = false
 }
@@ -22,8 +22,8 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
         self.major = major
     }
 
-    func updatePortfoiloURL(portfoiloURL: String) {
-        self.portfoiloURL = portfoiloURL
+    func updatePortfolioURL(portfolioURL: String) {
+        self.portfolioURL = portfolioURL
     }
 
     func updateTeckStack(techStack: String) {

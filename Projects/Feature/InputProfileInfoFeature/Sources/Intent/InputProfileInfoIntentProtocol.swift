@@ -4,7 +4,7 @@ protocol InputProfileInfoIntentProtocol {
     func updateIntroduce(introduce: String)
     func updateEmail(email: String)
     func updateMajor(major: String)
-    func updatePortfoiloURL(portfoiloURL: String)
+    func updatePortfolioURL(portfolioURL: String)
     func updateTechStack(techStack: String)
     func majorSheetIsRequired()
     func majorSheetDismissed()

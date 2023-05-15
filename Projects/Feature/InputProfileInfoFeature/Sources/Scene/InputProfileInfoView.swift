@@ -70,7 +70,7 @@ struct InputProfileInfoView: View {
 
                         SMSTextField(
                             "https",
-                            text: Binding(get: { state.portfoiloURL }, set: intent.updatePortfoiloURL(portfoiloURL:))
+                            text: Binding(get: { state.portfolioURL }, set: intent.updatePortfolioURL(portfolioURL:))
                         )
                         .titleWrapper("포트폴리오 URL")
 

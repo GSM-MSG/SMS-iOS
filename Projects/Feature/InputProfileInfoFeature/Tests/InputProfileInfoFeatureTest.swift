@@ -46,12 +46,12 @@ final class InputProfileInfoFeatureTests: XCTestCase {
     }
 
     func test_update_portfoiloURL() {
-        sut.intent.updatePortfoiloURL(portfoiloURL: "A")
-        XCTAssertEqual(sut.model.portfoiloURL, "A")
+        sut.intent.updatePortfolioURL(portfolioURL: "A")
+        XCTAssertEqual(sut.model.portfolioURL, "A")
 
         let uuid = UUID().uuidString
-        sut.intent.updatePortfoiloURL(portfoiloURL: uuid)
-        XCTAssertEqual(sut.model.portfoiloURL, uuid)
+        sut.intent.updatePortfolioURL(portfolioURL: uuid)
+        XCTAssertEqual(sut.model.portfolioURL, uuid)
     }
 
     func test_update_techStack() {

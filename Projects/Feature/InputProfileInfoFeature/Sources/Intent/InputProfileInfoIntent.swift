@@ -19,8 +19,8 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateMajor(major: major)
     }
 
-    func updatePortfoiloURL(portfoiloURL: String) {
-        model?.updatePortfoiloURL(portfoiloURL: portfoiloURL)
+    func updatePortfolioURL(portfolioURL: String) {
+        model?.updatePortfolioURL(portfolioURL: portfolioURL)
     }
 
     func updateTechStack(techStack: String) {
