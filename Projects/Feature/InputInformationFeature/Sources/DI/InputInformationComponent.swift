@@ -20,6 +20,9 @@ public final class InputInformationComponent:
             model: model as InputInformationStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
-        return InputInformationView(container: container)
+        return InputInformationView(
+            inputProfileInfoBuildable: dependency.inputProfileInfoBuildable,
+            container: container
+        )
     }
 }

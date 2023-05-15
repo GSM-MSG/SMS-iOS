@@ -9,35 +9,53 @@ struct InputProfileInfoView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            HStack(spacing: 4) {
-                Text("프로필")
-                    .foregroundColor(.sms(.system(.black)))
+            Rectangle()
+                .fill(Color.sms(.neutral(.n10)))
+                .frame(maxWidth: .infinity)
+                .frame(height: 16)
 
-                Text("*")
-                    .foregroundColor(.sms(.sub(.s2)))
+            VStack(spacing: 32) {
+                HStack(spacing: 4) {
+                    Text("프로필")
+                        .foregroundColor(.sms(.system(.black)))
 
-                Spacer()
-            }
-            .smsFont(.title1)
+                    Text("*")
+                        .foregroundColor(.sms(.sub(.s2)))
 
-            VStack(spacing: 24) {
-                SMSTextField("1줄 자기소개입력", text: .constant(""))
-                    .titleWrapper("자기소개")
+                    Spacer()
 
-                SMSTextField("공개용 이메일입력", text: .constant(""))
-                    .titleWrapper("이메일")
+                    SMSPageControl(pageCount: 6, selectedPage: 0)
+                }
+                .smsFont(.title1)
 
-                TitleWrapperView("분야") {
-                    SMSTextField("Frontend", text: .constant(""))
-                        .disabled(true)
+                VStack(spacing: 24) {
+                    SMSTextField("1줄 자기소개입력", text: .constant(""))
+                        .titleWrapper("자기소개")
+
+                    SMSTextField("공개용 이메일입력", text: .constant(""))
+                        .titleWrapper("이메일")
+
+                    TitleWrapperView("분야") {
+                        SMSTextField("Frontend", text: .constant(""))
+                            .disabled(true)
+                            .overlay(alignment: .trailing) {
+                                SMSIcon(.downChevron)
+                                    .padding(.trailing, 12)
+                            }
+                    }
+
+                    SMSTextField("https", text: .constant(""))
+                        .titleWrapper("포트폴리오 URL")
+
+                    SMSTextField("예시) Swift, UIKit, SwiftUI", text: .constant(""))
+                        .titleWrapper("세부스택")
                 }
 
-                SMSTextField("https", text: .constant(""))
-                    .titleWrapper("포트폴리오 URL")
-
-                SMSTextField("예시) Swift, UIKit, SwiftUI", text: .constant(""))
-                    .titleWrapper("세부스택")
+                CTAButton(text: "다음")
             }
+            .padding(.horizontal, 20)
         }
+        .navigationTitle("정보입력")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

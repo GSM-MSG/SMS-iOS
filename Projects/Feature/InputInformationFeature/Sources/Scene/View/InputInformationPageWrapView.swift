@@ -16,6 +16,8 @@ struct InputInformationPageWrapView<Selection: Hashable, Content: View>: View {
         ZStack(alignment: .topTrailing) {
             TabView(selection: $selection) {
                 content
+                    .contentShape(Rectangle())
+                    .gesture(DragGesture())
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
         }

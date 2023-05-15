@@ -1,23 +1,39 @@
 import BaseFeature
+import InputProfileInfoFeatureInterface
 import SwiftUI
+import ViewUtil
 
 struct InputInformationView: View {
     @StateObject var container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     var intent: any InputInformationIntentProtocol { container.intent }
     var state: any InputInformationStateProtocol { container.model }
 
-    var body: some View {
-        InputInformationPageWrapView(
-            selection: Binding(
-                get: { state.phase },
-                set: { _ in }
-            )
-        ) {
-            Text("a")
-                .tag(InformationPhase.profile)
+    private let inputProfileInfoBuildable: any InputProfileInfoBuildable
 
-            Text("b")
-                .tag(InformationPhase.school)
+    init(
+        inputProfileInfoBuildable: any InputProfileInfoBuildable,
+        container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
+    ) {
+        self.inputProfileInfoBuildable = inputProfileInfoBuildable
+        self._container = StateObject(wrappedValue: container)
+    }
+
+    var body: some View {
+        NavigationView {
+            InputInformationPageWrapView(
+                selection: Binding(
+                    get: { state.phase },
+                    set: { _ in }
+                )
+            ) {
+                inputProfileInfoBuildable.makeView()
+                    .eraseToAnyView()
+                    .tag(InformationPhase.profile)
+
+                Text("b")
+                    .tag(InformationPhase.school)
+            }
         }
+        .navigationViewStyle(.stack)
     }
 }
