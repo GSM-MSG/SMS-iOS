@@ -58,7 +58,7 @@ struct SMSTextFieldClearModifier: ViewModifier {
                 } label: {
                     SMSIcon(.xmark)
                 }
-                .padding(12)
+                .padding(.trailing, 12)
             }
         }
     }
