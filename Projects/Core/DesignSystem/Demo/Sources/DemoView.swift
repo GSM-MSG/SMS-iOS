@@ -1,14 +1,22 @@
 import DesignSystem
 import SwiftUI
 
-struct DemoView: View {
-    var body: some View {
+public struct DemoView: View {
+    @State var isOn = true
+    @State var selection: Int? = 0
+
+    public var body: some View {
         VStack {
             Group {
-                CTAButton(text: "CTA Default", style: .default)
-                CTAButton(text: "CTA Outline", style: .outline)
-                FillButton(text: "Fill Default", style: .default)
-                FillButton(text: "Fill Default", style: .outline)
+                RadioComponent(selection: $selection) {
+                    ForEach(0..<4) { index in
+                        HStack {
+                            SMSSelectionControls(tag: index)
+                            Text("asdfasdf")
+                        }
+                        .radioTag(index)
+                    }
+                }
             }
             .padding(8)
         }
