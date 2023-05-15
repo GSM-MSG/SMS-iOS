@@ -15,6 +15,9 @@ struct InputInformationView: View {
         ) {
             Text("a")
                 .tag(InformationPhase.profile)
+
+            Text("b")
+                .tag(InformationPhase.school)
         }
     }
 }

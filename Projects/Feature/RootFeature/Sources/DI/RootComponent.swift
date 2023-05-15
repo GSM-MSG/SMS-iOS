@@ -1,3 +1,4 @@
+import BaseFeature
 import NeedleFoundation
 import SwiftUI
 import SigninFeatureInterface
@@ -10,6 +11,17 @@ public protocol RootDependency: Dependency {
 
 public final class RootComponent: Component<RootDependency> {
     public func makeView() -> some View {
-        EmptyView()
+        let model = RootModel()
+        let intent = RootIntent()
+        let container = MVIContainer(
+            intent: intent as RootIntentProtocol,
+            model: model as RootStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return RootView(
+            signinBuildable: dependency.signinBuildable,
+            inputInformationBuildable: dependency.inputInformationBuildable,
+            container: container
+        )
     }
 }

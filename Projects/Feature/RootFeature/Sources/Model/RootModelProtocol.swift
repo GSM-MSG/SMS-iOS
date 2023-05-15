@@ -1,5 +1,7 @@
 import Foundation
 
-protocol RootStateProtocol {}
+protocol RootStateProtocol {
+    var sceneType: RootSceneType { get }
+}
 
 protocol RootActionProtocol: AnyObject {}
