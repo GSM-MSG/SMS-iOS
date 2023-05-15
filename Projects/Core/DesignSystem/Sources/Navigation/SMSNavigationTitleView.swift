@@ -15,6 +15,7 @@ public struct SMSNavigationTitleView<Content: View>: View {
     public var body: some View {
         VStack(spacing: 0) {
             SMSText(title, font: .title2)
+                .padding(.vertical, 13.5)
 
             content()
         }
