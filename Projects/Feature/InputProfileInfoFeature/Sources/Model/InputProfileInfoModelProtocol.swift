@@ -8,4 +8,10 @@ protocol InputProfileInfoStateProtocol {
     var techStack: String { get }
 }
 
-protocol InputProfileInfoActionProtocol: AnyObject {}
+protocol InputProfileInfoActionProtocol: AnyObject {
+    func updateIntroduce(introduce: String)
+    func updateEmail(email: String)
+    func updateMajor(major: String)
+    func updatePortfoiloURL(portfoiloURL: String)
+    func updateTeckStack(techStack: String)
+}

@@ -41,26 +41,55 @@ struct InputProfileInfoView: View {
                     }
                     .titleWrapper("사진")
 
-                    SMSTextField("1줄 자기소개입력", text: .constant(""))
-                        .titleWrapper("자기소개")
+                    SMSTextField(
+                        "1줄 자기소개입력",
+                        text: Binding(
+                            get: { state.introduce },
+                            set: intent.updateIntroduce(introduce:)
+                        )
+                    )
+                    .titleWrapper("자기소개")
 
-                    SMSTextField("공개용 이메일입력", text: .constant(""))
-                        .titleWrapper("이메일")
+                    SMSTextField(
+                        "공개용 이메일입력",
+                        text: Binding(
+                            get: { state.email },
+                            set: intent.updateEmail(email:)
+                        )
+                    )
+                    .titleWrapper("이메일")
 
-                    TitleWrapperView("분야") {
-                        SMSTextField("Frontend", text: .constant(""))
-                            .disabled(true)
-                            .overlay(alignment: .trailing) {
-                                SMSIcon(.downChevron)
-                                    .padding(.trailing, 12)
-                            }
+                    SMSTextField(
+                        "Frontend",
+                        text: Binding(
+                            get: { state.major },
+                            set: intent.updateMajor(major:)
+                        )
+                    )
+                    .disabled(true)
+                    .overlay(alignment: .trailing) {
+                        SMSIcon(.downChevron)
+                            .padding(.trailing, 12)
                     }
+                    .titleWrapper("분야")
 
-                    SMSTextField("https", text: .constant(""))
-                        .titleWrapper("포트폴리오 URL")
+                    SMSTextField(
+                        "https",
+                        text: Binding(
+                            get: { state.portfoiloURL },
+                            set: intent.updatePortfoiloURL(portfoiloURL:)
+                        )
+                    )
+                    .titleWrapper("포트폴리오 URL")
 
-                    SMSTextField("예시) Swift, UIKit, SwiftUI", text: .constant(""))
-                        .titleWrapper("세부스택")
+                    SMSTextField(
+                        "예시) Swift, UIKit, SwiftUI",
+                        text: Binding(
+                            get: { state.techStack },
+                            set: intent.updateTechStack(techStack:)
+                        )
+                    )
+                    .titleWrapper("세부스택")
                 }
 
                 CTAButton(text: "다음")
