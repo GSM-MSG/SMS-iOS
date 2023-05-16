@@ -11,7 +11,7 @@ public final class InputSchoolLifeInfoComponent:
 
     public func makeView() -> some View {
         let model = InputSchoolLifeInfoModel()
-        let intent = InputSchoolLifeInfoIntent()
+        let intent = InputSchoolLifeInfoIntent(model: model)
         let container = MVIContainer(
             intent: intent as InputSchoolLifeInfoIntentProtocol,
             model: model as InputSchoolLifeInfoStateProtocol,

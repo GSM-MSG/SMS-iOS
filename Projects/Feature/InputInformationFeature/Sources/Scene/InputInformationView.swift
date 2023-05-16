@@ -30,7 +30,7 @@ struct InputInformationView: View {
                 set: { _ in }
             )
         ) {
-            inputProfileInfoBuildable.makeView()
+            inputProfileInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.profile)
 
@@ -38,6 +38,7 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.school)
         }
+        .animation(.default, value: state.phase)
         .ignoresSafeArea()
     }
 }

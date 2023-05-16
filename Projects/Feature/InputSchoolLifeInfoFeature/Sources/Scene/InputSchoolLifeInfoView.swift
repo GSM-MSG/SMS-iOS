@@ -1,6 +1,7 @@
 import BaseFeature
 import DesignSystem
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct InputSchoolLifeInfoView: View {
     @StateObject var container: MVIContainer<InputSchoolLifeInfoIntentProtocol, InputSchoolLifeInfoStateProtocol>
@@ -19,12 +20,21 @@ struct InputSchoolLifeInfoView: View {
                     pageTitleView()
 
                     VStack(spacing: 24) {
-                        SMSTextField("인증제 점수 입력", text: .constant(""))
-                            .titleWrapper("인증제 점수")
+                        SMSTextField(
+                            "인증제 점수 입력",
+                            text: Binding(
+                                get: { state.authenticationScroe },
+                                set: intent.updateAuthenticationScore(score:)
+                            )
+                        )
+                        .titleWrapper("인증제 점수")
 
                         SMSTextField("+ hwp 파일 추가", text: .constant(""))
                             .disabled(true)
                             .titleWrapper("드림북")
+                            .onTapGesture {
+                                intent.hwpFilImporterIsRequred()
+                            }
                     }
 
                     Spacer()
@@ -39,6 +49,23 @@ struct InputSchoolLifeInfoView: View {
                     .padding(.bottom, 32)
                 }
                 .padding([.top, .horizontal], 20)
+            }
+        }
+        .fileImporter(
+            isPresented: Binding(
+                get: { state.isPresentedHWPFileImporter },
+                set: { _ in intent.hwpFilImporterDismissed() }
+            ),
+            allowedContentTypes: [
+                UTType(filenameExtension: "hwp") ?? .pdf
+            ]
+        ) { result in
+            switch result {
+            case let .success(url):
+                print(url)
+
+            case let .failure(error):
+                print(error.localizedDescription)
             }
         }
     }

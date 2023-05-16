@@ -1,5 +1,11 @@
 import Foundation
 
-protocol InputSchoolLifeInfoStateProtocol {}
+protocol InputSchoolLifeInfoStateProtocol {
+    var authenticationScroe: String { get }
+    var isPresentedHWPFileImporter: Bool { get }
+}
 
-protocol InputSchoolLifeInfoActionProtocol {}
+protocol InputSchoolLifeInfoActionProtocol: AnyObject {
+    func updateAuthenticationScore(score: String)
+    func updateIsPresentedHWPFileImporter(isPresented: Bool)
+}

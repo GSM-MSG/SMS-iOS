@@ -1,3 +1,7 @@
 import Foundation
 
-protocol InputSchoolLifeInfoIntentProtocol {}
+protocol InputSchoolLifeInfoIntentProtocol {
+    func updateAuthenticationScore(score: String)
+    func hwpFilImporterIsRequred()
+    func hwpFilImporterDismissed()
+}

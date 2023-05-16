@@ -9,9 +9,9 @@ public final class InputProfileInfoComponent:
     Component<InputProfileInfoDependency>,
     InputProfileInfoBuildable {
 
-    public func makeView() -> some View {
+    public func makeView(delegate: InputProfileDelegate) -> some View {
         let model = InputProfileInfoModel()
-        let intent = InputProfileInfoIntent(model: model)
+        let intent = InputProfileInfoIntent(model: model, inputProfileDelegate: delegate)
         let container = MVIContainer(
             intent: intent as InputProfileInfoIntentProtocol,
             model: model as InputProfileInfoStateProtocol,

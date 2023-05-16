@@ -70,8 +70,10 @@ struct InputProfileInfoView: View {
                         .titleWrapper("세부스택")
                     }
 
-                    CTAButton(text: "다음")
-                        .padding(.bottom, 32)
+                    CTAButton(text: "다음") {
+                        intent.nextButtonDidTap()
+                    }
+                    .padding(.bottom, 32)
                 }
                 .padding([.top, .horizontal], 20)
             }

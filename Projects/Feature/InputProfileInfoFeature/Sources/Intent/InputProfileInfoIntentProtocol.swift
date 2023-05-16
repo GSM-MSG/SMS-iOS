@@ -8,4 +8,5 @@ protocol InputProfileInfoIntentProtocol {
     func updateTechStack(techStack: String)
     func majorSheetIsRequired()
     func majorSheetDismissed()
+    func nextButtonDidTap()
 }
