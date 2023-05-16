@@ -62,7 +62,8 @@ struct InputSchoolLifeInfoView: View {
                 set: { _ in intent.hwpFilImporterDismissed() }
             ),
             allowedContentTypes: [
-                UTType(filenameExtension: "hwp") ?? .pdf
+                UTType(filenameExtension: "hwp") ?? .pdf,
+                UTType(filenameExtension: "hwpx") ?? .pdf
             ]
         ) { result in
             switch result {
