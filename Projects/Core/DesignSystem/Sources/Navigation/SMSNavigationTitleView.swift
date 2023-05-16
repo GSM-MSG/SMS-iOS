@@ -6,12 +6,12 @@ public struct SMSNavigationTitleView<Content: View>: View {
 
     public init(
         title: String = "",
-        content: @escaping () -> Content
+        @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
         self.content = content
     }
-    
+
     public var body: some View {
         VStack(spacing: 0) {
             SMSText(title, font: .title2)

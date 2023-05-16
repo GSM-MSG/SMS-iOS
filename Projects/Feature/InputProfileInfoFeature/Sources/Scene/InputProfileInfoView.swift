@@ -16,18 +16,7 @@ struct InputProfileInfoView: View {
                     .frame(height: 16)
 
                 VStack(spacing: 32) {
-                    HStack(spacing: 4) {
-                        Text("프로필")
-                            .foregroundColor(.sms(.system(.black)))
-
-                        Text("*")
-                            .foregroundColor(.sms(.sub(.s2)))
-
-                        Spacer()
-
-                        SMSPageControl(pageCount: 6, selectedPage: 0)
-                    }
-                    .smsFont(.title1)
+                    pageTitleView()
 
                     VStack(alignment: .leading, spacing: 24) {
                         ZStack(alignment: .bottomTrailing) {
@@ -81,8 +70,10 @@ struct InputProfileInfoView: View {
                         .titleWrapper("세부스택")
                     }
 
-                    CTAButton(text: "다음")
-                        .padding(.bottom, 32)
+                    CTAButton(text: "다음") {
+                        intent.nextButtonDidTap()
+                    }
+                    .padding(.bottom, 32)
                 }
                 .padding([.top, .horizontal], 20)
             }
@@ -96,5 +87,21 @@ struct InputProfileInfoView: View {
             Text("ASDAF")
         }
         .animation(.default, value: state.isPresentedMajorSheet)
+    }
+
+    @ViewBuilder
+    func pageTitleView() -> some View {
+        HStack(spacing: 4) {
+            Text("학교 생활")
+                .foregroundColor(.sms(.system(.black)))
+
+            Text("*")
+                .foregroundColor(.sms(.sub(.s2)))
+
+            Spacer()
+
+            SMSPageControl(pageCount: 6, selectedPage: 0)
+        }
+        .smsFont(.title1)
     }
 }

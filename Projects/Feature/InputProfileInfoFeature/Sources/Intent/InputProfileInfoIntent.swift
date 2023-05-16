@@ -1,10 +1,16 @@
 import Foundation
+import InputProfileInfoFeatureInterface
 
 final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     private weak var model: (any InputProfileInfoActionProtocol)?
+    private weak var inputProfileDelegate: (any InputProfileDelegate)?
 
-    init(model: any InputProfileInfoActionProtocol) {
+    init(
+        model: any InputProfileInfoActionProtocol,
+        inputProfileDelegate: any InputProfileDelegate
+    ) {
         self.model = model
+        self.inputProfileDelegate = inputProfileDelegate
     }
 
     func updateIntroduce(introduce: String) {
@@ -33,5 +39,9 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
 
     func majorSheetDismissed() {
         model?.updateIsPresentedMajorSheet(isPresented: false)
+    }
+
+    func nextButtonDidTap() {
+        inputProfileDelegate?.completeToInputProfile()
     }
 }

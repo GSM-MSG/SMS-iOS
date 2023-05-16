@@ -9,9 +9,9 @@ public final class InputSchoolLifeInfoComponent:
     Component<InputSchoolLifeInfoDependency>,
     InputSchoolListInfoBuildable {
 
-    public func makeView() -> some View {
+    public func makeView(delegate: any InputSchoolLifeDelegate) -> some View {
         let model = InputSchoolLifeInfoModel()
-        let intent = InputSchoolLifeInfoIntent()
+        let intent = InputSchoolLifeInfoIntent(model: model, inputSchoolLifeDelegate: delegate)
         let container = MVIContainer(
             intent: intent as InputSchoolLifeInfoIntentProtocol,
             model: model as InputSchoolLifeInfoStateProtocol,
