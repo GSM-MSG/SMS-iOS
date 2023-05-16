@@ -2,6 +2,7 @@ import BaseFeature
 import DesignSystem
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
+import InputWorkInfoFeatureInterface
 import SwiftUI
 import ViewUtil
 
@@ -12,14 +13,17 @@ struct InputInformationView: View {
 
     private let inputProfileInfoBuildable: any InputProfileInfoBuildable
     private let inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable
+    private let inputWorkInfoBuildable: any InputWorkInfoBuildable
 
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
         inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable,
+        inputWorkInfoBuildable: any InputWorkInfoBuildable,
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
         self.inputSchoolLifeInfoBuildable = inputSchoolLifeInfoBuildable
+        self.inputWorkInfoBuildable = inputWorkInfoBuildable
         self._container = StateObject(wrappedValue: container)
     }
 
@@ -38,7 +42,8 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.school)
 
-            Text("ASD")
+            inputWorkInfoBuildable.makeView()
+                .eraseToAnyView()
                 .tag(InformationPhase.workCondition)
         }
         .animation(.default, value: state.phase)

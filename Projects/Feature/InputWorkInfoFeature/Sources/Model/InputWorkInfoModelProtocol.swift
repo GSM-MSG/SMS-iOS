@@ -2,4 +2,4 @@ import Foundation
 
 protocol InputWorkInfoStateProtocol {}
 
-protocol InputWorkInfoActionProtocol {}
+protocol InputWorkInfoActionProtocol: AnyObject {}
