@@ -4,6 +4,8 @@ import AuthDomainInterface
 import AuthDomain
 import SigninFeature
 import SigninFeatureInterface
+import StudentDomain
+import StudentDomainInterface
 import BaseDomain
 import JwtStore
 import JwtStoreInterface
@@ -21,6 +23,10 @@ final class AppComponent: BootstrapComponent {
 
     var authDomainBuildable: any AuthDomainBuildable {
         AuthDomainComponent(parent: self)
+    }
+
+    var studentDomainBuildable: any StudentDomainBuildable {
+        StudentDomainComponent(parent: self)
     }
 
     var jwtStoreBuildable: any JwtStoreBuildable {
