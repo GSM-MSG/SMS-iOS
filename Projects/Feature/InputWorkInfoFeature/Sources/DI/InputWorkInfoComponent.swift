@@ -10,6 +10,13 @@ public final class InputWorkInfoComponent:
     InputWorkInfoBuildable {
 
     public func makeView() -> some View {
-        EmptyView()
+        let model = InputWorkInfoModel()
+        let intent = InputWorkInfoIntent(model: model)
+        let container = MVIContainer(
+            intent: intent as InputWorkInfoIntentProtocol,
+            model: model as InputWorkInfoStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputWorkInfoView(container: container)
     }
 }
