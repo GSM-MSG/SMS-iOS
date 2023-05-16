@@ -1,21 +1,21 @@
 import Foundation
 
 public struct StudentRequestDTO: Codable {
-    let certificate: [String]
-    let contactEmail: String
-    let dreamBookFileUrl: String
-    let formOfEmployment: String
-    let gsmAuthenticationScore: Int
-    let introduce: String
-    let languageCertificate: [LanguageCertificate]
-    let major: String
-    let militaryService: String
-    let portfolioUrl: String
-    let profileImgUrl: String
-    let region: [String]
-    let salary: Int
-    let stuNum: String
-    let techStack: [String]
+    public let certificate: [String]
+    public let contactEmail: String
+    public let dreamBookFileUrl: String
+    public let formOfEmployment: String
+    public let gsmAuthenticationScore: Int
+    public let introduce: String
+    public let languageCertificate: [LanguageCertificate]
+    public let major: String
+    public let militaryService: String
+    public let portfolioUrl: String
+    public let profileImgUrl: String
+    public let region: [String]
+    public let salary: Int
+    public let stuNum: String
+    public let techStack: [String]
 
     init(
         certificate: [String],
@@ -51,16 +51,11 @@ public struct StudentRequestDTO: Codable {
         self.techStack = techStack
     }
 
-    struct LanguageCertificate: Codable {
-        enum CodingKeys: String, CodingKey, CaseIterable {
-            case languageCertificateName
-            case score
-        }
+    public struct LanguageCertificate: Codable {
+        public let languageCertificateName: String
+        public let score: String
 
-        let languageCertificateName: String
-        let score: String
-
-        init(languageCertificateName: String, score: String) {
+        public init(languageCertificateName: String, score: String) {
             self.languageCertificateName = languageCertificateName
             self.score = score
         }
