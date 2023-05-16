@@ -1,9 +1,14 @@
-//
-//  StudentRepository.swift
-//  StudentDomainInterface
-//
-//  Created by sunghun on 2023/05/17.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
+import StudentDomainInterface
 import Foundation
+
+struct StudentRepositoryImpl: StudentRepository {
+    private let remoteStudentDataSource: any RemoteStudentDataSource
+
+    init(remoteStudentDataSource: any RemoteStudentDataSource) {
+        self.remoteStudentDataSource = remoteStudentDataSource
+    }
+
+    func inputInformation(req: StudentRequestDTO) async throws {
+        try await remoteStudentDataSource.inputInformation(req: req)
+    }
+}
