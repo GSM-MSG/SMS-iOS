@@ -10,7 +10,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 }
 
 extension InputInformationIntent: InputProfileDelegate {
-    func successToInput() {
+    func successToInputProfile() {
         model?.nextButtonDidTap()
     }
 }
