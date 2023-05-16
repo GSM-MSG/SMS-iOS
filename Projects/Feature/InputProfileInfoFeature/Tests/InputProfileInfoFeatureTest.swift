@@ -3,6 +3,9 @@ import InputProfileInfoFeatureInterface
 import XCTest
 @testable import InputProfileInfoFeature
 
+final class DummyInputProfileDelegate: InputProfileDelegate {
+    func completeToInputProfile() {}
+}
 final class InputProfileInfoFeatureTests: XCTestCase {
     var model: InputProfileInfoModel!
     var intent: InputProfileInfoIntent!
@@ -10,7 +13,7 @@ final class InputProfileInfoFeatureTests: XCTestCase {
 
     override func setUp() async throws {
         model = InputProfileInfoModel()
-        intent = InputProfileInfoIntent(model: model)
+        intent = InputProfileInfoIntent(model: model, inputProfileDelegate: DummyInputProfileDelegate())
         sut = MVIContainer(
             intent: intent as InputProfileInfoIntentProtocol,
             model: model as InputProfileInfoStateProtocol,
