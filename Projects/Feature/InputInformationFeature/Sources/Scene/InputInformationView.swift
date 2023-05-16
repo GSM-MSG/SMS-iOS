@@ -42,7 +42,7 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.school)
 
-            inputWorkInfoBuildable.makeView()
+            inputWorkInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.workCondition)
         }

@@ -5,4 +5,6 @@ protocol InputWorkInfoIntentProtocol {
     func updateSalary(salary: String)
     func formOfEmployeementSheetIsRequired()
     func formOfEmployeementSheetDismissed()
+    func prevButtonDidTap()
+    func nextButtonDidTap()
 }

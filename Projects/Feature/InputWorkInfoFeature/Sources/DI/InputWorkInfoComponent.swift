@@ -9,9 +9,9 @@ public final class InputWorkInfoComponent:
     Component<InputWorkInfoDependency>,
     InputWorkInfoBuildable {
 
-    public func makeView() -> some View {
+    public func makeView(delegate: InputWorkDelegate) -> some View {
         let model = InputWorkInfoModel()
-        let intent = InputWorkInfoIntent(model: model)
+        let intent = InputWorkInfoIntent(model: model, inputWorkDelegate: delegate)
         let container = MVIContainer(
             intent: intent as InputWorkInfoIntentProtocol,
             model: model as InputWorkInfoStateProtocol,
