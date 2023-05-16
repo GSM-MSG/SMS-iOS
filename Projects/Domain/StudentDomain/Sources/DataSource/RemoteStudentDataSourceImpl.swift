@@ -1,9 +1,8 @@
-//
-//  RemoteStudentDataSource.swift
-//  StudentDomainInterface
-//
-//  Created by sunghun on 2023/05/16.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import StudentDomainInterface
+import BaseDomain
 
-import Foundation
+final class RemoteStudentDataSourceImpl: BaseRemoteDataSource<StudentEndpoint>, RemoteStudentDataSource {
+    func inputInformation(req: StudentRequestDTO) async throws {
+        try await request(.inputInformation(req))
+    }
+}
