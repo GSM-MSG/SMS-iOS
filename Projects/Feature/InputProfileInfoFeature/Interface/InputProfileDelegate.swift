@@ -1,3 +1,3 @@
 public protocol InputProfileDelegate: AnyObject {
-    func successToInputProfile()
+    func completeToInputProfile()
 }

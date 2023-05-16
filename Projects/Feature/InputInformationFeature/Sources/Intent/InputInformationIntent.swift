@@ -1,5 +1,6 @@
 import Foundation
 import InputProfileInfoFeatureInterface
+import InputSchoolLifeInfoFeatureInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -10,7 +11,17 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 }
 
 extension InputInformationIntent: InputProfileDelegate {
-    func successToInputProfile() {
+    func completeToInputProfile() {
+        model?.nextButtonDidTap()
+    }
+}
+
+extension InputInformationIntent: InputSchoolLifeDelegate {
+    func schoolLifePrevButtonDidTap() {
+        model?.prevButtonDidTap()
+    }
+
+    func completeToInputSchoolLife() {
         model?.nextButtonDidTap()
     }
 }

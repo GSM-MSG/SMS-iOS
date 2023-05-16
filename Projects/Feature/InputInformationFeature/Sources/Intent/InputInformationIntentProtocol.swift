@@ -1,4 +1,5 @@
 import Foundation
 import InputProfileInfoFeatureInterface
+import InputSchoolLifeInfoFeatureInterface
 
-protocol InputInformationIntentProtocol: InputProfileDelegate {}
+protocol InputInformationIntentProtocol: InputProfileDelegate, InputSchoolLifeDelegate {}

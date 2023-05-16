@@ -42,6 +42,6 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     }
 
     func nextButtonDidTap() {
-        inputProfileDelegate?.successToInputProfile()
+        inputProfileDelegate?.completeToInputProfile()
     }
 }

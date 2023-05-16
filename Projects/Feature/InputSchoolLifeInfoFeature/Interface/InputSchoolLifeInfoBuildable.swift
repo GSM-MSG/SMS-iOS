@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol InputSchoolListInfoBuildable {
     associatedtype ViewType: View
-    func makeView() -> ViewType
+    func makeView(delegate: any InputSchoolLifeDelegate) -> ViewType
 }

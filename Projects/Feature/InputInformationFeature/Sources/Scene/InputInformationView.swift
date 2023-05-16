@@ -34,7 +34,7 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.profile)
 
-            inputSchoolLifeInfoBuildable.makeView()
+            inputSchoolLifeInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.school)
 
