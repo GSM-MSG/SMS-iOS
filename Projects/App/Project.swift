@@ -38,7 +38,9 @@ let targets: [Target] = [
         scripts: scripts,
         dependencies: [
             .Feature.SigninFeature,
+            .Feature.InputInformationFeature,
             .Domain.AuthDomain,
+            .Domain.StudentDomain,
             .Core.JwtStore,
             .Shared.KeychainModule
         ],
