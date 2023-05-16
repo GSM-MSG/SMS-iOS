@@ -1,9 +1,19 @@
-//
-//  StudentDomainComponent.swift
-//  StudentDomainInterface
-//
-//  Created by sunghun on 2023/05/17.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import NeedleFoundation
+import StudentDomainInterface
+import JwtStoreInterface
 
-import Foundation
+public protocol StudentDomainDependency: Dependency {
+    var jwtStoreBuildable: any JwtStoreBuildable { get }
+}
+
+public final class StudentDomainComponent: Component<StudentDomainDependency>, StudentDomainBuildable {
+    public var inputInformationUseCase: any InputInformationUseCase {
+        InputInformationCaseImpl(studentRepository: studentRepository)
+    }
+    public var studentRepository: any StudentRepository {
+        StudentRepositoryImpl(remoteStudentDataSource: remoteStudentDataSource)
+    }
+    var remoteStudentDataSource: any RemoteStudentDataSource {
+        RemoteStudentDataSourceImpl(jwtStore: dependency.jwtStoreBuildable.jwtStore)
+    }
+}
