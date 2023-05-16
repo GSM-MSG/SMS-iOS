@@ -27,6 +27,7 @@ struct InputSchoolLifeInfoView: View {
                                 set: intent.updateAuthenticationScore(score:)
                             )
                         )
+                        .keyboardType(.numberPad)
                         .titleWrapper("인증제 점수")
 
                         SMSTextField("+ hwp 파일 추가", text: .constant(""))
