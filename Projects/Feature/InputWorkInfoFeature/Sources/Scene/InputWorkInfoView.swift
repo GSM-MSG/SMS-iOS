@@ -1,6 +1,7 @@
 import BaseFeature
 import DesignSystem
 import SwiftUI
+import ViewUtil
 
 struct InputWorkInfoView: View {
     @StateObject var container: MVIContainer<InputWorkInfoIntentProtocol, InputWorkInfoStateProtocol>
@@ -26,6 +27,9 @@ struct InputWorkInfoView: View {
                                     .padding(.trailing, 12)
                             }
                             .titleWrapper("희망 고용 형태")
+                            .onTapGesture {
+                                intent.formOfEmployeementSheetIsRequired()
+                            }
 
                         SMSTextField(
                             "근무 희망 지역 입력",
@@ -60,6 +64,17 @@ struct InputWorkInfoView: View {
                 .padding([.top, .horizontal], 20)
             }
         }
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedFormOfEmployeementSheet },
+                set: { _ in intent.formOfEmployeementSheetDismissed() }
+            )
+        ) {
+            DeferView {
+                formOfEmployeementList()
+            }
+        }
+        .animation(.default, value: state.isPresentedFormOfEmployeementSheet)
     }
 
     @ViewBuilder
@@ -76,5 +91,24 @@ struct InputWorkInfoView: View {
             SMSPageControl(pageCount: 6, selectedPage: 2)
         }
         .smsFont(.title1)
+    }
+
+    @ViewBuilder
+    func formOfEmployeementList() -> some View {
+        VStack(spacing: 16) {
+            ForEach(0..<4, id: \.self) { index in
+                HStack {
+                    Text("\(index)")
+                        .smsFont(.body1, color: .neutral(.n50))
+
+                    Spacer()
+
+                    Circle()
+                        .fill(Color.sms(.primary(.p2)))
+                        .frame(width: 24, height: 24)
+                }
+                .padding(.horizontal, 20)
+            }
+        }
     }
 }

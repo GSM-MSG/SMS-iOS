@@ -14,4 +14,12 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
     func updateSalary(salary: String) {
         model?.updateSalary(salary: salary)
     }
+
+    func formOfEmployeementSheetIsRequired() {
+        model?.updateIsPresentedFormOfEmployeementSheet(isPresented: true)
+    }
+
+    func formOfEmployeementSheetDismissed() {
+        model?.updateIsPresentedFormOfEmployeementSheet(isPresented: false)
+    }
 }
