@@ -14,6 +14,7 @@ final class InputSchoolLifeInfoIntent: InputSchoolLifeInfoIntentProtocol {
     }
 
     func updateAuthenticationScore(score: String) {
+        // TODO: 숫자만 검사하도록 변경
         model?.updateAuthenticationScore(score: score)
     }
 
