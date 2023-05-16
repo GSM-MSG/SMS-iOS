@@ -1,3 +1,10 @@
 import Foundation
 
-protocol InputWorkInfoIntentProtocol {}
+protocol InputWorkInfoIntentProtocol {
+    func updateWorkRegion(region: String)
+    func updateSalary(salary: String)
+    func formOfEmployeementSheetIsRequired()
+    func formOfEmployeementSheetDismissed()
+    func prevButtonDidTap()
+    func nextButtonDidTap()
+}

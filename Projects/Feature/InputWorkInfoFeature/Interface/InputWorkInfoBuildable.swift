@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol InputWorkInfoBuildable {
     associatedtype ViewType: View
-    func makeView() -> ViewType
+    func makeView(delegate: InputWorkDelegate) -> ViewType
 }
