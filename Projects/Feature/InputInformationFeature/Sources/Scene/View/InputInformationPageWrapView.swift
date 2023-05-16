@@ -13,11 +13,11 @@ struct InputInformationPageWrapView<Selection: Hashable, Content: View>: View {
     }
 
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            TabView(selection: $selection) {
-                content
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
+        TabView(selection: $selection) {
+            content
+                .contentShape(Rectangle())
+                .gesture(DragGesture())
         }
+        .tabViewStyle(.page(indexDisplayMode: .never))
     }
 }

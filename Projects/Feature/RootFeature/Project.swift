@@ -3,10 +3,12 @@ import ProjectDescriptionHelpers
 import DependencyPlugin
 
 let project = Project.makeModule(
-    name: ModulePaths.Feature.InputMilitaryInfoFeature.rawValue,
+    name: ModulePaths.Feature.RootFeature.rawValue,
     product: .staticLibrary,
-    targets: [.interface, .unitTest],
+    targets: [.unitTest],
     internalDependencies: [
+        .Feature.SigninFeatureInterface,
+        .Feature.InputInformationFeatureInterface,
         .Feature.BaseFeature
     ]
 )

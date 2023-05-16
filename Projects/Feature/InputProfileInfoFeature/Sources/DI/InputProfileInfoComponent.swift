@@ -11,7 +11,7 @@ public final class InputProfileInfoComponent:
 
     public func makeView() -> some View {
         let model = InputProfileInfoModel()
-        let intent = InputProfileInfoIntent()
+        let intent = InputProfileInfoIntent(model: model)
         let container = MVIContainer(
             intent: intent as InputProfileInfoIntentProtocol,
             model: model as InputProfileInfoStateProtocol,
