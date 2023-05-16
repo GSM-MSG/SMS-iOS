@@ -50,9 +50,15 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.workCondition)
 
-            inputMilitaryInfoBuildable.makeView()
+            inputMilitaryInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.military)
+
+            Text("A")
+                .tag(InformationPhase.certification)
+
+            Text("B")
+                .tag(InformationPhase.language)
         }
         .animation(.default, value: state.phase)
         .ignoresSafeArea()

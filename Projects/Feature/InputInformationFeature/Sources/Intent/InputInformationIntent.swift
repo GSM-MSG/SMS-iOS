@@ -2,6 +2,7 @@ import Foundation
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -33,6 +34,16 @@ extension InputInformationIntent: InputWorkDelegate {
     }
 
     func completeToInputWork() {
+        model?.nextButtonDidTap()
+    }
+}
+
+extension InputInformationIntent: InputMilitaryDelegate {
+    func militaryPrevButtonDidTap() {
+        model?.prevButtonDidTap()
+    }
+
+    func completeToInputMilitary() {
         model?.nextButtonDidTap()
     }
 }
