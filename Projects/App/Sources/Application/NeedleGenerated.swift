@@ -137,6 +137,9 @@ private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInfor
     var inputWorkInfoBuildable: any InputWorkInfoBuildable {
         return appComponent.inputWorkInfoBuildable
     }
+    var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable {
+        return appComponent.inputMilitaryInfoBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -235,6 +238,7 @@ extension InputInformationComponent: Registration {
         keyPathToName[\InputInformationDependency.inputProfileInfoBuildable] = "inputProfileInfoBuildable-any InputProfileInfoBuildable"
         keyPathToName[\InputInformationDependency.inputSchoolLifeInfoBuildable] = "inputSchoolLifeInfoBuildable-any InputSchoolListInfoBuildable"
         keyPathToName[\InputInformationDependency.inputWorkInfoBuildable] = "inputWorkInfoBuildable-any InputWorkInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputMilitaryInfoBuildable] = "inputMilitaryInfoBuildable-any InputMilitaryInfoBuildable"
     }
 }
 extension InputCertificateInfoComponent: Registration {
