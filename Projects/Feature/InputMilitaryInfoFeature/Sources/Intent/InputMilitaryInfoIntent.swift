@@ -20,4 +20,12 @@ final class InputMilitaryInfoIntent: InputMilitaryInfoIntentProtocol {
     func nextButtonDidTap() {
         militaryDelegate?.completeToInputMilitary()
     }
+
+    func militarySheetIsRequired() {
+        model?.updateIsPresentedMilitarySheet(isPresented: true)
+    }
+
+    func militarySheetDismissed() {
+        model?.updateIsPresentedMilitarySheet(isPresented: false)
+    }
 }
