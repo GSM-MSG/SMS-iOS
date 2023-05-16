@@ -10,6 +10,13 @@ public final class InputMilitaryInfoComponent:
     InputMilitaryInfoBuildable {
 
     public func makeView() -> some View {
-        EmptyView()
+        let model = InputMilitaryInfoModel()
+        let intent = InputMilitaryInfoIntent(model: model)
+        let container = MVIContainer(
+            intent: intent as InputMilitaryInfoIntentProtocol,
+            model: model as InputMilitaryInfoStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputMilitaryInfoView(container: container)
     }
 }
