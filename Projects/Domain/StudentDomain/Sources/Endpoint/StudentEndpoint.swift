@@ -19,22 +19,7 @@ extension StudentEndpoint: SMSEndpoint {
     var task: HTTPTask {
         switch self {
         case let .inputInformation(req):
-            return .requestParameters(body: [
-                "major": req.major,
-                "techStack": req.techStack,
-                "profileImgUrl": req.profileImgUrl,
-                "introduce": req.introduce,
-                "stuNum": req.stuNum,
-                "portfolioUrl": req.portfolioUrl,
-                "contactEmail": req.contactEmail,
-                "gsmAuthenticationScore": req.gsmAuthenticationScore,
-                "salary": req.salary,
-                "region": req.region,
-                "languageCertificate": req.languageCertificate,
-                "dreamBookFileUrl": req.dreamBookFileUrl,
-                "militaryService": req.militaryService,
-                "certificate": req.certificate
-            ])
+            return .requestJSONEncodable(req)
 
         default:
             return .requestPlain

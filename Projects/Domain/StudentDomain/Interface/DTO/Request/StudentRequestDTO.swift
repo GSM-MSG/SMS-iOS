@@ -1,15 +1,15 @@
 import Foundation
 
-public struct StudentRequestDTO: Codable {
+public struct StudentRequestDTO: Encodable {
     public let certificate: [String]
     public let contactEmail: String
     public let dreamBookFileUrl: String
-    public let formOfEmployment: String
+    public let formOfEmployment: FormOfEmployment
     public let gsmAuthenticationScore: Int
     public let introduce: String
     public let languageCertificate: [LanguageCertificate]
     public let major: String
-    public let militaryService: String
+    public let militaryService: MilitaryService
     public let portfolioUrl: String
     public let profileImgUrl: String
     public let region: [String]
@@ -21,12 +21,12 @@ public struct StudentRequestDTO: Codable {
         certificate: [String],
         contactEmail: String,
         dreamBookFileUrl: String,
-        formOfEmployment: String,
+        formOfEmployment: FormOfEmployment,
         gsmAuthenticationScore: Int,
         introduce: String,
         languageCertificate: [LanguageCertificate],
         major: String,
-        militaryService: String,
+        militaryService: MilitaryService,
         portfolioUrl: String,
         profileImgUrl: String,
         region: [String],
