@@ -37,6 +37,9 @@ struct InputInformationView: View {
             inputSchoolLifeInfoBuildable.makeView()
                 .eraseToAnyView()
                 .tag(InformationPhase.school)
+
+            Text("ASD")
+                .tag(InformationPhase.workCondition)
         }
         .animation(.default, value: state.phase)
         .ignoresSafeArea()
