@@ -38,7 +38,7 @@ final class InputSchoolLifeInfoFeatureTests: XCTestCase {
         sut.intent.hwpFilImporterIsRequred()
         XCTAssertTrue(sut.model.isPresentedHWPFileImporter)
 
-        sut.intent.hwpFilImporterIsRequred()
+        sut.intent.hwpFilImporterDismissed()
         XCTAssertFalse(sut.model.isPresentedHWPFileImporter)
     }
 }
