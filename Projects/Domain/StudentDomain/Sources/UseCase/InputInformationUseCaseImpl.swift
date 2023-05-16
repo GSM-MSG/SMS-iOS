@@ -1,9 +1,13 @@
-//
-//  InputInformationUseCaseImpl.swift
-//  StudentDomainInterface
-//
-//  Created by sunghun on 2023/05/17.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import StudentDomainInterface
 
-import Foundation
+struct InputInformationCaseImpl: InputInformationUseCase {
+    private let studentRepository: any StudentRepository
+
+    init(studentRepository: any StudentRepository) {
+        self.studentRepository = studentRepository
+    }
+
+    func execute(req: StudentRequestDTO) async throws {
+        try await studentRepository.inputInformation(req: req)
+    }
+}
