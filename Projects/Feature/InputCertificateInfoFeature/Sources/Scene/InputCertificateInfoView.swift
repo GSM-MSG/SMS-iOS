@@ -1,6 +1,7 @@
 import BaseFeature
 import DesignSystem
 import SwiftUI
+import ViewUtil
 
 struct InputCertificateInfoView: View {
     @StateObject var container: MVIContainer<InputCertificateInfoIntentProtocol, InputCertificateInfoStateProtocol>
@@ -43,6 +44,7 @@ struct InputCertificateInfoView: View {
                         SMSChip("추가") {
                             intent.certificateAppendButtonDidTap()
                         }
+                        .aligned(.leading)
                     }
                 }
                 .padding([.top, .horizontal], 20)
