@@ -20,26 +20,8 @@ struct InputCertificateInfoView: View {
                     pageTitleView()
 
                     VStack(spacing: 8) {
-                        VStack(spacing: 12) {
-                            ForEach(state.certificates.indices, id: \.self) { index in
-                                HStack(spacing: 16) {
-                                    SMSTextField(
-                                        "정보처리산업기사",
-                                        text: Binding(
-                                            get: { state.certificates[index] },
-                                            set: { intent.updateCertificate(certificate: $0, at: index) }
-                                        )
-                                    )
-
-                                    Button {
-                                        intent.deleteCertificateColumn(at: index)
-                                    } label: {
-                                        SMSIcon(.trash)
-                                    }
-                                }
-                            }
-                        }
-                        .titleWrapper("자격증")
+                        certificateLlistView()
+                            .titleWrapper("자격증")
 
                         SMSChip("추가") {
                             intent.certificateAppendButtonDidTap()
@@ -66,5 +48,28 @@ struct InputCertificateInfoView: View {
             SMSPageControl(pageCount: 6, selectedPage: 4)
         }
         .smsFont(.title1)
+    }
+
+    @ViewBuilder
+    func certificateLlistView() -> some View {
+        VStack(spacing: 12) {
+            ForEach(state.certificates.indices, id: \.self) { index in
+                HStack(spacing: 16) {
+                    SMSTextField(
+                        "정보처리산업기사",
+                        text: Binding(
+                            get: { state.certificates[index] },
+                            set: { intent.updateCertificate(certificate: $0, at: index) }
+                        )
+                    )
+
+                    Button {
+                        intent.deleteCertificateColumn(at: index)
+                    } label: {
+                        SMSIcon(.trash)
+                    }
+                }
+            }
+        }
     }
 }
