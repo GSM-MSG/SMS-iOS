@@ -4,6 +4,7 @@ import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
+import InputCertificateInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
 
@@ -12,6 +13,7 @@ public protocol InputInformationDependency: Dependency {
     var inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable { get }
     var inputWorkInfoBuildable: any InputWorkInfoBuildable { get }
     var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable { get }
+    var inputCertificateInfoBuildable: any InputCertificateInfoBuildable { get }
 }
 
 public final class InputInformationComponent:
