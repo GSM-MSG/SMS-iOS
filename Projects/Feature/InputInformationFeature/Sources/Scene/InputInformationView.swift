@@ -3,6 +3,7 @@ import DesignSystem
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
 import SwiftUI
 import ViewUtil
 
@@ -14,16 +15,19 @@ struct InputInformationView: View {
     private let inputProfileInfoBuildable: any InputProfileInfoBuildable
     private let inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable
     private let inputWorkInfoBuildable: any InputWorkInfoBuildable
+    private let inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable
 
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
         inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable,
         inputWorkInfoBuildable: any InputWorkInfoBuildable,
+        inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable,
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
         self.inputSchoolLifeInfoBuildable = inputSchoolLifeInfoBuildable
         self.inputWorkInfoBuildable = inputWorkInfoBuildable
+        self.inputMilitaryInfoBuildable = inputMilitaryInfoBuildable
         self._container = StateObject(wrappedValue: container)
     }
 
@@ -45,6 +49,16 @@ struct InputInformationView: View {
             inputWorkInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.workCondition)
+
+            inputMilitaryInfoBuildable.makeView(delegate: intent)
+                .eraseToAnyView()
+                .tag(InformationPhase.military)
+
+            Text("A")
+                .tag(InformationPhase.certification)
+
+            Text("B")
+                .tag(InformationPhase.language)
         }
         .animation(.default, value: state.phase)
         .ignoresSafeArea()

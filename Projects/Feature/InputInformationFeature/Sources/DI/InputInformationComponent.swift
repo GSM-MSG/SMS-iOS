@@ -3,6 +3,7 @@ import InputInformationFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
 
@@ -10,6 +11,7 @@ public protocol InputInformationDependency: Dependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
     var inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable { get }
     var inputWorkInfoBuildable: any InputWorkInfoBuildable { get }
+    var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable { get }
 }
 
 public final class InputInformationComponent:
@@ -28,6 +30,7 @@ public final class InputInformationComponent:
             inputProfileInfoBuildable: dependency.inputProfileInfoBuildable,
             inputSchoolLifeInfoBuildable: dependency.inputSchoolLifeInfoBuildable,
             inputWorkInfoBuildable: dependency.inputWorkInfoBuildable,
+            inputMilitaryInfoBuildable: dependency.inputMilitaryInfoBuildable,
             container: container
         )
     }

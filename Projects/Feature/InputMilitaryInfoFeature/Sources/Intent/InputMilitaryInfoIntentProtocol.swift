@@ -1,3 +1,8 @@
 import Foundation
 
-protocol InputMilitaryInfoIntentProtocol {}
+protocol InputMilitaryInfoIntentProtocol {
+    func militarySheetIsRequired()
+    func militarySheetDismissed()
+    func prevButtonDidTap()
+    func nextButtonDidTap()
+}
