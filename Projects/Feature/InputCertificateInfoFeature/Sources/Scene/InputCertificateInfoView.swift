@@ -20,7 +20,7 @@ struct InputCertificateInfoView: View {
                     pageTitleView()
 
                     VStack(spacing: 8) {
-                        certificateLlistView()
+                        certificateListView()
                             .titleWrapper("자격증")
 
                         SMSChip("추가") {
@@ -62,7 +62,7 @@ struct InputCertificateInfoView: View {
     }
 
     @ViewBuilder
-    func certificateLlistView() -> some View {
+    func certificateListView() -> some View {
         VStack(spacing: 12) {
             ForEach(state.certificates.indices, id: \.self) { index in
                 HStack(spacing: 16) {
