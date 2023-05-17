@@ -30,9 +30,7 @@ struct InputCertificateInfoView: View {
                                         )
                                     )
 
-                                    Image(systemName: "trash")
-                                        .resizable()
-                                        .frame(width: 24, height: 24)
+                                    SMSIcon(.trash)
                                 }
                             }
                         }
