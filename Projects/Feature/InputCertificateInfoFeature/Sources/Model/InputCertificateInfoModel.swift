@@ -4,4 +4,12 @@ final class InputCertificateInfoModel: ObservableObject, InputCertificateInfoSta
     @Published var certificates: [String] = [""]
 }
 
-extension InputCertificateInfoModel: InputCertificateInfoActionProtocol {}
+extension InputCertificateInfoModel: InputCertificateInfoActionProtocol {
+    func updateCertificate(certificate: String, at index: Int) {
+        self.certificates[index] = certificate
+    }
+
+    func deleteCertificateColumn(at index: Int) {
+        self.certificates.remove(at: index)
+    }
+}

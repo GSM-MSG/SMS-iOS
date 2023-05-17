@@ -5,5 +5,6 @@ protocol InputCertificateInfoStateProtocol {
 }
 
 protocol InputCertificateInfoActionProtocol: AnyObject {
-    
+    func updateCertificate(certificate: String, at index: Int)
+    func deleteCertificateColumn(at index: Int)
 }

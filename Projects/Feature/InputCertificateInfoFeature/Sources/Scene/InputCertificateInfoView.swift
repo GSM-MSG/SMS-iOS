@@ -30,7 +30,11 @@ struct InputCertificateInfoView: View {
                                         )
                                     )
 
-                                    SMSIcon(.trash)
+                                    Button {
+                                        intent.deleteCertificateColumn(at: index)
+                                    } label: {
+                                        SMSIcon(.trash)
+                                    }
                                 }
                             }
                         }
