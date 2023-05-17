@@ -1,8 +1,9 @@
 import Foundation
+import InputCertificateInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
-import InputMilitaryInfoFeatureInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
