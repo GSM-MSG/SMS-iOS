@@ -9,9 +9,9 @@ public final class InputCertificateInfoComponent:
     Component<InputCertificateInfoDependency>,
     InputCertificateInfoBuildable {
 
-    public func makeView() -> some View {
+    public func makeView(delegate: InputCertificateDelegate) -> some View {
         let model = InputCertificateInfoModel()
-        let intent = InputCertificateInfoIntent(model: model)
+        let intent = InputCertificateInfoIntent(model: model, certificateDelegate: delegate)
         let container = MVIContainer(
             intent: intent as InputCertificateInfoIntentProtocol,
             model: model as InputCertificateInfoStateProtocol,

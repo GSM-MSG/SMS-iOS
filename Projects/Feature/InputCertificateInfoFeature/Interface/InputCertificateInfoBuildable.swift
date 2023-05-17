@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol InputCertificateInfoBuildable {
     associatedtype ViewType: View
-    func makeView() -> ViewType
+    func makeView(delegate: InputCertificateDelegate) -> ViewType
 }

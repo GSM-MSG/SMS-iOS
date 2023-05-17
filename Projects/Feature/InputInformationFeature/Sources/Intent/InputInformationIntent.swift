@@ -47,3 +47,13 @@ extension InputInformationIntent: InputMilitaryDelegate {
         model?.nextButtonDidTap()
     }
 }
+
+extension InputInformationIntent: InputCertificateDelegate {
+    func certificatePrevButtonDidTap() {
+        model?.prevButtonDidTap()
+    }
+
+    func completeToInputCertificate() {
+        model?.nextButtonDidTap()
+    }
+}

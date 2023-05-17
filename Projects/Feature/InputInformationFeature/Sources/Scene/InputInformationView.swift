@@ -58,7 +58,7 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.military)
 
-            inputCertificateInfoBuildable.makeView()
+            inputCertificateInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.certificate)
 

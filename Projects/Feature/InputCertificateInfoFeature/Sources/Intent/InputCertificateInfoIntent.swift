@@ -1,10 +1,16 @@
 import Foundation
+import InputCertificateInfoFeatureInterface
 
 final class InputCertificateInfoIntent: InputCertificateInfoIntentProtocol {
     private weak var model: (any InputCertificateInfoActionProtocol)?
+    private weak var certificateDelegate: (any InputCertificateDelegate)?
 
-    init(model: any InputCertificateInfoActionProtocol) {
+    init(
+        model: any InputCertificateInfoActionProtocol,
+        certificateDelegate: any InputCertificateDelegate
+    ) {
         self.model = model
+        self.certificateDelegate = certificateDelegate
     }
 
     func updateCertificate(certificate: String, at index: Int) {
@@ -17,5 +23,13 @@ final class InputCertificateInfoIntent: InputCertificateInfoIntentProtocol {
 
     func certificateAppendButtonDidTap() {
         model?.appendCertificate()
+    }
+
+    func prevButtonDidTap() {
+        certificateDelegate?.certificatePrevButtonDidTap()
+    }
+
+    func nextButtonDidTap() {
+        certificateDelegate?.completeToInputCertificate()
     }
 }
