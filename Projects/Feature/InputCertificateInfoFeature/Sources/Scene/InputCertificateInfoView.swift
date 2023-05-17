@@ -39,6 +39,10 @@ struct InputCertificateInfoView: View {
                             }
                         }
                         .titleWrapper("자격증")
+
+                        SMSChip("추가") {
+                            intent.certificateAppendButtonDidTap()
+                        }
                     }
                 }
                 .padding([.top, .horizontal], 20)

@@ -14,4 +14,8 @@ final class InputCertificateInfoIntent: InputCertificateInfoIntentProtocol {
     func deleteCertificateColumn(at index: Int) {
         model?.deleteCertificateColumn(at: index)
     }
+
+    func certificateAppendButtonDidTap() {
+        model?.appendCertificate()
+    }
 }
