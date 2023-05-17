@@ -28,6 +28,17 @@ struct InputCertificateInfoView: View {
                         }
                         .aligned(.leading)
                     }
+
+                    Spacer()
+
+                    HStack(spacing: 8) {
+                        CTAButton(text: "이전", style: .outline)
+                            .frame(maxWidth: proxy.size.width / 3)
+
+                        CTAButton(text: "다음")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .padding(.bottom, 32)
                 }
                 .padding([.top, .horizontal], 20)
             }
