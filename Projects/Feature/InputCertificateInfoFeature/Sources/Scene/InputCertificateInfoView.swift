@@ -1,5 +1,6 @@
 import BaseFeature
 import DesignSystem
+import FoundationUtil
 import SwiftUI
 import ViewUtil
 
@@ -22,12 +23,14 @@ struct InputCertificateInfoView: View {
                     VStack(spacing: 8) {
                         certificateListView()
                             .titleWrapper("자격증")
+                            .aligned(.leading)
 
                         SMSChip("추가") {
                             intent.certificateAppendButtonDidTap()
                         }
                         .aligned(.leading)
                     }
+                    .animation(.default, value: state.certificates.count)
 
                     Spacer()
 
@@ -69,7 +72,7 @@ struct InputCertificateInfoView: View {
                     SMSTextField(
                         "정보처리산업기사",
                         text: Binding(
-                            get: { state.certificates[index] },
+                            get: { state.certificates[safe: index] ?? "" },
                             set: { intent.updateCertificate(certificate: $0, at: index) }
                         )
                     )

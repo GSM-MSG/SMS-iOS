@@ -6,6 +6,7 @@ final class InputCertificateInfoModel: ObservableObject, InputCertificateInfoSta
 
 extension InputCertificateInfoModel: InputCertificateInfoActionProtocol {
     func updateCertificate(certificate: String, at index: Int) {
+        guard self.certificates[safe: index] != nil else { return }
         self.certificates[index] = certificate
     }
 
