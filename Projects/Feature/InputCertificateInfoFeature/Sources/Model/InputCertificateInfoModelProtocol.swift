@@ -1,5 +1,9 @@
 import Foundation
 
-protocol InputCertificateInfoStateProtocol {}
+protocol InputCertificateInfoStateProtocol {
+    var certificates: [String] { get }
+}
 
-protocol InputCertificateInfoActionProtocol: AnyObject {}
+protocol InputCertificateInfoActionProtocol: AnyObject {
+    
+}

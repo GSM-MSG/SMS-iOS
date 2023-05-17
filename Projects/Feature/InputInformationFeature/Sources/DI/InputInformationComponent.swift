@@ -33,6 +33,7 @@ public final class InputInformationComponent:
             inputSchoolLifeInfoBuildable: dependency.inputSchoolLifeInfoBuildable,
             inputWorkInfoBuildable: dependency.inputWorkInfoBuildable,
             inputMilitaryInfoBuildable: dependency.inputMilitaryInfoBuildable,
+            inputCertificateInfoBuildable: dependency.inputCertificateInfoBuildable,
             container: container
         )
     }

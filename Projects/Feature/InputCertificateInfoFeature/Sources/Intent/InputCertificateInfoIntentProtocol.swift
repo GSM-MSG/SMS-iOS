@@ -1,3 +1,5 @@
 import Foundation
 
-protocol InputCertificateInfoIntentProtocol {}
+protocol InputCertificateInfoIntentProtocol {
+    func updateCertificate(certificate: String, at index: Int)
+}

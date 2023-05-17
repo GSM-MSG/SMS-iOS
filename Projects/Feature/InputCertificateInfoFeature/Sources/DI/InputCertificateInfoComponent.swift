@@ -10,6 +10,13 @@ public final class InputCertificateInfoComponent:
     InputCertificateInfoBuildable {
 
     public func makeView() -> some View {
-        EmptyView()
+        let model = InputCertificateInfoModel()
+        let intent = InputCertificateInfoIntent(model: model)
+        let container = MVIContainer(
+            intent: intent as InputCertificateInfoIntentProtocol,
+            model: model as InputCertificateInfoStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputCertificateInfoView(container: container)
     }
 }
