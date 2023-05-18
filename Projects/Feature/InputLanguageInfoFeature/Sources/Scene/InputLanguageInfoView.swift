@@ -63,32 +63,30 @@ struct InputLanguageInfoView: View {
     @ViewBuilder
     func languageListView(proxy: GeometryProxy) -> some View {
         VStack(spacing: 8) {
-            VStack(spacing: 12) {
-                ForEach(state.languageList.indices, id: \.self) { index in
-                    HStack(spacing: 16) {
-                        SMSTextField(
-                            "예) 토익",
-                            text: Binding(
-                                get: { state.languageList[safe: index]?.languageName ?? "" },
-                                set: { intent.updateLanguageName(name: $0, at: index) }
-                            )
+            ForEach(state.languageList.indices, id: \.self) { index in
+                HStack(spacing: 16) {
+                    SMSTextField(
+                        "예) 토익",
+                        text: Binding(
+                            get: { state.languageList[safe: index]?.languageName ?? "" },
+                            set: { intent.updateLanguageName(name: $0, at: index) }
                         )
-                        .frame(maxWidth: .infinity)
+                    )
+                    .frame(maxWidth: .infinity)
 
-                        SMSTextField(
-                            "900",
-                            text: Binding(
-                                get: { state.languageList[safe: index]?.languageScore ?? "" },
-                                set: { intent.updateLanguageScore(score: $0, at: index) }
-                            )
+                    SMSTextField(
+                        "900",
+                        text: Binding(
+                            get: { state.languageList[safe: index]?.languageScore ?? "" },
+                            set: { intent.updateLanguageScore(score: $0, at: index) }
                         )
-                        .frame(maxWidth: proxy.size.width / 4)
+                    )
+                    .frame(maxWidth: proxy.size.width / 4)
 
-                        Button {
-                            intent.deleteLanguage(at: index)
-                        } label: {
-                            SMSIcon(.trash)
-                        }
+                    Button {
+                        intent.deleteLanguage(at: index)
+                    } label: {
+                        SMSIcon(.trash)
                     }
                 }
             }

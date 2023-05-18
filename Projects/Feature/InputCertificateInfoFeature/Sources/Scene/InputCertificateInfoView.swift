@@ -12,42 +12,43 @@ struct InputCertificateInfoView: View {
     var body: some View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
-                Rectangle()
-                    .fill(Color.sms(.neutral(.n10)))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 16)
-
-                VStack(spacing: 32) {
-                    pageTitleView()
-
-                    VStack(spacing: 8) {
-                        certificateListView()
-                            .titleWrapper("자격증")
-                            .aligned(.leading)
-
-                        SMSChip("추가") {
-                            intent.certificateAppendButtonDidTap()
-                        }
-                        .aligned(.leading)
-                    }
-                    .animation(.default, value: state.certificates.count)
-
-                    Spacer()
-
-                    HStack(spacing: 8) {
-                        CTAButton(text: "이전", style: .outline) {
-                            intent.prevButtonDidTap()
-                        }
-                        .frame(maxWidth: proxy.size.width / 3)
-
-                        CTAButton(text: "다음") {
-                            intent.nextButtonDidTap()
-                        }
+                ScrollView(showsIndicators: false) {
+                    Rectangle()
+                        .fill(Color.sms(.neutral(.n10)))
                         .frame(maxWidth: .infinity)
+                        .frame(height: 16)
+
+                    VStack(spacing: 32) {
+                        pageTitleView()
+
+                        VStack(spacing: 8) {
+                            certificateListView()
+                                .titleWrapper("자격증")
+                                .aligned(.leading)
+
+                            SMSChip("추가") {
+                                intent.certificateAppendButtonDidTap()
+                            }
+                            .aligned(.leading)
+                        }
+                        .animation(.default, value: state.certificates.count)
                     }
-                    .padding(.bottom, 32)
+                    .padding([.top, .horizontal], 20)
                 }
-                .padding([.top, .horizontal], 20)
+
+                HStack(spacing: 8) {
+                    CTAButton(text: "이전", style: .outline) {
+                        intent.prevButtonDidTap()
+                    }
+                    .frame(maxWidth: proxy.size.width / 3)
+
+                    CTAButton(text: "다음") {
+                        intent.nextButtonDidTap()
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .padding(.bottom, 32)
+                .padding(.horizontal, 20)
             }
         }
     }
