@@ -1,5 +1,31 @@
 import Foundation
+import FoundationUtil
 
-final class InputWorkInfoModel: ObservableObject, InputWorkInfoStateProtocol {}
+final class InputWorkInfoModel: ObservableObject, InputWorkInfoStateProtocol {
+    @Published var workRegionList: [String] = [""]
+    @Published var salary: String = ""
+    @Published var isPresentedFormOfEmployeementSheet: Bool = false
+}
 
-extension InputWorkInfoModel: InputWorkInfoActionProtocol {}
+extension InputWorkInfoModel: InputWorkInfoActionProtocol {
+    func appendWorkRegion() {
+        workRegionList.append("")
+    }
+
+    func updateWorkRegion(region: String, at index: Int) {
+        guard workRegionList[safe: index] != nil else { return }
+        self.workRegionList[index] = region
+    }
+
+    func deleteWorkRegion(at index: Int) {
+        self.workRegionList.remove(at: index)
+    }
+
+    func updateSalary(salary: String) {
+        self.salary = salary
+    }
+
+    func updateIsPresentedFormOfEmployeementSheet(isPresented: Bool) {
+        self.isPresentedFormOfEmployeementSheet = isPresented
+    }
+}

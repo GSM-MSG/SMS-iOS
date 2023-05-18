@@ -13,6 +13,7 @@ let project = Project.makeModule(
         .Core.JwtStoreInterface,
         .Shared.GlobalThirdPartyLibrary,
         .Shared.DateUtil,
+        .Shared.FoundationUtil,
         .Shared.UtilityModule
     ],
     additionalPlistRows: [

@@ -9,6 +9,10 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let RootFeature = TargetDependency.project(
+        target: ModulePaths.Feature.RootFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.RootFeature.rawValue)
+    )
     static let InputLanguageInfoFeatureInterface = TargetDependency.project(
         target: ModulePaths.Feature.InputLanguageInfoFeature.targetName(type: .interface),
         path: .relativeToFeature(ModulePaths.Feature.InputLanguageInfoFeature.rawValue)
@@ -80,6 +84,18 @@ public extension TargetDependency.Feature {
 }
 
 public extension TargetDependency.Domain {
+    static let StudentDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.StudentDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.StudentDomain.rawValue)
+    )
+    static let StudentDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.StudentDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.StudentDomain.rawValue)
+    )
+    static let StudentDomain = TargetDependency.project(
+        target: ModulePaths.Domain.StudentDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.StudentDomain.rawValue)
+    )
     static let AuthDomainTesting = TargetDependency.project(
         target: ModulePaths.Domain.AuthDomain.targetName(type: .testing),
         path: .relativeToDomain(ModulePaths.Domain.AuthDomain.rawValue)
@@ -118,6 +134,10 @@ public extension TargetDependency.Core {
 }
 
 public extension TargetDependency.Shared {
+    static let FoundationUtil = TargetDependency.project(
+        target: ModulePaths.Shared.FoundationUtil.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.FoundationUtil.rawValue)
+    )
     static let ViewUtil = TargetDependency.project(
         target: ModulePaths.Shared.ViewUtil.targetName(type: .sources),
         path: .relativeToShared(ModulePaths.Shared.ViewUtil.rawValue)
