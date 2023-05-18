@@ -1,6 +1,6 @@
 import Foundation
 
-public struct StudentRequestDTO: Encodable {
+public struct InputStudentInformationRequestDTO: Encodable {
     public let certificate: [String]
     public let contactEmail: String
     public let dreamBookFileUrl: String

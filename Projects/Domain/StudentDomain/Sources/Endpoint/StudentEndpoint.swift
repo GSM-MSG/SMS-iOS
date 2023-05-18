@@ -3,7 +3,7 @@ import Emdpoint
 import StudentDomainInterface
 
 enum StudentEndpoint {
-    case inputInformation(StudentRequestDTO)
+    case inputInformation(InputStudentInformationRequestDTO)
 }
 
 extension StudentEndpoint: SMSEndpoint {

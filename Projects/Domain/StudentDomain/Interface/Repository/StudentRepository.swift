@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol StudentRepository {
-    func inputInformation(req: StudentRequestDTO) async throws
+    func inputInformation(req: InputStudentInformationRequestDTO) async throws
 }

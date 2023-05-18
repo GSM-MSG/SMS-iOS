@@ -7,7 +7,7 @@ struct InputInformationCaseImpl: InputInformationUseCase {
         self.studentRepository = studentRepository
     }
 
-    func execute(req: StudentRequestDTO) async throws {
+    func execute(req: InputStudentInformationRequestDTO) async throws {
         try await studentRepository.inputInformation(req: req)
     }
 }

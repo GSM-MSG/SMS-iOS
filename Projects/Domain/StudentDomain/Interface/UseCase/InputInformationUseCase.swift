@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol InputInformationUseCase {
-    func execute(req: StudentRequestDTO) async throws
+    func execute(req: InputStudentInformationRequestDTO) async throws
 }

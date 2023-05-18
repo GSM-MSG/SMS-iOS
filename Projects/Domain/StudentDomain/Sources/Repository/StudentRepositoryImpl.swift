@@ -8,7 +8,7 @@ struct StudentRepositoryImpl: StudentRepository {
         self.remoteStudentDataSource = remoteStudentDataSource
     }
 
-    func inputInformation(req: StudentRequestDTO) async throws {
+    func inputInformation(req: InputStudentInformationRequestDTO) async throws {
         try await remoteStudentDataSource.inputInformation(req: req)
     }
 }
