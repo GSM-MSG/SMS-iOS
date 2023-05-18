@@ -136,6 +136,18 @@ private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInfor
     var inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable {
         return appComponent.inputSchoolLifeInfoBuildable
     }
+    var inputWorkInfoBuildable: any InputWorkInfoBuildable {
+        return appComponent.inputWorkInfoBuildable
+    }
+    var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable {
+        return appComponent.inputMilitaryInfoBuildable
+    }
+    var inputCertificateInfoBuildable: any InputCertificateInfoBuildable {
+        return appComponent.inputCertificateInfoBuildable
+    }
+    var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
+        return appComponent.inputLanguageInfoBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -246,6 +258,10 @@ extension InputInformationComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputInformationDependency.inputProfileInfoBuildable] = "inputProfileInfoBuildable-any InputProfileInfoBuildable"
         keyPathToName[\InputInformationDependency.inputSchoolLifeInfoBuildable] = "inputSchoolLifeInfoBuildable-any InputSchoolListInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputWorkInfoBuildable] = "inputWorkInfoBuildable-any InputWorkInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputMilitaryInfoBuildable] = "inputMilitaryInfoBuildable-any InputMilitaryInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputCertificateInfoBuildable] = "inputCertificateInfoBuildable-any InputCertificateInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputLanguageInfoBuildable] = "inputLanguageInfoBuildable-any InputLanguageInfoBuildable"
     }
 }
 extension InputCertificateInfoComponent: Registration {

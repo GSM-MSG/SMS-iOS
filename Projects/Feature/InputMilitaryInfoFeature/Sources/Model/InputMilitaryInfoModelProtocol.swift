@@ -1,5 +1,9 @@
 import Foundation
 
-protocol InputMilitaryInfoStateProtocol {}
+protocol InputMilitaryInfoStateProtocol {
+    var isPresentedMilitarySheet: Bool { get }
+}
 
-protocol InputMilitaryInfoActionProtocol: AnyObject {}
+protocol InputMilitaryInfoActionProtocol: AnyObject {
+    func updateIsPresentedMilitarySheet(isPresented: Bool)
+}
