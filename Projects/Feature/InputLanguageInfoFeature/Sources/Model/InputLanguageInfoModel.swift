@@ -18,7 +18,7 @@ extension InputLanguageInfoModel: InputLanguageInfoActionProtocol {
     }
 
     func updateLanguageScore(score: String, at index: Int) {
-        guard let indexedLanguage = languageList[safe: index] else { return }
+        guard let indexedLanguage = self.languageList[safe: index] else { return }
         let newLanuageInputModel = LanguageInputModel(
             languageName: indexedLanguage.languageName,
             languageScore: score
@@ -27,6 +27,7 @@ extension InputLanguageInfoModel: InputLanguageInfoActionProtocol {
     }
 
     func deleteLanguage(at index: Int) {
+        guard self.languageList[safe: index] != nil else { return }
         languageList.remove(at: index)
     }
 

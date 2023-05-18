@@ -13,8 +13,8 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
         self.inputWorkDelegate = inputWorkDelegate
     }
 
-    func updateWorkRegion(region: String) {
-        model?.updateWorkRegion(region: region)
+    func updateWorkRegion(region: String, at index: Int) {
+        model?.updateWorkRegion(region: region, at: index)
     }
 
     func updateSalary(salary: String) {

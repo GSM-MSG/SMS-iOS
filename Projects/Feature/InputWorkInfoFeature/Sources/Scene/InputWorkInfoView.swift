@@ -32,15 +32,6 @@ struct InputWorkInfoView: View {
                             }
 
                         SMSTextField(
-                            "근무 희망 지역 입력",
-                            text: Binding(
-                                get: { state.workRegion },
-                                set: intent.updateWorkRegion(region:)
-                            )
-                        )
-                        .titleWrapper("희망 근무 지역")
-
-                        SMSTextField(
                             "희망 연봉 (10,000원 단위)",
                             text: Binding(
                                 get: { state.salary },

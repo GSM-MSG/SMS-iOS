@@ -11,6 +11,7 @@ extension InputCertificateInfoModel: InputCertificateInfoActionProtocol {
     }
 
     func deleteCertificateColumn(at index: Int) {
+        guard self.certificates[safe: index] != nil else { return }
         self.certificates.remove(at: index)
     }
 
