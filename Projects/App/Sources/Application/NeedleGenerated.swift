@@ -140,6 +140,9 @@ private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInfor
     var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable {
         return appComponent.inputMilitaryInfoBuildable
     }
+    var inputCertificateInfoBuildable: any InputCertificateInfoBuildable {
+        return appComponent.inputCertificateInfoBuildable
+    }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         return appComponent.inputLanguageInfoBuildable
     }
@@ -242,6 +245,7 @@ extension InputInformationComponent: Registration {
         keyPathToName[\InputInformationDependency.inputSchoolLifeInfoBuildable] = "inputSchoolLifeInfoBuildable-any InputSchoolListInfoBuildable"
         keyPathToName[\InputInformationDependency.inputWorkInfoBuildable] = "inputWorkInfoBuildable-any InputWorkInfoBuildable"
         keyPathToName[\InputInformationDependency.inputMilitaryInfoBuildable] = "inputMilitaryInfoBuildable-any InputMilitaryInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputCertificateInfoBuildable] = "inputCertificateInfoBuildable-any InputCertificateInfoBuildable"
         keyPathToName[\InputInformationDependency.inputLanguageInfoBuildable] = "inputLanguageInfoBuildable-any InputLanguageInfoBuildable"
     }
 }

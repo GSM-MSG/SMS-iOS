@@ -51,6 +51,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String {
+        case FoundationUtil
         case ViewUtil
         case DateUtil
         case KeychainModule

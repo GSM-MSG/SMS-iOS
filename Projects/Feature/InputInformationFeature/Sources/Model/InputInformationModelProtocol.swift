@@ -5,7 +5,7 @@ enum InformationPhase: CaseIterable {
     case school
     case workCondition
     case military
-    case certification
+    case certificate
     case language
 }
 

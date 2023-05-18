@@ -4,6 +4,7 @@ import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
+import InputCertificateInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
 import SwiftUI
 import ViewUtil
@@ -17,6 +18,7 @@ struct InputInformationView: View {
     private let inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable
     private let inputWorkInfoBuildable: any InputWorkInfoBuildable
     private let inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable
+    private let inputCertificateInfoBuildable: any InputCertificateInfoBuildable
     private let inputLanguageInfoBuildable: any InputLanguageInfoBuildable
 
     init(
@@ -24,6 +26,7 @@ struct InputInformationView: View {
         inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable,
         inputWorkInfoBuildable: any InputWorkInfoBuildable,
         inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable,
+        inputCertificateInfoBuildable: any InputCertificateInfoBuildable,
         inputLanguageInfoBuildable: any InputLanguageInfoBuildable,
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
@@ -31,6 +34,7 @@ struct InputInformationView: View {
         self.inputSchoolLifeInfoBuildable = inputSchoolLifeInfoBuildable
         self.inputWorkInfoBuildable = inputWorkInfoBuildable
         self.inputMilitaryInfoBuildable = inputMilitaryInfoBuildable
+        self.inputCertificateInfoBuildable = inputCertificateInfoBuildable
         self.inputLanguageInfoBuildable = inputLanguageInfoBuildable
         self._container = StateObject(wrappedValue: container)
     }
@@ -58,8 +62,9 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.military)
 
-            Text("A")
-                .tag(InformationPhase.certification)
+            inputCertificateInfoBuildable.makeView(delegate: intent)
+                .eraseToAnyView()
+                .tag(InformationPhase.certificate)
 
             inputLanguageInfoBuildable.makeView()
                 .eraseToAnyView()
