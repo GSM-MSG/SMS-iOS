@@ -5,7 +5,7 @@ import DependencyPlugin
 let project = Project.makeModule(
     name: ModulePaths.Domain.StudentDomain.rawValue,
     product: .staticLibrary,
-    targets: [.interface, .testing, .unitTest],
+    targets: [.demo, .interface, .testing, .unitTest],
     internalDependencies: [
         .Domain.BaseDomain
     ]

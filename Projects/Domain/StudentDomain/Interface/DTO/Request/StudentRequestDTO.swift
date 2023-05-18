@@ -17,7 +17,7 @@ public struct StudentRequestDTO: Encodable {
     public let stuNum: String
     public let techStack: [String]
 
-    init(
+    public init(
         certificate: [String],
         contactEmail: String,
         dreamBookFileUrl: String,
