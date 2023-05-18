@@ -1,10 +1,16 @@
 import Foundation
+import InputLanguageInfoFeatureInterface
 
 final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
     private weak var model: (any InputLanguageInfoActionProtocol)?
+    private weak var languageDelegate: (any InputLanguageDelegate)?
 
-    init(model: any InputLanguageInfoActionProtocol) {
+    init(
+        model: any InputLanguageInfoActionProtocol,
+        languageDelegate: any InputLanguageDelegate
+    ) {
         self.model = model
+        self.languageDelegate = languageDelegate
     }
 
     func updateLanguageName(name: String, at index: Int) {
@@ -21,5 +27,13 @@ final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
 
     func languageAppendButtonDidTap() {
         model?.appendLanguage()
+    }
+
+    func prevButtonDidTap() {
+        languageDelegate?.languagePrevButtonDidTap()
+    }
+
+    func completeButtonDidTap() {
+        languageDelegate?.completeToInputLanguage()
     }
 }

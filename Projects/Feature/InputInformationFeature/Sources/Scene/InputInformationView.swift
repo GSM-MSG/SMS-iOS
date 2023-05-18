@@ -66,7 +66,7 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.certificate)
 
-            inputLanguageInfoBuildable.makeView()
+            inputLanguageInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.language)
         }

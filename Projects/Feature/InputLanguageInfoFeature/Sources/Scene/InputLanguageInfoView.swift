@@ -35,11 +35,15 @@ struct InputLanguageInfoView: View {
                     Spacer()
 
                     HStack(spacing: 8) {
-                        CTAButton(text: "이전", style: .outline)
-                            .frame(maxWidth: proxy.size.width / 3)
+                        CTAButton(text: "이전", style: .outline) {
+                            intent.prevButtonDidTap()
+                        }
+                        .frame(maxWidth: proxy.size.width / 3)
 
-                        CTAButton(text: "입력 완료")
-                            .frame(maxWidth: .infinity)
+                        CTAButton(text: "입력 완료") {
+                            intent.completeButtonDidTap()
+                        }
+                        .frame(maxWidth: .infinity)
                     }
                     .padding(.bottom, 32)
                 }

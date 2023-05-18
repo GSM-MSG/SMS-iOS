@@ -4,6 +4,7 @@ import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import InputLanguageInfoFeatureInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -56,5 +57,15 @@ extension InputInformationIntent: InputCertificateDelegate {
 
     func completeToInputCertificate() {
         model?.nextButtonDidTap()
+    }
+}
+
+extension InputInformationIntent: InputLanguageDelegate {
+    func languagePrevButtonDidTap() {
+        model?.prevButtonDidTap()
+    }
+
+    func completeToInputLanguage() {
+        // TODO: 전체 데이터 서버에 송신
     }
 }
