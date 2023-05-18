@@ -1,5 +1,6 @@
 import BaseFeature
 import DesignSystem
+import FoundationUtil
 import SwiftUI
 import ViewUtil
 
@@ -24,8 +25,10 @@ struct InputLanguageInfoView: View {
                             .titleWrapper("외국어")
                             .aligned(.leading)
 
-                        SMSChip("추가")
-                            .aligned(.leading)
+                        SMSChip("추가") {
+                            intent.languageAppendButtonDidTap()
+                        }
+                        .aligned(.leading)
                     }
 
                     Spacer()
@@ -33,7 +36,7 @@ struct InputLanguageInfoView: View {
                     HStack(spacing: 8) {
                         CTAButton(text: "이전", style: .outline)
                             .frame(maxWidth: proxy.size.width / 3)
-                        
+
                         CTAButton(text: "다음")
                             .frame(maxWidth: .infinity)
                     }
@@ -63,16 +66,31 @@ struct InputLanguageInfoView: View {
     @ViewBuilder
     func languageListView(proxy: GeometryProxy) -> some View {
         VStack(spacing: 12) {
-            ForEach(1..<5, id: \.self) { _ in
+            ForEach(state.languageList.indices, id: \.self) { index in
                 HStack(spacing: 16) {
-                    SMSTextField("예) 토익", text: .constant(""))
-                        .frame(maxWidth: .infinity)
+                    SMSTextField(
+                        "예) 토익",
+                        text: Binding(
+                            get: { state.languageList[safe: index]?.languageName ?? "" },
+                            set: { intent.updateLanguageName(name: $0, at: index) }
+                        )
+                    )
+                    .frame(maxWidth: .infinity)
 
-                    SMSTextField("900", text: .constant(""))
-                        .frame(maxWidth: proxy.size.width / 4)
+                    SMSTextField(
+                        "900",
+                        text: Binding(
+                            get: { state.languageList[safe: index]?.languageScore ?? "" },
+                            set: { intent.updateLanguageScore(score: $0, at: index) }
+                        )
+                    )
+                    .frame(maxWidth: proxy.size.width / 4)
 
-                    Image(systemName: "trash")
-                        .frame(width: 24, height: 24)
+                    Button {
+                        intent.deleteLanguage(at: index)
+                    } label: {
+                        SMSIcon(.trash)
+                    }
                 }
             }
         }
