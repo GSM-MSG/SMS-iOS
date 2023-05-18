@@ -37,7 +37,7 @@ struct InputLanguageInfoView: View {
                         CTAButton(text: "이전", style: .outline)
                             .frame(maxWidth: proxy.size.width / 3)
 
-                        CTAButton(text: "다음")
+                        CTAButton(text: "입력 완료")
                             .frame(maxWidth: .infinity)
                     }
                     .padding(.bottom, 32)
