@@ -9,10 +9,10 @@ extension StudentDomainError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .invalidRequest:
-            return "Request 요청 값 다름"
+            return "알 수 없는 에러가 발생하였습니다."
 
         case .alreadyByUser:
-            return "유저가 이미 존재함"
+            return "이미 존재하는 유저입니다."
         }
     }
 }
