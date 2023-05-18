@@ -1,8 +1,9 @@
 import Foundation
+import InputCertificateInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
-import InputMilitaryInfoFeatureInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -44,6 +45,16 @@ extension InputInformationIntent: InputMilitaryDelegate {
     }
 
     func completeToInputMilitary() {
+        model?.nextButtonDidTap()
+    }
+}
+
+extension InputInformationIntent: InputCertificateDelegate {
+    func certificatePrevButtonDidTap() {
+        model?.prevButtonDidTap()
+    }
+
+    func completeToInputCertificate() {
         model?.nextButtonDidTap()
     }
 }
