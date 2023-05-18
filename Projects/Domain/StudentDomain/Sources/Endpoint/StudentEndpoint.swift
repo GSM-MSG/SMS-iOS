@@ -38,7 +38,7 @@ extension StudentEndpoint: SMSEndpoint {
         case .inputInformation:
             return [
                 400: .invalidRequest,
-                409: .alreadyByUser
+                409: .alreadyExistUser
             ]
         }
     }
