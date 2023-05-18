@@ -30,6 +30,7 @@ struct InputLanguageInfoView: View {
                         }
                         .aligned(.leading)
                     }
+                    .animation(.default, value: state.languageList.count)
 
                     Spacer()
 
