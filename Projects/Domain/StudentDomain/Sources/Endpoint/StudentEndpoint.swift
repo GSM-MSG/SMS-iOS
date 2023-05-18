@@ -37,7 +37,8 @@ extension StudentEndpoint: SMSEndpoint {
         switch self {
         case .inputInformation:
             return [
-                500: .internalServerError
+                400: .invalidRequest,
+                409: .alreadyByUser
             ]
         }
     }
