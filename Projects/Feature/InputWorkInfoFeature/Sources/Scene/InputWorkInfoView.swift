@@ -1,5 +1,6 @@
 import BaseFeature
 import DesignSystem
+import FoundationUtil
 import SwiftUI
 import ViewUtil
 
@@ -11,61 +12,56 @@ struct InputWorkInfoView: View {
     var body: some View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
-                Rectangle()
-                    .fill(Color.sms(.neutral(.n10)))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 16)
-
-                VStack(spacing: 32) {
-                    pageTitleView()
-
-                    VStack(spacing: 24) {
-                        SMSTextField("정규직", text: .constant(""))
-                            .disabled(true)
-                            .overlay(alignment: .trailing) {
-                                SMSIcon(.downChevron)
-                                    .padding(.trailing, 12)
-                            }
-                            .titleWrapper("희망 고용 형태")
-                            .onTapGesture {
-                                intent.formOfEmployeementSheetIsRequired()
-                            }
-
-                        SMSTextField(
-                            "근무 희망 지역 입력",
-                            text: Binding(
-                                get: { state.workRegion },
-                                set: intent.updateWorkRegion(region:)
-                            )
-                        )
-                        .titleWrapper("희망 근무 지역")
-
-                        SMSTextField(
-                            "희망 연봉 (10,000원 단위)",
-                            text: Binding(
-                                get: { state.salary },
-                                set: intent.updateSalary(salary:)
-                            )
-                        )
-                        .titleWrapper("희망 연봉")
-                    }
-
-                    Spacer()
-
-                    HStack(spacing: 8) {
-                        CTAButton(text: "이전", style: .outline) {
-                            intent.prevButtonDidTap()
-                        }
-                        .frame(maxWidth: proxy.size.width / 3)
-
-                        CTAButton(text: "다음") {
-                            intent.nextButtonDidTap()
-                        }
+                ScrollView(showsIndicators: false) {
+                    Rectangle()
+                        .fill(Color.sms(.neutral(.n10)))
                         .frame(maxWidth: .infinity)
+                        .frame(height: 16)
+
+                    VStack(spacing: 32) {
+                        pageTitleView()
+
+                        VStack(spacing: 24) {
+                            SMSTextField("정규직", text: .constant(""))
+                                .disabled(true)
+                                .overlay(alignment: .trailing) {
+                                    SMSIcon(.downChevron)
+                                        .padding(.trailing, 12)
+                                }
+                                .titleWrapper("희망 고용 형태")
+                                .onTapGesture {
+                                    intent.formOfEmployeementSheetIsRequired()
+                                }
+
+                            SMSTextField(
+                                "희망 연봉 (10,000원 단위)",
+                                text: Binding(
+                                    get: { state.salary },
+                                    set: intent.updateSalary(salary:)
+                                )
+                            )
+                            .titleWrapper("희망 연봉")
+
+                            workRegionList()
+                        }
                     }
-                    .padding(.bottom, 32)
+                    .padding([.top, .horizontal], 20)
                 }
-                .padding([.top, .horizontal], 20)
+                .padding(.bottom, 12)
+
+                HStack(spacing: 8) {
+                    CTAButton(text: "이전", style: .outline) {
+                        intent.prevButtonDidTap()
+                    }
+                    .frame(maxWidth: proxy.size.width / 3)
+
+                    CTAButton(text: "다음") {
+                        intent.nextButtonDidTap()
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .padding(.bottom, 32)
+                .padding(.horizontal, 20)
             }
         }
         .smsBottomSheet(
@@ -95,6 +91,37 @@ struct InputWorkInfoView: View {
             SMSPageControl(pageCount: 6, selectedPage: 2)
         }
         .smsFont(.title1)
+    }
+
+    @ViewBuilder
+    func workRegionList() -> some View {
+        VStack(spacing: 8) {
+            ForEach(state.workRegionList.indices, id: \.self) { index in
+                HStack(spacing: 16) {
+                    SMSTextField(
+                        "근무 희망 지역 입력",
+                        text: Binding(
+                            get: { state.workRegionList[safe: index] ?? "" },
+                            set: { intent.updateWorkRegion(region: $0, at: index) }
+                        )
+                    )
+
+                    Button {
+                        intent.deleteWorkRegion(at: index)
+                    } label: {
+                        SMSIcon(.trash)
+                    }
+                }
+            }
+
+            SMSChip("추가") {
+                intent.appendWorkRegion()
+            }
+            .aligned(.leading)
+        }
+        .titleWrapper("근무 지역")
+        .aligned(.leading)
+        .animation(.default, value: state.workRegionList.count)
     }
 
     @ViewBuilder
