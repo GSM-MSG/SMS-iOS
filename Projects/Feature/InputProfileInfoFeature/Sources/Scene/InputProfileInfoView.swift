@@ -92,7 +92,7 @@ struct InputProfileInfoView: View {
     @ViewBuilder
     func pageTitleView() -> some View {
         HStack(spacing: 4) {
-            Text("학교 생활")
+            Text("프로필")
                 .foregroundColor(.sms(.system(.black)))
 
             Text("*")
