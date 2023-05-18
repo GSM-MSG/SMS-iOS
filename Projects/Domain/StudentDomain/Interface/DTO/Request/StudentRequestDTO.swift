@@ -51,7 +51,7 @@ public struct StudentRequestDTO: Encodable {
         self.techStack = techStack
     }
 
-    public struct LanguageCertificate: Codable {
+    public struct LanguageCertificate: Encodable {
         public let languageCertificateName: String
         public let score: String
 
