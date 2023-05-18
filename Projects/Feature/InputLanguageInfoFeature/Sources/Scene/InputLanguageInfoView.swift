@@ -27,7 +27,19 @@ struct InputLanguageInfoView: View {
                         SMSChip("추가")
                             .aligned(.leading)
                     }
+
+                    Spacer()
+
+                    HStack(spacing: 8) {
+                        CTAButton(text: "이전", style: .outline)
+                            .frame(maxWidth: proxy.size.width / 3)
+                        
+                        CTAButton(text: "다음")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .padding(.bottom, 32)
                 }
+                .padding([.top, .horizontal], 20)
             }
         }
     }
@@ -37,13 +49,13 @@ struct InputLanguageInfoView: View {
         HStack(spacing: 4) {
             Text("외국어")
                 .foregroundColor(.sms(.system(.black)))
-            
+
             Text("*")
                 .foregroundColor(.sms(.sub(.s2)))
-            
+
             Spacer()
-            
-            SMSPageControl(pageCount: 6, selectedPage: 4)
+
+            SMSPageControl(pageCount: 6, selectedPage: 5)
         }
         .smsFont(.title1)
     }
@@ -51,13 +63,13 @@ struct InputLanguageInfoView: View {
     @ViewBuilder
     func languageListView(proxy: GeometryProxy) -> some View {
         VStack(spacing: 12) {
-            ForEach(1..<5, id: \.self) { index in
+            ForEach(1..<5, id: \.self) { _ in
                 HStack(spacing: 16) {
                     SMSTextField("예) 토익", text: .constant(""))
                         .frame(maxWidth: .infinity)
 
                     SMSTextField("900", text: .constant(""))
-                        .frame(maxWidth: proxy.size.width / 3)
+                        .frame(maxWidth: proxy.size.width / 4)
 
                     Image(systemName: "trash")
                         .frame(width: 24, height: 24)

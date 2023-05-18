@@ -4,6 +4,7 @@ import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
+import InputLanguageInfoFeatureInterface
 import SwiftUI
 import ViewUtil
 
@@ -16,18 +17,21 @@ struct InputInformationView: View {
     private let inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable
     private let inputWorkInfoBuildable: any InputWorkInfoBuildable
     private let inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable
+    private let inputLanguageInfoBuildable: any InputLanguageInfoBuildable
 
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
         inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable,
         inputWorkInfoBuildable: any InputWorkInfoBuildable,
         inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable,
+        inputLanguageInfoBuildable: any InputLanguageInfoBuildable,
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
         self.inputSchoolLifeInfoBuildable = inputSchoolLifeInfoBuildable
         self.inputWorkInfoBuildable = inputWorkInfoBuildable
         self.inputMilitaryInfoBuildable = inputMilitaryInfoBuildable
+        self.inputLanguageInfoBuildable = inputLanguageInfoBuildable
         self._container = StateObject(wrappedValue: container)
     }
 
@@ -57,7 +61,8 @@ struct InputInformationView: View {
             Text("A")
                 .tag(InformationPhase.certification)
 
-            Text("B")
+            inputLanguageInfoBuildable.makeView()
+                .eraseToAnyView()
                 .tag(InformationPhase.language)
         }
         .animation(.default, value: state.phase)

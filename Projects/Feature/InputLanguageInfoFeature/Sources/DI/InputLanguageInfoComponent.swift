@@ -10,6 +10,13 @@ public final class InputLanguageInfoComponent:
     InputLanguageInfoBuildable {
 
     public func makeView() -> some View {
-        EmptyView()
+        let model = InputLanguageInfoModel()
+        let intent = InputLanguageInfoIntent(model: model)
+        let container = MVIContainer(
+            intent: intent as InputLanguageInfoIntentProtocol,
+            model: model as InputLanguageInfoStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputLanguageInfoView(container: container)
     }
 }
