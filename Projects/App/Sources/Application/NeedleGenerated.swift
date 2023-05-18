@@ -26,6 +26,8 @@ import NeedleFoundation
 import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import StudentDomain
+import StudentDomainInterface
 import SwiftUI
 
 // swiftlint:disable unused_declaration
@@ -177,6 +179,19 @@ private class InputProfileInfoDependencydedc6189ad35e7ff3001Provider: InputProfi
 private func factoryb3d74d9bff60efbc0282e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputProfileInfoDependencydedc6189ad35e7ff3001Provider()
 }
+private class StudentDomainDependency71a7287ffa1377bc3ca1Provider: StudentDomainDependency {
+    var jwtStoreBuildable: any JwtStoreBuildable {
+        return appComponent.jwtStoreBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->StudentDomainComponent
+private func factory2686a7e321a220c3265af47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return StudentDomainDependency71a7287ffa1377bc3ca1Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class AuthDomainDependency4518b8977185a5c9ff71Provider: AuthDomainDependency {
     var jwtStoreBuildable: any JwtStoreBuildable {
         return appComponent.jwtStoreBuildable
@@ -259,6 +274,11 @@ extension InputProfileInfoComponent: Registration {
 
     }
 }
+extension StudentDomainComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\StudentDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
+    }
+}
 extension AuthDomainComponent: Registration {
     public func registerItems() {
         keyPathToName[\AuthDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
@@ -279,7 +299,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-@inline(never) private func register1() {
+private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
@@ -292,6 +312,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->InputInformationComponent", factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)
 }
 #endif

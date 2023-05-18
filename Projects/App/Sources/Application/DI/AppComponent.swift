@@ -1,5 +1,7 @@
 import AuthDomain
 import AuthDomainInterface
+import StudentDomain
+import StudentDomainInterface
 import BaseDomain
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
@@ -68,6 +70,10 @@ final class AppComponent: BootstrapComponent {
 
     var authDomainBuildable: any AuthDomainBuildable {
         AuthDomainComponent(parent: self)
+    }
+
+    var studentDomainBuildable: any StudentDomainBuildable {
+        StudentDomainComponent(parent: self)
     }
 
     var jwtStoreBuildable: any JwtStoreBuildable {
