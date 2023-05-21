@@ -134,6 +134,14 @@ public extension TargetDependency.Core {
 }
 
 public extension TargetDependency.Shared {
+    static let ValidatorTesting = TargetDependency.project(
+        target: ModulePaths.Shared.Validator.targetName(type: .testing),
+        path: .relativeToShared(ModulePaths.Shared.Validator.rawValue)
+    )
+    static let Validator = TargetDependency.project(
+        target: ModulePaths.Shared.Validator.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.Validator.rawValue)
+    )
     static let FoundationUtil = TargetDependency.project(
         target: ModulePaths.Shared.FoundationUtil.targetName(type: .sources),
         path: .relativeToShared(ModulePaths.Shared.FoundationUtil.rawValue)
