@@ -5,6 +5,6 @@ import DependencyPlugin
 let project = Project.makeModule(
     name: ModulePaths.Shared.Validator.rawValue,
     product: .staticLibrary,
-    targets: [.interface, .testing, .unitTest],
+    targets: [.unitTest],
     internalDependencies: []
 )
