@@ -1,4 +1,4 @@
-import AuthDomainInterface
+import MajorDomainInterface
 import BaseDomain
 import Emdpoint
 
@@ -7,7 +7,7 @@ enum MajorEndpoint {
 }
 
 extension MajorEndpoint: SMSEndpoint {
-    typealias ErrorType = AuthDomainError
+    typealias ErrorType = MajorDomainError
 
     var route: Route {
         switch self {
