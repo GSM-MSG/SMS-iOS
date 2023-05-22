@@ -64,7 +64,7 @@ struct InputProfileInfoView: View {
                         .titleWrapper("포트폴리오 URL")
 
                         SMSTextField(
-                            "예시) Swift, UIKit, SwiftUI",
+                            "예시) C, Java, Python",
                             text: Binding(get: { state.techStack }, set: intent.updateTechStack(techStack:))
                         )
                         .titleWrapper("세부스택")
