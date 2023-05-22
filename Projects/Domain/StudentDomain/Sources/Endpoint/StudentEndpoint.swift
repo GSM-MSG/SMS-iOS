@@ -9,10 +9,14 @@ enum StudentEndpoint {
 extension StudentEndpoint: SMSEndpoint {
     typealias ErrorType = StudentDomainError
 
+    var domain: SMSDomain {
+        .student
+    }
+
     var route: Route {
         switch self {
         case .inputInformation:
-            return .post("/student")
+            return .post("")
         }
     }
 

@@ -1,3 +1,4 @@
+import DesignSystem
 import Foundation
 
 protocol InputProfileInfoIntentProtocol {
@@ -8,5 +9,8 @@ protocol InputProfileInfoIntentProtocol {
     func updateTechStack(techStack: String)
     func majorSheetIsRequired()
     func majorSheetDismissed()
-    func nextButtonDidTap()
+    func imagePickerIsRequired()
+    func imagePickerDismissed()
+    func imageDidSelected(imageResult: PickedImageResult?)
+    func nextButtonDidTap(state: any InputProfileInfoStateProtocol)
 }
