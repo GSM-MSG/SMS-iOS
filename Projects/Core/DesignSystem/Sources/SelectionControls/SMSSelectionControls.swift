@@ -20,21 +20,3 @@ public struct SMSSelectionControls<T: Hashable>: View {
         }
     }
 }
-
-struct CustomButtonStyle: ButtonStyle {
-    var isOn: Bool
-
-    init(isOn: Bool) {
-        self.isOn = isOn
-    }
-
-    @ViewBuilder
-    func makeBody(configuration: Configuration) -> some View {
-        Circle()
-            .fill(self.isOn && configuration.isPressed ? Color.sms(.neutral(.n20)) : Color.clear)
-            .overlay {
-                configuration.label
-            }
-            .frame(width: 32, height: 32)
-    }
-}
