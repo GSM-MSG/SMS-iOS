@@ -81,9 +81,23 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         }
 
         model?.updateErrorFieldSet(set: errorSet)
-        guard errorSet.isEmpty else {
+        guard
+            errorSet.isEmpty,
+            let pickedImage = state.profileImage
+        else {
             return
         }
-        inputProfileDelegate?.completeToInputProfile()
+        let input = InputProfileInformationObject(
+            profileImageData: pickedImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
+            profileImageFilename: pickedImage.fileName,
+            introduce: state.introduce,
+            contactEmail: state.email,
+            major: state.major,
+            portfoiloURL: state.portfolioURL,
+            techStack: state.techStack.components(separatedBy: ",")
+                .prefix(5)
+                .map { $0.trimmingCharacters(in: .whitespaces) }
+        )
+        inputProfileDelegate?.completeToInputProfile(input: input)
     }
 }

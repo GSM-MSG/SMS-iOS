@@ -2,7 +2,8 @@ import Foundation
 
 public struct URLValidator: Validator {
     private let regexValidator = RegexValidator(
-        pattern: "^(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,6}$"
+        pattern: #"^(https?|ftp)://[^\s/$.?#].[^\s]*$#"#
+
     )
 
     public init() {}

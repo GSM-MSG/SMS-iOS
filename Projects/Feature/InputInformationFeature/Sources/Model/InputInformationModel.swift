@@ -1,7 +1,9 @@
 import Foundation
+import InputProfileInfoFeatureInterface
 
 final class InputInformationModel: ObservableObject, InputInformationStateProtocol {
     @Published var phase: InformationPhase = .profile
+    @Published var inputProfileInformationObject: InputProfileInformationObject?
 }
 
 extension InputInformationModel: InputInformationActionProtocol {
@@ -17,5 +19,9 @@ extension InputInformationModel: InputInformationActionProtocol {
               currentIndex < InformationPhase.allCases.count - 1
         else { return }
         phase = InformationPhase.allCases[currentIndex + 1]
+    }
+
+    func updateInputProfileInformationObject(object: InputProfileInformationObject) {
+        self.inputProfileInformationObject = inputProfileInformationObject
     }
 }
