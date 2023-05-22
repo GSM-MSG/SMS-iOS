@@ -1,4 +1,4 @@
-import AuthDomainInterface
+import MajorDomainInterface
 import BaseDomain
 
 final class RemoteMajorDataSourceImpl: BaseRemoteDataSource<MajorEndpoint>, RemoteMajorDataSource {
