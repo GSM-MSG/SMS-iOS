@@ -50,7 +50,7 @@ final class InputSchoolLifeInfoIntent: InputSchoolLifeInfoIntentProtocol {
         }
 
         guard
-            let gsmScroe = Int(state.authenticationScroe),
+            let gsmScore = Int(state.authenticationScroe),
             let hwpURL = state.hwpFileURL,
             let hwpData = try? Data(contentsOf: hwpURL)
         else {
@@ -60,7 +60,7 @@ final class InputSchoolLifeInfoIntent: InputSchoolLifeInfoIntentProtocol {
 
         let input = InputSchoolLifeInformationObject(
             hwpFilename: state.hwpFilename,
-            gsmAuthenticationScore: gsmScroe,
+            gsmAuthenticationScore: gsmScore,
             hwpData: hwpData
         )
 
