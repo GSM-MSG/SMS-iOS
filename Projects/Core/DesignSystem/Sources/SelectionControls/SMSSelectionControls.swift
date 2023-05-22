@@ -4,6 +4,10 @@ public struct SMSSelectionControls<T: Hashable>: View {
     @EnvironmentObject private var value: RadioValue<T>
     private var tag: T?
 
+    init(tag: T) {
+        self.tag = tag
+    }
+
     public var body: some View {
         Button {
             value.selection = tag
@@ -20,12 +24,6 @@ public struct SMSSelectionControls<T: Hashable>: View {
             }
         }
         .buttonStyle(CustomButtonStyle(isOn: tag == value.selection))
-    }
-}
-
-public extension SMSSelectionControls where T: Hashable {
-    init(tag: T) {
-        self.tag = tag
     }
 }
 
