@@ -5,6 +5,7 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.SPM {
+    static let IQKeyboardManager = TargetDependency.external(name: "IQKeyboardManagerSwift")
     static let Needle = TargetDependency.external(name: "NeedleFoundation")
     static let GAuthSignin = TargetDependency.external(name: "GAuthSignin")
     static let Nimble = TargetDependency.external(name: "Nimble")

@@ -4,6 +4,8 @@ import SwiftUI
 
 @main
 struct SMSApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     init() {
         registerProviderFactories()
     }
