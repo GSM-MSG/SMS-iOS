@@ -4,7 +4,7 @@ import Foundation
 final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtocol {
     @Published var introduce: String = ""
     @Published var email: String = ""
-    @Published var major: String = "asd"
+    @Published var major: String = ""
     @Published var portfolioURL: String = ""
     @Published var techStack: String = ""
     @Published var isPresentedMajorSheet: Bool = false
