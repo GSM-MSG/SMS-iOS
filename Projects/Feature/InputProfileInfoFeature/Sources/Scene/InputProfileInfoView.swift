@@ -44,7 +44,7 @@ struct InputProfileInfoView: View {
                         .titleWrapper("이메일")
 
                         SMSTextField(
-                            "Frontend",
+                            "전공 분야 선택",
                             text: Binding(get: { state.major }, set: intent.updateMajor(major:))
                         )
                         .disabled(true)
@@ -64,7 +64,7 @@ struct InputProfileInfoView: View {
                         .titleWrapper("포트폴리오 URL")
 
                         SMSTextField(
-                            "예시) Swift, UIKit, SwiftUI",
+                            "예시) C, Java, Python",
                             text: Binding(get: { state.techStack }, set: intent.updateTechStack(techStack:))
                         )
                         .titleWrapper("세부스택")
