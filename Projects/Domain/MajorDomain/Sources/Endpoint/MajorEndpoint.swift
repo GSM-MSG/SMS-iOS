@@ -9,6 +9,10 @@ enum MajorEndpoint {
 extension MajorEndpoint: SMSEndpoint {
     typealias ErrorType = MajorDomainError
 
+    var domain: SMSDomain {
+        .major
+    }
+
     var route: Route {
         switch self {
         case .fetchList:
