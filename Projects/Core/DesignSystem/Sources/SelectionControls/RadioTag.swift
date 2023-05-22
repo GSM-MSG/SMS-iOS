@@ -15,7 +15,7 @@ public struct RadioTag<T: Hashable>: ViewModifier {
         } label: {
             content
         }
-        .buttonStyle(CustomButtonStyle.init(isOn: tag == value.selection))
+        .buttonStyle(CustomButtonStyle(isOn: tag == value.selection))
     }
 }
 
