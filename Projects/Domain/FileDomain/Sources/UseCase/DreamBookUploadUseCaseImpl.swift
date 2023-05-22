@@ -8,7 +8,7 @@ struct DreamBookUploadUseCaseImpl: DreamBookUploadUseCase {
         self.fileRepository = fileRepository
     }
 
-    func execute(file: Data) async throws -> String {
-        try await fileRepository.dreamBookUpload(file: file)
+    func execute(file: Data, fileName: String) async throws -> String {
+        try await fileRepository.dreamBookUpload(file: file, fileName: fileName)
     }
 }

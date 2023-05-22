@@ -8,7 +8,7 @@ struct FileRepositoryImpl: FileRepository {
         self.remoteFileDataSource = remoteFileDataSource
     }
 
-    func dreamBookUpload(file: Data) async throws -> String {
-        try await remoteFileDataSource.dreamBookUpload(file: file)
+    func dreamBookUpload(file: Data, fileName: String) async throws -> String {
+        try await remoteFileDataSource.dreamBookUpload(file: file, fileName: fileName)
     }
 }
