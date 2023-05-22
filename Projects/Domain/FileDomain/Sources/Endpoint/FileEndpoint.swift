@@ -4,7 +4,7 @@ import Emdpoint
 import BaseDomain
 
 enum FileEndpoint {
-    case dreamBookUpload(file: Data)
+    case dreamBookUpload(file: Data, fileName: String)
 }
 
 extension FileEndpoint: SMSEndpoint {
@@ -19,9 +19,9 @@ extension FileEndpoint: SMSEndpoint {
 
     var task: HTTPTask {
         switch self {
-        case let .dreamBookUpload(file):
+        case let .dreamBookUpload(file, fileName):
             return .uploadMultipart([
-                MultiPartFormData(field: "file", data: file)
+                MultiPartFormData(field: "file", data: file, fileName: fileName)
             ])
 
         default:
@@ -33,6 +33,7 @@ extension FileEndpoint: SMSEndpoint {
         switch self {
         case .dreamBookUpload:
             return .accessToken
+
         default:
             return .none
         }

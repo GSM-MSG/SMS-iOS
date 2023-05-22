@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol FileRepository {
-    func dreamBookUpload(file: Data) async throws -> String
+    func dreamBookUpload(file: Data, fileName: String) async throws -> String
 }
