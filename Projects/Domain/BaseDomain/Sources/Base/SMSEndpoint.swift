@@ -3,14 +3,14 @@ import Foundation
 
 public protocol SMSEndpoint: EndpointType, JwtAuthorizable {
     associatedtype ErrorType: Error
+    var domain: SMSDomain { get }
     var errorMap: [Int: ErrorType]? { get }
 }
 
 extension SMSEndpoint {
     public var baseURL: URL {
-        URL(
-            string: Bundle.module.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
-        ) ?? URL(string: "https://www.google.com")!
+        let baseURL = Bundle.module.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
+        return URL(string: baseURL + domain.rawValue) ?? URL(string: "https://www.google.com")!
     }
 
     public var headers: [String: String]? {
