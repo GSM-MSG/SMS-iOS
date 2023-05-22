@@ -19,11 +19,11 @@ public struct SMSSelectionControls: View {
                     .frame(width: 12, height: 12)
             }
         }
-        .buttonStyle(CustomButtonStyle(isSeleted: isSeleted))
+        .buttonStyle(PressedSelectionButtonStyle(isSeleted: isSeleted))
     }
 }
 
-private struct CustomButtonStyle: ButtonStyle {
+private struct PressedSelectionButtonStyle: ButtonStyle {
     var isSeleted: Bool
 
     init(isSeleted: Bool) {
