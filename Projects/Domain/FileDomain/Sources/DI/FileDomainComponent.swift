@@ -1,9 +1,19 @@
-//
-//  FileDomainComponent.swift
-//  FileDomainInterface
-//
-//  Created by sunghun on 2023/05/22.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import NeedleFoundation
+import FileDomainInterface
+import JwtStoreInterface
 
-import Foundation
+public protocol FileDomainDependency: Dependency {
+    var jwtStoreBuildable: any JwtStoreBuildable { get }
+}
+
+public final class FileDomainComponent: Component<FileDomainDependency>, FileDomainBuildable {
+    public var dreamBookUploadUseCase: any DreamBookUploadUseCase {
+        DreamBookUploadUseCaseImpl(fileRepository: fileRepository)
+    }
+    public var fileRepository: any FileRepository {
+        FileRepositoryImpl(remoteFileDataSource: remoteFileDataSource)
+    }
+    var remoteFileDataSource: any RemoteFileDataSource {
+        RemoteFileDataSourceImpl(jwtStore: dependency.jwtStoreBuildable.jwtStore)
+    }
+}
