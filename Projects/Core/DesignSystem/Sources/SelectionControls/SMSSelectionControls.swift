@@ -4,7 +4,7 @@ public struct SMSSelectionControls<T: Hashable>: View {
     @EnvironmentObject private var value: RadioValue<T>
     private var tag: T?
 
-    init(tag: T) {
+    public init(tag: T) {
         self.tag = tag
     }
 
