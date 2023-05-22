@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol RemoteAuthDataSource {
-    func login(code: String) async throws
+    func login(code: String) async throws -> IsAlreadySignUp
 }

@@ -8,7 +8,7 @@ struct AuthRepositoryImpl: AuthRepository {
         self.remoteAuthDataSource = remoteAuthDataSource
     }
 
-    func login(code: String) async throws {
+    func login(code: String) async throws -> IsAlreadySignUp {
         try await remoteAuthDataSource.login(code: code)
     }
 }
