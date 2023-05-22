@@ -2,6 +2,7 @@ import BaseFeature
 import DesignSystem
 import FoundationUtil
 import SwiftUI
+import StudentDomainInterface
 import ViewUtil
 
 struct InputWorkInfoView: View {
@@ -22,24 +23,36 @@ struct InputWorkInfoView: View {
                         pageTitleView()
 
                         VStack(spacing: 24) {
-                            SMSTextField("정규직", text: .constant(""))
-                                .disabled(true)
-                                .overlay(alignment: .trailing) {
-                                    SMSIcon(.downChevron)
-                                        .padding(.trailing, 12)
-                                }
-                                .titleWrapper("희망 고용 형태")
-                                .onTapGesture {
-                                    intent.formOfEmployeementSheetIsRequired()
-                                }
-
                             SMSTextField(
-                                "희망 연봉 (10,000원 단위)",
+                                "정규직",
                                 text: Binding(
-                                    get: { state.salary },
-                                    set: intent.updateSalary(salary:)
-                                )
+                                    get: { state.formOfEmployment.display() },
+                                    set: { _ in }
+                                ),
+                                isOnClear: false
                             )
+                            .disabled(true)
+                            .overlay(alignment: .trailing) {
+                                SMSIcon(.downChevron)
+                                    .padding(.trailing, 12)
+                            }
+                            .titleWrapper("희망 고용 형태")
+                            .onTapGesture {
+                                intent.formOfEmployeementSheetIsRequired()
+                            }
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                SMSTextField(
+                                    "희망 연봉 (10,000원 단위)",
+                                    text: Binding(
+                                        get: { state.salary },
+                                        set: intent.updateSalary(salary:)
+                                    )
+                                )
+
+                                SMSText("\(state.salary)만원", font: .caption1)
+                                    .foregroundColor(.sms(.neutral(.n30)))
+                            }
                             .titleWrapper("희망 연봉")
 
                             workRegionList()
@@ -56,7 +69,7 @@ struct InputWorkInfoView: View {
                     .frame(maxWidth: proxy.size.width / 3)
 
                     CTAButton(text: "다음") {
-                        intent.nextButtonDidTap()
+                        intent.nextButtonDidTap(state: state)
                     }
                     .frame(maxWidth: .infinity)
                 }
@@ -127,17 +140,22 @@ struct InputWorkInfoView: View {
     @ViewBuilder
     func formOfEmployeementList() -> some View {
         VStack(spacing: 16) {
-            ForEach(0..<4, id: \.self) { index in
+            ForEach(FormOfEmployment.allCases, id: \.self) { formOfEmployment in
                 HStack {
-                    Text("\(index)")
+                    Text(formOfEmployment.display())
                         .smsFont(.body1, color: .neutral(.n50))
 
                     Spacer()
 
-                    Circle()
-                        .fill(Color.sms(.primary(.p2)))
-                        .frame(width: 24, height: 24)
+                    SMSSelectionControls(
+                        isSeleted: Binding(
+                            get: { state.formOfEmployment == formOfEmployment },
+                            set: { $0 ? intent.updateFormOfEmployment(form: formOfEmployment) : () }
+                        )
+                    )
+                    .buttonWrapper {}
                 }
+                .animation(.default, value: state.formOfEmployment)
                 .padding(.horizontal, 20)
             }
         }

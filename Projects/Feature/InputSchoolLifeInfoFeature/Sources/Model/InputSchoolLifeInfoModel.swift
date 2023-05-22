@@ -6,7 +6,7 @@ enum InputSchoolLifeErrorField: Hashable {
 }
 
 final class InputSchoolLifeInfoModel: ObservableObject, InputSchoolLifeInfoStateProtocol {
-    @Published var authenticationScroe: String = ""
+    @Published var authenticationScore: String = ""
     @Published var isPresentedHWPFileImporter: Bool = false
     @Published var hwpFileURL: URL?
     var hwpFilename: String {
@@ -20,7 +20,7 @@ final class InputSchoolLifeInfoModel: ObservableObject, InputSchoolLifeInfoState
 
 extension InputSchoolLifeInfoModel: InputSchoolLifeInfoActionProtocol {
     func updateAuthenticationScore(score: String) {
-        self.authenticationScroe = score
+        self.authenticationScore = score
     }
 
     func updateIsPresentedHWPFileImporter(isPresented: Bool) {

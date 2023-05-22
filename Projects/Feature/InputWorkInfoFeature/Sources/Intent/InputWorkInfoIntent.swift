@@ -1,5 +1,6 @@
 import Foundation
 import InputWorkInfoFeatureInterface
+import StudentDomainInterface
 
 final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
     private weak var model: (any InputWorkInfoActionProtocol)?
@@ -29,6 +30,10 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
         model?.updateSalary(salary: salary)
     }
 
+    func updateFormOfEmployment(form: FormOfEmployment) {
+        model?.updateFormOfEmployment(form: form)
+    }
+
     func formOfEmployeementSheetIsRequired() {
         model?.updateIsPresentedFormOfEmployeementSheet(isPresented: true)
     }
@@ -41,7 +46,8 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
         inputWorkDelegate?.workPrevButtonDidTap()
     }
 
-    func nextButtonDidTap() {
+    func nextButtonDidTap(state: any InputWorkInfoStateProtocol) {
+        
         inputWorkDelegate?.completeToInputWork()
     }
 }
