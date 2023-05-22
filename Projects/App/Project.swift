@@ -48,6 +48,7 @@ let targets: [Target] = [
             .Feature.InputLanguageInfoFeature,
             .Domain.AuthDomain,
             .Domain.StudentDomain,
+            .Domain.MajorDomain,
             .Core.JwtStore,
             .Shared.KeychainModule
         ],
