@@ -51,6 +51,10 @@ public struct RadioTag<T: Hashable>: ViewModifier {
     @EnvironmentObject private var value: RadioValue<T>
     private var tag: T?
 
+    init(_ tag: T?) {
+        self.tag = tag
+    }
+
     public func body(content: Content) -> some View {
         Button {
             value.selection = tag
@@ -62,26 +66,8 @@ public struct RadioTag<T: Hashable>: ViewModifier {
     }
 }
 
-public extension RadioTag where T: Hashable {
-    init(_ tag: T?) {
-        self.tag = tag
-    }
-}
-
 extension View {
     public func radioTag<T: Hashable>(_ tag: T?) -> some View {
         self.modifier(RadioTag(tag))
-    }
-}
-
-class RadioValue<T: Hashable>: ObservableObject {
-    typealias TapReceiveAction = (T?) -> Void
-
-    @Binding var selection: T?
-    var onTapReceive: (TapReceiveAction)?
-
-    init(selection: Binding<T?>, onTapReceive: (TapReceiveAction)? = nil) {
-        _selection = selection
-        self.onTapReceive = onTapReceive
     }
 }
