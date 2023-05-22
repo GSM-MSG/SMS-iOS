@@ -1,4 +1,4 @@
-import AuthDomainInterface
+import MajorDomainInterface
 
 struct FetchListUseCaseImpl: FetchListUseCase {
     private let majorRepository: any MajorRepository
