@@ -14,6 +14,7 @@ let project = Project.makeModule(
         .Shared.DateUtil,
         .Shared.FoundationUtil,
         .Shared.GlobalThirdPartyLibrary,
+        .Shared.Validator,
         .Shared.UtilityModule
     ]
 )
