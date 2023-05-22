@@ -30,12 +30,18 @@ struct InputSchoolLifeInfoView: View {
                         .keyboardType(.numberPad)
                         .titleWrapper("인증제 점수")
 
-                        SMSTextField("+ hwp 파일 추가", text: .constant(""))
-                            .disabled(true)
-                            .titleWrapper("드림북")
-                            .onTapGesture {
-                                intent.hwpFilImporterIsRequred()
-                            }
+                        SMSTextField(
+                            "+ hwp 파일 추가",
+                            text: Binding(
+                                get: { state.hwpFilename },
+                                set: { _ in }
+                            )
+                        )
+                        .disabled(true)
+                        .titleWrapper("드림북")
+                        .onTapGesture {
+                            intent.hwpFileImporterIsRequred()
+                        }
                     }
 
                     Spacer()
@@ -47,7 +53,7 @@ struct InputSchoolLifeInfoView: View {
                         .frame(maxWidth: proxy.size.width / 3)
 
                         CTAButton(text: "다음") {
-                            intent.nextButtonDidTap()
+                            intent.nextButtonDidTap(state: state)
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -59,7 +65,7 @@ struct InputSchoolLifeInfoView: View {
         .fileImporter(
             isPresented: Binding(
                 get: { state.isPresentedHWPFileImporter },
-                set: { _ in intent.hwpFilImporterDismissed() }
+                set: { _ in intent.hwpFileImporterDismissed() }
             ),
             allowedContentTypes: [
                 UTType(filenameExtension: "hwp") ?? .pdf,
@@ -68,10 +74,10 @@ struct InputSchoolLifeInfoView: View {
         ) { result in
             switch result {
             case let .success(url):
-                print(url)
+                intent.hwpFileDidSelect(url: url)
 
-            case let .failure(error):
-                print(error.localizedDescription)
+            case .failure:
+                intent.failedToImportHWPFile()
             }
         }
     }
