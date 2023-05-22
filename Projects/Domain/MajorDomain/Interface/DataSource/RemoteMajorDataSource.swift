@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol RemoteStudentDataSource {
+public protocol RemoteMajorDataSource {
     func fetchList() async throws -> [String]
 }
