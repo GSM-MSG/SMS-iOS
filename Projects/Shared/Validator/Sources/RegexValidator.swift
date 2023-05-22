@@ -16,7 +16,7 @@ public struct RegexValidator: Validator {
     }
 
     public func validate(_ value: String) -> Bool {
-        guard let regex = try? NSRegularExpression(
+        guard !value.isEmpty, let regex = try? NSRegularExpression(
             pattern: regexPattern,
             options: regexOptions
         ) else { return false }

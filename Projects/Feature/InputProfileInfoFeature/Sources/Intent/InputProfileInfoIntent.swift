@@ -1,5 +1,7 @@
+import DesignSystem
 import Foundation
 import InputProfileInfoFeatureInterface
+import Validator
 
 final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     private weak var model: (any InputProfileInfoActionProtocol)?
@@ -41,7 +43,47 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateIsPresentedMajorSheet(isPresented: false)
     }
 
-    func nextButtonDidTap() {
+    func imagePickerIsRequired() {
+        model?.updateIsPresentedImagePicker(isPresented: true)
+    }
+
+    func imagePickerDismissed() {
+        model?.updateIsPresentedImagePicker(isPresented: false)
+    }
+
+    func imageDidSelected(imageResult: PickedImageResult?) {
+        model?.updateProfileImage(imageResult: imageResult)
+    }
+
+    func nextButtonDidTap(state: any InputProfileInfoStateProtocol) {
+        var errorSet = Set<InputProfileErrorField>()
+        if state.profileImage == nil {
+            errorSet.insert(.profile)
+        }
+
+        let stringSizeValidator = StringSizeValidator(min: 1, max: 50)
+        if !stringSizeValidator.validate(state.introduce) {
+            errorSet.insert(.introduce)
+        }
+
+        let emailValidator = EmailValidator()
+        if !emailValidator.validate(state.email) {
+            errorSet.insert(.email)
+        }
+
+        if state.major.isEmpty {
+            errorSet.insert(.major)
+        }
+
+        let urlValidator = URLValidator()
+        if !urlValidator.validate(state.portfolioURL) {
+            errorSet.insert(.portfoilo)
+        }
+
+        model?.updateErrorFieldSet(set: errorSet)
+        guard errorSet.isEmpty else {
+            return
+        }
         inputProfileDelegate?.completeToInputProfile()
     }
 }

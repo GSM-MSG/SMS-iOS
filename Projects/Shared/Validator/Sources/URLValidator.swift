@@ -2,7 +2,7 @@ import Foundation
 
 public struct URLValidator: Validator {
     private let regexValidator = RegexValidator(
-        pattern: "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#()?&//=]*)"
+        pattern: "^(http(s)?:\\/\\/)([a-z0-9\\w]+\\.*)+[a-z0-9]{2,6}$"
     )
 
     public init() {}
@@ -10,5 +10,4 @@ public struct URLValidator: Validator {
     public func validate(_ value: String) -> Bool {
         regexValidator.validate(value)
     }
-
 }
