@@ -16,7 +16,7 @@ struct InputInformationPageWrapView<Selection: Hashable, Content: View>: View {
         TabView(selection: $selection) {
             content
                 .contentShape(Rectangle())
-                .gesture(DragGesture())
+                .simultaneousGesture(DragGesture())
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
     }
