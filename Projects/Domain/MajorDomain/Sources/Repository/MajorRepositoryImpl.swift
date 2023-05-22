@@ -1,9 +1,14 @@
-//
-//  MajorRepositoryInpl.swift
-//  MajorDomainInterface
-//
-//  Created by sunghun on 2023/05/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
+import MajorDomainInterface
 import Foundation
+
+struct MajorRepositoryImpl: MajorRepository {
+    private let remoteMajorDataSource: any RemoteMajorDataSource
+
+    init(remoteMajorDataSource: any RemoteMajorDataSource) {
+        self.remoteMajorDataSource = remoteMajorDataSource
+    }
+
+    func fetchList() async throws -> [String] {
+        try await remoteMajorDataSource.fetchList()
+    }
+}
