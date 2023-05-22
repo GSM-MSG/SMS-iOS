@@ -54,13 +54,7 @@ public struct RadioTag<T: Hashable>: ViewModifier {
     }
 
     public func body(content: Content) -> some View {
-        Button {
-            value.selection = tag
-            value.onTapReceive?(tag)
-        } label: {
-            content
-        }
-        .buttonStyle(.plain)
+        content
     }
 }
 
