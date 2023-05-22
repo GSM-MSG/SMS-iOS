@@ -44,7 +44,7 @@ struct InputProfileInfoView: View {
                         .titleWrapper("이메일")
 
                         SMSTextField(
-                            "Frontend",
+                            "전공 분야 선택",
                             text: Binding(get: { state.major }, set: intent.updateMajor(major:))
                         )
                         .disabled(true)
