@@ -15,7 +15,8 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 }
 
 extension InputInformationIntent: InputProfileDelegate {
-    func completeToInputProfile() {
+    func completeToInputProfile(input: InputProfileInformationObject) {
+        model?.updateInputProfileInformationObject(object: input)
         model?.nextButtonDidTap()
     }
 }

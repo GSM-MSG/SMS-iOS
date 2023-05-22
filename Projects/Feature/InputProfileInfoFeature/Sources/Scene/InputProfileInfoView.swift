@@ -19,33 +19,57 @@ struct InputProfileInfoView: View {
                     pageTitleView()
 
                     VStack(alignment: .leading, spacing: 24) {
-                        ZStack(alignment: .bottomTrailing) {
-                            SMSIcon(.profile, width: 100, height: 100)
-
-                            SMSIcon(.profileSmallPlus)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 7)
-                                        .strokeBorder(Color.sms(.system(.white)), lineWidth: 4)
+                        VStack(alignment: .leading, spacing: 8) {
+                            ZStack(alignment: .bottomTrailing) {
+                                if let profileImage = state.profileImage {
+                                    Image(uiImage: profileImage.uiImage)
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(4)
+                                } else {
+                                    SMSIcon(.profile, width: 100, height: 100)
                                 }
-                                .offset(x: 5, y: 4)
+
+                                SMSIcon(.profileSmallPlus)
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 7)
+                                            .strokeBorder(Color.sms(.system(.white)), lineWidth: 4)
+                                    }
+                                    .offset(x: 5, y: 4)
+                            }
+                            .titleWrapper("사진")
+                            .buttonWrapper {
+                                intent.imagePickerIsRequired()
+                            }
+
+                            if state.inputProfileErrorFieldSet.contains(.profile) {
+                                SMSText("이미지를 선택해주세요", font: .caption1)
+                                    .foregroundColor(.sms(.system(.error)))
+                            }
                         }
-                        .titleWrapper("사진")
 
                         SMSTextField(
-                            "1줄 자기소개입력",
-                            text: Binding(get: { state.introduce }, set: intent.updateIntroduce(introduce:))
+                            "1줄 자기소개 입력",
+                            text: Binding(get: { state.introduce }, set: intent.updateIntroduce(introduce:)),
+                            errorText: "1글자에서 50글자 사이로 입력해주세요",
+                            isError: state.inputProfileErrorFieldSet.contains(.introduce)
                         )
                         .titleWrapper("자기소개")
 
                         SMSTextField(
-                            "공개용 이메일입력",
-                            text: Binding(get: { state.email }, set: intent.updateEmail(email:))
+                            "공개용 이메일 입력",
+                            text: Binding(get: { state.email }, set: intent.updateEmail(email:)),
+                            errorText: "이메일 형식에 맞게 입력해주세요",
+                            isError: state.inputProfileErrorFieldSet.contains(.email)
                         )
                         .titleWrapper("이메일")
 
                         SMSTextField(
                             "전공 분야 선택",
-                            text: Binding(get: { state.major }, set: intent.updateMajor(major:))
+                            text: Binding(get: { state.major }, set: intent.updateMajor(major:)),
+                            errorText: "전공 분야를 선택해주세요",
+                            isError: state.inputProfileErrorFieldSet.contains(.major),
+                            isOnClear: false
                         )
                         .disabled(true)
                         .overlay(alignment: .trailing) {
@@ -58,8 +82,10 @@ struct InputProfileInfoView: View {
                         }
 
                         SMSTextField(
-                            "https",
-                            text: Binding(get: { state.portfolioURL }, set: intent.updatePortfolioURL(portfolioURL:))
+                            "예시) https://github.com/",
+                            text: Binding(get: { state.portfolioURL }, set: intent.updatePortfolioURL(portfolioURL:)),
+                            errorText: "URL 형식에 맞게 입력해주세요",
+                            isError: state.inputProfileErrorFieldSet.contains(.portfoilo)
                         )
                         .titleWrapper("포트폴리오 URL")
 
@@ -71,13 +97,25 @@ struct InputProfileInfoView: View {
                     }
 
                     CTAButton(text: "다음") {
-                        intent.nextButtonDidTap()
+                        intent.nextButtonDidTap(state: state)
                     }
                     .padding(.bottom, 32)
                 }
                 .padding([.top, .horizontal], 20)
             }
         }
+        .hideKeyboardWhenTap()
+        .imagePicker(
+            isShow: Binding(
+                get: { state.isPresentedImagePicker },
+                set: { _ in intent.imagePickerDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { state.profileImage },
+                set: { intent.imageDidSelected(imageResult: $0) }
+            ),
+            filter: .images
+        )
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedMajorSheet },
