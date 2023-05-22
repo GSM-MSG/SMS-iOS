@@ -25,7 +25,9 @@ struct InputSchoolLifeInfoView: View {
                             text: Binding(
                                 get: { state.authenticationScroe },
                                 set: intent.updateAuthenticationScore(score:)
-                            )
+                            ),
+                            errorText: "인증제 점수를 입력해주세요",
+                            isError: state.errorField.contains(.gsmAuthentication)
                         )
                         .keyboardType(.numberPad)
                         .titleWrapper("인증제 점수")
@@ -35,7 +37,9 @@ struct InputSchoolLifeInfoView: View {
                             text: Binding(
                                 get: { state.hwpFilename },
                                 set: { _ in }
-                            )
+                            ),
+                            errorText: "hwp, hwpx 확장자인 파일만 가능해요",
+                            isError: state.errorField.contains(.hwp)
                         )
                         .disabled(true)
                         .titleWrapper("드림북")
