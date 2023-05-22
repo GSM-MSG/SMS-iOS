@@ -1,7 +1,7 @@
+import BaseDomain
+import Emdpoint
 import FileDomainInterface
 import Foundation
-import Emdpoint
-import BaseDomain
 
 enum FileEndpoint {
     case dreamBookUpload(file: Data, fileName: String)
@@ -9,6 +9,10 @@ enum FileEndpoint {
 
 extension FileEndpoint: SMSEndpoint {
     typealias ErrorType = FileDomainError
+
+    var domain: SMSDomain {
+        .file
+    }
 
     var route: Route {
         switch self {
