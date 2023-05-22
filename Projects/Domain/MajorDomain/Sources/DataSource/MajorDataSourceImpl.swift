@@ -1,9 +1,8 @@
-//
-//  MajorDataSourceImpl.swift
-//  MajorDomainInterface
-//
-//  Created by sunghun on 2023/05/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import AuthDomainInterface
+import BaseDomain
 
-import Foundation
+final class RemoteMajorDataSourceImpl: BaseRemoteDataSource<MajorEndpoint>, RemoteMajorDataSource {
+    func fetchList() async throws -> [String] {
+        try await request(.fetchList, dto: MajorListResponseDTO.self).major
+    }
+}
