@@ -9,10 +9,14 @@ enum AuthEndpoint {
 extension AuthEndpoint: SMSEndpoint {
     typealias ErrorType = AuthDomainError
 
+    var domain: SMSDomain {
+        .auth
+    }
+
     var route: Route {
         switch self {
         case .signin:
-            return .post("/auth")
+            return .post("")
         }
     }
 
