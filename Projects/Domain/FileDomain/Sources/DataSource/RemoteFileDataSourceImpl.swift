@@ -1,9 +1,9 @@
-//
-//  RemoteFileDataSourceImpl.swift
-//  FileDomainInterface
-//
-//  Created by sunghun on 2023/05/22.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
+import FileDomainInterface
 import Foundation
+import BaseDomain
+
+final class RemoteFileDataSourceImpl: BaseRemoteDataSource<FileEndpoint>, RemoteFileDataSource {
+    func dreamBookUpload(file: Data) async throws -> String {
+        try await request(.dreamBookUpload(file: file), dto: DreamBookUploadResponseDTO.self).fileUrl
+    }
+}
