@@ -42,6 +42,7 @@ extension FileEndpoint: SMSEndpoint {
         switch self {
         case .dreamBookUpload:
             return [
+                400: .notHwpFile,
                 500: .internalServerError
             ]
         }
