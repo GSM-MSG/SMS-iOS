@@ -1,9 +1,19 @@
-//
-//  MajorComponent.swift
-//  MajorDomainInterface
-//
-//  Created by sunghun on 2023/05/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import NeedleFoundation
+import MajorDomainInterface
+import JwtStoreInterface
 
-import Foundation
+public protocol MajorDomainDependency: Dependency {
+    var jwtStoreBuildable: any JwtStoreBuildable { get }
+}
+
+public final class MajorDomainComponent: Component<MajorDomainDependency>, MajorDomainBuildable {
+    public var fetchListUseCase: any FetchListUseCase {
+        FetchListUseCaseImpl(majorRepository: majorRepository)
+    }
+    public var majorRepository: any MajorRepository {
+        MajorRepositoryImpl(remoteMajorDataSource: remoteMajorDataSource)
+    }
+    var remoteMajorDataSource: any RemoteMajorDataSource {
+        RemoteMajorDataSourceImpl(jwtStore: dependency.jwtStoreBuildable.jwtStore)
+    }
+}
