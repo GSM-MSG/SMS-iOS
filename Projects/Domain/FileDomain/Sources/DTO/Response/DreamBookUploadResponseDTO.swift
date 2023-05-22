@@ -1,5 +1,5 @@
 import Foundation
 
-struct DreamBookUploadResponseDTO: Decodable {
-    let isExist: Bool
+public struct DreamBookUploadResponseDTO: Decodable {
+    public let fileUrl: String
 }
