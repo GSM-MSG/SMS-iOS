@@ -4,6 +4,7 @@ import AuthDomain
 import AuthDomainInterface
 import BaseDomain
 import BaseFeature
+import FileDomain
 import FileDomainInterface
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
@@ -180,6 +181,19 @@ private class InputProfileInfoDependencydedc6189ad35e7ff3001Provider: InputProfi
 private func factoryb3d74d9bff60efbc0282e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputProfileInfoDependencydedc6189ad35e7ff3001Provider()
 }
+private class FileDomainDependency2b4ac3753c2aa3928546Provider: FileDomainDependency {
+    var jwtStoreBuildable: any JwtStoreBuildable {
+        return appComponent.jwtStoreBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->FileDomainComponent
+private func factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return FileDomainDependency2b4ac3753c2aa3928546Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class StudentDomainDependency71a7287ffa1377bc3ca1Provider: StudentDomainDependency {
     var jwtStoreBuildable: any JwtStoreBuildable {
         return appComponent.jwtStoreBuildable
@@ -275,6 +289,11 @@ extension InputProfileInfoComponent: Registration {
 
     }
 }
+extension FileDomainComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\FileDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
+    }
+}
 extension StudentDomainComponent: Registration {
     public func registerItems() {
         keyPathToName[\StudentDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
@@ -313,6 +332,7 @@ private func register1() {
     registerProviderFactory("^->AppComponent->InputInformationComponent", factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->FileDomainComponent", factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)
 }
