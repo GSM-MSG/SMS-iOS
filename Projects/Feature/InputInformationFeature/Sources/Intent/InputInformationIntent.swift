@@ -26,7 +26,7 @@ extension InputInformationIntent: InputSchoolLifeDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputSchoolLife() {
+    func completeToInputSchoolLife(input: InputSchoolLifeInformationObject) {
         model?.nextButtonDidTap()
     }
 }
