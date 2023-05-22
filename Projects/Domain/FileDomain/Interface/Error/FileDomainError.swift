@@ -9,7 +9,7 @@ extension FileDomainError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .notHwpFile:
-            return "hwp 파일이 아니거나 hwpx 파일이 아닙니다."
+            return "파일 형식이 hwp 혹은 hwpx인 파일이 아닙니다."
 
         case .internalServerError:
             return "서버에서 문제가 발생하였습니다. 지속될 시 문의해주세요."
