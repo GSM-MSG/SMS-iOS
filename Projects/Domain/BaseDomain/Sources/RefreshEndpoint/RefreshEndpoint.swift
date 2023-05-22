@@ -6,8 +6,12 @@ enum RefreshEndpoint: SMSEndpoint {
 }
 
 extension RefreshEndpoint {
+    var domain: SMSDomain {
+        .auth
+    }
+
     var route: Route {
-        return .patch("auth")
+        return .patch("")
     }
 
     var task: HTTPTask {
