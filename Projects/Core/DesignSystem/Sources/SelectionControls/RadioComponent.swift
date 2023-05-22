@@ -19,7 +19,7 @@ public struct RadioComponent<T: Hashable, Content: View>: View {
     }
 }
 
-class RadioValue<T: Hashable>: ObservableObject {
+final class RadioValue<T: Hashable>: ObservableObject {
     typealias TapReceiveAction = (T?) -> Void
 
     @Binding var selection: T?

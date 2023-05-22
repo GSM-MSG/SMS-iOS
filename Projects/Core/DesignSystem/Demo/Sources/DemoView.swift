@@ -12,9 +12,9 @@ public struct DemoView: View {
                     ForEach(0..<4) { index in
                         HStack {
                             SMSSelectionControls(tag: index)
+                                .radioTag(index)
                             Text("asdfasdf")
                         }
-                        .radioTag(index)
                     }
                 }
             }
