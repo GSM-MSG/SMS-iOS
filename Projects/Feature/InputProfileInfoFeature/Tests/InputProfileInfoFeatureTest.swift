@@ -4,7 +4,7 @@ import XCTest
 @testable import InputProfileInfoFeature
 
 final class DummyInputProfileDelegate: InputProfileDelegate {
-    func completeToInputProfile() {}
+    func completeToInputProfile(input: InputProfileInformationObject) {}
 }
 final class InputProfileInfoFeatureTests: XCTestCase {
     var model: InputProfileInfoModel!
