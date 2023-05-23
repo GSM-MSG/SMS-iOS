@@ -8,6 +8,7 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var inputProfileInformationObject: InputProfileInformationObject?
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
     var inputWorkInfomationObject: InputWorkInformationObject?
+    var certificates: [String] = []
 }
 
 extension InputInformationModel: InputInformationActionProtocol {
@@ -35,5 +36,9 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateInputWorkInformationObject(object: InputWorkInformationObject) {
         self.inputWorkInfomationObject = object
+    }
+
+    func updateCertificates(certificates: [String]) {
+        self.certificates = certificates
     }
 }

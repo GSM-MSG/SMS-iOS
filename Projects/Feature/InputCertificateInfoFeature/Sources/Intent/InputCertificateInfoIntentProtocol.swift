@@ -5,5 +5,5 @@ protocol InputCertificateInfoIntentProtocol {
     func deleteCertificateColumn(at index: Int)
     func certificateAppendButtonDidTap()
     func prevButtonDidTap()
-    func nextButtonDidTap()
+    func nextButtonDidTap(certificates: [String])
 }

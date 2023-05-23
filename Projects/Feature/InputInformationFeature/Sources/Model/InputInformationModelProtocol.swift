@@ -17,6 +17,7 @@ protocol InputInformationStateProtocol {
     var inputProfileInformationObject: InputProfileInformationObject? { get }
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject? { get }
     var inputWorkInfomationObject: InputWorkInformationObject? { get }
+    var certificates: [String] { get }
 }
 
 protocol InputInformationActionProtocol: AnyObject {
@@ -25,4 +26,5 @@ protocol InputInformationActionProtocol: AnyObject {
     func updateInputProfileInformationObject(object: InputProfileInformationObject)
     func updateInputSchoolLifeInformationObject(object: InputSchoolLifeInformationObject)
     func updateInputWorkInformationObject(object: InputWorkInformationObject)
+    func updateCertificates(certificates: [String])
 }
