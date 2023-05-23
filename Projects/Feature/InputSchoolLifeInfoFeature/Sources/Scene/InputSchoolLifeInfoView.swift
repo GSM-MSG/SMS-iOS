@@ -23,7 +23,7 @@ struct InputSchoolLifeInfoView: View {
                         SMSTextField(
                             "인증제 점수 입력",
                             text: Binding(
-                                get: { state.authenticationScroe },
+                                get: { state.authenticationScore },
                                 set: intent.updateAuthenticationScore(score:)
                             ),
                             errorText: "인증제 점수를 입력해주세요",
