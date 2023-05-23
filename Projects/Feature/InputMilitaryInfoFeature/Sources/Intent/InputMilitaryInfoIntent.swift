@@ -18,8 +18,8 @@ final class InputMilitaryInfoIntent: InputMilitaryInfoIntentProtocol {
         militaryDelegate?.militaryPrevButtonDidTap()
     }
 
-    func nextButtonDidTap() {
-        militaryDelegate?.completeToInputMilitary()
+    func nextButtonDidTap(type: MilitaryServiceType) {
+        militaryDelegate?.completeToInputMilitary(militaryServiceType: type.rawValue)
     }
 
     func militarySheetIsRequired() {

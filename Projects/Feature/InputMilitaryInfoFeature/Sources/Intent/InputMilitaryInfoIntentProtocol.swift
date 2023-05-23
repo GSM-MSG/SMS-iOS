@@ -6,5 +6,5 @@ protocol InputMilitaryInfoIntentProtocol {
     func militarySheetDismissed()
     func militaryServiceTypeDidSelected(type: MilitaryServiceType)
     func prevButtonDidTap()
-    func nextButtonDidTap()
+    func nextButtonDidTap(type: MilitaryServiceType)
 }

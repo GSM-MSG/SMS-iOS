@@ -48,7 +48,7 @@ struct InputMilitaryInfoView: View {
                         .frame(maxWidth: proxy.size.width / 3)
 
                         CTAButton(text: "다음") {
-                            intent.nextButtonDidTap()
+                            intent.nextButtonDidTap(type: state.selectedMilitaryServiceType)
                         }
                         .frame(maxWidth: .infinity)
                     }
