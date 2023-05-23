@@ -12,4 +12,6 @@ protocol InputInformationIntentProtocol:
     InputWorkDelegate,
     InputMilitaryDelegate,
     InputCertificateDelegate,
-    InputLanguageDelegate {}
+    InputLanguageDelegate {
+    func completeToInputAllInfo(state: any InputInformationStateProtocol)
+}
