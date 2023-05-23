@@ -41,20 +41,21 @@ final class InputSchoolLifeInfoIntent: InputSchoolLifeInfoIntentProtocol {
     func nextButtonDidTap(state: any InputSchoolLifeInfoStateProtocol) {
         var errorSet = Set<InputSchoolLifeErrorField>()
 
-        if Int(state.authenticationScroe) != nil {
+        if Int(state.authenticationScore) == nil || state.authenticationScore.isEmpty {
             errorSet.insert(.gsmAuthentication)
         }
 
-        if state.hwpFileURL != nil {
+        if state.hwpFileURL == nil {
             errorSet.insert(.hwp)
         }
 
+        model?.updateErrorField(field: errorSet)
         guard
-            let gsmScore = Int(state.authenticationScroe),
+            let gsmScore = Int(state.authenticationScore),
             let hwpURL = state.hwpFileURL,
-            let hwpData = try? Data(contentsOf: hwpURL)
+            let hwpData = try? Data(contentsOf: hwpURL),
+            errorSet.isEmpty
         else {
-            model?.updateErrorField(field: errorSet)
             return
         }
 

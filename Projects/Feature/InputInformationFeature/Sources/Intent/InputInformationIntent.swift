@@ -36,7 +36,8 @@ extension InputInformationIntent: InputWorkDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputWork() {
+    func completeToInputWork(input: InputWorkInformationObject) {
+        model?.updateInputWorkInformationObject(object: input)
         model?.nextButtonDidTap()
     }
 }

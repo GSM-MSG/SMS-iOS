@@ -3,11 +3,10 @@ import ProjectDescriptionHelpers
 import DependencyPlugin
 
 let project = Project.makeModule(
-    name: ModulePaths.Feature.InputWorkInfoFeature.rawValue,
+    name: ModulePaths.Domain.FileDomain.rawValue,
     product: .staticLibrary,
-    targets: [.interface, .unitTest],
+    targets: [.interface, .testing, .unitTest],
     internalDependencies: [
-        .Feature.BaseFeature,
-        .Domain.StudentDomainInterface
+        .Domain.BaseDomain
     ]
 )
