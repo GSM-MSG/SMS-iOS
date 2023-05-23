@@ -10,4 +10,12 @@ final class RemoteFileDataSourceImpl: BaseRemoteDataSource<FileEndpoint>, Remote
         )
         .fileURL
     }
+
+    func imageUpload(image: Data, fileName: String) async throws -> String {
+        try await request(
+            .imageUpload(image: image, fileName: fileName),
+            dto: ImageUploadResponseDTO.self
+        )
+        .fileURL
+    }
 }
