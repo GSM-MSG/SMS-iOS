@@ -24,6 +24,8 @@ import JwtStore
 import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
+import MajorDomain
+import MajorDomainInterface
 import NeedleFoundation
 import RootFeature
 import SigninFeature
@@ -220,6 +222,19 @@ private class AuthDomainDependency4518b8977185a5c9ff71Provider: AuthDomainDepend
 private func factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return AuthDomainDependency4518b8977185a5c9ff71Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class MajorDomainDependency4dd341ec0ebe68acad8bProvider: MajorDomainDependency {
+    var jwtStoreBuildable: any JwtStoreBuildable {
+        return appComponent.jwtStoreBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->MajorDomainComponent
+private func factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MajorDomainDependency4dd341ec0ebe68acad8bProvider(appComponent: parent1(component) as! AppComponent)
+}
 
 #else
 extension JwtStoreComponent: Registration {
@@ -304,6 +319,11 @@ extension AuthDomainComponent: Registration {
         keyPathToName[\AuthDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
     }
 }
+extension MajorDomainComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\MajorDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
+    }
+}
 
 
 #endif
@@ -335,6 +355,7 @@ private func register1() {
     registerProviderFactory("^->AppComponent->FileDomainComponent", factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->MajorDomainComponent", factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5)
 }
 #endif
 
