@@ -6,12 +6,21 @@ import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
 import StudentDomainInterface
+import FileDomainInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
+    private let dreamBookUploadUseCase: any DreamBookUploadUseCase
+    private let imageUploadUseCase: any ImageUploadUseCase
 
-    init(model: any InputInformationActionProtocol) {
+    init(
+        model: any InputInformationActionProtocol,
+        dreamBookUploadUseCase: any DreamBookUploadUseCase,
+        imageUploadUseCase: any ImageUploadUseCase
+    ) {
         self.model = model
+        self.dreamBookUploadUseCase = dreamBookUploadUseCase
+        self.imageUploadUseCase = imageUploadUseCase
     }
 
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {

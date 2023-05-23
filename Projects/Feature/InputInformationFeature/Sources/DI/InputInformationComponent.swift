@@ -1,11 +1,12 @@
 import BaseFeature
+import FileDomainInterface
+import InputCertificateInfoFeatureInterface
 import InputInformationFeatureInterface
+import InputLanguageInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
-import InputMilitaryInfoFeatureInterface
-import InputCertificateInfoFeatureInterface
-import InputLanguageInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
 
@@ -16,6 +17,7 @@ public protocol InputInformationDependency: Dependency {
     var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable { get }
     var inputCertificateInfoBuildable: any InputCertificateInfoBuildable { get }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable { get }
+    var fileDomainBuildable: any FileDomainBuildable { get }
 }
 
 public final class InputInformationComponent:
@@ -24,7 +26,11 @@ public final class InputInformationComponent:
 
     public func makeView() -> some View {
         let model = InputInformationModel()
-        let intent = InputInformationIntent(model: model)
+        let intent = InputInformationIntent(
+            model: model,
+            dreamBookUploadUseCase: dependency.fileDomainBuildable.dreamBookUploadUseCase,
+            imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase
+        )
         let container = MVIContainer(
             intent: intent as InputInformationIntentProtocol,
             model: model as InputInformationStateProtocol,
