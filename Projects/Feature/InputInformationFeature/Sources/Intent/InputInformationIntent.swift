@@ -5,6 +5,7 @@ import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
+import StudentDomainInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -47,7 +48,9 @@ extension InputInformationIntent: InputMilitaryDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputMilitary() {
+    func completeToInputMilitary(militaryServiceType: String) {
+        let militaryServiceTypeEnum = MilitaryServiceType(rawValue: militaryServiceType) ?? .hope
+        model?.updateMilitaryServiceType(type: militaryServiceTypeEnum)
         model?.nextButtonDidTap()
     }
 }

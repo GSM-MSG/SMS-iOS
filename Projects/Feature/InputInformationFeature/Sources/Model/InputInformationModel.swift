@@ -2,12 +2,14 @@ import Foundation
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import StudentDomainInterface
 
 final class InputInformationModel: ObservableObject, InputInformationStateProtocol {
     @Published var phase: InformationPhase = .profile
     var inputProfileInformationObject: InputProfileInformationObject?
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
     var inputWorkInfomationObject: InputWorkInformationObject?
+    var militaryServiceType: MilitaryServiceType?
 }
 
 extension InputInformationModel: InputInformationActionProtocol {
@@ -35,5 +37,9 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateInputWorkInformationObject(object: InputWorkInformationObject) {
         self.inputWorkInfomationObject = object
+    }
+
+    func updateMilitaryServiceType(type: MilitaryServiceType) {
+        self.militaryServiceType = type
     }
 }
