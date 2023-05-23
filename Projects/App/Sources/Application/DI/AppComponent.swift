@@ -2,6 +2,8 @@ import AuthDomain
 import AuthDomainInterface
 import StudentDomain
 import StudentDomainInterface
+import FileDomain
+import FileDomainInterface
 import MajorDomain
 import MajorDomainInterface
 import BaseDomain
@@ -80,6 +82,10 @@ final class AppComponent: BootstrapComponent {
 
     var majorDomainBuildable: any MajorDomainBuildable {
         MajorDomainComponent(parent: self)
+    }
+
+    var fileDomainBuildable: any FileDomainBuildable {
+        FileDomainComponent(parent: self)
     }
 
     var jwtStoreBuildable: any JwtStoreBuildable {
