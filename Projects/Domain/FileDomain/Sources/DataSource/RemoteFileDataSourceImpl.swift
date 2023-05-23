@@ -6,6 +6,8 @@ final class RemoteFileDataSourceImpl: BaseRemoteDataSource<FileEndpoint>, Remote
     func dreamBookUpload(file: Data, fileName: String) async throws -> String {
         try await request(
             .dreamBookUpload(file: file, fileName: fileName),
-            dto: DreamBookUploadResponseDTO.self).fileURL
+            dto: DreamBookUploadResponseDTO.self
+        )
+        .fileURL
     }
 }
