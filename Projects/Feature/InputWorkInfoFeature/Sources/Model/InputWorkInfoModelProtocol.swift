@@ -4,6 +4,7 @@ import StudentDomainInterface
 protocol InputWorkInfoStateProtocol {
     var workRegionList: [String] { get }
     var salary: String { get }
+    var salaryDisplay: String { get }
     var formOfEmployment: FormOfEmployment { get }
     var isPresentedFormOfEmployeementSheet: Bool { get }
 }

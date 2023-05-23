@@ -41,7 +41,7 @@ struct InputWorkInfoView: View {
                                 intent.formOfEmployeementSheetIsRequired()
                             }
 
-                            VStack(alignment: .leading, spacing: 8) {
+                            VStack(alignment: .leading, spacing: 4) {
                                 SMSTextField(
                                     "희망 연봉 (10,000원 단위)",
                                     text: Binding(
@@ -50,8 +50,8 @@ struct InputWorkInfoView: View {
                                     )
                                 )
 
-                                SMSText("\(state.salary)만원", font: .caption1)
-                                    .foregroundColor(.sms(.neutral(.n30)))
+                                Text(state.salaryDisplay)
+                                    .smsFont(.caption1, color: .neutral(.n30))
                             }
                             .titleWrapper("희망 연봉")
 

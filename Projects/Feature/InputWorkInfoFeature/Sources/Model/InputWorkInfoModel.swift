@@ -3,10 +3,19 @@ import FoundationUtil
 import StudentDomainInterface
 
 final class InputWorkInfoModel: ObservableObject, InputWorkInfoStateProtocol {
+    private let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
     @Published var workRegionList: [String] = [""]
     @Published var salary: String = ""
     @Published var formOfEmployment: FormOfEmployment = .fullTime
     @Published var isPresentedFormOfEmployeementSheet: Bool = false
+    var salaryDisplay: String {
+        guard !salary.isEmpty else { return "상관없음" }
+        return "\(numberFormatter.string(for: Int(salary)) ?? "0") 만원"
+    }
 }
 
 extension InputWorkInfoModel: InputWorkInfoActionProtocol {
@@ -24,7 +33,7 @@ extension InputWorkInfoModel: InputWorkInfoActionProtocol {
     }
 
     func updateSalary(salary: String) {
-        self.salary = salary
+        self.salary = Int(salary).map { String(min($0, 9999)) } ?? salary
     }
 
     func updateFormOfEmployment(form: FormOfEmployment) {
