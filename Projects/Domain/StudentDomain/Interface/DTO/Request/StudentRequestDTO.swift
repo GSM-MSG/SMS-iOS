@@ -9,7 +9,7 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let introduce: String
     public let languageCertificate: [LanguageCertificate]
     public let major: String
-    public let militaryService: MilitaryService
+    public let militaryService: MilitaryServiceType
     public let portfolioUrl: String
     public let profileImgUrl: String
     public let region: [String]
@@ -26,7 +26,7 @@ public struct InputStudentInformationRequestDTO: Encodable {
         introduce: String,
         languageCertificate: [LanguageCertificate],
         major: String,
-        militaryService: MilitaryService,
+        militaryService: MilitaryServiceType,
         portfolioUrl: String,
         profileImgUrl: String,
         region: [String],
