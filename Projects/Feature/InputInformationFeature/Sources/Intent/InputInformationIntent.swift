@@ -34,6 +34,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
             let militaryServiceType = state.militaryServiceType
         else { return }
 
+        model?.updateIsLoading(isLoading: true)
         Task {
             do {
                 async let profileImageURL = imageUploadUseCase.execute(
@@ -48,7 +49,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 let inputInformationRequest = try await InputStudentInformationRequestDTO(
                     certificate: state.certificates,
                     contactEmail: inputProfileInfo.contactEmail,
-                    dreamBookFileURL: profileImageURL,
+                    dreamBookFileURL: dreamBookURL,
                     formOfEmployment: FormOfEmployment(rawValue: inputWorkInfo.formOfEmployment) ?? .fullTime,
                     gsmAuthenticationScore: inputSchoolLifeInfo.gsmAuthenticationScore,
                     introduce: inputProfileInfo.introduce,
@@ -63,8 +64,9 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 )
 
                 try await inputInformationUseCase.execute(req: inputInformationRequest)
+                model?.updateIsLoading(isLoading: false)
             } catch {
-                print(error.localizedDescription)
+                model?.updateIsLoading(isLoading: false)
             }
         }
     }
