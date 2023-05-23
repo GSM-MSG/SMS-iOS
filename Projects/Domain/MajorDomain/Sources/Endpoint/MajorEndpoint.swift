@@ -16,7 +16,7 @@ extension MajorEndpoint: SMSEndpoint {
     var route: Route {
         switch self {
         case .fetchMajorList:
-            return .post("/list")
+            return .post("list")
         }
     }
 
