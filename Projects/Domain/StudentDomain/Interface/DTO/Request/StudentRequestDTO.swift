@@ -10,8 +10,8 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let languageCertificate: [LanguageCertificate]
     public let major: String
     public let militaryService: MilitaryService
-    public let portfolioUrl: String
-    public let profileImgUrl: String
+    public let portfolioURL: String
+    public let profileImgURL: String
     public let region: [String]
     public let salary: Int
     public let stuNum: String
@@ -27,8 +27,8 @@ public struct InputStudentInformationRequestDTO: Encodable {
         languageCertificate: [LanguageCertificate],
         major: String,
         militaryService: MilitaryService,
-        portfolioUrl: String,
-        profileImgUrl: String,
+        portfolioURL: String,
+        profileImgURL: String,
         region: [String],
         salary: Int,
         stuNum: String,
@@ -43,12 +43,30 @@ public struct InputStudentInformationRequestDTO: Encodable {
         self.languageCertificate = languageCertificate
         self.major = major
         self.militaryService = militaryService
-        self.portfolioUrl = portfolioUrl
-        self.profileImgUrl = profileImgUrl
+        self.portfolioURL = portfolioURL
+        self.profileImgURL = profileImgURL
         self.region = region
         self.salary = salary
         self.stuNum = stuNum
         self.techStack = techStack
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case certificate
+        case contactEmail
+        case dreamBookFileURL = "dreamBookFileUrl"
+        case formOfEmployment
+        case gsmAuthenticationScore
+        case introduce
+        case languageCertificate
+        case major
+        case militaryService
+        case portfolioURL = "portfolioUrl"
+        case profileImgURL = "profileImgUrl"
+        case region
+        case salary
+        case stuNum
+        case techStack
     }
 
     public struct LanguageCertificate: Encodable {
