@@ -29,7 +29,10 @@ final class InputCertificateInfoIntent: InputCertificateInfoIntentProtocol {
         certificateDelegate?.certificatePrevButtonDidTap()
     }
 
-    func nextButtonDidTap() {
-        certificateDelegate?.completeToInputCertificate()
+    func nextButtonDidTap(certificates: [String]) {
+        certificateDelegate?.completeToInputCertificate(
+            certificates: certificates
+                .filter { !$0.isEmpty }
+        )
     }
 }

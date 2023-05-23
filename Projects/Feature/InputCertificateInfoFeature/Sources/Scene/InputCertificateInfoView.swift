@@ -43,7 +43,7 @@ struct InputCertificateInfoView: View {
                     .frame(maxWidth: proxy.size.width / 3)
 
                     CTAButton(text: "다음") {
-                        intent.nextButtonDidTap()
+                        intent.nextButtonDidTap(certificates: state.certificates)
                     }
                     .frame(maxWidth: .infinity)
                 }

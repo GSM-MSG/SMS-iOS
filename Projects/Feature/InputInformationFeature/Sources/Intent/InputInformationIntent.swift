@@ -64,7 +64,8 @@ extension InputInformationIntent: InputCertificateDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputCertificate() {
+    func completeToInputCertificate(certificates: [String]) {
+        model?.updateCertificates(certificates: certificates)
         model?.nextButtonDidTap()
     }
 }

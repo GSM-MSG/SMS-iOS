@@ -1,4 +1,4 @@
 public protocol InputCertificateDelegate: AnyObject {
     func certificatePrevButtonDidTap()
-    func completeToInputCertificate()
+    func completeToInputCertificate(certificates: [String])
 }
