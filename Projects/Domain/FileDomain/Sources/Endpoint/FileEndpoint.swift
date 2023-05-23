@@ -5,6 +5,7 @@ import Foundation
 
 enum FileEndpoint {
     case dreamBookUpload(file: Data, fileName: String)
+    case imageUpload(image: Data, fileName: String)
 }
 
 extension FileEndpoint: SMSEndpoint {
@@ -18,6 +19,9 @@ extension FileEndpoint: SMSEndpoint {
         switch self {
         case .dreamBookUpload:
             return .post("")
+
+        case .imageUpload:
+            return .post("/image")
         }
     }
 
@@ -48,6 +52,12 @@ extension FileEndpoint: SMSEndpoint {
         case .dreamBookUpload:
             return [
                 400: .notHwpFile,
+                500: .internalServerError
+            ]
+
+        case .imageUpload:
+            return [
+                400: .notImageType,
                 500: .internalServerError
             ]
         }
