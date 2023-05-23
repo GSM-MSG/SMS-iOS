@@ -54,6 +54,7 @@ extension FileEndpoint: SMSEndpoint {
                 400: .notHwpFile,
                 500: .internalServerError
             ]
+
         case .imageUpload:
             return [
                 400: .notImageType,
