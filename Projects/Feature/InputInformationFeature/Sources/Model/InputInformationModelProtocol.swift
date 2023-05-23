@@ -18,7 +18,7 @@ protocol InputInformationStateProtocol {
     var inputProfileInformationObject: InputProfileInformationObject? { get }
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject? { get }
     var inputWorkInfomationObject: InputWorkInformationObject? { get }
-    var militaryServiceType: MilitaryServiceType { get }
+    var militaryServiceType: MilitaryServiceType? { get }
 }
 
 protocol InputInformationActionProtocol: AnyObject {
