@@ -14,7 +14,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let profileImgURL: String
     public let region: [String]
     public let salary: Int
-    public let stuNum: String
     public let techStack: [String]
 
     public init(
@@ -31,7 +30,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         profileImgURL: String,
         region: [String],
         salary: Int,
-        stuNum: String,
         techStack: [String]
     ) {
         self.certificate = certificate
@@ -47,7 +45,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         self.profileImgURL = profileImgURL
         self.region = region
         self.salary = salary
-        self.stuNum = stuNum
         self.techStack = techStack
     }
 
@@ -65,7 +62,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         case profileImgURL = "profileImgUrl"
         case region
         case salary
-        case stuNum
         case techStack
     }
 
