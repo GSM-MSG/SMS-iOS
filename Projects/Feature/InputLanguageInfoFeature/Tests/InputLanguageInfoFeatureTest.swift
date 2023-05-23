@@ -10,7 +10,7 @@ final class MockInputLanguageDelegate: InputLanguageDelegate {
     }
 
     var completeToInputLanguageCallCount = 0
-    func completeToInputLanguage() {
+    func completeToInputLanguage(languages: [(name: String, score: String)]) {
         completeToInputLanguageCallCount += 1
     }
 }
@@ -71,10 +71,10 @@ final class InputLanguageInfoFeatureTests: XCTestCase {
     }
 
     func test_complete_button_did_Tap() {
-        sut.intent.completeButtonDidTap()
+        sut.intent.completeButtonDidTap(languages: [])
         XCTAssertEqual(languageDelegate.completeToInputLanguageCallCount, 1)
 
-        sut.intent.completeButtonDidTap()
+        sut.intent.completeButtonDidTap(languages: [])
         XCTAssertEqual(languageDelegate.completeToInputLanguageCallCount, 2)
     }
 }

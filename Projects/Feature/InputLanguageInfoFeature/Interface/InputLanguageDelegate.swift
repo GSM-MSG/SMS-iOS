@@ -1,4 +1,4 @@
 public protocol InputLanguageDelegate: AnyObject {
     func languagePrevButtonDidTap()
-    func completeToInputLanguage()
+    func completeToInputLanguage(languages: [(name: String, score: String)])
 }

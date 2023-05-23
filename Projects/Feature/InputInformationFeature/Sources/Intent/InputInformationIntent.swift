@@ -5,6 +5,7 @@ import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
+import StudentDomainInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -67,7 +68,13 @@ extension InputInformationIntent: InputLanguageDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputLanguage() {
-        // TODO: 전체 데이터 서버에 송신
+    func completeToInputLanguage(languages: [(name: String, score: String)]) {
+        let languageCertificates: [InputStudentInformationRequestDTO.LanguageCertificate] = languages
+            .map { .init(languageCertificateName: $0.name, score: $0.score) }
+        model?.updateLanguages(languages: languageCertificates)
     }
+}
+
+private extension InputInformationIntent {
+    
 }
