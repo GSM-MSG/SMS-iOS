@@ -7,6 +7,9 @@ public protocol FileDomainDependency: Dependency {
 }
 
 public final class FileDomainComponent: Component<FileDomainDependency>, FileDomainBuildable {
+    public var imageUploadUseCase: any ImageUploadUseCase {
+        ImageUploadUseCaseImpl(fileRepository: fileRepository)
+    }
     public var dreamBookUploadUseCase: any DreamBookUploadUseCase {
         DreamBookUploadUseCaseImpl(fileRepository: fileRepository)
     }
