@@ -19,6 +19,7 @@ extension FileEndpoint: SMSEndpoint {
         switch self {
         case .dreamBookUpload:
             return .post("")
+
         case .imageUpload:
             return .post("/image")
         }
