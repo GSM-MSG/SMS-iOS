@@ -1,5 +1,6 @@
 import Foundation
 import InputMilitaryInfoFeatureInterface
+import StudentDomainInterface
 
 final class InputMilitaryInfoIntent: InputMilitaryInfoIntentProtocol {
     private weak var model: (any InputMilitaryInfoActionProtocol)?
@@ -27,5 +28,9 @@ final class InputMilitaryInfoIntent: InputMilitaryInfoIntentProtocol {
 
     func militarySheetDismissed() {
         model?.updateIsPresentedMilitarySheet(isPresented: false)
+    }
+
+    func militaryServiceTypeDidSelected(type: MilitaryServiceType) {
+        model?.updateMilitaryServiceType(type: type)
     }
 }

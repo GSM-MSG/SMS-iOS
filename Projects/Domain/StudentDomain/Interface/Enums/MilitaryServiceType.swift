@@ -1,4 +1,4 @@
-public enum MilitaryServiceType: String, Encodable {
+public enum MilitaryServiceType: String, Encodable, CaseIterable {
     case hope = "HOPE"
     case notHope = "NOT_HOPE"
     case noMatter = "NO_MATTER"
