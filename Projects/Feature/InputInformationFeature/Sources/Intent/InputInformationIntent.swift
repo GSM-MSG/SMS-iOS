@@ -12,15 +12,18 @@ final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
     private let dreamBookUploadUseCase: any DreamBookUploadUseCase
     private let imageUploadUseCase: any ImageUploadUseCase
+    private let inputInformationUseCase: any InputInformationUseCase
 
     init(
         model: any InputInformationActionProtocol,
         dreamBookUploadUseCase: any DreamBookUploadUseCase,
-        imageUploadUseCase: any ImageUploadUseCase
+        imageUploadUseCase: any ImageUploadUseCase,
+        inputInformationUseCase: any InputInformationUseCase
     ) {
         self.model = model
         self.dreamBookUploadUseCase = dreamBookUploadUseCase
         self.imageUploadUseCase = imageUploadUseCase
+        self.inputInformationUseCase = inputInformationUseCase
     }
 
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {

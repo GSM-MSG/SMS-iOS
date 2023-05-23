@@ -9,6 +9,7 @@ import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
+import StudentDomainInterface
 
 public protocol InputInformationDependency: Dependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
@@ -18,6 +19,7 @@ public protocol InputInformationDependency: Dependency {
     var inputCertificateInfoBuildable: any InputCertificateInfoBuildable { get }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable { get }
     var fileDomainBuildable: any FileDomainBuildable { get }
+    var studentDomainBuildable: any StudentDomainBuildable { get }
 }
 
 public final class InputInformationComponent:
@@ -29,7 +31,8 @@ public final class InputInformationComponent:
         let intent = InputInformationIntent(
             model: model,
             dreamBookUploadUseCase: dependency.fileDomainBuildable.dreamBookUploadUseCase,
-            imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase
+            imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase,
+            inputInformationUseCase: dependency.studentDomainBuildable.inputInformationUseCase
         )
         let container = MVIContainer(
             intent: intent as InputInformationIntentProtocol,
