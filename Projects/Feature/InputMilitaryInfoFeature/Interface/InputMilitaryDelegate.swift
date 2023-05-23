@@ -1,4 +1,4 @@
 public protocol InputMilitaryDelegate: AnyObject {
     func militaryPrevButtonDidTap()
-    func completeToInputMilitary()
+    func completeToInputMilitary(militaryServiceType: String)
 }

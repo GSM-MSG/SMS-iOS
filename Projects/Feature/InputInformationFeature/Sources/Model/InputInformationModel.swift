@@ -2,6 +2,7 @@ import Foundation
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import StudentDomainInterface
 
 final class InputInformationModel: ObservableObject, InputInformationStateProtocol {
     @Published var phase: InformationPhase = .profile
@@ -9,6 +10,7 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
     var inputWorkInfomationObject: InputWorkInformationObject?
     var certificates: [String] = []
+    var militaryServiceType: MilitaryServiceType?
 }
 
 extension InputInformationModel: InputInformationActionProtocol {
@@ -40,5 +42,9 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateCertificates(certificates: [String]) {
         self.certificates = certificates
+    }
+
+    func updateMilitaryServiceType(type: MilitaryServiceType) {
+        self.militaryServiceType = type
     }
 }

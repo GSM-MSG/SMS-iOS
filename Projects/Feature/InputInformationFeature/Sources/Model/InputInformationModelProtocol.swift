@@ -2,6 +2,7 @@ import Foundation
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import StudentDomainInterface
 
 enum InformationPhase: CaseIterable {
     case profile
@@ -18,6 +19,7 @@ protocol InputInformationStateProtocol {
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject? { get }
     var inputWorkInfomationObject: InputWorkInformationObject? { get }
     var certificates: [String] { get }
+    var militaryServiceType: MilitaryServiceType? { get }
 }
 
 protocol InputInformationActionProtocol: AnyObject {
@@ -27,4 +29,5 @@ protocol InputInformationActionProtocol: AnyObject {
     func updateInputSchoolLifeInformationObject(object: InputSchoolLifeInformationObject)
     func updateInputWorkInformationObject(object: InputWorkInformationObject)
     func updateCertificates(certificates: [String])
+    func updateMilitaryServiceType(type: MilitaryServiceType)
 }
