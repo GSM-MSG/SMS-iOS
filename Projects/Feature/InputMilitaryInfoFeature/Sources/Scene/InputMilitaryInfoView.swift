@@ -1,6 +1,7 @@
 import BaseFeature
 import DesignSystem
 import SwiftUI
+import StudentDomainInterface
 
 struct InputMilitaryInfoView: View {
     @StateObject var container: MVIContainer<InputMilitaryInfoIntentProtocol, InputMilitaryInfoStateProtocol>
@@ -19,16 +20,23 @@ struct InputMilitaryInfoView: View {
                     pageTitleView()
 
                     VStack(spacing: 24) {
-                        SMSTextField("병특 희망", text: .constant(""))
-                            .disabled(true)
-                            .overlay(alignment: .trailing) {
-                                SMSIcon(.downChevron)
-                                    .padding(.trailing, 12)
-                            }
-                            .titleWrapper("병특 희망 여부")
-                            .onTapGesture {
-                                intent.militarySheetIsRequired()
-                            }
+                        SMSTextField(
+                            "병특 희망",
+                            text: Binding(
+                                get: { state.selectedMilitaryServiceType.display() },
+                                set: { _ in }
+                            ),
+                            isOnClear: false
+                        )
+                        .disabled(true)
+                        .overlay(alignment: .trailing) {
+                            SMSIcon(.downChevron)
+                                .padding(.trailing, 12)
+                        }
+                        .titleWrapper("병특 희망 여부")
+                        .onTapGesture {
+                            intent.militarySheetIsRequired()
+                        }
                     }
 
                     Spacer()
@@ -40,7 +48,7 @@ struct InputMilitaryInfoView: View {
                         .frame(maxWidth: proxy.size.width / 3)
 
                         CTAButton(text: "다음") {
-                            intent.nextButtonDidTap()
+                            intent.nextButtonDidTap(type: state.selectedMilitaryServiceType)
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -79,17 +87,22 @@ struct InputMilitaryInfoView: View {
     @ViewBuilder
     func militaryListView() -> some View {
         VStack(spacing: 16) {
-            ForEach(0..<4, id: \.self) { index in
+            ForEach(MilitaryServiceType.allCases, id: \.self) { militaryServiceType in
                 HStack {
-                    Text("\(index)")
+                    Text(militaryServiceType.display())
                         .smsFont(.body1, color: .neutral(.n50))
 
                     Spacer()
 
-                    Circle()
-                        .fill(Color.sms(.primary(.p2)))
-                        .frame(width: 24, height: 24)
+                    SMSSelectionControls(
+                        isSeleted: Binding(
+                            get: { state.selectedMilitaryServiceType == militaryServiceType },
+                            set: { $0 ? intent.militaryServiceTypeDidSelected(type: militaryServiceType) : () }
+                        )
+                    )
+                    .buttonWrapper {}
                 }
+                .animation(.default, value: state.selectedMilitaryServiceType)
                 .padding(.horizontal, 20)
             }
         }

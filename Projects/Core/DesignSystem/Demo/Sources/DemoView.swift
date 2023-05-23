@@ -8,13 +8,13 @@ public struct DemoView: View {
     public var body: some View {
         VStack {
             Group {
-                    ForEach(0..<4) { index in
-                        HStack {
-                            SMSSelectionControls(isSeleted: $isSeleted)
-                            Text("asdfasdf")
-                        }
+                ForEach(0..<4) { index in
+                    HStack {
+                        SMSSelectionControls(isSeleted: $isSeleted)
+                        Text("asdfasdf")
                     }
                 }
+            }
         }
     }
 }

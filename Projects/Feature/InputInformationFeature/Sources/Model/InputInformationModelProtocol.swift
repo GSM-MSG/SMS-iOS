@@ -18,6 +18,7 @@ protocol InputInformationStateProtocol {
     var inputProfileInformationObject: InputProfileInformationObject? { get }
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject? { get }
     var inputWorkInfomationObject: InputWorkInformationObject? { get }
+    var militaryServiceType: MilitaryServiceType? { get }
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] { get }
     var isCompleteToInputAllInfo: Bool { get }
 }
@@ -28,6 +29,7 @@ protocol InputInformationActionProtocol: AnyObject {
     func updateInputProfileInformationObject(object: InputProfileInformationObject)
     func updateInputSchoolLifeInformationObject(object: InputSchoolLifeInformationObject)
     func updateInputWorkInformationObject(object: InputWorkInformationObject)
+    func updateMilitaryServiceType(type: MilitaryServiceType)
     func updateLanguages(languages: [InputStudentInformationRequestDTO.LanguageCertificate])
     func updateIsCompleteToInputAllInfo(isComplete: Bool) 
 }

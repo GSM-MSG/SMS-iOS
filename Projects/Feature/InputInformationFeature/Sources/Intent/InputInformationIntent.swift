@@ -52,7 +52,9 @@ extension InputInformationIntent: InputMilitaryDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputMilitary() {
+    func completeToInputMilitary(militaryServiceType: String) {
+        let militaryServiceTypeEnum = MilitaryServiceType(rawValue: militaryServiceType) ?? .hope
+        model?.updateMilitaryServiceType(type: militaryServiceTypeEnum)
         model?.nextButtonDidTap()
     }
 }

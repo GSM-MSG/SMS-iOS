@@ -10,7 +10,7 @@ final class MockMilitaryDelegate: InputMilitaryDelegate {
     }
 
     var completeToInputMilitaryCallCount = 0
-    func completeToInputMilitary() {
+    func completeToInputMilitary(militaryServiceType: String) {
         completeToInputMilitaryCallCount += 1
     }
 }
@@ -44,10 +44,10 @@ final class InputMilitaryInfoFeatureTests: XCTestCase {
         sut.intent.prevButtonDidTap()
         XCTAssertEqual(mockDelegate.militaryPrevButtonDidTapCallCount, 2)
 
-        sut.intent.nextButtonDidTap()
+        sut.intent.nextButtonDidTap(type: .hope)
         XCTAssertEqual(mockDelegate.completeToInputMilitaryCallCount, 1)
 
-        sut.intent.nextButtonDidTap()
+        sut.intent.nextButtonDidTap(type: .none)
         XCTAssertEqual(mockDelegate.completeToInputMilitaryCallCount, 2)
     }
 }
