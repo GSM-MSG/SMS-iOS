@@ -8,7 +8,7 @@ struct MajorRepositoryImpl: MajorRepository {
         self.remoteMajorDataSource = remoteMajorDataSource
     }
 
-    func fetchList() async throws -> [String] {
-        try await remoteMajorDataSource.fetchList()
+    func fetchMajorList() async throws -> [String] {
+        try await remoteMajorDataSource.fetchMajorList()
     }
 }

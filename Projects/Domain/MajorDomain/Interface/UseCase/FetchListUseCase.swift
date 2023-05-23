@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol FetchListUseCase {
+public protocol FetchMajorListUseCase {
     func execute() async throws -> [String]
 }

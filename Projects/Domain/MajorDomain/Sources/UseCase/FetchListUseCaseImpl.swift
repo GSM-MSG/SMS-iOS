@@ -1,6 +1,6 @@
 import MajorDomainInterface
 
-struct FetchListUseCaseImpl: FetchListUseCase {
+struct FetchMajorListUseCaseImpl: FetchMajorListUseCase {
     private let majorRepository: any MajorRepository
 
     init(majorRepository: any MajorRepository) {
@@ -8,6 +8,6 @@ struct FetchListUseCaseImpl: FetchListUseCase {
     }
 
     func execute() async throws -> [String] {
-        try await majorRepository.fetchList()
+        try await majorRepository.fetchMajorList()
     }
 }

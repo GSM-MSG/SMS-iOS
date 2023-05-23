@@ -3,7 +3,7 @@ import BaseDomain
 import Emdpoint
 
 enum MajorEndpoint {
-    case fetchList
+    case fetchMajorList
 }
 
 extension MajorEndpoint: SMSEndpoint {
@@ -15,14 +15,14 @@ extension MajorEndpoint: SMSEndpoint {
 
     var route: Route {
         switch self {
-        case .fetchList:
+        case .fetchMajorList:
             return .post("/list")
         }
     }
 
     var task: HTTPTask {
         switch self {
-        case .fetchList:
+        case .fetchMajorList:
             return .requestPlain
 
         default:
@@ -32,7 +32,7 @@ extension MajorEndpoint: SMSEndpoint {
 
     var jwtTokenType: JwtTokenType {
         switch self {
-        case .fetchList:
+        case .fetchMajorList:
             return .accessToken
 
         default:
@@ -42,7 +42,7 @@ extension MajorEndpoint: SMSEndpoint {
 
     var errorMap: [Int: ErrorType]? {
         switch self {
-        case .fetchList:
+        case .fetchMajorList:
             return [
                 500: .internalServerError
             ]
