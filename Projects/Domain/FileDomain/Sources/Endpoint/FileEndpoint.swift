@@ -17,7 +17,7 @@ extension FileEndpoint: SMSEndpoint {
     var route: Route {
         switch self {
         case .dreamBookUpload:
-            return .post("")
+            return .post("/")
         }
     }
 

@@ -10,7 +10,7 @@ public protocol SMSEndpoint: EndpointType, JwtAuthorizable {
 extension SMSEndpoint {
     public var baseURL: URL {
         let baseURL = Bundle.module.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
-        return URL(string: "\(baseURL)/\(domain.rawValue)/") ?? URL(string: "https://www.google.com")!
+        return URL(string: "\(baseURL)/\(domain.rawValue)") ?? URL(string: "https://www.google.com")!
     }
 
     public var headers: [String: String]? {
