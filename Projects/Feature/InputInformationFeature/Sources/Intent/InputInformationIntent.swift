@@ -27,7 +27,46 @@ final class InputInformationIntent: InputInformationIntentProtocol {
     }
 
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {
-        // TODO: 전체 정보 서버와 통신
+        guard
+            let inputProfileInfo = state.inputProfileInformationObject,
+            let inputSchoolLifeInfo = state.inputSchoolLifeInformationObject,
+            let inputWorkInfo = state.inputWorkInfomationObject,
+            let militaryServiceType = state.militaryServiceType
+        else { return }
+
+        Task {
+            do {
+                async let profileImageURL = imageUploadUseCase.execute(
+                    image: inputProfileInfo.profileImageData,
+                    fileName: inputProfileInfo.profileImageFilename
+                )
+                async let dreamBookURL = dreamBookUploadUseCase.execute(
+                    file: inputSchoolLifeInfo.hwpData,
+                    fileName: inputSchoolLifeInfo.hwpFilename
+                )
+
+                let inputInformationRequest = try await InputStudentInformationRequestDTO(
+                    certificate: state.certificates,
+                    contactEmail: inputProfileInfo.contactEmail,
+                    dreamBookFileURL: profileImageURL,
+                    formOfEmployment: FormOfEmployment(rawValue: inputWorkInfo.formOfEmployment) ?? .fullTime,
+                    gsmAuthenticationScore: inputSchoolLifeInfo.gsmAuthenticationScore,
+                    introduce: inputProfileInfo.introduce,
+                    languageCertificate: state.languages,
+                    major: inputProfileInfo.major,
+                    militaryService: militaryServiceType,
+                    portfolioURL: inputProfileInfo.portfoiloURL,
+                    profileImgURL: profileImageURL,
+                    region: inputWorkInfo.workRegion,
+                    salary: inputWorkInfo.salary,
+                    techStack: inputProfileInfo.techStack
+                )
+
+                try await inputInformationUseCase.execute(req: inputInformationRequest)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
