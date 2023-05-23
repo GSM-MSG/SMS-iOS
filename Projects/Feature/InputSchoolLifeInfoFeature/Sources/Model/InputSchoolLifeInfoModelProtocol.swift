@@ -1,7 +1,7 @@
 import Foundation
 
 protocol InputSchoolLifeInfoStateProtocol {
-    var authenticationScroe: String { get }
+    var authenticationScore: String { get }
     var isPresentedHWPFileImporter: Bool { get }
     var hwpFileURL: URL? { get }
     var hwpFilename: String { get }

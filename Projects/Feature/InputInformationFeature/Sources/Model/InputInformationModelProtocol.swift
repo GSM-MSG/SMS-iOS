@@ -1,6 +1,7 @@
 import Foundation
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
+import InputWorkInfoFeatureInterface
 
 enum InformationPhase: CaseIterable {
     case profile
@@ -15,6 +16,7 @@ protocol InputInformationStateProtocol {
     var phase: InformationPhase { get }
     var inputProfileInformationObject: InputProfileInformationObject? { get }
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject? { get }
+    var inputWorkInfomationObject: InputWorkInformationObject? { get }
 }
 
 protocol InputInformationActionProtocol: AnyObject {
@@ -22,4 +24,5 @@ protocol InputInformationActionProtocol: AnyObject {
     func nextButtonDidTap()
     func updateInputProfileInformationObject(object: InputProfileInformationObject)
     func updateInputSchoolLifeInformationObject(object: InputSchoolLifeInformationObject)
+    func updateInputWorkInformationObject(object: InputWorkInformationObject)
 }

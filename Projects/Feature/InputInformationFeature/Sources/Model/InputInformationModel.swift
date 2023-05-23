@@ -1,11 +1,13 @@
 import Foundation
 import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
+import InputWorkInfoFeatureInterface
 
 final class InputInformationModel: ObservableObject, InputInformationStateProtocol {
     @Published var phase: InformationPhase = .profile
-    @Published var inputProfileInformationObject: InputProfileInformationObject?
-    @Published var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
+    var inputProfileInformationObject: InputProfileInformationObject?
+    var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
+    var inputWorkInfomationObject: InputWorkInformationObject?
 }
 
 extension InputInformationModel: InputInformationActionProtocol {
@@ -29,5 +31,9 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateInputSchoolLifeInformationObject(object: InputSchoolLifeInformationObject) {
         self.inputSchoolLifeInformationObject = object
+    }
+
+    func updateInputWorkInformationObject(object: InputWorkInformationObject) {
+        self.inputWorkInfomationObject = object
     }
 }
