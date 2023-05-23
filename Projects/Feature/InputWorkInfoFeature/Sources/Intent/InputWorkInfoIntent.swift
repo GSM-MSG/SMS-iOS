@@ -47,7 +47,7 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
     }
 
     func nextButtonDidTap(state: any InputWorkInfoStateProtocol) {
-        let input = InputWorkInfoObject(
+        let input = InputWorkInformationObject(
             formOfEmployment: state.formOfEmployment.rawValue,
             salary: Int(state.salary) ?? 0,
             workRegion: state.workRegionList
