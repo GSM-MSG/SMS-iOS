@@ -33,7 +33,10 @@ final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
         languageDelegate?.languagePrevButtonDidTap()
     }
 
-    func completeButtonDidTap() {
-        languageDelegate?.completeToInputLanguage()
+    func completeButtonDidTap(languages: [LanguageInputModel]) {
+        let tupledLanguages = languages
+            .filter { !$0.languageName.isEmpty && !$0.languageScore.isEmpty }
+            .map { (name: $0.languageName, score: $0.languageScore) }
+        languageDelegate?.completeToInputLanguage(languages: tupledLanguages)
     }
 }

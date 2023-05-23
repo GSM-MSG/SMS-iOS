@@ -13,6 +13,10 @@ final class InputInformationIntent: InputInformationIntentProtocol {
     init(model: any InputInformationActionProtocol) {
         self.model = model
     }
+
+    func completeToInputAllInfo(state: any InputInformationStateProtocol) {
+        // TODO: 전체 정보 서버와 통신
+    }
 }
 
 extension InputInformationIntent: InputProfileDelegate {
@@ -70,7 +74,10 @@ extension InputInformationIntent: InputLanguageDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputLanguage() {
-        // TODO: 전체 데이터 서버에 송신
+    func completeToInputLanguage(languages: [(name: String, score: String)]) {
+        let languageCertificates: [InputStudentInformationRequestDTO.LanguageCertificate] = languages
+            .map { .init(languageCertificateName: $0.name, score: $0.score) }
+        model?.updateLanguages(languages: languageCertificates)
+        model?.updateIsCompleteToInputAllInfo(isComplete: true)
     }
 }

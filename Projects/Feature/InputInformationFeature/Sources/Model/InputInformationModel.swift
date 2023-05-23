@@ -10,6 +10,8 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
     var inputWorkInfomationObject: InputWorkInformationObject?
     var militaryServiceType: MilitaryServiceType?
+    var languages: [InputStudentInformationRequestDTO.LanguageCertificate] = []
+    var isCompleteToInputAllInfo: Bool = false
 }
 
 extension InputInformationModel: InputInformationActionProtocol {
@@ -41,5 +43,13 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateMilitaryServiceType(type: MilitaryServiceType) {
         self.militaryServiceType = type
+    }
+
+    func updateLanguages(languages: [InputStudentInformationRequestDTO.LanguageCertificate]) {
+        self.languages = languages
+    }
+
+    func updateIsCompleteToInputAllInfo(isComplete: Bool) {
+        self.isCompleteToInputAllInfo = isComplete
     }
 }

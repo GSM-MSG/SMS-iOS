@@ -6,5 +6,5 @@ protocol InputLanguageInfoIntentProtocol {
     func deleteLanguage(at index: Int)
     func languageAppendButtonDidTap()
     func prevButtonDidTap()
-    func completeButtonDidTap()
+    func completeButtonDidTap(languages: [LanguageInputModel])
 }
