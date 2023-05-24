@@ -66,16 +66,13 @@ struct InputProfileInfoView: View {
                         .titleWrapper("이메일")
 
                         SMSTextField(
-                            "전공 분야 선택",
+                            state.isSelfEntering ? "전공 분야 입력" : "전공 분야 선택",
                             text: Binding(get: { state.major }, set: intent.updateMajor(major:)),
                             errorText: "전공 분야를 선택해주세요",
                             isError: state.inputProfileErrorFieldSet.contains(.major),
                             isOnClear: false
                         )
                         .focused($isFocuesedMajorTextField)
-                        .onChange(of: state.isSelfEntering) { newValue in
-                            isFocuesedMajorTextField = newValue
-                        }
                         .disabled(!state.isSelfEntering)
                         .overlay(alignment: .trailing) {
                             SMSIcon(.downChevron)
@@ -111,6 +108,9 @@ struct InputProfileInfoView: View {
             }
         }
         .hideKeyboardWhenTap()
+        .onChange(of: state.isSelfEntering) { newValue in
+            isFocuesedMajorTextField = newValue
+        }
         .imagePicker(
             isShow: Binding(
                 get: { state.isPresentedImagePicker },
