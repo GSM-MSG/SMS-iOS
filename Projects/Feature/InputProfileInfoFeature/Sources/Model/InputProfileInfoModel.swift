@@ -5,7 +5,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var introduce: String = ""
     @Published var email: String = ""
     @Published var major: String = ""
-    @Published var majorList: [String] = ["asdf", "aaaa", "bbbb"]
+    @Published var majorList: [String] = []
     @Published var portfolioURL: String = ""
     @Published var techStack: String = ""
     @Published var isPresentedMajorSheet: Bool = false

@@ -129,36 +129,7 @@ struct InputProfileInfoView: View {
             ),
             topPadding: 150
         ) {
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(state.majorList, id: \.self) { major in
-                        seletarRow(
-                            text: major,
-                            isSeleted: Binding(
-                                get: { state.major == major },
-                                set: {
-                                    $0 ? intent.updateMajor(major: major) : ()
-                                    $0 ? intent.majorSheetDismissed() : ()
-                                }
-                            )
-                        )
-                    }
-                    seletarRow(
-                        text: "직접입력",
-                        isSeleted: Binding(
-                            get: {
-                                state.major == "직접입력"
-                            },
-                            set: {
-                                $0 ? intent.majorSheetDismissed() : ()
-                                $0 ? intent.updateMajor(major: "") : ()
-                                $0 ? intent.activeSelfEntering() : ()
-                                self.isFocuesedMajorTextField = $0
-                            }
-                        )
-                    )
-                }
-            }
+            majorListView()
         }
         .animation(.default, value: state.isPresentedMajorSheet)
         .smsBottomSheet(
@@ -167,7 +138,13 @@ struct InputProfileInfoView: View {
                 set: { _ in intent.imageMethodPickerIsDismissed() }
             )
         ) {
-            imageMethodPickerView()
+            ImageMethodPickerView {
+                intent.imagePickerIsRequired()
+                intent.imageMethodPickerIsDismissed()
+            } cameraAction: {
+                intent.cameraIsRequired()
+                intent.imageMethodPickerIsDismissed()
+            }
         }
         .animation(.default, value: state.isPresentedImageMethodPicker)
         .cameraPicker(
@@ -200,58 +177,35 @@ struct InputProfileInfoView: View {
     }
 
     @ViewBuilder
-    func imageMethodPickerView() -> some View {
-        VStack(spacing: 28) {
-            Group {
-                imageMethodRow(title: "앨범에서 가져오기", icon: .photo) {
-                    intent.imagePickerIsRequired()
-                    intent.imageMethodPickerIsDismissed()
+    func majorListView() -> some View {
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(state.majorList, id: \.self) { major in
+                    MajorRowView(
+                        text: major,
+                        isSeleted: Binding(
+                            get: { state.major == major },
+                            set: {
+                                $0 ? intent.updateMajor(major: major) : ()
+                                $0 ? intent.majorSheetDismissed() : ()
+                            }
+                        )
+                    )
                 }
 
-                imageMethodRow(title: "카메라에서 촬영하기", icon: .camera) {
-                    intent.cameraIsRequired()
-                    intent.imageMethodPickerIsDismissed()
-                }
+                MajorRowView(
+                    text: "직접입력",
+                    isSeleted: Binding(
+                        get: { false },
+                        set: {
+                            $0 ? intent.majorSheetDismissed() : ()
+                            $0 ? intent.updateMajor(major: "") : ()
+                            $0 ? intent.activeSelfEntering() : ()
+                            self.isFocuesedMajorTextField = $0
+                        }
+                    )
+                )
             }
-            .buttonStyle(.plain)
-            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 20)
-        .padding(.top, 16)
-    }
-
-    @ViewBuilder
-    func imageMethodRow(
-        title: String,
-        icon: SMSIcon.Icon,
-        action: @escaping () -> Void
-    ) -> some View {
-        Button {
-            action()
-        } label: {
-            Label {
-                SMSText(title, font: .body1)
-            } icon: {
-                SMSIcon(icon)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.sms(.system(.white)))
-        }
-    }
-
-    @ViewBuilder
-    func seletarRow(text: String, isSeleted: Binding<Bool>) -> some View {
-        HStack {
-            SMSText(text, font: .body1)
-
-            Spacer()
-
-            SMSSelectionControls(isSeleted: isSeleted)
-                .buttonWrapper {}
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 12)
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
