@@ -152,6 +152,12 @@ private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInfor
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         return appComponent.inputLanguageInfoBuildable
     }
+    var fileDomainBuildable: any FileDomainBuildable {
+        return appComponent.fileDomainBuildable
+    }
+    var studentDomainBuildable: any StudentDomainBuildable {
+        return appComponent.studentDomainBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -294,6 +300,8 @@ extension InputInformationComponent: Registration {
         keyPathToName[\InputInformationDependency.inputMilitaryInfoBuildable] = "inputMilitaryInfoBuildable-any InputMilitaryInfoBuildable"
         keyPathToName[\InputInformationDependency.inputCertificateInfoBuildable] = "inputCertificateInfoBuildable-any InputCertificateInfoBuildable"
         keyPathToName[\InputInformationDependency.inputLanguageInfoBuildable] = "inputLanguageInfoBuildable-any InputLanguageInfoBuildable"
+        keyPathToName[\InputInformationDependency.fileDomainBuildable] = "fileDomainBuildable-any FileDomainBuildable"
+        keyPathToName[\InputInformationDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
     }
 }
 extension InputCertificateInfoComponent: Registration {
@@ -341,7 +349,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-private func register1() {
+@inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)

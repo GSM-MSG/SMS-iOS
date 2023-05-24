@@ -13,6 +13,8 @@ let project = Project.makeModule(
         .Feature.InputWorkInfoFeatureInterface,
         .Feature.InputMilitaryInfoFeatureInterface,
         .Feature.InputCertificateInfoFeatureInterface,
-        .Feature.InputLanguageInfoFeatureInterface
+        .Feature.InputLanguageInfoFeatureInterface,
+        .Domain.FileDomainInterface,
+        .Domain.StudentDomainInterface
     ]
 )
