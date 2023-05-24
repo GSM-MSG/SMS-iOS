@@ -22,14 +22,12 @@ public struct SMSIcon: View {
         case camera
         case check
         case downChevron
-        case filter
         case image
         case plus
         case profile
         case profileSmallPlus
         case trash
         case leftArrow
-        case search
         case smallPlus
         case xmark
     }
@@ -52,9 +50,6 @@ public struct SMSIcon: View {
         case .downChevron:
             return DesignSystemAsset.Icons.downChevron.swiftUIImage
 
-        case .filter:
-            return DesignSystemAsset.Icons.filter.swiftUIImage
-
         case .image:
             return DesignSystemAsset.Icons.image.swiftUIImage
 
@@ -75,9 +70,6 @@ public struct SMSIcon: View {
 
         case .smallPlus:
             return DesignSystemAsset.Icons.smallPlus.swiftUIImage
-
-        case .search:
-            return DesignSystemAsset.Icons.search.swiftUIImage
 
         case .xmark:
             return DesignSystemAsset.Icons.xmark.swiftUIImage
