@@ -11,6 +11,8 @@ protocol InputProfileInfoIntentProtocol {
     func majorSheetDismissed()
     func imagePickerIsRequired()
     func imagePickerDismissed()
+    func imageMethodPickerIsRequired()
+    func imageMethodPickerDismissed()
     func imageDidSelected(imageResult: PickedImageResult?)
     func nextButtonDidTap(state: any InputProfileInfoStateProtocol)
 }

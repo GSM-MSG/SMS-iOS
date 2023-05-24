@@ -51,6 +51,14 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateIsPresentedImagePicker(isPresented: false)
     }
 
+    func imageMethodPickerIsRequired() {
+        model?.updateIsPresentedImageMethodPicker(isPresented: true)
+    }
+
+    func imageMethodPickerDismissed() {
+        model?.updateIsPresentedImageMethodPicker(isPresented: false)
+    }
+
     func imageDidSelected(imageResult: PickedImageResult?) {
         model?.updateProfileImage(imageResult: imageResult)
     }

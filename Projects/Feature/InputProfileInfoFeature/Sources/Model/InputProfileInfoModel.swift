@@ -9,6 +9,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var techStack: String = ""
     @Published var isPresentedMajorSheet: Bool = false
     @Published var isPresentedImagePicker: Bool = false
+    @Published var isPresentedImageMethodPicker: Bool = false
     @Published var inputProfileErrorFieldSet: Set<InputProfileErrorField> = []
     @Published var profileImage: PickedImageResult?
 }
@@ -40,6 +41,10 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
 
     func updateIsPresentedImagePicker(isPresented: Bool) {
         self.isPresentedImagePicker = isPresented
+    }
+
+    func updateIsPresentedImageMethodPicker(isPresented: Bool) {
+        self.isPresentedImageMethodPicker = isPresented
     }
 
     func updateProfileImage(imageResult: PickedImageResult?) {

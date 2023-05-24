@@ -37,10 +37,10 @@ struct InputProfileInfoView: View {
                                     }
                                     .offset(x: 5, y: 4)
                             }
-                            .titleWrapper("사진")
                             .buttonWrapper {
-                                intent.imagePickerIsRequired()
+                                intent.imageMethodPickerIsRequired()
                             }
+                            .titleWrapper("사진")
 
                             if state.inputProfileErrorFieldSet.contains(.profile) {
                                 SMSText("이미지를 선택해주세요", font: .caption1)
@@ -125,6 +125,14 @@ struct InputProfileInfoView: View {
             Text("ASDAF")
         }
         .animation(.default, value: state.isPresentedMajorSheet)
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedImageMethodPicker },
+                set: { _ in intent.imageMethodPickerIsRequired() }
+            )
+        ) {
+            imageMethodPickerView()
+        }
     }
 
     @ViewBuilder
@@ -141,5 +149,40 @@ struct InputProfileInfoView: View {
             SMSPageControl(pageCount: 6, selectedPage: 0)
         }
         .smsFont(.title1)
+    }
+
+    @ViewBuilder
+    func imageMethodPickerView() -> some View {
+        VStack(spacing: 28) {
+            HStack {
+                Button {
+                } label: {
+                    SMSIcon(.image)
+                        .padding(.trailing, 2)
+
+                    Text("앨범에서 가져오기")
+                        .smsFont(.body1)
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
+            }
+
+            HStack {
+                Button {
+                } label: {
+                    SMSIcon(.camera)
+                        .padding(.trailing, 2)
+
+                    Text("카메라에서 촬영")
+                        .smsFont(.body1)
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
+            }
+        }
+        .padding(.leading, 20)
+        .padding(.top, 16)
     }
 }
