@@ -5,7 +5,7 @@ import SwiftUI
 struct InputProfileInfoView: View {
     @StateObject var container: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>
     var intent: any InputProfileInfoIntentProtocol { container.intent }
-    var state: any InputProfileInfoStateProtocol { container.model }`
+    var state: any InputProfileInfoStateProtocol { container.model }
 
     var body: some View {
         SMSNavigationTitleView(title: "정보입력") {
