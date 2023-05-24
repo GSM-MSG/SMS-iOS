@@ -108,4 +108,8 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         )
         inputProfileDelegate?.completeToInputProfile(input: input)
     }
+
+    func cameraIsRequired() {
+        model?.updateIsPresentedCamera(isPresented: true)
+    }
 }

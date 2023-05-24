@@ -133,6 +133,13 @@ struct InputProfileInfoView: View {
         ) {
             imageMethodPickerView()
         }
+        .cameraPicker(isShow: Binding(
+            get: { state.isPresentedCamera },
+            set: { _ in }
+        ), pickedImageResult: Binding(
+            get: { state.profileImage },
+            set: { intent.imageDidSelected(imageResult: $0) }
+        ))
     }
 
     @ViewBuilder
@@ -156,6 +163,7 @@ struct InputProfileInfoView: View {
         VStack(spacing: 28) {
             HStack {
                 Button {
+                    intent.imagePickerIsRequired()
                 } label: {
                     SMSIcon(.image)
                         .padding(.trailing, 2)
@@ -170,6 +178,7 @@ struct InputProfileInfoView: View {
 
             HStack {
                 Button {
+                    intent.cameraIsRequired()
                 } label: {
                     SMSIcon(.camera)
                         .padding(.trailing, 2)
