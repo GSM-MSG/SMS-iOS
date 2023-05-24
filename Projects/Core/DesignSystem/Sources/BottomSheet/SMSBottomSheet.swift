@@ -78,9 +78,6 @@ struct SMSBottomSheet<T: View>: ViewModifier {
                     .fixedSize(horizontal: false, vertical: true)
                     .transition(.move(edge: .bottom))
                     .padding(.top, topPadding)
-//                    .if(height != .infinity) {
-//                        $0.frame(height: height)
-//                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
