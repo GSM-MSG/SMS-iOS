@@ -1,22 +1,28 @@
 import DesignSystem
 import SwiftUI
 
-struct DemoView: View {
-    var body: some View {
+public struct DemoView: View {
+    @State var isSeleted = true
+    @State var selection: Int? = 0
+
+    public var body: some View {
         VStack {
             Group {
-                CTAButton(text: "CTA Default", style: .default)
-                CTAButton(text: "CTA Outline", style: .outline)
-                FillButton(text: "Fill Default", style: .default)
-                FillButton(text: "Fill Default", style: .outline)
+                ForEach(0..<4) { index in
+                    HStack {
+                        SMSSelectionControls(isSeleted: $isSeleted)
+                        Text("asdfasdf")
+                    }
+                }
             }
-            .padding(8)
         }
     }
 }
 
 struct DemoView_Previews: PreviewProvider {
     static var previews: some View {
-        DemoView()
+        NavigationView {
+            DemoView()
+        }
     }
 }

@@ -12,8 +12,9 @@ let project = Project.makeModule(
     internalDependencies: [
         .Core.DesignSystem,
         .Shared.DateUtil,
+        .Shared.FoundationUtil,
         .Shared.GlobalThirdPartyLibrary,
-        .Shared.ViewUtil,
+        .Shared.Validator,
         .Shared.UtilityModule
     ]
 )

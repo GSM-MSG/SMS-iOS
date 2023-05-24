@@ -9,6 +9,66 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let RootFeature = TargetDependency.project(
+        target: ModulePaths.Feature.RootFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.RootFeature.rawValue)
+    )
+    static let InputLanguageInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputLanguageInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputLanguageInfoFeature.rawValue)
+    )
+    static let InputLanguageInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputLanguageInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputLanguageInfoFeature.rawValue)
+    )
+    static let InputCertificateInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputCertificateInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputCertificateInfoFeature.rawValue)
+    )
+    static let InputCertificateInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputCertificateInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputCertificateInfoFeature.rawValue)
+    )
+    static let InputMilitaryInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputMilitaryInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputMilitaryInfoFeature.rawValue)
+    )
+    static let InputMilitaryInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputMilitaryInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputMilitaryInfoFeature.rawValue)
+    )
+    static let InputWorkInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputWorkInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputWorkInfoFeature.rawValue)
+    )
+    static let InputWorkInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputWorkInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputWorkInfoFeature.rawValue)
+    )
+    static let InputSchoolLifeInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputSchoolLifeInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputSchoolLifeInfoFeature.rawValue)
+    )
+    static let InputSchoolLifeInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputSchoolLifeInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputSchoolLifeInfoFeature.rawValue)
+    )
+    static let InputProfileInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputProfileInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputProfileInfoFeature.rawValue)
+    )
+    static let InputProfileInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputProfileInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputProfileInfoFeature.rawValue)
+    )
+    static let InputInformationFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputInformationFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputInformationFeature.rawValue)
+    )
+    static let InputInformationFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputInformationFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputInformationFeature.rawValue)
+    )
     static let SigninFeatureInterface = TargetDependency.project(
         target: ModulePaths.Feature.SigninFeature.targetName(type: .interface),
         path: .relativeToFeature(ModulePaths.Feature.SigninFeature.rawValue)
@@ -24,6 +84,42 @@ public extension TargetDependency.Feature {
 }
 
 public extension TargetDependency.Domain {
+    static let FileDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.FileDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.FileDomain.rawValue)
+    )
+    static let FileDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.FileDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.FileDomain.rawValue)
+    )
+    static let FileDomain = TargetDependency.project(
+        target: ModulePaths.Domain.FileDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.FileDomain.rawValue)
+    )
+    static let MajorDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.MajorDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.MajorDomain.rawValue)
+    )
+    static let MajorDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.MajorDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.MajorDomain.rawValue)
+    )
+    static let MajorDomain = TargetDependency.project(
+        target: ModulePaths.Domain.MajorDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.MajorDomain.rawValue)
+    )
+    static let StudentDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.StudentDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.StudentDomain.rawValue)
+    )
+    static let StudentDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.StudentDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.StudentDomain.rawValue)
+    )
+    static let StudentDomain = TargetDependency.project(
+        target: ModulePaths.Domain.StudentDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.StudentDomain.rawValue)
+    )
     static let AuthDomainTesting = TargetDependency.project(
         target: ModulePaths.Domain.AuthDomain.targetName(type: .testing),
         path: .relativeToDomain(ModulePaths.Domain.AuthDomain.rawValue)
@@ -62,6 +158,14 @@ public extension TargetDependency.Core {
 }
 
 public extension TargetDependency.Shared {
+    static let Validator = TargetDependency.project(
+        target: ModulePaths.Shared.Validator.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.Validator.rawValue)
+    )
+    static let FoundationUtil = TargetDependency.project(
+        target: ModulePaths.Shared.FoundationUtil.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.FoundationUtil.rawValue)
+    )
     static let ViewUtil = TargetDependency.project(
         target: ModulePaths.Shared.ViewUtil.targetName(type: .sources),
         path: .relativeToShared(ModulePaths.Shared.ViewUtil.rawValue)

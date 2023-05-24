@@ -1,22 +1,25 @@
 import SwiftUI
 
 public struct SMSTextField: View {
-    var placeholder: String
     @Binding var text: String
+    var placeholder: String
     var errorText: String
     var isError: Bool
+    var isOnClear: Bool
     @FocusState var isFocused: Bool
 
     public init(
         _ placeholder: String = "",
         text: Binding<String>,
         errorText: String = "",
-        isError: Bool = false
+        isError: Bool = false,
+        isOnClear: Bool = true
     ) {
+        self._text = text
         self.placeholder = placeholder
-        _text = text
         self.errorText = errorText
         self.isError = isError
+        self.isOnClear = isOnClear
     }
 
     public var body: some View {
@@ -34,7 +37,9 @@ public struct SMSTextField: View {
                             .strokeBorder(Color.sms(.primary(.p2)))
                     }
                 }
-                .modifier(SMSTextFieldClearModifier(text: $text))
+                .if(isOnClear) {
+                    $0.modifier(SMSTextFieldClearModifier(text: $text))
+                }
 
             if isError && !errorText.isEmpty {
                 Text(errorText)
@@ -58,7 +63,7 @@ struct SMSTextFieldClearModifier: ViewModifier {
                 } label: {
                     SMSIcon(.xmark)
                 }
-                .padding(12)
+                .padding(.trailing, 12)
             }
         }
     }

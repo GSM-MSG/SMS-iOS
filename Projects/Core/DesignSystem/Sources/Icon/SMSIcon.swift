@@ -2,15 +2,18 @@ import SwiftUI
 
 public struct SMSIcon: View {
     var icon: Icon
+    var renderingMode: Image.TemplateRenderingMode
     var width: CGFloat
     var height: CGFloat
 
     public init(
         _ icon: Icon,
+        renderingMode: Image.TemplateRenderingMode = .original,
         width: CGFloat = 24,
         height: CGFloat = 24
     ) {
         self.icon = icon
+        self.renderingMode = renderingMode
         self.width = width
         self.height = height
     }
@@ -19,7 +22,11 @@ public struct SMSIcon: View {
         case camera
         case check
         case downChevron
+        case photo
         case plus
+        case profile
+        case profileSmallPlus
+        case trash
         case leftArrow
         case smallPlus
         case xmark
@@ -28,6 +35,7 @@ public struct SMSIcon: View {
     public var body: some View {
         iconToImage()
             .resizable()
+            .renderingMode(renderingMode)
             .frame(width: width, height: height)
     }
 
@@ -42,8 +50,20 @@ public struct SMSIcon: View {
         case .downChevron:
             return DesignSystemAsset.Icons.downChevron.swiftUIImage
 
+        case .photo:
+            return DesignSystemAsset.Icons.photo.swiftUIImage
+
         case .plus:
             return DesignSystemAsset.Icons.plus.swiftUIImage
+
+        case .profile:
+            return DesignSystemAsset.Icons.profile.swiftUIImage
+
+        case .profileSmallPlus:
+            return DesignSystemAsset.Icons.profileSmallPlus.swiftUIImage
+
+        case .trash:
+            return DesignSystemAsset.Icons.trash.swiftUIImage
 
         case .leftArrow:
             return DesignSystemAsset.Icons.leftArrow.swiftUIImage

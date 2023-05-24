@@ -10,6 +10,14 @@ public enum ModulePaths {
 
 public extension ModulePaths {
     enum Feature: String {
+        case RootFeature
+        case InputLanguageInfoFeature
+        case InputCertificateInfoFeature
+        case InputMilitaryInfoFeature
+        case InputWorkInfoFeature
+        case InputSchoolLifeInfoFeature
+        case InputProfileInfoFeature
+        case InputInformationFeature
         case SigninFeature
         case BaseFeature
 
@@ -21,6 +29,9 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Domain: String {
+        case FileDomain
+        case MajorDomain
+        case StudentDomain
         case AuthDomain
         case BaseDomain
 
@@ -43,6 +54,8 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String {
+        case Validator
+        case FoundationUtil
         case ViewUtil
         case DateUtil
         case KeychainModule
