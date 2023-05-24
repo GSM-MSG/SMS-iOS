@@ -9,6 +9,7 @@ public extension View {
     ) -> some View {
         self.fullScreenCover(isPresented: isShow) {
             CameraPicker(pickedImageResult: pickedImageResult, isPresented: isShow)
+                .ignoresSafeArea()
         }
     }
 }
@@ -65,7 +66,7 @@ final class ImagePickerViewCoordinator:
         } else if let url = info[.mediaURL] as? URL {
             filename = url.lastPathComponent
         } else {
-            filename = ""
+            filename = "\(UUID().uuidString).jpeg"
         }
 
         if let image = info[.editedImage] as? UIImage {

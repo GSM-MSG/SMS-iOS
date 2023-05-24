@@ -44,7 +44,9 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     }
 
     func majorSheetDismissed() {
-        model?.updateIsPresentedMajorSheet(isPresented: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.model?.updateIsPresentedMajorSheet(isPresented: false)
+        }
     }
 
     func imagePickerIsRequired() {
@@ -52,14 +54,14 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     }
 
     func imagePickerDismissed() {
-        model?.updateIsPresentedImagePicker(isPresented: false)
+        self.model?.updateIsPresentedImagePicker(isPresented: false)
     }
 
     func imageMethodPickerIsRequired() {
         model?.updateIsPresentedImageMethodPicker(isPresented: true)
     }
 
-    func imageMethodPickerIsDismissed() {
+    func imageMethodPickerDismissed() {
         model?.updateIsPresentedImageMethodPicker(isPresented: false)
     }
 
@@ -117,7 +119,7 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateIsPresentedCamera(isPresented: true)
     }
 
-    func cameraIsDismissed() {
+    func cameraDismissed() {
         model?.updateIsPresentedCamera(isPresented: false)
     }
 

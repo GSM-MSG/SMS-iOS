@@ -138,22 +138,22 @@ struct InputProfileInfoView: View {
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedImageMethodPicker },
-                set: { _ in intent.imageMethodPickerIsDismissed() }
+                set: { _ in intent.imageMethodPickerDismissed() }
             )
         ) {
             ImageMethodPickerView {
                 intent.imagePickerIsRequired()
-                intent.imageMethodPickerIsDismissed()
+                intent.imageMethodPickerDismissed()
             } cameraAction: {
                 intent.cameraIsRequired()
-                intent.imageMethodPickerIsDismissed()
+                intent.imageMethodPickerDismissed()
             }
         }
         .animation(.default, value: state.isPresentedImageMethodPicker)
         .cameraPicker(
             isShow: Binding(
                 get: { state.isPresentedCamera },
-                set: { _ in intent.cameraIsDismissed() }
+                set: { _ in intent.cameraDismissed() }
             ),
             pickedImageResult: Binding(
                 get: { state.profileImage },
@@ -199,11 +199,11 @@ struct InputProfileInfoView: View {
                 MajorRowView(
                     text: "직접입력",
                     isSeleted: Binding(
-                        get: { false },
+                        get: { state.isSelfEntering },
                         set: {
-                            $0 ? intent.majorSheetDismissed() : ()
                             $0 ? intent.updateMajor(major: "") : ()
                             $0 ? intent.activeSelfEntering() : ()
+                            $0 ? intent.majorSheetDismissed() : ()
                             self.isFocuesedMajorTextField = $0
                         }
                     )
