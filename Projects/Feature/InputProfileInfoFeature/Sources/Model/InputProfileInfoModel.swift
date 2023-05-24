@@ -13,7 +13,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var isPresentedCamera: Bool = false
     @Published var inputProfileErrorFieldSet: Set<InputProfileErrorField> = []
     @Published var profileImage: PickedImageResult?
-    var nextButtonIsDisabled: Bool {
+    var isDisabledNextButton: Bool {
         introduce.isEmpty ||
         email.isEmpty ||
         major.isEmpty ||

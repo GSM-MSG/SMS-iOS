@@ -21,7 +21,7 @@ protocol InputProfileInfoStateProtocol {
     var isPresentedCamera: Bool { get }
     var inputProfileErrorFieldSet: Set<InputProfileErrorField> { get }
     var profileImage: PickedImageResult? { get }
-    var nextButtonIsDisabled: Bool { get }
+    var isDisabledNextButton: Bool { get }
 }
 
 protocol InputProfileInfoActionProtocol: AnyObject {
