@@ -6,6 +6,7 @@ protocol InputSchoolLifeInfoStateProtocol {
     var hwpFileURL: URL? { get }
     var hwpFilename: String { get }
     var errorField: Set<InputSchoolLifeErrorField> { get }
+    var isDisabledNextButton: Bool { get }
 }
 
 protocol InputSchoolLifeInfoActionProtocol: AnyObject {

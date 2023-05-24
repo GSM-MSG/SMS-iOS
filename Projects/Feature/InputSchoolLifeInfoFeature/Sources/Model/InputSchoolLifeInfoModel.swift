@@ -16,6 +16,10 @@ final class InputSchoolLifeInfoModel: ObservableObject, InputSchoolLifeInfoState
         return hwpFileURL.lastPathComponent
     }
     @Published var errorField: Set<InputSchoolLifeErrorField> = []
+    var isDisabledNextButton: Bool {
+        authenticationScore.isEmpty ||
+        hwpFileURL == nil
+    }
 }
 
 extension InputSchoolLifeInfoModel: InputSchoolLifeInfoActionProtocol {
