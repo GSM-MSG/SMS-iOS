@@ -5,7 +5,7 @@ import SwiftUI
 struct InputProfileInfoView: View {
     @StateObject var container: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>
     var intent: any InputProfileInfoIntentProtocol { container.intent }
-    var state: any InputProfileInfoStateProtocol { container.model }
+    var state: any InputProfileInfoStateProtocol { container.model }`
 
     var body: some View {
         SMSNavigationTitleView(title: "정보입력") {
@@ -144,6 +144,7 @@ struct InputProfileInfoView: View {
                 set: { intent.imageDidSelected(imageResult: $0) }
             )
         )
+        .animation(.default, value: state.inputProfileErrorFieldSet)
     }
 
     @ViewBuilder
@@ -166,18 +167,12 @@ struct InputProfileInfoView: View {
     func imageMethodPickerView() -> some View {
         VStack(spacing: 28) {
             Group {
-                buttonCell(
-                    title: "앨범에서 가져오기",
-                    icon: .photo
-                ) {
+                buttonRow(title: "앨범에서 가져오기", icon: .photo) {
                     intent.imagePickerIsRequired()
                     intent.imageMethodPickerDismissed()
                 }
 
-                buttonCell(
-                    title: "카메라에서 촬영하기",
-                    icon: .camera
-                ) {
+                buttonRow(title: "카메라에서 촬영하기", icon: .camera) {
                     intent.cameraIsRequired()
                     intent.imageMethodPickerDismissed()
                 }
@@ -191,7 +186,7 @@ struct InputProfileInfoView: View {
     }
 
     @ViewBuilder
-    func buttonCell(
+    func buttonRow(
         title: String,
         icon: SMSIcon.Icon,
         action: @escaping () -> Void
