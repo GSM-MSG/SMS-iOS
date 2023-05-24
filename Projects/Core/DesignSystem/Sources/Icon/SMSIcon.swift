@@ -22,6 +22,7 @@ public struct SMSIcon: View {
         case camera
         case check
         case downChevron
+        case photo
         case plus
         case profile
         case profileSmallPlus
@@ -48,6 +49,9 @@ public struct SMSIcon: View {
 
         case .downChevron:
             return DesignSystemAsset.Icons.downChevron.swiftUIImage
+
+        case .photo:
+            return DesignSystemAsset.Icons.photo.swiftUIImage
 
         case .plus:
             return DesignSystemAsset.Icons.plus.swiftUIImage

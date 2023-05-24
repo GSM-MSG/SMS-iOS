@@ -17,6 +17,8 @@ protocol InputProfileInfoStateProtocol {
     var techStack: String { get }
     var isPresentedMajorSheet: Bool { get }
     var isPresentedImagePicker: Bool { get }
+    var isPresentedImageMethodPicker: Bool { get }
+    var isPresentedCamera: Bool { get }
     var inputProfileErrorFieldSet: Set<InputProfileErrorField> { get }
     var profileImage: PickedImageResult? { get }
 }
@@ -29,6 +31,8 @@ protocol InputProfileInfoActionProtocol: AnyObject {
     func updateTeckStack(techStack: String)
     func updateIsPresentedMajorSheet(isPresented: Bool)
     func updateIsPresentedImagePicker(isPresented: Bool)
+    func updateIsPresentedImageMethodPicker(isPresented: Bool)
+    func updateIsPresentedCamera(isPresented: Bool)
     func updateProfileImage(imageResult: PickedImageResult?)
     func updateErrorFieldSet(set: Set<InputProfileErrorField>)
 }

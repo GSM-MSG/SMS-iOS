@@ -51,6 +51,14 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateIsPresentedImagePicker(isPresented: false)
     }
 
+    func imageMethodPickerIsRequired() {
+        model?.updateIsPresentedImageMethodPicker(isPresented: true)
+    }
+
+    func imageMethodPickerDismissed() {
+        model?.updateIsPresentedImageMethodPicker(isPresented: false)
+    }
+
     func imageDidSelected(imageResult: PickedImageResult?) {
         model?.updateProfileImage(imageResult: imageResult)
     }
@@ -99,5 +107,13 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
                 .map { $0.trimmingCharacters(in: .whitespaces) }
         )
         inputProfileDelegate?.completeToInputProfile(input: input)
+    }
+
+    func cameraIsRequired() {
+        model?.updateIsPresentedCamera(isPresented: true)
+    }
+
+    func cameraIsDismissed() {
+        model?.updateIsPresentedCamera(isPresented: false)
     }
 }

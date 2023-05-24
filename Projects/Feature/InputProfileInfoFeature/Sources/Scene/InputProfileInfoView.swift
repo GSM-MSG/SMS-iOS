@@ -37,10 +37,10 @@ struct InputProfileInfoView: View {
                                     }
                                     .offset(x: 5, y: 4)
                             }
-                            .titleWrapper("사진")
                             .buttonWrapper {
-                                intent.imagePickerIsRequired()
+                                intent.imageMethodPickerIsRequired()
                             }
+                            .titleWrapper("사진")
 
                             if state.inputProfileErrorFieldSet.contains(.profile) {
                                 SMSText("이미지를 선택해주세요", font: .caption1)
@@ -125,6 +125,26 @@ struct InputProfileInfoView: View {
             Text("ASDAF")
         }
         .animation(.default, value: state.isPresentedMajorSheet)
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedImageMethodPicker },
+                set: { _ in intent.imageMethodPickerDismissed() }
+            )
+        ) {
+            imageMethodPickerView()
+        }
+        .animation(.default, value: state.isPresentedImageMethodPicker)
+        .cameraPicker(
+            isShow: Binding(
+                get: { state.isPresentedCamera },
+                set: { _ in intent.cameraIsDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { state.profileImage },
+                set: { intent.imageDidSelected(imageResult: $0) }
+            )
+        )
+        .animation(.default, value: state.inputProfileErrorFieldSet)
     }
 
     @ViewBuilder
@@ -141,5 +161,46 @@ struct InputProfileInfoView: View {
             SMSPageControl(pageCount: 6, selectedPage: 0)
         }
         .smsFont(.title1)
+    }
+
+    @ViewBuilder
+    func imageMethodPickerView() -> some View {
+        VStack(spacing: 28) {
+            Group {
+                imageMethodRow(title: "앨범에서 가져오기", icon: .photo) {
+                    intent.imagePickerIsRequired()
+                    intent.imageMethodPickerDismissed()
+                }
+
+                imageMethodRow(title: "카메라에서 촬영하기", icon: .camera) {
+                    intent.cameraIsRequired()
+                    intent.imageMethodPickerDismissed()
+                }
+            }
+            .buttonStyle(.plain)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 20)
+        .padding(.top, 16)
+    }
+
+    @ViewBuilder
+    func imageMethodRow(
+        title: String,
+        icon: SMSIcon.Icon,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button {
+            action()
+        } label: {
+            Label {
+                SMSText(title, font: .body1)
+            } icon: {
+                SMSIcon(icon)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.sms(.system(.white)))
+        }
     }
 }
