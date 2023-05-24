@@ -3,6 +3,7 @@ import DesignSystem
 import SwiftUI
 
 struct InputProfileInfoView: View {
+    @FocusState var isFocuesedMajorTextField: Bool
     @StateObject var container: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>
     var intent: any InputProfileInfoIntentProtocol { container.intent }
     var state: any InputProfileInfoStateProtocol { container.model }
@@ -71,7 +72,11 @@ struct InputProfileInfoView: View {
                             isError: state.inputProfileErrorFieldSet.contains(.major),
                             isOnClear: false
                         )
-                        .disabled(true)
+                        .focused($isFocuesedMajorTextField)
+                        .onChange(of: state.isSelfEntering) { newValue in
+                            isFocuesedMajorTextField = newValue
+                        }
+                        .disabled(!state.isSelfEntering)
                         .overlay(alignment: .trailing) {
                             SMSIcon(.downChevron)
                                 .padding(.trailing, 12)
@@ -79,6 +84,7 @@ struct InputProfileInfoView: View {
                         .titleWrapper("분야")
                         .onTapGesture {
                             intent.majorSheetIsRequired()
+                            intent.deActiveSelfEntering()
                         }
 
                         SMSTextField(
@@ -120,15 +126,45 @@ struct InputProfileInfoView: View {
             isShowing: Binding(
                 get: { state.isPresentedMajorSheet },
                 set: { _ in intent.majorSheetDismissed() }
-            )
+            ),
+            topPadding: 150
         ) {
-            Text("ASDAF")
+            ScrollView {
+                LazyVStack(spacing: 8) {
+                    ForEach(state.majorList, id: \.self) { major in
+                        seletarRow(
+                            text: major,
+                            isSeleted: Binding(
+                                get: { state.major == major },
+                                set: {
+                                    $0 ? intent.updateMajor(major: major) : ()
+                                    $0 ? intent.majorSheetDismissed() : ()
+                                }
+                            )
+                        )
+                    }
+                    seletarRow(
+                        text: "직접입력",
+                        isSeleted: Binding(
+                            get: {
+                                state.major == "직접입력"
+                            },
+                            set: {
+                                $0 ? intent.majorSheetDismissed() : ()
+                                $0 ? intent.updateMajor(major: "") : ()
+                                $0 ? intent.activeSelfEntering() : ()
+                                self.isFocuesedMajorTextField = $0
+                            }
+                        )
+                    )
+                }
+            }
         }
         .animation(.default, value: state.isPresentedMajorSheet)
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedImageMethodPicker },
-                set: { _ in intent.imageMethodPickerDismissed() }
+                set: { _ in intent.imageMethodPickerIsDismissed() }
             )
         ) {
             imageMethodPickerView()
@@ -169,12 +205,12 @@ struct InputProfileInfoView: View {
             Group {
                 imageMethodRow(title: "앨범에서 가져오기", icon: .photo) {
                     intent.imagePickerIsRequired()
-                    intent.imageMethodPickerDismissed()
+                    intent.imageMethodPickerIsDismissed()
                 }
 
                 imageMethodRow(title: "카메라에서 촬영하기", icon: .camera) {
                     intent.cameraIsRequired()
-                    intent.imageMethodPickerDismissed()
+                    intent.imageMethodPickerIsDismissed()
                 }
             }
             .buttonStyle(.plain)
@@ -202,5 +238,20 @@ struct InputProfileInfoView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.sms(.system(.white)))
         }
+    }
+
+    @ViewBuilder
+    func seletarRow(text: String, isSeleted: Binding<Bool>) -> some View {
+        HStack {
+            SMSText(text, font: .body1)
+
+            Spacer()
+
+            SMSSelectionControls(isSeleted: isSeleted)
+                .buttonWrapper {}
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

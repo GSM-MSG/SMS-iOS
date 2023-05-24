@@ -12,9 +12,11 @@ protocol InputProfileInfoIntentProtocol {
     func imagePickerIsRequired()
     func imagePickerDismissed()
     func imageMethodPickerIsRequired()
-    func imageMethodPickerDismissed()
+    func imageMethodPickerIsDismissed()
     func imageDidSelected(imageResult: PickedImageResult?)
     func nextButtonDidTap(state: any InputProfileInfoStateProtocol)
     func cameraIsRequired()
     func cameraIsDismissed()
+    func activeSelfEntering()
+    func deActiveSelfEntering()
 }

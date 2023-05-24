@@ -8,6 +8,7 @@ struct SMSBottomSheet<T: View>: ViewModifier {
 
     var content: () -> T
     var height: CGFloat
+    var topPadding: CGFloat
     var cornerRadius: CGFloat
     var sheetDragGesture: some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .global)
@@ -33,11 +34,13 @@ struct SMSBottomSheet<T: View>: ViewModifier {
         isShowing: Binding<Bool>,
         cornerRadius: CGFloat = 16,
         height: CGFloat = .infinity,
+        topPadding: CGFloat = .zero,
         content: @escaping () -> T
     ) {
         _isShowing = isShowing
         self.cornerRadius = cornerRadius
         self.height = height
+        self.topPadding = topPadding
         self.content = content
     }
 
@@ -74,9 +77,10 @@ struct SMSBottomSheet<T: View>: ViewModifier {
                     }
                     .fixedSize(horizontal: false, vertical: true)
                     .transition(.move(edge: .bottom))
-                    .if(height != .infinity) {
-                        $0.frame(height: height)
-                    }
+                    .padding(.top, topPadding)
+//                    .if(height != .infinity) {
+//                        $0.frame(height: height)
+//                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
@@ -89,11 +93,13 @@ public extension View {
     func smsBottomSheet<Content: View>(
         isShowing: Binding<Bool>,
         cornerRadius: CGFloat = 16,
+        topPadding: CGFloat = .zero,
         content: @escaping () -> Content
     ) -> some View {
         modifier(SMSBottomSheet(
             isShowing: isShowing,
             cornerRadius: cornerRadius,
+            topPadding: topPadding,
             content: content
         ))
     }

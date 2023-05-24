@@ -55,7 +55,7 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateIsPresentedImageMethodPicker(isPresented: true)
     }
 
-    func imageMethodPickerDismissed() {
+    func imageMethodPickerIsDismissed() {
         model?.updateIsPresentedImageMethodPicker(isPresented: false)
     }
 
@@ -115,5 +115,13 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
 
     func cameraIsDismissed() {
         model?.updateIsPresentedCamera(isPresented: false)
+    }
+
+    func activeSelfEntering() {
+        model?.updateIsSelfEntering(isSelfEntering: true)
+    }
+    
+    func deActiveSelfEntering() {
+        model?.updateIsSelfEntering(isSelfEntering: false)
     }
 }
