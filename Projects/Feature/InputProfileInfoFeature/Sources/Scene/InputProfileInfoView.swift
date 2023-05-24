@@ -111,6 +111,9 @@ struct InputProfileInfoView: View {
         .onChange(of: state.isSelfEntering) { newValue in
             isFocuesedMajorTextField = newValue
         }
+        .onLoad {
+            intent.onLoad()
+        }
         .imagePicker(
             isShow: Binding(
                 get: { state.isPresentedImagePicker },

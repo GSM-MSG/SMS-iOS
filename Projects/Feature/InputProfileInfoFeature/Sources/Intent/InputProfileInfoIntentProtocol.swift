@@ -19,4 +19,5 @@ protocol InputProfileInfoIntentProtocol {
     func cameraIsDismissed()
     func activeSelfEntering()
     func deActiveSelfEntering()
+    func onLoad()
 }

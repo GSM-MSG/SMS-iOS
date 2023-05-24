@@ -7,7 +7,6 @@ struct SMSBottomSheet<T: View>: ViewModifier {
     @Environment(\.safeAreaInsets) var safeAreaInsets
 
     var content: () -> T
-    var height: CGFloat
     var topPadding: CGFloat
     var cornerRadius: CGFloat
     var sheetDragGesture: some Gesture {
@@ -33,13 +32,11 @@ struct SMSBottomSheet<T: View>: ViewModifier {
     init(
         isShowing: Binding<Bool>,
         cornerRadius: CGFloat = 16,
-        height: CGFloat = .infinity,
         topPadding: CGFloat = .zero,
         content: @escaping () -> T
     ) {
         _isShowing = isShowing
         self.cornerRadius = cornerRadius
-        self.height = height
         self.topPadding = topPadding
         self.content = content
     }

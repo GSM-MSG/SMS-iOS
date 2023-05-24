@@ -173,15 +173,17 @@ private func factory9df85876e39e1206b924e3b0c44298fc1c149afb(_ component: Needle
     return InputCertificateInfoDependencyd369771b4dc3e8540791Provider()
 }
 private class InputProfileInfoDependencydedc6189ad35e7ff3001Provider: InputProfileInfoDependency {
-
-
-    init() {
-
+    var majorDomainBuildable: any MajorDomainBuildable {
+        return appComponent.majorDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->InputProfileInfoComponent
-private func factoryb3d74d9bff60efbc0282e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return InputProfileInfoDependencydedc6189ad35e7ff3001Provider()
+private func factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputProfileInfoDependencydedc6189ad35e7ff3001Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class FileDomainDependency2b4ac3753c2aa3928546Provider: FileDomainDependency {
     var jwtStoreBuildable: any JwtStoreBuildable {
@@ -301,7 +303,7 @@ extension InputCertificateInfoComponent: Registration {
 }
 extension InputProfileInfoComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\InputProfileInfoDependency.majorDomainBuildable] = "majorDomainBuildable-any MajorDomainBuildable"
     }
 }
 extension FileDomainComponent: Registration {
@@ -351,7 +353,7 @@ private func register1() {
     registerProviderFactory("^->AppComponent->InputLanguageInfoComponent", factory36893d70245037098109e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputInformationComponent", factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->FileDomainComponent", factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)

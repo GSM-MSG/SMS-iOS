@@ -30,6 +30,10 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
         self.major = major
     }
 
+    func updateMajorList(majorList: [String]) {
+        self.majorList = majorList
+    }
+
     func updatePortfolioURL(portfolioURL: String) {
         self.portfolioURL = portfolioURL
     }
@@ -57,6 +61,7 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
     func updateIsSelfEntering(isSelfEntering: Bool) {
         self.isSelfEntering = isSelfEntering
     }
+
     func updateProfileImage(imageResult: PickedImageResult?) {
         self.profileImage = imageResult
     }

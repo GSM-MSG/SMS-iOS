@@ -29,6 +29,7 @@ protocol InputProfileInfoActionProtocol: AnyObject {
     func updateIntroduce(introduce: String)
     func updateEmail(email: String)
     func updateMajor(major: String)
+    func updateMajorList(majorList: [String])
     func updatePortfolioURL(portfolioURL: String)
     func updateTeckStack(techStack: String)
     func updateIsPresentedMajorSheet(isPresented: Bool)
