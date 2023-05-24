@@ -167,12 +167,12 @@ struct InputProfileInfoView: View {
     func imageMethodPickerView() -> some View {
         VStack(spacing: 28) {
             Group {
-                buttonRow(title: "앨범에서 가져오기", icon: .photo) {
+                imageMethodRow(title: "앨범에서 가져오기", icon: .photo) {
                     intent.imagePickerIsRequired()
                     intent.imageMethodPickerDismissed()
                 }
 
-                buttonRow(title: "카메라에서 촬영하기", icon: .camera) {
+                imageMethodRow(title: "카메라에서 촬영하기", icon: .camera) {
                     intent.cameraIsRequired()
                     intent.imageMethodPickerDismissed()
                 }
@@ -186,7 +186,7 @@ struct InputProfileInfoView: View {
     }
 
     @ViewBuilder
-    func buttonRow(
+    func imageMethodRow(
         title: String,
         icon: SMSIcon.Icon,
         action: @escaping () -> Void
