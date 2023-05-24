@@ -173,7 +173,7 @@ struct InputProfileInfoView: View {
                     Label {
                         SMSText("앨범에서 가져오기", font: .body1)
                     } icon: {
-                        SMSIcon(.image)
+                        SMSIcon(.photo)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color.sms(.system(.white)))
