@@ -13,6 +13,13 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var isPresentedCamera: Bool = false
     @Published var inputProfileErrorFieldSet: Set<InputProfileErrorField> = []
     @Published var profileImage: PickedImageResult?
+    var nextButtonIsDisabled: Bool {
+        introduce.isEmpty ||
+        email.isEmpty ||
+        major.isEmpty ||
+        portfolioURL.isEmpty ||
+        techStack.isEmpty
+    }
 }
 
 extension InputProfileInfoModel: InputProfileInfoActionProtocol {

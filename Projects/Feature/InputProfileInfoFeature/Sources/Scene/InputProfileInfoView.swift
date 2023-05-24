@@ -99,6 +99,7 @@ struct InputProfileInfoView: View {
                     CTAButton(text: "다음") {
                         intent.nextButtonDidTap(state: state)
                     }
+                    .disabled(state.nextButtonIsDisabled)
                     .padding(.bottom, 32)
                 }
                 .padding([.top, .horizontal], 20)
