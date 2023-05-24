@@ -166,30 +166,20 @@ struct InputProfileInfoView: View {
     func imageMethodPickerView() -> some View {
         VStack(spacing: 28) {
             Group {
-                Button {
+                buttonCell(
+                    title: "앨범에서 가져오기",
+                    icon: .photo
+                ) {
                     intent.imagePickerIsRequired()
                     intent.imageMethodPickerDismissed()
-                } label: {
-                    Label {
-                        SMSText("앨범에서 가져오기", font: .body1)
-                    } icon: {
-                        SMSIcon(.photo)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.sms(.system(.white)))
                 }
 
-                Button {
+                buttonCell(
+                    title: "카메라에서 촬영하기",
+                    icon: .camera
+                ) {
                     intent.cameraIsRequired()
                     intent.imageMethodPickerDismissed()
-                } label: {
-                    Label {
-                        SMSText("카메라에서 촬영하기", font: .body1)
-                    } icon: {
-                        SMSIcon(.camera)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.sms(.system(.white)))
                 }
             }
             .buttonStyle(.plain)
@@ -198,5 +188,24 @@ struct InputProfileInfoView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 20)
         .padding(.top, 16)
+    }
+
+    @ViewBuilder
+    func buttonCell(
+        title: String,
+        icon: SMSIcon.Icon,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button {
+            action()
+        } label: {
+            Label {
+                SMSText(title, font: .body1)
+            } icon: {
+                SMSIcon(icon)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.sms(.system(.white)))
+        }
     }
 }
