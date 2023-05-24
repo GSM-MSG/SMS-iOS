@@ -112,4 +112,8 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     func cameraIsRequired() {
         model?.updateIsPresentedCamera(isPresented: true)
     }
+
+    func cameraIsDismissed() {
+        model?.updateIsPresentedCamera(isPresented: false)
+    }
 }

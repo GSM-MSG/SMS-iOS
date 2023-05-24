@@ -128,18 +128,22 @@ struct InputProfileInfoView: View {
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedImageMethodPicker },
-                set: { _ in intent.imageMethodPickerIsRequired() }
+                set: { _ in intent.imageMethodPickerDismissed() }
             )
         ) {
             imageMethodPickerView()
         }
-        .cameraPicker(isShow: Binding(
-            get: { state.isPresentedCamera },
-            set: { _ in }
-        ), pickedImageResult: Binding(
-            get: { state.profileImage },
-            set: { intent.imageDidSelected(imageResult: $0) }
-        ))
+        .animation(.default, value: state.isPresentedImageMethodPicker)
+        .cameraPicker(
+            isShow: Binding(
+                get: { state.isPresentedCamera },
+                set: { _ in intent.cameraIsDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { state.profileImage },
+                set: { intent.imageDidSelected(imageResult: $0) }
+            )
+        )
     }
 
     @ViewBuilder
@@ -161,37 +165,38 @@ struct InputProfileInfoView: View {
     @ViewBuilder
     func imageMethodPickerView() -> some View {
         VStack(spacing: 28) {
-            HStack {
+            Group {
                 Button {
                     intent.imagePickerIsRequired()
+                    intent.imageMethodPickerDismissed()
                 } label: {
-                    SMSIcon(.image)
-                        .padding(.trailing, 2)
-
-                    Text("앨범에서 가져오기")
-                        .smsFont(.body1)
+                    Label {
+                        SMSText("앨범에서 가져오기", font: .body1)
+                    } icon: {
+                        SMSIcon(.image)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.sms(.system(.white)))
                 }
-                .buttonStyle(.plain)
 
-                Spacer()
-            }
-
-            HStack {
                 Button {
                     intent.cameraIsRequired()
+                    intent.imageMethodPickerDismissed()
                 } label: {
-                    SMSIcon(.camera)
-                        .padding(.trailing, 2)
-
-                    Text("카메라에서 촬영")
-                        .smsFont(.body1)
+                    Label {
+                        SMSText("카메라에서 촬영하기", font: .body1)
+                    } icon: {
+                        SMSIcon(.camera)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.sms(.system(.white)))
                 }
-                .buttonStyle(.plain)
-
-                Spacer()
             }
+            .buttonStyle(.plain)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .padding(.leading, 20)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 20)
         .padding(.top, 16)
     }
 }
