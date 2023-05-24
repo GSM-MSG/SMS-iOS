@@ -15,6 +15,7 @@ enum InformationPhase: CaseIterable {
 
 protocol InputInformationStateProtocol {
     var phase: InformationPhase { get }
+    var isLoading: Bool { get }
     var inputProfileInformationObject: InputProfileInformationObject? { get }
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject? { get }
     var inputWorkInfomationObject: InputWorkInformationObject? { get }
@@ -33,5 +34,6 @@ protocol InputInformationActionProtocol: AnyObject {
     func updateCertificates(certificates: [String])
     func updateMilitaryServiceType(type: MilitaryServiceType)
     func updateLanguages(languages: [InputStudentInformationRequestDTO.LanguageCertificate])
-    func updateIsCompleteToInputAllInfo(isComplete: Bool) 
+    func updateIsCompleteToInputAllInfo(isComplete: Bool)
+    func updateIsLoading(isLoading: Bool)
 }

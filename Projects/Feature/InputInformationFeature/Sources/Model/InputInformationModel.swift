@@ -6,6 +6,7 @@ import StudentDomainInterface
 
 final class InputInformationModel: ObservableObject, InputInformationStateProtocol {
     @Published var phase: InformationPhase = .profile
+    @Published var isLoading: Bool = false
     var inputProfileInformationObject: InputProfileInformationObject?
     var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
     var inputWorkInfomationObject: InputWorkInformationObject?
@@ -56,5 +57,9 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateIsCompleteToInputAllInfo(isComplete: Bool) {
         self.isCompleteToInputAllInfo = isComplete
+    }
+
+    func updateIsLoading(isLoading: Bool) {
+        self.isLoading = isLoading
     }
 }

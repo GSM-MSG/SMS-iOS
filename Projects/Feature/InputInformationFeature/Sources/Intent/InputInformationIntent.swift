@@ -6,16 +6,69 @@ import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
 import StudentDomainInterface
+import FileDomainInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
+    private let dreamBookUploadUseCase: any DreamBookUploadUseCase
+    private let imageUploadUseCase: any ImageUploadUseCase
+    private let inputInformationUseCase: any InputInformationUseCase
 
-    init(model: any InputInformationActionProtocol) {
+    init(
+        model: any InputInformationActionProtocol,
+        dreamBookUploadUseCase: any DreamBookUploadUseCase,
+        imageUploadUseCase: any ImageUploadUseCase,
+        inputInformationUseCase: any InputInformationUseCase
+    ) {
         self.model = model
+        self.dreamBookUploadUseCase = dreamBookUploadUseCase
+        self.imageUploadUseCase = imageUploadUseCase
+        self.inputInformationUseCase = inputInformationUseCase
     }
 
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {
-        // TODO: 전체 정보 서버와 통신
+        guard
+            let inputProfileInfo = state.inputProfileInformationObject,
+            let inputSchoolLifeInfo = state.inputSchoolLifeInformationObject,
+            let inputWorkInfo = state.inputWorkInfomationObject,
+            let militaryServiceType = state.militaryServiceType
+        else { return }
+
+        model?.updateIsLoading(isLoading: true)
+        Task {
+            do {
+                async let profileImageURL = imageUploadUseCase.execute(
+                    image: inputProfileInfo.profileImageData,
+                    fileName: inputProfileInfo.profileImageFilename
+                )
+                async let dreamBookURL = dreamBookUploadUseCase.execute(
+                    file: inputSchoolLifeInfo.hwpData,
+                    fileName: inputSchoolLifeInfo.hwpFilename
+                )
+
+                let inputInformationRequest = try await InputStudentInformationRequestDTO(
+                    certificate: state.certificates,
+                    contactEmail: inputProfileInfo.contactEmail,
+                    dreamBookFileURL: dreamBookURL,
+                    formOfEmployment: FormOfEmployment(rawValue: inputWorkInfo.formOfEmployment) ?? .fullTime,
+                    gsmAuthenticationScore: inputSchoolLifeInfo.gsmAuthenticationScore,
+                    introduce: inputProfileInfo.introduce,
+                    languageCertificate: state.languages,
+                    major: inputProfileInfo.major,
+                    militaryService: militaryServiceType,
+                    portfolioURL: inputProfileInfo.portfoiloURL,
+                    profileImgURL: profileImageURL,
+                    region: inputWorkInfo.workRegion,
+                    salary: inputWorkInfo.salary,
+                    techStack: inputProfileInfo.techStack
+                )
+
+                try await inputInformationUseCase.execute(req: inputInformationRequest)
+                model?.updateIsLoading(isLoading: false)
+            } catch {
+                model?.updateIsLoading(isLoading: false)
+            }
+        }
     }
 }
 

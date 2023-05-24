@@ -77,5 +77,17 @@ struct InputInformationView: View {
                 intent.completeToInputAllInfo(state: state)
             }
         }
+        .overlay {
+            if state.isLoading {
+                ZStack {
+                    Color.sms(.neutral(.n40))
+                        .opacity(0.3)
+                        .ignoresSafeArea()
+
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                }
+            }
+        }
     }
 }
