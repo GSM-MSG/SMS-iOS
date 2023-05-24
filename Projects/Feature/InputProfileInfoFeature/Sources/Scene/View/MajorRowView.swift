@@ -2,7 +2,6 @@ import DesignSystem
 import SwiftUI
 
 struct MajorRowView: View {
-
     private var text: String
     @Binding private var isSeleted: Bool
 

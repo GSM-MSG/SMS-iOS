@@ -1,8 +1,3 @@
-@ViewBuilder
-func imageMethodPickerView() -> some View {
-
-}
-
 import DesignSystem
 import SwiftUI
 

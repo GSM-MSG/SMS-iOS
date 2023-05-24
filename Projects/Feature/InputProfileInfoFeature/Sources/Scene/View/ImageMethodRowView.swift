@@ -2,7 +2,6 @@ import DesignSystem
 import SwiftUI
 
 struct ImageMethodRowView: View {
-
     private var title: String
     private var icon: SMSIcon.Icon
     private var action: () -> Void
