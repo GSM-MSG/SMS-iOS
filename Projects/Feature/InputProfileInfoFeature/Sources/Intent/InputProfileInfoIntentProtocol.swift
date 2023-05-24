@@ -16,5 +16,8 @@ protocol InputProfileInfoIntentProtocol {
     func imageDidSelected(imageResult: PickedImageResult?)
     func nextButtonDidTap(state: any InputProfileInfoStateProtocol)
     func cameraIsRequired()
-    func cameraIsDismissed()
+    func cameraDismissed()
+    func activeSelfEntering()
+    func deActiveSelfEntering()
+    func onLoad()
 }

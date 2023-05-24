@@ -5,12 +5,14 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var introduce: String = ""
     @Published var email: String = ""
     @Published var major: String = ""
+    @Published var majorList: [String] = []
     @Published var portfolioURL: String = ""
     @Published var techStack: String = ""
     @Published var isPresentedMajorSheet: Bool = false
     @Published var isPresentedImagePicker: Bool = false
     @Published var isPresentedImageMethodPicker: Bool = false
     @Published var isPresentedCamera: Bool = false
+    @Published var isSelfEntering: Bool = false
     @Published var inputProfileErrorFieldSet: Set<InputProfileErrorField> = []
     @Published var profileImage: PickedImageResult?
     var isDisabledNextButton: Bool {
@@ -35,6 +37,10 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
         self.major = major
     }
 
+    func updateMajorList(majorList: [String]) {
+        self.majorList = majorList
+    }
+
     func updatePortfolioURL(portfolioURL: String) {
         self.portfolioURL = portfolioURL
     }
@@ -57,6 +63,10 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
 
     func updateIsPresentedCamera(isPresented: Bool) {
         self.isPresentedCamera = isPresented
+    }
+
+    func updateIsSelfEntering(isSelfEntering: Bool) {
+        self.isSelfEntering = isSelfEntering
     }
 
     func updateProfileImage(imageResult: PickedImageResult?) {

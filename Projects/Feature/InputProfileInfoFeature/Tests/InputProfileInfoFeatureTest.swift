@@ -2,23 +2,39 @@ import BaseFeature
 import InputProfileInfoFeatureInterface
 import XCTest
 @testable import InputProfileInfoFeature
+@testable import MajorDomainTesting
 
 final class DummyInputProfileDelegate: InputProfileDelegate {
     func completeToInputProfile(input: InputProfileInformationObject) {}
 }
+
+@MainActor
 final class InputProfileInfoFeatureTests: XCTestCase {
     var model: InputProfileInfoModel!
+    var fetchMajorListUseCaseSpy: FetchMajorListUseCaseSpy!
     var intent: InputProfileInfoIntent!
     var sut: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>!
 
     override func setUp() async throws {
         model = InputProfileInfoModel()
-        intent = InputProfileInfoIntent(model: model, inputProfileDelegate: DummyInputProfileDelegate())
+        fetchMajorListUseCaseSpy = FetchMajorListUseCaseSpy()
+        intent = InputProfileInfoIntent(
+            model: model,
+            inputProfileDelegate: DummyInputProfileDelegate(),
+            fetchMajorListUseCase: fetchMajorListUseCaseSpy
+        )
         sut = MVIContainer(
             intent: intent as InputProfileInfoIntentProtocol,
             model: model as InputProfileInfoStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
+    }
+
+    func test_on_load() async throws {
+        sut.intent.onLoad()
+        try await Task.sleep(nanoseconds: 1_000_000_000)
+        XCTAssertEqual(sut.model.majorList, ["A", "B", "C"])
+        XCTAssertEqual(fetchMajorListUseCaseSpy.executeCallCount, 1)
     }
 
     func test_update_introduce() {
@@ -66,11 +82,12 @@ final class InputProfileInfoFeatureTests: XCTestCase {
         XCTAssertEqual(sut.model.techStack, uuid)
     }
 
-    func test_bottomSheet_intet() {
+    func test_bottomSheet_intet() async throws {
         sut.intent.majorSheetIsRequired()
         XCTAssertEqual(sut.model.isPresentedMajorSheet, true)
 
         sut.intent.majorSheetDismissed()
+        try await Task.sleep(nanoseconds: 100_000_000)
         XCTAssertEqual(sut.model.isPresentedMajorSheet, false)
     }
 }

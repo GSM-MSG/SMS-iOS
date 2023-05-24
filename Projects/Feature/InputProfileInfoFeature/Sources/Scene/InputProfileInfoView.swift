@@ -3,6 +3,7 @@ import DesignSystem
 import SwiftUI
 
 struct InputProfileInfoView: View {
+    @FocusState var isFocuesedMajorTextField: Bool
     @StateObject var container: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>
     var intent: any InputProfileInfoIntentProtocol { container.intent }
     var state: any InputProfileInfoStateProtocol { container.model }
@@ -65,13 +66,14 @@ struct InputProfileInfoView: View {
                         .titleWrapper("이메일")
 
                         SMSTextField(
-                            "전공 분야 선택",
+                            state.isSelfEntering ? "전공 분야 입력" : "전공 분야 선택",
                             text: Binding(get: { state.major }, set: intent.updateMajor(major:)),
                             errorText: "전공 분야를 선택해주세요",
                             isError: state.inputProfileErrorFieldSet.contains(.major),
                             isOnClear: false
                         )
-                        .disabled(true)
+                        .focused($isFocuesedMajorTextField)
+                        .disabled(!state.isSelfEntering)
                         .overlay(alignment: .trailing) {
                             SMSIcon(.downChevron)
                                 .padding(.trailing, 12)
@@ -79,6 +81,7 @@ struct InputProfileInfoView: View {
                         .titleWrapper("분야")
                         .onTapGesture {
                             intent.majorSheetIsRequired()
+                            intent.deActiveSelfEntering()
                         }
 
                         SMSTextField(
@@ -106,6 +109,12 @@ struct InputProfileInfoView: View {
             }
         }
         .hideKeyboardWhenTap()
+        .onChange(of: state.isSelfEntering) { newValue in
+            isFocuesedMajorTextField = newValue
+        }
+        .onLoad {
+            intent.onLoad()
+        }
         .imagePicker(
             isShow: Binding(
                 get: { state.isPresentedImagePicker },
@@ -121,9 +130,10 @@ struct InputProfileInfoView: View {
             isShowing: Binding(
                 get: { state.isPresentedMajorSheet },
                 set: { _ in intent.majorSheetDismissed() }
-            )
+            ),
+            topPadding: 150
         ) {
-            Text("ASDAF")
+            majorListView()
         }
         .animation(.default, value: state.isPresentedMajorSheet)
         .smsBottomSheet(
@@ -132,13 +142,19 @@ struct InputProfileInfoView: View {
                 set: { _ in intent.imageMethodPickerDismissed() }
             )
         ) {
-            imageMethodPickerView()
+            ImageMethodPickerView {
+                intent.imagePickerIsRequired()
+                intent.imageMethodPickerDismissed()
+            } cameraAction: {
+                intent.cameraIsRequired()
+                intent.imageMethodPickerDismissed()
+            }
         }
         .animation(.default, value: state.isPresentedImageMethodPicker)
         .cameraPicker(
             isShow: Binding(
                 get: { state.isPresentedCamera },
-                set: { _ in intent.cameraIsDismissed() }
+                set: { _ in intent.cameraDismissed() }
             ),
             pickedImageResult: Binding(
                 get: { state.profileImage },
@@ -165,43 +181,35 @@ struct InputProfileInfoView: View {
     }
 
     @ViewBuilder
-    func imageMethodPickerView() -> some View {
-        VStack(spacing: 28) {
-            Group {
-                imageMethodRow(title: "앨범에서 가져오기", icon: .photo) {
-                    intent.imagePickerIsRequired()
-                    intent.imageMethodPickerDismissed()
+    func majorListView() -> some View {
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(state.majorList, id: \.self) { major in
+                    MajorRowView(
+                        text: major,
+                        isSeleted: Binding(
+                            get: { state.major == major },
+                            set: {
+                                $0 ? intent.updateMajor(major: major) : ()
+                                $0 ? intent.majorSheetDismissed() : ()
+                            }
+                        )
+                    )
                 }
 
-                imageMethodRow(title: "카메라에서 촬영하기", icon: .camera) {
-                    intent.cameraIsRequired()
-                    intent.imageMethodPickerDismissed()
-                }
+                MajorRowView(
+                    text: "직접입력",
+                    isSeleted: Binding(
+                        get: { state.isSelfEntering },
+                        set: {
+                            $0 ? intent.updateMajor(major: "") : ()
+                            $0 ? intent.activeSelfEntering() : ()
+                            $0 ? intent.majorSheetDismissed() : ()
+                            self.isFocuesedMajorTextField = $0
+                        }
+                    )
+                )
             }
-            .buttonStyle(.plain)
-            .frame(maxWidth: .infinity, alignment: .leading)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 20)
-        .padding(.top, 16)
-    }
-
-    @ViewBuilder
-    func imageMethodRow(
-        title: String,
-        icon: SMSIcon.Icon,
-        action: @escaping () -> Void
-    ) -> some View {
-        Button {
-            action()
-        } label: {
-            Label {
-                SMSText(title, font: .body1)
-            } icon: {
-                SMSIcon(icon)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.sms(.system(.white)))
         }
     }
 }

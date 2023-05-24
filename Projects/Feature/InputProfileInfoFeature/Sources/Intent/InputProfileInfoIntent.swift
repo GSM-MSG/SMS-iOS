@@ -2,17 +2,21 @@ import DesignSystem
 import Foundation
 import InputProfileInfoFeatureInterface
 import Validator
+import MajorDomainInterface
 
 final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     private weak var model: (any InputProfileInfoActionProtocol)?
     private weak var inputProfileDelegate: (any InputProfileDelegate)?
+    private let fetchMajorListUseCase: any FetchMajorListUseCase
 
     init(
         model: any InputProfileInfoActionProtocol,
-        inputProfileDelegate: any InputProfileDelegate
+        inputProfileDelegate: any InputProfileDelegate,
+        fetchMajorListUseCase: any FetchMajorListUseCase
     ) {
         self.model = model
         self.inputProfileDelegate = inputProfileDelegate
+        self.fetchMajorListUseCase = fetchMajorListUseCase
     }
 
     func updateIntroduce(introduce: String) {
@@ -40,7 +44,9 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     }
 
     func majorSheetDismissed() {
-        model?.updateIsPresentedMajorSheet(isPresented: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.model?.updateIsPresentedMajorSheet(isPresented: false)
+        }
     }
 
     func imagePickerIsRequired() {
@@ -113,7 +119,22 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateIsPresentedCamera(isPresented: true)
     }
 
-    func cameraIsDismissed() {
+    func cameraDismissed() {
         model?.updateIsPresentedCamera(isPresented: false)
+    }
+
+    func activeSelfEntering() {
+        model?.updateIsSelfEntering(isSelfEntering: true)
+    }
+
+    func deActiveSelfEntering() {
+        model?.updateIsSelfEntering(isSelfEntering: false)
+    }
+
+    func onLoad() {
+        Task {
+            let majorList = try await fetchMajorListUseCase.execute()
+            model?.updateMajorList(majorList: majorList)
+        }
     }
 }
