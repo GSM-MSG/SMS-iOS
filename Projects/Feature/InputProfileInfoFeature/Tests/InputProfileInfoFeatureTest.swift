@@ -82,11 +82,12 @@ final class InputProfileInfoFeatureTests: XCTestCase {
         XCTAssertEqual(sut.model.techStack, uuid)
     }
 
-    func test_bottomSheet_intet() {
+    func test_bottomSheet_intet() async throws {
         sut.intent.majorSheetIsRequired()
         XCTAssertEqual(sut.model.isPresentedMajorSheet, true)
 
         sut.intent.majorSheetDismissed()
+        try await Task.sleep(nanoseconds: 1_000_000_000)
         XCTAssertEqual(sut.model.isPresentedMajorSheet, false)
     }
 }
