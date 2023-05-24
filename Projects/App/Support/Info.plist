@@ -2,10 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>뭐함?</string>
 	<key>NSCameraUsageDescription</key>
-	<string>뭐해?</string>
+	<string>카메라 접근 권한이 허용되었는지 확인해주세요. </string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>CLIENT_ID</key>
