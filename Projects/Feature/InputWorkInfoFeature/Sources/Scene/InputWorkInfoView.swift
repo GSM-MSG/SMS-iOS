@@ -49,6 +49,7 @@ struct InputWorkInfoView: View {
                                         set: intent.updateSalary(salary:)
                                     )
                                 )
+                                .keyboardType(.numberPad)
 
                                 Text(state.salaryDisplay)
                                     .smsFont(.caption1, color: .neutral(.n30))
