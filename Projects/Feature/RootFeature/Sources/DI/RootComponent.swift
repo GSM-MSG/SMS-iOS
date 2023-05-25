@@ -12,7 +12,7 @@ public protocol RootDependency: Dependency {
 public final class RootComponent: Component<RootDependency> {
     public func makeView() -> some View {
         let model = RootModel()
-        let intent = RootIntent()
+        let intent = RootIntent(model: model)
         let container = MVIContainer(
             intent: intent as RootIntentProtocol,
             model: model as RootStateProtocol,
