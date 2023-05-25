@@ -49,6 +49,7 @@ struct InputWorkInfoView: View {
                                         set: intent.updateSalary(salary:)
                                     )
                                 )
+                                .keyboardType(.numberPad)
 
                                 Text(state.salaryDisplay)
                                     .smsFont(.caption1, color: .neutral(.n30))
@@ -77,6 +78,7 @@ struct InputWorkInfoView: View {
                 .padding(.horizontal, 20)
             }
         }
+        .hideKeyboardWhenTap()
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedFormOfEmployeementSheet },

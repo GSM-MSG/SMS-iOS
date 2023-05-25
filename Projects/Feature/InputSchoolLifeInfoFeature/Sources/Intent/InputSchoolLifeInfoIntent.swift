@@ -53,11 +53,14 @@ final class InputSchoolLifeInfoIntent: InputSchoolLifeInfoIntentProtocol {
         guard
             let gsmScore = Int(state.authenticationScore),
             let hwpURL = state.hwpFileURL,
+            hwpURL.startAccessingSecurityScopedResource(),
             let hwpData = try? Data(contentsOf: hwpURL),
             errorSet.isEmpty
         else {
+            state.hwpFileURL?.stopAccessingSecurityScopedResource()
             return
         }
+        hwpURL.stopAccessingSecurityScopedResource()
 
         let input = InputSchoolLifeInformationObject(
             hwpFilename: state.hwpFilename,

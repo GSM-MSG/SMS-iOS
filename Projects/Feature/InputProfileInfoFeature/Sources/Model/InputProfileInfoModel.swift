@@ -19,8 +19,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
         introduce.isEmpty ||
         email.isEmpty ||
         major.isEmpty ||
-        portfolioURL.isEmpty ||
-        techStack.isEmpty
+        portfolioURL.isEmpty
     }
 }
 

@@ -26,10 +26,11 @@ public final class InputInformationComponent:
     Component<InputInformationDependency>,
     InputInformationBuildable {
 
-    public func makeView() -> some View {
+    public func makeView(delegate: any InputInformationDelegate) -> some View {
         let model = InputInformationModel()
         let intent = InputInformationIntent(
             model: model,
+            inputInformationDelegate: delegate,
             dreamBookUploadUseCase: dependency.fileDomainBuildable.dreamBookUploadUseCase,
             imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase,
             inputInformationUseCase: dependency.studentDomainBuildable.inputInformationUseCase
