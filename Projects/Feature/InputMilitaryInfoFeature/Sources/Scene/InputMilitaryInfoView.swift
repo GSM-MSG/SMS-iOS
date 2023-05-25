@@ -57,6 +57,7 @@ struct InputMilitaryInfoView: View {
                 .padding([.top, .horizontal], 20)
             }
         }
+        .hideKeyboardWhenTap()
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedMilitarySheet },

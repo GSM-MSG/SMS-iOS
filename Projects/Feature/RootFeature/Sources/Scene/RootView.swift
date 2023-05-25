@@ -33,7 +33,7 @@ struct RootView: View {
                 .eraseToAnyView()
 
         case .inputInformation:
-            inputInformationBuildable.makeView()
+            inputInformationBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
         }
     }

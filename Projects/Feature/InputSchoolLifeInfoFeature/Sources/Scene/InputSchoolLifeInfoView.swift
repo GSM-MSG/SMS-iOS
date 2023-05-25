@@ -59,6 +59,7 @@ struct InputSchoolLifeInfoView: View {
                         CTAButton(text: "다음") {
                             intent.nextButtonDidTap(state: state)
                         }
+                        .disabled(state.isDisabledNextButton)
                         .frame(maxWidth: .infinity)
                     }
                     .padding(.bottom, 32)
@@ -66,6 +67,7 @@ struct InputSchoolLifeInfoView: View {
                 .padding([.top, .horizontal], 20)
             }
         }
+        .hideKeyboardWhenTap()
         .fileImporter(
             isPresented: Binding(
                 get: { state.isPresentedHWPFileImporter },

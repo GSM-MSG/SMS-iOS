@@ -42,6 +42,7 @@ struct InputLanguageInfoView: View {
                 .padding(.bottom, 32)
             }
         }
+        .hideKeyboardWhenTap()
     }
 
     @ViewBuilder

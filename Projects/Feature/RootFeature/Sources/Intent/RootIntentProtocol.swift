@@ -1,3 +1,4 @@
 import Foundation
+import InputInformationFeatureInterface
 
-protocol RootIntentProtocol {}
+protocol RootIntentProtocol: InputInformationDelegate {}
