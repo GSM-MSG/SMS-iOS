@@ -214,6 +214,7 @@ struct InputProfileInfoView: View {
                             set: {
                                 $0 ? intent.updateMajor(major: major) : ()
                                 $0 ? intent.majorSheetDismissed() : ()
+                                self.focusField = .portfoilo
                             }
                         )
                     )
