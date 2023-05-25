@@ -2,29 +2,33 @@ import SwiftUI
 
 public struct SMSTextField: View {
     @Binding var text: String
+    @FocusState var isFocused: Bool
     var placeholder: String
     var errorText: String
     var isError: Bool
     var isOnClear: Bool
-    @FocusState var isFocused: Bool
+    var onSubmit: () -> Void
 
     public init(
         _ placeholder: String = "",
         text: Binding<String>,
         errorText: String = "",
         isError: Bool = false,
-        isOnClear: Bool = true
+        isOnClear: Bool = true,
+        onSubmit: @escaping () -> Void = {}
     ) {
         self._text = text
         self.placeholder = placeholder
         self.errorText = errorText
         self.isError = isError
         self.isOnClear = isOnClear
+        self.onSubmit = onSubmit
     }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             TextField(placeholder, text: $text)
+                .onSubmit(onSubmit)
                 .smsFont(.body1, color: .neutral(.n50))
                 .padding(.horizontal, 12)
                 .padding(.vertical, 13.5)
