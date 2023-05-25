@@ -3,7 +3,14 @@ import DesignSystem
 import SwiftUI
 
 struct InputProfileInfoView: View {
+    enum FocusField: Hashable {
+        case introduce
+        case email
+        case portfoilo
+        case techStack
+    }
     @FocusState var isFocuesedMajorTextField: Bool
+    @FocusState var focusField: FocusField?
     @StateObject var container: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>
     var intent: any InputProfileInfoIntentProtocol { container.intent }
     var state: any InputProfileInfoStateProtocol { container.model }
@@ -54,7 +61,10 @@ struct InputProfileInfoView: View {
                             text: Binding(get: { state.introduce }, set: intent.updateIntroduce(introduce:)),
                             errorText: "1글자에서 50글자 사이로 입력해주세요",
                             isError: state.inputProfileErrorFieldSet.contains(.introduce)
-                        )
+                        ) {
+                            focusField = .email
+                        }
+                        .focused($focusField, equals: .introduce)
                         .titleWrapper("자기소개")
 
                         SMSTextField(
@@ -62,7 +72,10 @@ struct InputProfileInfoView: View {
                             text: Binding(get: { state.email }, set: intent.updateEmail(email:)),
                             errorText: "이메일 형식에 맞게 입력해주세요",
                             isError: state.inputProfileErrorFieldSet.contains(.email)
-                        )
+                        ) {
+                            intent.majorSheetIsRequired()
+                        }
+                        .focused($focusField, equals: .email)
                         .titleWrapper("이메일")
 
                         SMSTextField(
@@ -71,7 +84,9 @@ struct InputProfileInfoView: View {
                             errorText: "전공 분야를 선택해주세요",
                             isError: state.inputProfileErrorFieldSet.contains(.major),
                             isOnClear: false
-                        )
+                        ) {
+                            focusField = .portfoilo
+                        }
                         .focused($isFocuesedMajorTextField)
                         .disabled(!state.isSelfEntering)
                         .overlay(alignment: .trailing) {
@@ -89,13 +104,20 @@ struct InputProfileInfoView: View {
                             text: Binding(get: { state.portfolioURL }, set: intent.updatePortfolioURL(portfolioURL:)),
                             errorText: "URL 형식에 맞게 입력해주세요",
                             isError: state.inputProfileErrorFieldSet.contains(.portfoilo)
-                        )
+                        ) {
+                            focusField = .techStack
+                        }
+                        .focused($focusField, equals: .portfoilo)
                         .titleWrapper("포트폴리오 URL")
 
                         SMSTextField(
                             "예시) C, Java, Python",
                             text: Binding(get: { state.techStack }, set: intent.updateTechStack(techStack:))
-                        )
+                        ) {
+                            focusField = nil
+                            intent.nextButtonDidTap(state: state)
+                        }
+                        .focused($focusField, equals: .techStack)
                         .titleWrapper("세부스택")
                     }
 
