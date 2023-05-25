@@ -5,17 +5,20 @@ import InputProfileInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
+import InputInformationFeatureInterface
 import StudentDomainInterface
 import FileDomainInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
+    private weak var inputInformationDelegate: (any InputInformationDelegate)?
     private let dreamBookUploadUseCase: any DreamBookUploadUseCase
     private let imageUploadUseCase: any ImageUploadUseCase
     private let inputInformationUseCase: any InputInformationUseCase
 
     init(
         model: any InputInformationActionProtocol,
+        inputInformationDelegate: any InputInformationDelegate,
         dreamBookUploadUseCase: any DreamBookUploadUseCase,
         imageUploadUseCase: any ImageUploadUseCase,
         inputInformationUseCase: any InputInformationUseCase

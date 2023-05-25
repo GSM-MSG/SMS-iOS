@@ -5,6 +5,6 @@ final class RootIntent: RootIntentProtocol {}
 
 extension RootIntent: InputInformationDelegate {
     func completeToInputInformation() {
-        
+        print("SUC")
     }
 }

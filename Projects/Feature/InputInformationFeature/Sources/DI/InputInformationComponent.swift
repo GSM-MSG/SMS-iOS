@@ -30,6 +30,7 @@ public final class InputInformationComponent:
         let model = InputInformationModel()
         let intent = InputInformationIntent(
             model: model,
+            inputInformationDelegate: delegate,
             dreamBookUploadUseCase: dependency.fileDomainBuildable.dreamBookUploadUseCase,
             imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase,
             inputInformationUseCase: dependency.studentDomainBuildable.inputInformationUseCase
