@@ -80,7 +80,6 @@ struct InputSchoolLifeInfoView: View {
         ) { result in
             switch result {
             case let .success(url):
-                guard url.startAccessingSecurityScopedResource() else { return }
                 intent.hwpFileDidSelect(url: url)
 
             case .failure:
