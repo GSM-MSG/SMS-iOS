@@ -71,7 +71,6 @@ struct InputInformationView: View {
                 .tag(InformationPhase.language)
         }
         .animation(.default, value: state.phase)
-        .ignoresSafeArea()
         .onChange(of: state.isCompleteToInputAllInfo) { newValue in
             if newValue {
                 intent.completeToInputAllInfo(state: state)

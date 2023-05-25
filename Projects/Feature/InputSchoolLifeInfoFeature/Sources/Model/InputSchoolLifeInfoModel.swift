@@ -32,6 +32,7 @@ extension InputSchoolLifeInfoModel: InputSchoolLifeInfoActionProtocol {
     }
 
     func updateHWPFileURL(url: URL) {
+        self.hwpFileURL?.stopAccessingSecurityScopedResource()
         self.hwpFileURL = url
     }
 

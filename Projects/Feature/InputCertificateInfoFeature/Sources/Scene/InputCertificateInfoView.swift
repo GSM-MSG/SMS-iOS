@@ -51,6 +51,7 @@ struct InputCertificateInfoView: View {
                 .padding(.horizontal, 20)
             }
         }
+        .hideKeyboardWhenTap()
     }
 
     @ViewBuilder

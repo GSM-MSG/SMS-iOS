@@ -85,6 +85,7 @@ extension InputInformationIntent: InputSchoolLifeDelegate {
     }
 
     func completeToInputSchoolLife(input: InputSchoolLifeInformationObject) {
+        model?.updateInputSchoolLifeInformationObject(object: input)
         model?.nextButtonDidTap()
     }
 }

@@ -77,6 +77,7 @@ struct InputWorkInfoView: View {
                 .padding(.horizontal, 20)
             }
         }
+        .hideKeyboardWhenTap()
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedFormOfEmployeementSheet },

@@ -78,11 +78,11 @@ struct InputProfileInfoView: View {
                             SMSIcon(.downChevron)
                                 .padding(.trailing, 12)
                         }
-                        .titleWrapper("분야")
                         .onTapGesture {
                             intent.majorSheetIsRequired()
                             intent.deActiveSelfEntering()
                         }
+                        .titleWrapper("분야")
 
                         SMSTextField(
                             "예시) https://github.com/",
