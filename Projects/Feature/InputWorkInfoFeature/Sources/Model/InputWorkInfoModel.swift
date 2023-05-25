@@ -33,7 +33,8 @@ extension InputWorkInfoModel: InputWorkInfoActionProtocol {
     }
 
     func updateSalary(salary: String) {
-        self.salary = Int(salary).map { String(min($0, 9999)) } ?? salary
+        guard let salaryInt = Int(salary).map({ String(min($0, 9999)) }) else { return }
+        self.salary = salaryInt
     }
 
     func updateFormOfEmployment(form: FormOfEmployment) {
