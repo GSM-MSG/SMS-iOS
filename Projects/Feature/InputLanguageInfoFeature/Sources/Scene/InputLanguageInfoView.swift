@@ -51,9 +51,6 @@ struct InputLanguageInfoView: View {
             Text("외국어")
                 .foregroundColor(.sms(.system(.black)))
 
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
             Spacer()
 
             SMSPageControl(pageCount: 6, selectedPage: 5)

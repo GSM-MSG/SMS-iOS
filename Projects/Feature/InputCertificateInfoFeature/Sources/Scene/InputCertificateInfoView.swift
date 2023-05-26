@@ -60,9 +60,6 @@ struct InputCertificateInfoView: View {
             Text("자격증")
                 .foregroundColor(.sms(.system(.black)))
 
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
             Spacer()
 
             SMSPageControl(pageCount: 6, selectedPage: 4)
