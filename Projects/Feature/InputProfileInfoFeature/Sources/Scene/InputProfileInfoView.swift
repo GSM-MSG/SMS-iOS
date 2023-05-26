@@ -1,6 +1,7 @@
 import BaseFeature
 import DesignSystem
 import SwiftUI
+import InputInformationBaseFeature
 
 struct InputProfileInfoView: View {
     enum FocusField: Hashable {
@@ -24,7 +25,7 @@ struct InputProfileInfoView: View {
                     .frame(height: 16)
 
                 VStack(spacing: 32) {
-                    pageTitleView()
+                    InputInformationPageTitleView(title: "프로필", pageCount: 6, selectedPage: 0)
 
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 8) {
@@ -184,22 +185,6 @@ struct InputProfileInfoView: View {
             )
         )
         .animation(.default, value: state.inputProfileErrorFieldSet)
-    }
-
-    @ViewBuilder
-    func pageTitleView() -> some View {
-        HStack(spacing: 4) {
-            Text("프로필")
-                .foregroundColor(.sms(.system(.black)))
-
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
-            Spacer()
-
-            SMSPageControl(pageCount: 6, selectedPage: 0)
-        }
-        .smsFont(.title1)
     }
 
     @ViewBuilder

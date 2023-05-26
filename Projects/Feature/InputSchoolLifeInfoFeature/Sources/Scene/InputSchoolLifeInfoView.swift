@@ -1,5 +1,6 @@
 import BaseFeature
 import DesignSystem
+import InputInformationBaseFeature
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -17,7 +18,7 @@ struct InputSchoolLifeInfoView: View {
                     .frame(height: 16)
 
                 VStack(spacing: 32) {
-                    pageTitleView()
+                    InputInformationPageTitleView(title: "학교 생활", pageCount: 6, selectedPage: 1)
 
                     VStack(spacing: 24) {
                         SMSTextField(
@@ -86,21 +87,5 @@ struct InputSchoolLifeInfoView: View {
                 intent.failedToImportHWPFile()
             }
         }
-    }
-
-    @ViewBuilder
-    func pageTitleView() -> some View {
-        HStack(spacing: 4) {
-            Text("학교 생활")
-                .foregroundColor(.sms(.system(.black)))
-
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
-            Spacer()
-
-            SMSPageControl(pageCount: 6, selectedPage: 1)
-        }
-        .smsFont(.title1)
     }
 }

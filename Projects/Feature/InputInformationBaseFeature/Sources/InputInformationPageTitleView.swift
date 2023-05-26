@@ -9,7 +9,7 @@ public struct InputInformationPageTitleView: View {
 
     public init(
         title: String,
-        isRequired: Bool,
+        isRequired: Bool = true,
         pageCount: Int,
         selectedPage: Int
     ) {

@@ -1,6 +1,7 @@
 import BaseFeature
 import DesignSystem
 import FoundationUtil
+import InputInformationBaseFeature
 import SwiftUI
 import ViewUtil
 
@@ -19,7 +20,12 @@ struct InputCertificateInfoView: View {
                         .frame(height: 16)
 
                     VStack(spacing: 32) {
-                        pageTitleView()
+                        InputInformationPageTitleView(
+                            title: "자격증",
+                            isRequired: false,
+                            pageCount: 6,
+                            selectedPage: 4
+                        )
 
                         VStack(spacing: 8) {
                             certificateListView()
@@ -52,22 +58,6 @@ struct InputCertificateInfoView: View {
             }
         }
         .hideKeyboardWhenTap()
-    }
-
-    @ViewBuilder
-    func pageTitleView() -> some View {
-        HStack(spacing: 4) {
-            Text("자격증")
-                .foregroundColor(.sms(.system(.black)))
-
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
-            Spacer()
-
-            SMSPageControl(pageCount: 6, selectedPage: 4)
-        }
-        .smsFont(.title1)
     }
 
     @ViewBuilder
