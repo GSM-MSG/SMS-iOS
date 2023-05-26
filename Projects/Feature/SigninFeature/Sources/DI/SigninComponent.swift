@@ -9,11 +9,12 @@ public protocol SigninDependency: Dependency {
 }
 
 public final class SigninComponent: Component<SigninDependency>, SigninBuildable {
-    public func makeView() -> some View {
+    public func makeView(delegate: any SigninDelegate) -> some View {
         let model = SigninModel()
         let intent = SigninIntent(
-            loginUseCase: dependency.authDomainBuildable.loginUseCase,
-            model: model
+            model: model,
+            signinDelegate: delegate,
+            loginUseCase: dependency.authDomainBuildable.loginUseCase
         )
         let container = MVIContainer(
             intent: intent as SigninIntentProtocol,
