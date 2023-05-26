@@ -89,9 +89,9 @@ struct InputProfileInfoView: View {
                         }
                         .focused($isFocuesedMajorTextField)
                         .disabled(!state.isSelfEntering)
-                        .overlay(alignment: .trailing) {
+                        .overlay(alignment: .topTrailing) {
                             SMSIcon(.downChevron)
-                                .padding(.trailing, 12)
+                                .padding([.top, .trailing], 12)
                         }
                         .onTapGesture {
                             intent.majorSheetIsRequired()
