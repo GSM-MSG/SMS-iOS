@@ -18,10 +18,9 @@ struct GAuthButtonView: UIViewRepresentable {
         gauthButton.prepare(
             clientID: Bundle.main.object(forInfoDictionaryKey: "CLIENT_ID") as? String ?? "",
             redirectURI: Bundle.main.object(forInfoDictionaryKey: "REDIRECT_URI") as? String ?? "",
-            presenting: topViewController
-        ) { code in
-            completion(code)
-        }
+            presenting: topViewController,
+            completion: completion
+        )
         return gauthButton
     }
 
