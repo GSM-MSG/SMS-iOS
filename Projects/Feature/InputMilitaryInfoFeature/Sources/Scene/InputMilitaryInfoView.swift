@@ -12,10 +12,7 @@ struct InputMilitaryInfoView: View {
     var body: some View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
-                Rectangle()
-                    .fill(Color.sms(.neutral(.n10)))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 16)
+                SMSSeparator()
 
                 VStack(spacing: 32) {
                     InputInformationPageTitleView(title: "병역", pageCount: 6, selectedPage: 3)

@@ -19,10 +19,7 @@ struct InputProfileInfoView: View {
     var body: some View {
         SMSNavigationTitleView(title: "정보입력") {
             ScrollView(showsIndicators: false) {
-                Rectangle()
-                    .fill(Color.sms(.neutral(.n10)))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 16)
+                SMSSeparator()
 
                 VStack(spacing: 32) {
                     InputInformationPageTitleView(title: "프로필", pageCount: 6, selectedPage: 0)
