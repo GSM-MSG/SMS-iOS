@@ -25,11 +25,14 @@ struct RootView: View {
     @ViewBuilder
     var body: some View {
         switch state.sceneType {
-        case .splash, .home:
-            EmptyView()
+        case .splash:
+            Text("Splash")
+
+        case .home:
+            Text("Home")
 
         case .signin:
-            signinBuildable.makeView()
+            signinBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
 
         case .inputInformation:
