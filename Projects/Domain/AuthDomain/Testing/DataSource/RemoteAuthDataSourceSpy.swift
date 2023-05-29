@@ -5,7 +5,7 @@ final class RemoteAuthDataSourceSpy: RemoteAuthDataSource {
     func login(code: String) async throws -> IsAlreadySignUp {
         loginCallCount += 1
         if code.isEmpty {
-            throw AuthDomainError.invalidGAuthCode
+            throw AuthDomainError.failedToGAuthSignin
         }
         return true
     }

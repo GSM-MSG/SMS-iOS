@@ -43,6 +43,9 @@ extension AuthEndpoint: SMSEndpoint {
         switch self {
         case .signin:
             return [
+                400: .failedToGAuthSignin,
+                401: .failedToGAuthSignin,
+                404: .failedToGAuthSignin,
                 500: .internalServerError
             ]
         }
