@@ -1,9 +1,9 @@
-//
-//  MainModelProtocol.swift
-//  MainFeatureInterface
-//
-//  Created by sunghun on 2023/05/30.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+protocol MainStateProtocol {
+    var isError: Bool { get }
+    var isSuccess: Bool { get }
+}
 
-import Foundation
+protocol MainActionProtocol: AnyObject {
+    func updateIsError(isError: Bool)
+    func updateIsSuccess(isSuccess: Bool)
+}

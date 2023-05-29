@@ -1,9 +1,16 @@
-//
-//  MainModel.swift
-//  MainFeatureInterface
-//
-//  Created by sunghun on 2023/05/30.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
 import Foundation
+
+final class MainModel: ObservableObject, MainStateProtocol {
+    @Published var isError: Bool = false
+    @Published var isSuccess: Bool = false
+}
+
+extension MainModel: MainActionProtocol {
+    func updateIsError(isError: Bool) {
+        self.isError = isError
+    }
+
+    func updateIsSuccess(isSuccess: Bool) {
+        self.isSuccess = isSuccess
+    }
+}
