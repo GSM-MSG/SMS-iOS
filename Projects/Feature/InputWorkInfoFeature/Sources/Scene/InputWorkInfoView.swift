@@ -1,8 +1,9 @@
 import BaseFeature
 import DesignSystem
 import FoundationUtil
-import SwiftUI
+import InputInformationBaseFeature
 import StudentDomainInterface
+import SwiftUI
 import ViewUtil
 
 struct InputWorkInfoView: View {
@@ -14,13 +15,10 @@ struct InputWorkInfoView: View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
                 ScrollView(showsIndicators: false) {
-                    Rectangle()
-                        .fill(Color.sms(.neutral(.n10)))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 16)
+                    SMSSeparator()
 
                     VStack(spacing: 32) {
-                        pageTitleView()
+                        InputInformationPageTitleView(title: "근무 조건", pageCount: 6, selectedPage: 2)
 
                         VStack(spacing: 24) {
                             SMSTextField(
@@ -90,22 +88,6 @@ struct InputWorkInfoView: View {
             }
         }
         .animation(.default, value: state.isPresentedFormOfEmployeementSheet)
-    }
-
-    @ViewBuilder
-    func pageTitleView() -> some View {
-        HStack(spacing: 4) {
-            Text("근무 조건")
-                .foregroundColor(.sms(.system(.black)))
-
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
-            Spacer()
-
-            SMSPageControl(pageCount: 6, selectedPage: 2)
-        }
-        .smsFont(.title1)
     }
 
     @ViewBuilder

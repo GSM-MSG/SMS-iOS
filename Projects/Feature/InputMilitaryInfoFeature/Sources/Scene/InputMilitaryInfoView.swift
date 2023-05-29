@@ -1,7 +1,8 @@
 import BaseFeature
 import DesignSystem
-import SwiftUI
+import InputInformationBaseFeature
 import StudentDomainInterface
+import SwiftUI
 
 struct InputMilitaryInfoView: View {
     @StateObject var container: MVIContainer<InputMilitaryInfoIntentProtocol, InputMilitaryInfoStateProtocol>
@@ -11,13 +12,10 @@ struct InputMilitaryInfoView: View {
     var body: some View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
-                Rectangle()
-                    .fill(Color.sms(.neutral(.n10)))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 16)
+                SMSSeparator()
 
                 VStack(spacing: 32) {
-                    pageTitleView()
+                    InputInformationPageTitleView(title: "병역", pageCount: 6, selectedPage: 3)
 
                     VStack(spacing: 24) {
                         SMSTextField(
@@ -67,22 +65,6 @@ struct InputMilitaryInfoView: View {
             militaryListView()
         }
         .animation(.default, value: state.isPresentedMilitarySheet)
-    }
-
-    @ViewBuilder
-    func pageTitleView() -> some View {
-        HStack(spacing: 4) {
-            Text("병역")
-                .foregroundColor(.sms(.system(.black)))
-
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
-            Spacer()
-
-            SMSPageControl(pageCount: 6, selectedPage: 3)
-        }
-        .smsFont(.title1)
     }
 
     @ViewBuilder

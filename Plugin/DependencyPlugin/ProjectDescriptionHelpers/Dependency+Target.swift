@@ -9,6 +9,10 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let InputInformationBaseFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputInformationBaseFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputInformationBaseFeature.rawValue)
+    )
     static let RootFeature = TargetDependency.project(
         target: ModulePaths.Feature.RootFeature.targetName(type: .sources),
         path: .relativeToFeature(ModulePaths.Feature.RootFeature.rawValue)
