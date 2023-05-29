@@ -21,6 +21,8 @@ import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
+import MainFeature
+import MainFeatureInterface
 import RootFeature
 import JwtStore
 import JwtStoreInterface
@@ -70,6 +72,10 @@ final class AppComponent: BootstrapComponent {
 
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         InputLanguageInfoComponent(parent: self)
+    }
+
+    var mainBuildable: any MainBuildable {
+        MainComponent(parent: self)
     }
 
     var authDomainBuildable: any AuthDomainBuildable {

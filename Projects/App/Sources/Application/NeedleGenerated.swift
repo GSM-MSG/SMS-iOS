@@ -24,6 +24,8 @@ import JwtStore
 import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
+import MainFeature
+import MainFeatureInterface
 import MajorDomain
 import MajorDomainInterface
 import NeedleFoundation
@@ -70,6 +72,17 @@ private class InputWorkInfoDependency74441f61366e4e5af9a2Provider: InputWorkInfo
 /// ^->AppComponent->InputWorkInfoComponent
 private func factoryfff86bd7854b30412216e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputWorkInfoDependency74441f61366e4e5af9a2Provider()
+}
+private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainComponent
+private func factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainDependency7c6a5b4738b211b8e155Provider()
 }
 private class InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider: InputSchoolLifeInfoDependency {
 
@@ -266,6 +279,11 @@ extension InputWorkInfoComponent: Registration {
 
     }
 }
+extension MainComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension InputSchoolLifeInfoComponent: Registration {
     public func registerItems() {
 
@@ -349,11 +367,12 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-@inline(never) private func register1() {
+private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SigninComponent", factory2882a056d84a613debccf47b58f8f304c97af4d5)
