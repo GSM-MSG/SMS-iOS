@@ -1,9 +1,13 @@
-//
-//  MainView.swift
-//  MainFeatureInterface
-//
-//  Created by sunghun on 2023/05/30.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import SwiftUI
+import BaseFeature
+import ViewUtil
 
-import Foundation
+struct MainView: View {
+    @StateObject var container: MVIContainer<MainIntentProtocol, MainStateProtocol>
+    var intent: any MainIntentProtocol { container.intent }
+    var state: any MainStateProtocol { container.model }
+
+    var body: some View {
+        Text("asdf")
+    }
+}
