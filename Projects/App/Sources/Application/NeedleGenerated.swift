@@ -102,6 +102,9 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var inputInformationBuildable: any InputInformationBuildable {
         return appComponent.inputInformationBuildable
     }
+    var mainBuildable: any MainBuildable {
+        return appComponent.mainBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -293,6 +296,7 @@ extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.signinBuildable] = "signinBuildable-any SigninBuildable"
         keyPathToName[\RootDependency.inputInformationBuildable] = "inputInformationBuildable-any InputInformationBuildable"
+        keyPathToName[\RootDependency.mainBuildable] = "mainBuildable-any MainBuildable"
     }
 }
 extension SigninComponent: Registration {

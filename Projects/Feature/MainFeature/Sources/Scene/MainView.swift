@@ -9,11 +9,12 @@ struct MainView: View {
     var state: any MainStateProtocol { container.model }
 
     var body: some View {
-        HStack {
+        HStack(spacing: 16) {
             SMSImage(.smsLogo)
             Spacer()
             SMSIcon(.filter)
             SMSIcon(.profile)
         }
+        .padding(.horizontal, 20)
     }
 }
