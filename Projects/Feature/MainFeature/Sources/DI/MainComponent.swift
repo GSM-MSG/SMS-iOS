@@ -1,9 +1,23 @@
-//
-//  MainComponent.swift
-//  MainFeatureInterface
-//
-//  Created by sunghun on 2023/05/30.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import SwiftUI
+import MainFeatureInterface
+import BaseFeature
+import NeedleFoundation
 
-import Foundation
+public protocol MainDependency: Dependency {
+}
+
+public final class MainComponent: Component<MainDependency>, MainBuildable {
+    public func makeView(delegate: any MainDelegate) -> some View {
+        let model = MainModel()
+        let intent = MainIntent(
+            model: model,
+            mainDelegate: delegate
+        )
+        let container = MVIContainer(
+            intent: intent as MainIntentProtocol,
+            model: model as MainStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return MainView(container: container)
+    }
+}
