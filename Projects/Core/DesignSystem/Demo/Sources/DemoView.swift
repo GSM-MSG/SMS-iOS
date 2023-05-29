@@ -2,34 +2,33 @@ import DesignSystem
 import SwiftUI
 
 public struct DemoView: View {
-    @State var isSeleted = false
-    @State var selection: Int? = 0
+    @State var isShowing = false
 
     public var body: some View {
         VStack {
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                isSeleted = true
+                isShowing = true
             }
         }
-        .smsDialog(
+        .smsAlert(
             title: "123",
             description: "!23",
-            checkText: "123",
-            cancelText: "123",
-            checkAction: { print("asdf") },
-            cancelAction: { isSeletedChange() },
+            alertAction: [
+                .init(text: "Cancel", style: .outline, action: { isSeletedChange() }),
+                .init(text: "Success", style: .default, action: { print("asdf") })
+            ],
             isShowing:
                 Binding(
-                    get: { isSeleted },
+                    get: { isShowing },
                     set: { _ in isSeletedChange() }
                 )
         )
     }
 
     func isSeletedChange() {
-        isSeleted = false
+        isShowing = false
     }
 }
 
