@@ -1,9 +1,15 @@
-//
-//  MainIntent.swift
-//  MainFeatureInterface
-//
-//  Created by sunghun on 2023/05/30.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import Combine
+import MainFeatureInterface
 
-import Foundation
+final class MainIntent: MainIntentProtocol {
+    private weak var model: (any MainActionProtocol)?
+    private weak var mainDelegate: (any MainDelegate)?
+
+    init(
+        model: any MainActionProtocol,
+        mainDelegate: any MainDelegate
+    ) {
+        self.mainDelegate = mainDelegate
+        self.model = model
+    }
+}
