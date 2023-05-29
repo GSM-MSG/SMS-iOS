@@ -1,6 +1,7 @@
 import BaseFeature
 import DesignSystem
 import SwiftUI
+import InputInformationBaseFeature
 
 struct InputProfileInfoView: View {
     enum FocusField: Hashable {
@@ -18,13 +19,10 @@ struct InputProfileInfoView: View {
     var body: some View {
         SMSNavigationTitleView(title: "정보입력") {
             ScrollView(showsIndicators: false) {
-                Rectangle()
-                    .fill(Color.sms(.neutral(.n10)))
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 16)
+                SMSSeparator()
 
                 VStack(spacing: 32) {
-                    pageTitleView()
+                    InputInformationPageTitleView(title: "프로필", pageCount: 6, selectedPage: 0)
 
                     VStack(alignment: .leading, spacing: 24) {
                         VStack(alignment: .leading, spacing: 8) {
@@ -89,9 +87,9 @@ struct InputProfileInfoView: View {
                         }
                         .focused($isFocuesedMajorTextField)
                         .disabled(!state.isSelfEntering)
-                        .overlay(alignment: .trailing) {
+                        .overlay(alignment: .topTrailing) {
                             SMSIcon(.downChevron)
-                                .padding(.trailing, 12)
+                                .padding([.top, .trailing], 12)
                         }
                         .onTapGesture {
                             intent.majorSheetIsRequired()
@@ -184,22 +182,6 @@ struct InputProfileInfoView: View {
             )
         )
         .animation(.default, value: state.inputProfileErrorFieldSet)
-    }
-
-    @ViewBuilder
-    func pageTitleView() -> some View {
-        HStack(spacing: 4) {
-            Text("프로필")
-                .foregroundColor(.sms(.system(.black)))
-
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-
-            Spacer()
-
-            SMSPageControl(pageCount: 6, selectedPage: 0)
-        }
-        .smsFont(.title1)
     }
 
     @ViewBuilder

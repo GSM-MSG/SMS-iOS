@@ -5,7 +5,7 @@ final class LoginUseCaseSpy: LoginUseCase {
     func execute(code: String) async throws -> IsAlreadySignUp {
         callCount += 1
         if code.isEmpty {
-            throw AuthDomainError.invalidGAuthCode
+            throw AuthDomainError.failedToGAuthSignin
         }
         return true
     }

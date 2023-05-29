@@ -8,8 +8,8 @@
 	<string>Light</string>
 	<key>CLIENT_ID</key>
 	<string>$(CLIENT_ID)</string>
-	<key>REDIREDCT_URI</key>
-	<string>$(REDIREDCT_URI)</string>
+	<key>REDIRECT_URI</key>
+	<string>$(REDIRECT_URI)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

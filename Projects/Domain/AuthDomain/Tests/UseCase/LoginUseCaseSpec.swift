@@ -17,9 +17,9 @@ final class LoginUseCaseSpec: QuickSpec {
 
         describe("LoginUseCase에서") {
             context("code를 비운상태로 execute을 실행하면") {
-                it("AuthDomainError.invalidGAuthCode error가 throw되고, callCount가 +1 된다.") {
+                it("AuthDomainError.failedToGAuthSignin error가 throw되고, callCount가 +1 된다.") {
                     await expect { try await loginUseCase.execute(code: "") }
-                        .to(throwError(AuthDomainError.invalidGAuthCode))
+                        .to(throwError(AuthDomainError.failedToGAuthSignin))
 
                     expect { authRepositorySpy.loginCallCount }
                         .to(equal(1))

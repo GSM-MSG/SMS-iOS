@@ -17,9 +17,9 @@ final class AuthRepositorySpec: QuickSpec {
 
         describe("AuthRepositoryImpl에서") {
             context("code를 비운상태로 login을 실행하면") {
-                it("AuthDomainError.invalidGAuthCode error가 throw되고, loginCallCount가 +1 된다.") {
+                it("AuthDomainError.failedToGAuthSignin error가 throw되고, loginCallCount가 +1 된다.") {
                     await expect { try await authRepositoryImpl.login(code: "") }
-                        .to(throwError(AuthDomainError.invalidGAuthCode))
+                        .to(throwError(AuthDomainError.failedToGAuthSignin))
 
                     expect { remoteAuthDataSourceSpy.loginCallCount }
                         .to(equal(1))

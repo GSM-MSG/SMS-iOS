@@ -1,23 +1,27 @@
 import Combine
 import AuthDomainInterface
+import SigninFeatureInterface
 
 final class SigninIntent: SigninIntentProtocol {
-    private let loginUseCase: any LoginUseCase
     private weak var model: (any SigninActionProtocol)?
+    private weak var signinDelegate: (any SigninDelegate)?
+    private let loginUseCase: any LoginUseCase
 
     init(
-        loginUseCase: any LoginUseCase,
-        model: any SigninActionProtocol
+        model: any SigninActionProtocol,
+        signinDelegate: any SigninDelegate,
+        loginUseCase: any LoginUseCase
     ) {
         self.loginUseCase = loginUseCase
+        self.signinDelegate = signinDelegate
         self.model = model
     }
 
     func signin(code: String) {
         Task {
             do {
-                try await loginUseCase.execute(code: code)
-                model?.updateIsSuccess(isSuccess: true)
+                let isAlreadySignup = try await loginUseCase.execute(code: code)
+                signinDelegate?.successToSignin(isAlreadySignUp: isAlreadySignup)
             } catch {
                 model?.updateIsError(isError: true)
             }
