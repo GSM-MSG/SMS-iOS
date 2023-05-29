@@ -27,6 +27,7 @@ public struct SMSImage: View {
         switch image {
         case .background:
             return DesignSystemAsset.Images.background.swiftUIImage
+
         case .smsLogo:
             return DesignSystemAsset.Images.smsLogo.swiftUIImage
         }

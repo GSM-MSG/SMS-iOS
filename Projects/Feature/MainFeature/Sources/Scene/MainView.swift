@@ -1,6 +1,7 @@
 import SwiftUI
 import BaseFeature
 import ViewUtil
+import DesignSystem
 
 struct MainView: View {
     @StateObject var container: MVIContainer<MainIntentProtocol, MainStateProtocol>
@@ -8,6 +9,11 @@ struct MainView: View {
     var state: any MainStateProtocol { container.model }
 
     var body: some View {
-        Text("asdf")
+        HStack {
+            SMSImage(.smsLogo)
+            Spacer()
+            SMSIcon(.filter)
+            SMSIcon(.profile)
+        }
     }
 }
