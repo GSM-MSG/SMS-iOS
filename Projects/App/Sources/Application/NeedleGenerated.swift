@@ -6,6 +6,8 @@ import BaseDomain
 import BaseFeature
 import FileDomain
 import FileDomainInterface
+import FilterFeature
+import FilterFeatureInterface
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -81,6 +83,17 @@ private class InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider: InputSc
 /// ^->AppComponent->InputSchoolLifeInfoComponent
 private func factorydc1feebed8f042db375fe3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider()
+}
+private class FilterDependencya3adf5d0affb84ca15efProvider: FilterDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->FilterComponent
+private func factoryf50b858bcdf190c46b17e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return FilterDependencya3adf5d0affb84ca15efProvider()
 }
 private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var signinBuildable: any SigninBuildable {
@@ -271,6 +284,11 @@ extension InputSchoolLifeInfoComponent: Registration {
 
     }
 }
+extension FilterComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.signinBuildable] = "signinBuildable-any SigninBuildable"
@@ -355,6 +373,7 @@ private func register1() {
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->FilterComponent", factoryf50b858bcdf190c46b17e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SigninComponent", factory2882a056d84a613debccf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputMilitaryInfoComponent", factory6e35522c47cca1190471e3b0c44298fc1c149afb)
