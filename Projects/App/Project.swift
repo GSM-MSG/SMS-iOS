@@ -23,7 +23,7 @@ let settings: Settings =
               configurations: configurations,
               defaultSettings: .recommended)
 
-let scripts: [TargetScript] = isCI ? [] : [.swiftLint, .needle]
+let scripts: [TargetScript] = isCI ? [] : [.swiftLint, .needle, .apolloGraphQL]
 
 let targets: [Target] = [
     .init(
