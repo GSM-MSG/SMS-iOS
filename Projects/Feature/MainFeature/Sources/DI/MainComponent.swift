@@ -1,7 +1,7 @@
 import SwiftUI
 import MainFeatureInterface
-import BaseFeature
 import NeedleFoundation
+import BaseFeature
 
 public protocol MainDependency: Dependency {
 }

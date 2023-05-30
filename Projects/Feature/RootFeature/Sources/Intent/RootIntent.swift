@@ -13,13 +13,13 @@ final class RootIntent: RootIntentProtocol {
 
 extension RootIntent: InputInformationDelegate {
     func completeToInputInformation() {
-        model?.updateSceneType(type: .home)
+        model?.updateSceneType(type: .main)
     }
 }
 
 extension RootIntent: SigninDelegate {
     func successToSignin(isAlreadySignUp: Bool) {
-        model?.updateSceneType(type: isAlreadySignUp ? .home : .inputInformation)
+        model?.updateSceneType(type: isAlreadySignUp ? .main : .inputInformation)
     }
 }
 

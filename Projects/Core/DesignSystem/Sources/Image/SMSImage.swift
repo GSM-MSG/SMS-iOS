@@ -3,7 +3,6 @@ import SwiftUI
 public struct SMSImage: View {
     public enum Image {
         case background
-        case smsLogo
     }
 
     private var image: Image
@@ -27,9 +26,6 @@ public struct SMSImage: View {
         switch image {
         case .background:
             return DesignSystemAsset.Images.background.swiftUIImage
-
-        case .smsLogo:
-            return DesignSystemAsset.Images.smsLogo.swiftUIImage
         }
     }
 }

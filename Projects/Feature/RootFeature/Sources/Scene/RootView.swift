@@ -32,7 +32,7 @@ struct RootView: View {
         case .splash:
             Text("Splash")
 
-        case .home:
+        case .main:
             mainBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
 
