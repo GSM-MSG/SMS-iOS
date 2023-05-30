@@ -7,7 +7,8 @@ let project = Project.makeModule(
     product: .framework,
     targets: [.unitTest],
     externalDependencies: [
-        .SPM.Emdpoint
+        .SPM.Emdpoint,
+        .SPM.Apollo
     ],
     internalDependencies: [
         .Core.JwtStoreInterface,

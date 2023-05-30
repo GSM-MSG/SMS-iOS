@@ -5,6 +5,7 @@ let dependencies = Dependencies(
     carthage: nil,
     swiftPackageManager: SwiftPackageManagerDependencies(
         [
+            .remote(url: "https://github.com/apollographql/apollo-ios.git", requirement: .exact("1.2.0")),
             .remote(url: "https://github.com/uber/needle", requirement: .exact("0.22.0")),
             .remote(url: "https://github.com/GSM-MSG/GAuthSignin-Swift", requirement: .exact("0.0.3")),
             .remote(url: "https://github.com/Quick/Nimble.git", requirement: .exact("11.2.2")),

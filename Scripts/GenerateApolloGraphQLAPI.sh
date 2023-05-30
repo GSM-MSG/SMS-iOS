@@ -20,5 +20,6 @@ if [ -z "${SCRIPT_PATH}" ]; then
 fi
 
 cd "${PROJECT_ROOT}/Domain"
+# Scheme가 추가될때 아래 script 복사해서 사용
 # ${SCRIPT_PATH}"/run-bundled-codegen.sh codegen:generate --target=swift --namespace=\(namespace이름) --includes=./\(.graphql 파일들이 들어가 있는 디렉토리 경로) --localSchemaFile="\(Scheme 정보 json파일 이름).json" \(Output 경로)
 
