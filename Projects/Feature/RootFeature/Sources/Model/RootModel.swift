@@ -1,7 +1,7 @@
 import Foundation
 
 final class RootModel: ObservableObject, RootStateProtocol {
-    @Published var sceneType: RootSceneType = .inputInformation
+    @Published var sceneType: RootSceneType = .filter
 }
 
 extension RootModel: RootActionProtocol {
