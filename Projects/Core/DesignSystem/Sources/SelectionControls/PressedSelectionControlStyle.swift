@@ -1,16 +1,16 @@
 import SwiftUI
 
 internal struct PressedSelectionButtonStyle: ButtonStyle {
-    var isSeleted: Bool
+    var isSelected: Bool
 
-    init(isSeleted: Bool) {
-        self.isSeleted = isSeleted
+    init(isSelected: Bool) {
+        self.isSelected = isSelected
     }
 
     @ViewBuilder
     func makeBody(configuration: Configuration) -> some View {
         Circle()
-            .fill(self.isSeleted && configuration.isPressed ? Color.sms(.neutral(.n20)) : Color.clear)
+            .fill(self.isSelected && configuration.isPressed ? Color.sms(.neutral(.n20)) : Color.clear)
             .overlay {
                 configuration.label
             }

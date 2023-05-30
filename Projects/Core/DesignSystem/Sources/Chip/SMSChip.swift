@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtil
 
 public struct SMSChip<Content: View>: View {
     var iconLabel: Content
@@ -18,14 +19,13 @@ public struct SMSChip<Content: View>: View {
     }
 
     public var body: some View {
-        Button(action: action) {
-            HStack(spacing: 4) {
-                iconLabel
+        HStack(spacing: 4) {
+            iconLabel
 
-                Text(text)
-            }
-            .smsFont(.body1, color: .neutral(.n30))
+            Text(text)
         }
+        .smsFont(.body1, color: .neutral(.n30))
+        .buttonWrapper(action)
         .buttonStyle(SMSChipButtonStyle())
     }
 }

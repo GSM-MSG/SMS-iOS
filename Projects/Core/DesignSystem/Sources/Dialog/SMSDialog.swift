@@ -41,7 +41,7 @@ struct SMSAlertModifier: ViewModifier {
         ZStack {
             content
 
-            if isShowing {
+            ConditionView(isShowing) {
                 Color.sms(.system(.black))
                     .opacity(0.25)
                     .ignoresSafeArea()

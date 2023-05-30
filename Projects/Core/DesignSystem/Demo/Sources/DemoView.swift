@@ -6,7 +6,7 @@ public struct DemoView: View {
 
     public var body: some View {
         VStack {
-            SMSCheckbox(isSeleted: $isShowing)
+            SMSCheckbox(isSelected: $isShowing)
         }
     }
 }
