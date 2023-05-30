@@ -78,7 +78,7 @@ struct InputMilitaryInfoView: View {
                     Spacer()
 
                     SMSRadioButton(
-                        isSeleted: Binding(
+                        isSelected: Binding(
                             get: { state.selectedMilitaryServiceType == militaryServiceType },
                             set: { $0 ? intent.militaryServiceTypeDidSelected(type: militaryServiceType) : () }
                         )
