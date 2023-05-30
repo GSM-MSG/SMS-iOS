@@ -16,7 +16,7 @@ struct MajorRowView: View {
 
             Spacer()
 
-            SMSSelectionControls(isSeleted: $isSeleted)
+            SMSRadioButton(isSeleted: $isSeleted)
                 .buttonWrapper {}
         }
         .padding(.horizontal, 20)
