@@ -15,15 +15,16 @@ public struct DemoView: View {
         .smsAlert(
             title: "123",
             description: "!23",
-            alertAction: [
-                .init(text: "Cancel", style: .outline, action: { isSeletedChange() }),
-                .init(text: "Success", style: .default, action: { print("asdf") })
-            ],
             isShowing:
                 Binding(
                     get: { isShowing },
                     set: { _ in isSeletedChange() }
-                )
+                ),
+            alertActions:
+                [
+                    .init(text: "Cancel", style: .outline, action: { isSeletedChange() }),
+                    .init(text: "Success", style: .default, action: { print("asdf") })
+                ]
         )
     }
 
