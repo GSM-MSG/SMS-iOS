@@ -48,7 +48,6 @@ struct SMSAlertModifier: ViewModifier {
 
                 smsAlert()
                     .padding(40)
-
                     .transition(
                         .asymmetric(
                             insertion: AnyTransition.move(edge: .bottom),
