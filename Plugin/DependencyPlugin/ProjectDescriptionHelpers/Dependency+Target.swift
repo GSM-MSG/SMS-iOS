@@ -9,6 +9,18 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let FilterFeatureTesting = TargetDependency.project(
+        target: ModulePaths.Feature.FilterFeature.targetName(type: .testing),
+        path: .relativeToFeature(ModulePaths.Feature.FilterFeature.rawValue)
+    )
+    static let FilterFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.FilterFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.FilterFeature.rawValue)
+    )
+    static let FilterFeature = TargetDependency.project(
+        target: ModulePaths.Feature.FilterFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.FilterFeature.rawValue)
+    )
     static let InputInformationBaseFeature = TargetDependency.project(
         target: ModulePaths.Feature.InputInformationBaseFeature.targetName(type: .sources),
         path: .relativeToFeature(ModulePaths.Feature.InputInformationBaseFeature.rawValue)
