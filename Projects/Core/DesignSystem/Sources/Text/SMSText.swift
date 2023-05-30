@@ -10,6 +10,7 @@ public struct SMSText: View {
     }
 
     public var body: some View {
-        Text(text).smsFont(font)
+        Text(text)
+            .smsFont(font)
     }
 }
