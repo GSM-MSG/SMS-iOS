@@ -5,15 +5,15 @@ public extension View {
     func smsAlert(
         title: String,
         description: String,
-        alertAction: [SMSAlertButtonType],
-        isShowing: Binding<Bool>
+        isShowing: Binding<Bool>,
+        alertActions: [SMSAlertButtonType]
     ) -> some View {
         modifier(
             SMSAlertModifier(
                 title: title,
                 description: description,
-                alertAction: alertAction,
-                isShowing: isShowing
+                isShowing: isShowing,
+                alertActions: alertActions
             )
         )
     }
@@ -22,19 +22,19 @@ public extension View {
 struct SMSAlertModifier: ViewModifier {
     var title: String
     var description: String
-    var alertAction: [SMSAlertButtonType]
     @Binding var isShowing: Bool
+    var alertActions: [SMSAlertButtonType]
 
     public init(
         title: String,
         description: String,
-        alertAction: [SMSAlertButtonType],
-        isShowing: Binding<Bool>
+        isShowing: Binding<Bool>,
+        alertActions: [SMSAlertButtonType]
     ) {
         self.title = title
         self.description = description
-        self.alertAction = alertAction
         _isShowing = isShowing
+        self.alertActions = alertActions
     }
 
     func body(content: Content) -> some View {
@@ -48,6 +48,7 @@ struct SMSAlertModifier: ViewModifier {
 
                 smsAlert()
                     .padding(40)
+
                     .transition(
                         .asymmetric(
                             insertion: AnyTransition.move(edge: .bottom),
@@ -72,8 +73,8 @@ struct SMSAlertModifier: ViewModifier {
             .padding(.bottom, 36)
 
             HStack(spacing: 8) {
-                ForEach(alertAction, id: \.self) { button in
-                    CTAButton(text: button.text ?? "", style: button.style ?? .default, action: button.action ?? { })
+                ForEach(alertActions, id: \.id) { button in
+                    CTAButton(text: button.text, style: button.style, action: button.action)
                 }
             }
         }
