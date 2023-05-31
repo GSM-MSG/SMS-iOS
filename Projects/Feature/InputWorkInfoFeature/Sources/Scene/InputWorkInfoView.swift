@@ -131,8 +131,8 @@ struct InputWorkInfoView: View {
 
                     Spacer()
 
-                    SMSSelectionControls(
-                        isSeleted: Binding(
+                    SMSRadioButton(
+                        isSelected: Binding(
                             get: { state.formOfEmployment == formOfEmployment },
                             set: { $0 ? intent.updateFormOfEmployment(form: formOfEmployment) : () }
                         )
