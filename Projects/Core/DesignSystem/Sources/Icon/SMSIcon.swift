@@ -21,6 +21,7 @@ public struct SMSIcon: View {
     public enum Icon: CaseIterable {
         case camera
         case check
+        case checkmark
         case downChevron
         case photo
         case plus
@@ -39,6 +40,7 @@ public struct SMSIcon: View {
             .frame(width: width, height: height)
     }
 
+    // swiftlint: disable cyclomatic_complexity
     private func iconToImage() -> Image {
         switch icon {
         case .camera:
@@ -46,6 +48,9 @@ public struct SMSIcon: View {
 
         case .check:
             return DesignSystemAsset.Icons.check.swiftUIImage
+
+        case .checkmark:
+            return DesignSystemAsset.Icons.checkmark.swiftUIImage
 
         case .downChevron:
             return DesignSystemAsset.Icons.downChevron.swiftUIImage
