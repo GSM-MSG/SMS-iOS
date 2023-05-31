@@ -32,6 +32,7 @@ public struct JwtInterceptor: InterceptorType {
     }
 
     public func didReceive(_ result: Result<DataResponse, EmdpointError>, endpoint: EndpointType) {
+        HTTPCookieStorage.shared.removeCookies(since: Date().addingTimeInterval(-86400))
         switch result {
         case let .success(res):
             if let tokenDTO = try? JSONDecoder().decode(JwtTokenDTO.self, from: res.data) {
