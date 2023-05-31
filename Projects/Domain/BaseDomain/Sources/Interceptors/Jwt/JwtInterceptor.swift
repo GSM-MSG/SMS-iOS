@@ -30,6 +30,18 @@ public struct JwtInterceptor: InterceptorType {
             completion(.success(newRequest))
         }
     }
+
+    public func didReceive(_ result: Result<DataResponse, EmdpointError>, endpoint: EndpointType) {
+        switch result {
+        case let .success(res):
+            if let tokenDTO = try? JSONDecoder().decode(JwtTokenDTO.self, from: res.data) {
+                saveToken(tokenDTO: tokenDTO)
+            }
+
+        default:
+            break
+        }
+    }
 }
 
 private extension JwtInterceptor {
