@@ -1,5 +1,6 @@
-import Combine
 import AuthDomainInterface
+import Combine
+import Foundation
 import SigninFeatureInterface
 
 final class SigninIntent: SigninIntentProtocol {
