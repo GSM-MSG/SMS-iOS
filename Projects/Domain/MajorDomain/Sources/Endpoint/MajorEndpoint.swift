@@ -16,7 +16,7 @@ extension MajorEndpoint: SMSEndpoint {
     var route: Route {
         switch self {
         case .fetchMajorList:
-            return .post("/list")
+            return .get("/list")
         }
     }
 
@@ -38,6 +38,10 @@ extension MajorEndpoint: SMSEndpoint {
         default:
             return .none
         }
+    }
+
+    var validationCode: ClosedRange<Int> {
+        200...500
     }
 
     var errorMap: [Int: ErrorType]? {
