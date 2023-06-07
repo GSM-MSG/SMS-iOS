@@ -71,6 +71,6 @@ public struct SMSToast<IconView: View>: ViewModifier {
 
             Spacer()
         }
-        .animation(.interactiveSpring(response: 0.7, dampingFraction: 1, blendDuration: 0), value: isShowing)
+        .animation(.interpolatingSpring(mass: 1, stiffness: 562.5, damping: 15), value: isShowing)
     }
 }
