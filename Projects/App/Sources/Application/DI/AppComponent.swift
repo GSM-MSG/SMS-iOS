@@ -22,6 +22,8 @@ import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
 import RootFeature
+import TechStackAppendFeatureInterface
+import TechStackAppendFeature
 import JwtStore
 import JwtStoreInterface
 import KeychainModule
@@ -70,6 +72,10 @@ final class AppComponent: BootstrapComponent {
 
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         InputLanguageInfoComponent(parent: self)
+    }
+
+    var techStackAppendBuildable: any TechStackAppendBuildable {
+        TechStackAppendComponent(parent: self)
     }
 
     var authDomainBuildable: any AuthDomainBuildable {

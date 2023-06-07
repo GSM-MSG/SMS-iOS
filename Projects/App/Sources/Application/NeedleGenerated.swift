@@ -33,6 +33,8 @@ import SigninFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
+import TechStackAppendFeature
+import TechStackAppendFeatureInterface
 
 // swiftlint:disable unused_declaration
 private let needleDependenciesHash : String? = nil
@@ -132,6 +134,17 @@ private class InputLanguageInfoDependencye83ef16d0fe38d31cb64Provider: InputLang
 /// ^->AppComponent->InputLanguageInfoComponent
 private func factory36893d70245037098109e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputLanguageInfoDependencye83ef16d0fe38d31cb64Provider()
+}
+private class TechStackAppendDependencycd739ed38983dbb168e8Provider: TechStackAppendDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->TechStackAppendComponent
+private func factory84921fd8019bf910b0afe3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return TechStackAppendDependencycd739ed38983dbb168e8Provider()
 }
 private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInformationDependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable {
@@ -292,6 +305,11 @@ extension InputLanguageInfoComponent: Registration {
 
     }
 }
+extension TechStackAppendComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension InputInformationComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputInformationDependency.inputProfileInfoBuildable] = "inputProfileInfoBuildable-any InputProfileInfoBuildable"
@@ -359,6 +377,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->SigninComponent", factory2882a056d84a613debccf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputMilitaryInfoComponent", factory6e35522c47cca1190471e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputLanguageInfoComponent", factory36893d70245037098109e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->TechStackAppendComponent", factory84921fd8019bf910b0afe3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputInformationComponent", factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5)
