@@ -23,6 +23,7 @@ public struct SMSIcon: View {
         case check
         case checkmark
         case downChevron
+        case greenCheck
         case photo
         case plus
         case profile
@@ -55,6 +56,9 @@ public struct SMSIcon: View {
         case .downChevron:
             return DesignSystemAsset.Icons.downChevron.swiftUIImage
 
+        case .greenCheck:
+            return DesignSystemAsset.Icons.greenCheck.swiftUIImage
+
         case .photo:
             return DesignSystemAsset.Icons.photo.swiftUIImage
 
@@ -80,4 +84,5 @@ public struct SMSIcon: View {
             return DesignSystemAsset.Icons.xmark.swiftUIImage
         }
     }
+    // swiftlint: enable cyclomatic_complexity
 }
