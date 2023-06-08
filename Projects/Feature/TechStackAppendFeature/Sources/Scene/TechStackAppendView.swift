@@ -50,9 +50,15 @@ struct TechStackAppendView: View {
 
     @ViewBuilder
     func techStackListView() -> some View {
-        LazyVStack(spacing: 8) {
-            ForEach(state.techStacks, id: \.self) { techStack in
-                techStackRowView(stack: techStack)
+        if state.techStacks.isEmpty {
+            SMSText("검색결과가 없습니다.", font: .body1)
+                .foregroundColor(.sms(.neutral(.n30)))
+                .padding(.top, 16)
+        } else {
+            LazyVStack(spacing: 8) {
+                ForEach(state.techStacks, id: \.self) { techStack in
+                    techStackRowView(stack: techStack)
+                }
             }
         }
     }
