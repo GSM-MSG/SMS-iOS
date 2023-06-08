@@ -45,7 +45,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Core: String {
-        case Debouncer
+        case EventLimiter
         case JwtStore
         case DesignSystem
 

@@ -8,6 +8,6 @@ let project = Project.makeModule(
     targets: [.interface, .unitTest, .demo],
     internalDependencies: [
         .Feature.BaseFeature,
-        .Core.Debouncer
+        .Core.EventLimiter
     ]
 )
