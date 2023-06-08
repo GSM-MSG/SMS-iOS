@@ -1,26 +1,25 @@
 import Foundation
 
-public final class Debouncer {
-    private let delay: TimeInterval
-    private let queue: DispatchQueue
-    private var workItem: DispatchWorkItem?
+public actor Debouncer {
+    private let dueTime: TimeInterval
+    private var task: Task<Void, Never>?
 
     public init(
-        delay: TimeInterval,
-        queue: DispatchQueue = DispatchQueue.main
+        for dueTime: TimeInterval
     ) {
-        self.delay = delay
-        self.queue = queue
+        self.dueTime = dueTime
     }
 
-    public func debounce(action: @escaping () -> Void) {
-        workItem?.cancel()
-        workItem = DispatchWorkItem { [weak self] in
-            action()
-            self?.workItem = nil
-        }
-        if let workItem {
-            queue.asyncAfter(deadline: .now() + delay, execute: workItem)
+    public func callAsFunction(action: @escaping () async -> Void) {
+        task?.cancel()
+        self.task = Task {
+            do {
+                try await Task.sleep(nanoseconds: UInt64(dueTime) * 1_000_000_000)
+                guard task?.isCancelled == false else { return }
+                await action()
+            } catch {
+                return
+            }
         }
     }
 }
