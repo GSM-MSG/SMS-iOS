@@ -4,7 +4,10 @@ import SwiftUI
 struct TechStackAppendDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            DemoView()
+            NavigationView {
+                DemoView()
+            }
+            .navigationViewStyle(.stack)
         }
     }
 }

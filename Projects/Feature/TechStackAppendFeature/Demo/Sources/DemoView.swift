@@ -7,7 +7,7 @@ public struct DemoView: View {
     public var body: some View {
         VStack {
             let model = TechStackAppendModel()
-            let intent = TechStackAppendIntent()
+            let intent = TechStackAppendIntent(model: model)
             let container = MVIContainer(
                 intent: intent as TechStackAppendIntentProtocol,
                 model: model as TechStackAppendStateProtocol,
@@ -15,15 +15,7 @@ public struct DemoView: View {
             )
             TechStackAppendView(container: container)
         }
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack {
-                    SMSIconTextField("placeholder", text: .constant("")) {
-                        SMSIcon(.trash)
-                    }
-                }
-            }
-        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
