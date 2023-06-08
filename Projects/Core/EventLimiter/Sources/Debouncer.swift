@@ -1,12 +1,15 @@
 import Foundation
 
 public actor Debouncer {
-    private let dueTime: TimeInterval
+    private let dueTime: UInt64
     private var task: Task<Void, Never>?
 
-    public init(for dueTime: TimeInterval) {
-        self.dueTime = dueTime
-        
+    public init(for dueTime: Double) {
+        self.dueTime = UInt64(dueTime * 1_000_000_000)
+    }
+
+    public init(for dueTime: Int) {
+        self.dueTime = UInt64(dueTime * 1_000_000_000)
     }
 
     public nonisolated func callAsFunction(action: @escaping () async -> Void) {
@@ -19,8 +22,8 @@ public actor Debouncer {
         task?.cancel()
         self.task = Task {
             do {
-                try await Task.sleep(nanoseconds: UInt64(dueTime) * 1_000_000_000)
-                guard task?.isCancelled == false else { return }
+                try await Task.sleep(nanoseconds: dueTime)
+                guard !Task.isCancelled else { return }
                 await action()
             } catch {
                 return
