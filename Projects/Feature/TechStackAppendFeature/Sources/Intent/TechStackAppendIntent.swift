@@ -18,7 +18,7 @@ final class TechStackAppendIntent: TechStackAppendIntentProtocol {
         model?.updateSearchText(text: text)
         debouncer { [weak self] in
             guard let self else { return }
-            model?.updateTechStacks(stacks: [
+            self.model?.updateTechStacks(stacks: [
                 "Figma",
                 "Triple",
                 "Triplee",
