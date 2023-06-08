@@ -151,6 +151,10 @@ public extension TargetDependency.Domain {
 }
 
 public extension TargetDependency.Core {
+    static let Debouncer = TargetDependency.project(
+        target: ModulePaths.Core.Debouncer.targetName(type: .sources),
+        path: .relativeToCore(ModulePaths.Core.Debouncer.rawValue)
+    )
     static let JwtStoreTesting = TargetDependency.project(
         target: ModulePaths.Core.JwtStore.targetName(type: .testing),
         path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)
