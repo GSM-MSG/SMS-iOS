@@ -12,5 +12,6 @@ protocol TechStackAppendActionProtocol: AnyObject {
     func updateTechStacks(stacks: [String])
     func appendTechStack(stack: String)
     func removeTechStack(stack: String)
+    func resetTechStack()
     func resetRecentTechStack()
 }

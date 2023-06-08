@@ -11,7 +11,7 @@ struct TechStackAppendView: View {
     var state: any TechStackAppendStateProtocol { container.model }
 
     var body: some View {
-        VStack {
+        ZStack(alignment: .bottom) {
             ScrollView {
                 SMSSeparator()
                     .padding(.top, 12)
@@ -21,8 +21,13 @@ struct TechStackAppendView: View {
                 } else {
                     recentAppendedTechStackListView()
                 }
-
             }
+
+            FillButton(text: "세부 스택 \(state.selectedTechStacks.count)개 추가") {
+                dismiss()
+                intent.appendButtonDidTap(techStacks: Array(state.selectedTechStacks))
+            }
+            .disabled(state.selectedTechStacks.isEmpty)
         }
         .hideKeyboardWhenTap()
         .toolbar {
@@ -84,7 +89,7 @@ struct TechStackAppendView: View {
                 .padding(.horizontal, 20)
                 .foregroundColor(.sms(.neutral(.n10)))
 
-            LazyHStack(spacing: 8) {
+            LazyVStack(spacing: 8) {
                 ForEach(state.recentTechStacks, id: \.self) { techStack in
                     techStackRowView(stack: techStack)
                 }

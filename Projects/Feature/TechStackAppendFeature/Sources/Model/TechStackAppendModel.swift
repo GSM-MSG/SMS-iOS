@@ -24,6 +24,11 @@ extension TechStackAppendModel: TechStackAppendActionProtocol {
 
     func removeTechStack(stack: String) {
         selectedTechStacks.remove(stack)
+        recentTechStacks.removeAll { $0 == stack }
+    }
+
+    func resetTechStack() {
+        selectedTechStacks.removeAll()
     }
 
     func resetRecentTechStack() {

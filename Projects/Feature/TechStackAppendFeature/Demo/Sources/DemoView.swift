@@ -7,7 +7,7 @@ public struct DemoView: View {
     public var body: some View {
         VStack {
             let model = TechStackAppendModel()
-            let intent = TechStackAppendIntent(model: model)
+            let intent = TechStackAppendIntent(model: model, completion: { _ in })
             let container = MVIContainer(
                 intent: intent as TechStackAppendIntentProtocol,
                 model: model as TechStackAppendStateProtocol,
