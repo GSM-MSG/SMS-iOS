@@ -6,8 +6,13 @@ public struct DemoView: View {
 
     public var body: some View {
         VStack {
-            SMSCheckbox(isSelected: $isShowing)
+            Button {
+                self.isShowing = true
+            } label: {
+                Text("A")
+            }
         }
+        .smsToast(text: "ASDF", isShowing: $isShowing)
     }
 }
 
