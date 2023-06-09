@@ -1,4 +1,5 @@
 import SwiftUI
+import ViewUtil
 
 public struct FillButton: View {
     var text: String
@@ -16,16 +17,15 @@ public struct FillButton: View {
     }
 
     public var body: some View {
-        Button(action: action) {
-            HStack {
-                Spacer()
+        HStack {
+            Spacer()
 
-                Text(text)
-                    .padding(.vertical, 13.5)
+            Text(text)
+                .padding(.vertical, 13.5)
 
-                Spacer()
-            }
+            Spacer()
         }
+        .buttonWrapper(action)
         .buttonStyle(FillButtonStyle(style: style))
     }
 }

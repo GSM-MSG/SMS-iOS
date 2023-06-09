@@ -11,4 +11,8 @@ struct StudentRepositoryImpl: StudentRepository {
     func inputInformation(req: InputStudentInformationRequestDTO) async throws {
         try await remoteStudentDataSource.inputInformation(req: req)
     }
+
+    func fetchStudentList(req: FetchStudentListRequestDTO) async throws -> PagedStudentListEntity {
+        try await remoteStudentDataSource.fetchStudentList(req: req)
+    }
 }
