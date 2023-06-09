@@ -1,16 +1,20 @@
 import EventLimiter
 import Foundation
+import TechStackDomainInterface
 
 final class TechStackAppendIntent: TechStackAppendIntentProtocol {
     private let model: (any TechStackAppendActionProtocol)?
+    private let fetchTechStackListUseCase: any FetchTechStackListUseCase
     private let completion: ([String]) -> Void
     private let debouncer = Debouncer(for: 0.2)
 
     init(
         model: any TechStackAppendActionProtocol,
+        fetchTechStackListUseCase: any FetchTechStackListUseCase,
         completion: @escaping ([String]) -> Void
     ) {
         self.model = model
+        self.fetchTechStackListUseCase = fetchTechStackListUseCase
         self.completion = completion
     }
 
@@ -18,15 +22,12 @@ final class TechStackAppendIntent: TechStackAppendIntentProtocol {
         model?.updateSearchText(text: text)
         debouncer { [weak self] in
             guard let self else { return }
-            self.model?.updateTechStacks(stacks: [
-                "Figma",
-                "Triple",
-                "Triplee",
-                "Triple3",
-                "Tripple4",
-                "Tri2ple"
-            ].filter { $0.contains(text) || text.isEmpty })
-            #warning("techStack fetch하는 로직 추가")
+            do {
+                let techStacks = try await self.fetchTechStackListUseCase.execute(keyword: text)
+                self.model?.updateTechStacks(stacks: techStacks)
+            } catch {
+                return
+            }
         }
     }
 
