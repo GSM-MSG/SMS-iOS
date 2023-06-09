@@ -24,6 +24,8 @@ import InputWorkInfoFeatureInterface
 import RootFeature
 import TechStackAppendFeatureInterface
 import TechStackAppendFeature
+import TechStackDomainInterface
+import TechStackDomain
 import JwtStore
 import JwtStoreInterface
 import KeychainModule
@@ -92,6 +94,10 @@ final class AppComponent: BootstrapComponent {
 
     var fileDomainBuildable: any FileDomainBuildable {
         FileDomainComponent(parent: self)
+    }
+
+    var techStackDomainBuildable: any TechStackDomainBuildable {
+        TechStackDomainComponent(parent: self)
     }
 
     var jwtStoreBuildable: any JwtStoreBuildable {
