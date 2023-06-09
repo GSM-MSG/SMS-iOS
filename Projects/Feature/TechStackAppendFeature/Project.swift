@@ -10,5 +10,8 @@ let project = Project.makeModule(
         .Feature.BaseFeature,
         .Domain.TechStackDomainInterface,
         .Core.EventLimiter
+    ],
+    demoDependencies: [
+        .Domain.TechStackDomainTesting
     ]
 )
