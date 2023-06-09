@@ -96,6 +96,18 @@ public extension TargetDependency.Feature {
 }
 
 public extension TargetDependency.Domain {
+    static let TechStackDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.TechStackDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.TechStackDomain.rawValue)
+    )
+    static let TechStackDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.TechStackDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.TechStackDomain.rawValue)
+    )
+    static let TechStackDomain = TargetDependency.project(
+        target: ModulePaths.Domain.TechStackDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.TechStackDomain.rawValue)
+    )
     static let FileDomainTesting = TargetDependency.project(
         target: ModulePaths.Domain.FileDomain.targetName(type: .testing),
         path: .relativeToDomain(ModulePaths.Domain.FileDomain.rawValue)

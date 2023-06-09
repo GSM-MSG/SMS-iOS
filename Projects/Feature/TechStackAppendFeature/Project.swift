@@ -8,6 +8,7 @@ let project = Project.makeModule(
     targets: [.interface, .unitTest, .demo],
     internalDependencies: [
         .Feature.BaseFeature,
+        .Domain.TechStackDomainInterface,
         .Core.EventLimiter
     ]
 )
