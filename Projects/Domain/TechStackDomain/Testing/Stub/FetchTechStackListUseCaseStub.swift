@@ -1,4 +1,4 @@
-import TechStackAppendFeatureInterface
+import TechStackDomainInterface
 
 public struct FetchTechStackListUseCaseStub: FetchTechStackListUseCase {
     public init() {}
