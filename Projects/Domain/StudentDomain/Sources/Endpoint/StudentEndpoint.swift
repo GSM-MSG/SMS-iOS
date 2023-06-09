@@ -4,6 +4,7 @@ import StudentDomainInterface
 
 enum StudentEndpoint {
     case inputInformation(InputStudentInformationRequestDTO)
+    case fetchStudentList(FetchStudentListRequestDTO)
 }
 
 extension StudentEndpoint: SMSEndpoint {
@@ -17,6 +18,9 @@ extension StudentEndpoint: SMSEndpoint {
         switch self {
         case .inputInformation:
             return .post("")
+
+        case .fetchStudentList:
+            return .get("")
         }
     }
 
@@ -24,6 +28,12 @@ extension StudentEndpoint: SMSEndpoint {
         switch self {
         case let .inputInformation(req):
             return .requestJSONEncodable(req)
+
+        case let .fetchStudentList(request):
+            return .requestParameters(query: [
+                "page": request.page,
+                "size": request.size
+            ])
 
         default:
             return .requestPlain
@@ -43,6 +53,11 @@ extension StudentEndpoint: SMSEndpoint {
             return [
                 400: .invalidRequest,
                 409: .alreadyExistUser
+            ]
+        
+        case .fetchStudentList:
+            return [
+                400: .invalidRequest
             ]
         }
     }
