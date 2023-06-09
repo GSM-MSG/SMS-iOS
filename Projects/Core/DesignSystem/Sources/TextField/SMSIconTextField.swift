@@ -17,7 +17,7 @@ public struct SMSIconTextField<Content: View>: View {
         errorText: String = "",
         isError: Bool = false,
         isOnClear: Bool = true,
-        icon: @escaping () -> Content,
+        iconLabel: @escaping () -> Content,
         onSubmit: @escaping () -> Void = {}
     ) {
         self._text = text
@@ -25,7 +25,7 @@ public struct SMSIconTextField<Content: View>: View {
         self.errorText = errorText
         self.isError = isError
         self.isOnClear = isOnClear
-        self.iconLabel = icon
+        self.iconLabel = iconLabel
         self.onSubmit = onSubmit
     }
 
