@@ -10,7 +10,7 @@ public struct DemoView: View {
             let model = TechStackAppendModel()
             let intent = TechStackAppendIntent(
                 model: model,
-                fetchTechStackListUseCase: FetchTechStackListUseCaseStub()
+                fetchTechStackListUseCase: FetchTechStackListUseCaseStub(),
                 completion: { _ in }
             )
             let container = MVIContainer(
