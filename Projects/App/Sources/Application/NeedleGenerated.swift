@@ -33,6 +33,7 @@ import SigninFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
+import UserDomainInterface
 
 // swiftlint:disable unused_declaration
 private let needleDependenciesHash : String? = nil
