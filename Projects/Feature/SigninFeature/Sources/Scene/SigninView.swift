@@ -37,7 +37,7 @@ struct SigninView: View {
                 .smsFont(.body2, color: .system(.white))
                 .padding(.bottom, 38)
                 .buttonWrapper {
-                    container.intent.guestSignin()
+                    container.intent.guestSigninButtonDidTap()
                 }
         }
         .background {

@@ -34,7 +34,7 @@ final class SigninIntent: SigninIntentProtocol {
         }
     }
 
-    func guestSignin() {
+    func guestSigninButtonDidTap() {
         saveUserRoleUseCase.execute(role: .guest)
         signinDelegate?.guestSignin()
     }
