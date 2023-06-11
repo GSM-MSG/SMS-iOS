@@ -33,4 +33,9 @@ final class SigninIntent: SigninIntentProtocol {
             }
         }
     }
+
+    func guestSignin() {
+        saveUserRoleUseCase.execute(role: .guest)
+        signinDelegate?.guestSignin()
+    }
 }
