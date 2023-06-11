@@ -3,14 +3,14 @@ import SwiftUI
 public struct SMSIcon: View {
     var icon: Icon
     var renderingMode: Image.TemplateRenderingMode
-    var width: CGFloat
-    var height: CGFloat
+    var width: CGFloat?
+    var height: CGFloat?
 
     public init(
         _ icon: Icon,
         renderingMode: Image.TemplateRenderingMode = .original,
-        width: CGFloat = 24,
-        height: CGFloat = 24
+        width: CGFloat? = 24,
+        height: CGFloat? = 24
     ) {
         self.icon = icon
         self.renderingMode = renderingMode

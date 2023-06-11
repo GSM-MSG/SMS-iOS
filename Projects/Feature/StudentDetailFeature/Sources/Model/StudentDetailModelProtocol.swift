@@ -1,5 +1,10 @@
 import Foundation
+import UserDomainInterface
 
-protocol StudentDetailStateProtocol {}
+protocol StudentDetailStateProtocol {
+    var userRole: UserRoleType { get }
+}
 
-protocol StudentDetailActionProtocol: AnyObject {}
+protocol StudentDetailActionProtocol: AnyObject {
+    func updateUserRole(role: UserRoleType)
+}

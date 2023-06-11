@@ -1,3 +1,5 @@
 import Foundation
 
-protocol StudentDetailIntentProtocol {}
+protocol StudentDetailIntentProtocol {
+    func onAppear()
+}
