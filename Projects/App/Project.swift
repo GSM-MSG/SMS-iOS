@@ -50,6 +50,7 @@ let targets: [Target] = [
             .Domain.StudentDomain,
             .Domain.FileDomain,
             .Domain.MajorDomain,
+            .Domain.UserDomain,
             .Core.JwtStore,
             .Shared.KeychainModule
         ],
