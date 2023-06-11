@@ -11,6 +11,7 @@ let project = Project.makeModule(
     ],
     internalDependencies: [
         .Domain.AuthDomainInterface,
+        .Domain.UserDomainInterface,
         .Feature.BaseFeature
     ]
 )

@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol AuthRepository {
-    func login(code: String) async throws -> IsAlreadySignUp
+    func login(code: String) async throws -> UserSignupInfoEntity
 }

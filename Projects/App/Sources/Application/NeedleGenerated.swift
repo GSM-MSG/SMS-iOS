@@ -33,6 +33,8 @@ import SigninFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
+import UserDomain
+import UserDomainInterface
 
 // swiftlint:disable unused_declaration
 private let needleDependenciesHash : String? = nil
@@ -101,6 +103,9 @@ private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: Needle
 private class SigninDependencyde06a9d0b22764487733Provider: SigninDependency {
     var authDomainBuildable: any AuthDomainBuildable {
         return appComponent.authDomainBuildable
+    }
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -243,6 +248,17 @@ private class MajorDomainDependency4dd341ec0ebe68acad8bProvider: MajorDomainDepe
 private func factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return MajorDomainDependency4dd341ec0ebe68acad8bProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class UserDomainDependencyf39d2a2922733361cbe1Provider: UserDomainDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->UserDomainComponent
+private func factory46488402f315d7f9530ce3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return UserDomainDependencyf39d2a2922733361cbe1Provider()
+}
 
 #else
 extension JwtStoreComponent: Registration {
@@ -280,6 +296,7 @@ extension RootComponent: Registration {
 extension SigninComponent: Registration {
     public func registerItems() {
         keyPathToName[\SigninDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+        keyPathToName[\SigninDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
     }
 }
 extension InputMilitaryInfoComponent: Registration {
@@ -334,6 +351,11 @@ extension MajorDomainComponent: Registration {
         keyPathToName[\MajorDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
     }
 }
+extension UserDomainComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 
 
 #endif
@@ -366,6 +388,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MajorDomainComponent", factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->UserDomainComponent", factory46488402f315d7f9530ce3b0c44298fc1c149afb)
 }
 #endif
 
