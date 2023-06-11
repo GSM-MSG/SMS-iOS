@@ -6,5 +6,8 @@ let project = Project.makeModule(
     name: ModulePaths.Feature.StudentDetailFeature.rawValue,
     product: .staticLibrary,
     targets: [.interface, .unitTest, .demo],
-    internalDependencies: []
+    internalDependencies: [
+        .Feature.BaseFeature,
+        .Domain.StudentDomainInterface
+    ]
 )
