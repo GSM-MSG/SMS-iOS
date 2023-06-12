@@ -54,6 +54,9 @@ extension StudentEndpoint: SMSEndpoint {
 
     var jwtTokenType: JwtTokenType {
         switch self {
+        case .fetchStudentDetailByGuest:
+            return .none
+
         default:
             return .accessToken
         }
@@ -66,7 +69,7 @@ extension StudentEndpoint: SMSEndpoint {
                 400: .invalidRequest,
                 409: .alreadyExistUser
             ]
-        
+
         case .fetchStudentList:
             return [
                 400: .invalidRequest

@@ -9,6 +9,6 @@ struct StudentDetailByGuestStrategy: StudentDetailViewStrategy {
     }
 
     func fetchStudentInfo(userID: String) async throws -> StudentDetailEntity {
-        try await studentRepository.fetchStudentDetailByStudent(userID: userID)
+        try await studentRepository.fetchStudentDetailByGuest(userID: userID)
     }
 }

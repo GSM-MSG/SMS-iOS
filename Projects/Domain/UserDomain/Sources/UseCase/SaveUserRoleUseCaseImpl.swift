@@ -8,6 +8,6 @@ struct SaveUserRoleUseCaseImpl: SaveUserRoleUseCase {
     }
 
     func execute(role: UserRoleType) {
-        userRepository.loadUserRole()
+        userRepository.saveUserRole(role: role)
     }
 }

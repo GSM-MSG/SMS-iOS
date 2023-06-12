@@ -1,13 +1,13 @@
 import StudentDomainInterface
 
-public struct FetchStudentDetailUseCaseImpl: FetchStudentDetailUseCase {
+struct FetchStudentDetailUseCaseImpl: FetchStudentDetailUseCase {
     private let studentRepository: any StudentRepository
 
     init(studentRepository: any StudentRepository) {
         self.studentRepository = studentRepository
     }
 
-    public func execute(
+    func execute(
         userID: String,
         viewee: FetchStudentDetailViewType
     ) async throws -> StudentDetailEntity {
