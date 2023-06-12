@@ -12,12 +12,6 @@ struct MainView: View {
     @StateObject var container: MVIContainer<MainIntentProtocol, MainStateProtocol>
     var intent: any MainIntentProtocol { container.intent }
     var state: any MainStateProtocol { container.model }
-    @State var testString: [String] = ["asfds1234", "12313212w33", "43534545"]
-    @State private var textSizes: [Int: CGSize] = [:]
-    @State private var truncatedIndices: [Int] = []
-    @State private var shouldTruncateLastText = false
-    @State private var breakIndex = 0
-    @State private var textEmpty = false
 
     var body: some View {
         NavigationView {
@@ -70,11 +64,13 @@ struct MainView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     SMSIcon(.smsLogo, width: 80, height: 29)
                 }
+
                 ToolbarItem(placement: .topBarTrailing) {
                     SMSIcon(.profile)
                         .clipShape(Circle())
                 }
             }
+            .navigationViewStyle(.stack)
         }
     }
 
@@ -112,20 +108,18 @@ struct MainView: View {
             .cornerRadius(8)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(name)
-                    .smsFont(.title2)
+                SMSText(name, font: .title2)
 
-                Text(major)
-                    .smsFont(.body2)
+                SMSText(major, font: .body2)
                     .padding(.bottom, 16)
 
-                techStackRow(techStack: techStack)
+                techStackListView(techStack: techStack)
             }
         }
     }
 
     @ViewBuilder
-    func techStackRow(techStack: [String]) -> some View {
+func techStackListView(techStack: [String]) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
                 ForEach(techStack, id: \.self) { text in

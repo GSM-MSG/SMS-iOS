@@ -23,7 +23,7 @@ extension RootIntent: SigninDelegate {
     }
 
     func guestSignin() {
-        model?.updateSceneType(type: .home)
+        model?.updateSceneType(type: .main)
     }
 }
 

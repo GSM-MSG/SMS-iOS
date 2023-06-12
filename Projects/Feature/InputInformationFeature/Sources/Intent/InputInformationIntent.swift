@@ -30,13 +30,15 @@ final class InputInformationIntent: InputInformationIntentProtocol {
     }
 
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {
-        model?.updateIsCompleteToInputAllInfo(isComplete: false)
         guard
             let inputProfileInfo = state.inputProfileInformationObject,
             let inputSchoolLifeInfo = state.inputSchoolLifeInformationObject,
             let inputWorkInfo = state.inputWorkInfomationObject,
             let militaryServiceType = state.militaryServiceType
-        else { return }
+        else {
+            model?.updateIsCompleteToInputAllInfo(isComplete: false)
+            return
+        }
 
         model?.updateIsLoading(isLoading: true)
         Task {
