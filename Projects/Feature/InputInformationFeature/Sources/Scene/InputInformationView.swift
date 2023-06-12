@@ -70,6 +70,19 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.language)
         }
+        .smsAlert(
+            title: "정보입력 실패",
+            description: state.errorMessage,
+            isShowing: Binding(
+                get: { state.isError },
+                set: { _ in intent.errorAlertDismissed() }
+            ),
+            alertActions: [
+                .init(text: "확인") {
+                    intent.errorAlertDismissed()
+                }
+            ]
+        )
         .animation(.default, value: state.phase)
         .onChange(of: state.isCompleteToInputAllInfo) { newValue in
             if newValue {

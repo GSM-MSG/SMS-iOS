@@ -69,9 +69,14 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 try await inputInformationUseCase.execute(req: inputInformationRequest)
                 model?.updateIsLoading(isLoading: false)
             } catch {
+                model?.updateErrorMessage(message: error.localizedDescription)
                 model?.updateIsLoading(isLoading: false)
             }
         }
+    }
+
+    func errorAlertDismissed() {
+        model?.updateIsError(isError: true)
     }
 }
 
