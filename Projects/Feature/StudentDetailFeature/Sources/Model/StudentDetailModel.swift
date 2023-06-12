@@ -4,7 +4,8 @@ import StudentDomainInterface
 
 final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     @Published var userRole: UserRoleType = .guest
-    @Published var studentDetailEntity: StudentDetailEntity? = nil
+    @Published var studentDetailEntity: StudentDetailEntity?
+    @Published var isLoading: Bool = false
 }
 
 extension StudentDetailModel: StudentDetailActionProtocol {
@@ -14,5 +15,9 @@ extension StudentDetailModel: StudentDetailActionProtocol {
 
     func updateStudentDetailEntity(entity: StudentDetailEntity) {
         self.studentDetailEntity = entity
+    }
+
+    func updateIsLoading(isLoading: Bool) {
+        self.isLoading = isLoading
     }
 }

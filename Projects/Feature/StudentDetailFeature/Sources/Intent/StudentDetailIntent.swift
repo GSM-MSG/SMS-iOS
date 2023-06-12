@@ -23,8 +23,10 @@ final class StudentDetailIntent: StudentDetailIntentProtocol {
     func onAppear() {
         let userRole = loadUserRoleUseCase.execute()
         model?.updateUserRole(role: userRole)
+        model?.updateIsLoading(isLoading: true)
 
         Task(priority: .userInitiated) {
+            defer { model?.updateIsLoading(isLoading: false)}
             do {
                 let studentDetailEntity = try await self.fetchStudentDetailUseCase.execute(
                     userID: userID,

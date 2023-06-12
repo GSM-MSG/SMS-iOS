@@ -56,7 +56,12 @@ struct StudentDetailView: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .ignoresSafeArea(edges: .top)
 
-                        studentInfoView(geometry: geometry)
+                        if state.isLoading {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        } else {
+                            studentInfoView(geometry: geometry)
+                        }
                     }
 
                     if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
@@ -86,6 +91,7 @@ struct StudentDetailView: View {
                     dismiss()
                 }
         }
+        .animation(.easeIn, value: state.studentDetailEntity)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
             intent.onAppear()
