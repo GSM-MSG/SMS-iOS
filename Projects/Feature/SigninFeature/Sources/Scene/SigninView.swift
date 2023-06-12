@@ -33,7 +33,7 @@ struct SigninView: View {
             .frame(height: 50)
             .padding(.bottom, 16)
 
-            Group {
+            HStack(spacing: 16) {
                 Text("게스트로 둘러보기")
                     .underline()
                     .buttonWrapper {
@@ -44,13 +44,13 @@ struct SigninView: View {
                     .underline()
                     .buttonWrapper {
                         let privacyURLString =
-                            "https://www.notion.so/matsogeum/b84900a818ce4bf3a5741b0a0507053f?pvs=4"
+                        "https://www.notion.so/matsogeum/b84900a818ce4bf3a5741b0a0507053f?pvs=4"
                         guard let privacyURL = URL(string: privacyURLString) else { return }
                         openURL(privacyURL)
                     }
             }
             .smsFont(.body2, color: .system(.white))
-            .padding(.bottom, 38)
+            .padding(.bottom, 32)
         }
         .background {
             SMSImage(.background)
