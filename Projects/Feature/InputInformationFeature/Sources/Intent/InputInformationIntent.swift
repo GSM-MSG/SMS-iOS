@@ -24,6 +24,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
         inputInformationUseCase: any InputInformationUseCase
     ) {
         self.model = model
+        self.inputInformationDelegate = inputInformationDelegate
         self.dreamBookUploadUseCase = dreamBookUploadUseCase
         self.imageUploadUseCase = imageUploadUseCase
         self.inputInformationUseCase = inputInformationUseCase
