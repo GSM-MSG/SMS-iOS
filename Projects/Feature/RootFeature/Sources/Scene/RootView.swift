@@ -26,23 +26,25 @@ struct RootView: View {
         self._container = StateObject(wrappedValue: container)
     }
 
-    @ViewBuilder
     var body: some View {
-        switch state.sceneType {
-        case .splash:
-            Text("Splash")
+        Group {
+            switch state.sceneType {
+            case .splash:
+                Text("Splash")
 
-        case .main:
-            mainBuildable.makeView(delegate: intent)
-                .eraseToAnyView()
+            case .main:
+                mainBuildable.makeView(delegate: intent)
+                    .eraseToAnyView()
 
-        case .signin:
-            signinBuildable.makeView(delegate: intent)
-                .eraseToAnyView()
+            case .signin:
+                signinBuildable.makeView(delegate: intent)
+                    .eraseToAnyView()
 
-        case .inputInformation:
-            inputInformationBuildable.makeView(delegate: intent)
-                .eraseToAnyView()
+            case .inputInformation:
+                inputInformationBuildable.makeView(delegate: intent)
+                    .eraseToAnyView()
+            }
         }
+        .animation(.default, value: state.sceneType)
     }
 }

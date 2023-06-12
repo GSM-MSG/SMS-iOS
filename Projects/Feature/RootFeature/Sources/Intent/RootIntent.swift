@@ -28,4 +28,7 @@ extension RootIntent: SigninDelegate {
 }
 
 extension RootIntent: MainDelegate {
+    func logout() {
+        model?.updateSceneType(type: .signin)
+    }
 }
