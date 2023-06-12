@@ -23,6 +23,7 @@ public extension Font {
         case headline1
         case headline2
         case headline3
+        case headline4
         case title1
         case title2
         case body1
@@ -40,12 +41,15 @@ public extension Font.SMSFontSystem {
     var font: Font {
         switch self {
         case .headline1:
-            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 40))
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 64))
 
         case .headline2:
-            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 32))
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 40))
 
         case .headline3:
+            return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 32))
+
+        case .headline4:
             return Font(DesignSystemFontFamily.Pretendard.bold.font(size: 28))
 
         case .title1:

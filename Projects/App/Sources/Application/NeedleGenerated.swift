@@ -31,6 +31,8 @@ import NeedleFoundation
 import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import StudentDetailFeature
+import StudentDetailFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
@@ -201,6 +203,22 @@ private class InputCertificateInfoDependencyd369771b4dc3e8540791Provider: InputC
 private func factory9df85876e39e1206b924e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputCertificateInfoDependencyd369771b4dc3e8540791Provider()
 }
+private class StudentDetailDependencyf86509655a52b42363b7Provider: StudentDetailDependency {
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
+    }
+    var studentDomainBuildable: any StudentDomainBuildable {
+        return appComponent.studentDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->StudentDetailComponent
+private func factory3e27a26da31e522f5755f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return StudentDetailDependencyf86509655a52b42363b7Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputProfileInfoDependencydedc6189ad35e7ff3001Provider: InputProfileInfoDependency {
     var majorDomainBuildable: any MajorDomainBuildable {
         return appComponent.majorDomainBuildable
@@ -362,6 +380,12 @@ extension InputCertificateInfoComponent: Registration {
 
     }
 }
+extension StudentDetailComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\StudentDetailDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
+        keyPathToName[\StudentDetailDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
+    }
+}
 extension InputProfileInfoComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputProfileInfoDependency.majorDomainBuildable] = "majorDomainBuildable-any MajorDomainBuildable"
@@ -412,7 +436,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-private func register1() {
+@inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
@@ -425,6 +449,7 @@ private func register1() {
     registerProviderFactory("^->AppComponent->TechStackAppendComponent", factory84921fd8019bf910b0aff47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputInformationComponent", factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->StudentDetailComponent", factory3e27a26da31e522f5755f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->FileDomainComponent", factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)

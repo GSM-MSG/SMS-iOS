@@ -34,6 +34,8 @@ import SigninFeature
 import SigninFeatureInterface
 import StudentDomain
 import StudentDomainInterface
+import StudentDetailFeature
+import StudentDetailFeatureInterface
 import SwiftUI
 import UserDomain
 import UserDomainInterface
@@ -81,6 +83,10 @@ final class AppComponent: BootstrapComponent {
 
     var techStackAppendBuildable: any TechStackAppendBuildable {
         TechStackAppendComponent(parent: self)
+    }
+
+    var studentDetailBuildable: any StudentDetailBuildable {
+        StudentDetailComponent(parent: self)
     }
 
     var authDomainBuildable: any AuthDomainBuildable {

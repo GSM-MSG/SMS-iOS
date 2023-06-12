@@ -3,14 +3,14 @@ import ViewUtil
 
 public extension View {
     func smsLoading(
-        isLoading: Binding<Bool>
+        isLoading: Bool
     ) -> some View {
         self.modifier(SMSLoadingModifier(isLoading: isLoading))
     }
 }
 
 struct SMSLoadingModifier: ViewModifier {
-    @Binding var isLoading: Bool
+    var isLoading: Bool
 
     func body(content: Content) -> some View {
         content

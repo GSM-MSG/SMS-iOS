@@ -3,14 +3,14 @@ import SwiftUI
 public struct SMSIcon: View {
     var icon: Icon
     var renderingMode: Image.TemplateRenderingMode
-    var width: CGFloat
-    var height: CGFloat
+    var width: CGFloat?
+    var height: CGFloat?
 
     public init(
         _ icon: Icon,
         renderingMode: Image.TemplateRenderingMode = .original,
-        width: CGFloat = 24,
-        height: CGFloat = 24
+        width: CGFloat? = 24,
+        height: CGFloat? = 24
     ) {
         self.icon = icon
         self.renderingMode = renderingMode
@@ -19,6 +19,7 @@ public struct SMSIcon: View {
     }
 
     public enum Icon: CaseIterable {
+        case book
         case camera
         case check
         case checkmark
@@ -45,6 +46,9 @@ public struct SMSIcon: View {
     // swiftlint: disable cyclomatic_complexity
     private func iconToImage() -> Image {
         switch icon {
+        case .book:
+            return DesignSystemAsset.Icons.book.swiftUIImage
+
         case .camera:
             return DesignSystemAsset.Icons.camera.swiftUIImage
 

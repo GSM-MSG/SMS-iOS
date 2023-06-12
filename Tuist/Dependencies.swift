@@ -5,6 +5,7 @@ let dependencies = Dependencies(
     carthage: nil,
     swiftPackageManager: SwiftPackageManagerDependencies(
         [
+            .remote(url: "https://github.com/kean/Nuke.git", requirement: .exact("12.1.0")),
             .remote(url: "https://github.com/uber/needle", requirement: .exact("0.22.0")),
             .remote(url: "https://github.com/GSM-MSG/GAuthSignin-Swift", requirement: .exact("0.0.3")),
             .remote(url: "https://github.com/Quick/Nimble.git", requirement: .exact("11.2.2")),

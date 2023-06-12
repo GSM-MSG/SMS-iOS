@@ -11,6 +11,7 @@ public enum ModulePaths {
 public extension ModulePaths {
     enum Feature: String {
         case TechStackAppendFeature
+        case StudentDetailFeature
         case InputInformationBaseFeature
         case RootFeature
         case InputLanguageInfoFeature
