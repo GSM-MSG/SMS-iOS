@@ -70,6 +70,7 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.language)
         }
+        .ignoresSafeArea()
         .smsAlert(
             title: "정보입력 실패",
             description: state.errorMessage,

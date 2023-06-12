@@ -56,7 +56,9 @@ struct InputProfileInfoView: View {
                                         .offset(x: 5, y: 4)
                                 }
                                 .buttonWrapper {
-                                    intent.imageMethodPickerIsRequired()
+                                    withAnimation {
+                                        intent.imageMethodPickerIsRequired()
+                                    }
                                 }
                                 .titleWrapper("사진")
 
