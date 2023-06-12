@@ -13,6 +13,9 @@ public final class AuthDomainComponent: Component<AuthDomainDependency>, AuthDom
     public var logoutUseCase: any LogoutUseCase {
         LogoutUseCaseImpl(authRepository: authRepository)
     }
+    public var withdrawalUseCase: any WithdrawalUseCase {
+        WithdrawalUseCaseImpl(authRepository: authRepository)
+    }
     public var authRepository: any AuthRepository {
         AuthRepositoryImpl(
             remoteAuthDataSource: remoteAuthDataSource,

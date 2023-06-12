@@ -15,4 +15,11 @@ struct LocalAuthDataSourceImpl: LocalAuthDataSource {
         jwtStore.delete(property: .refreshToken)
         jwtStore.delete(property: .refreshExpiresAt)
     }
+
+    func withdrawal() async throws {
+        jwtStore.delete(property: .accessToken)
+        jwtStore.delete(property: .accessExpiresAt)
+        jwtStore.delete(property: .refreshToken)
+        jwtStore.delete(property: .refreshExpiresAt)
+    }
 }

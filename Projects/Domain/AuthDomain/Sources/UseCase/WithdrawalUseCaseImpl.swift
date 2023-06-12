@@ -1,6 +1,6 @@
 import AuthDomainInterface
 
-struct LogoutUseCaseImpl: LogoutUseCase {
+struct WithdrawalUseCaseImpl: WithdrawalUseCase {
     private let authRepository: any AuthRepository
 
     init(authRepository: any AuthRepository) {
@@ -8,6 +8,6 @@ struct LogoutUseCaseImpl: LogoutUseCase {
     }
 
     func execute() async throws {
-        try await authRepository.logout()
+        try await authRepository.withdrawal()
     }
 }

@@ -10,4 +10,8 @@ final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthEndpoint>, Remote
     func logout() async throws {
         try await request(.logout)
     }
+
+    func withdrawal() async throws {
+        try await request(.withdrawal)
+    }
 }

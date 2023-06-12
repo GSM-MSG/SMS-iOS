@@ -5,6 +5,7 @@ import Emdpoint
 enum AuthEndpoint {
     case signin(code: String)
     case logout
+    case withdrawal
 }
 
 extension AuthEndpoint: SMSEndpoint {
@@ -20,6 +21,8 @@ extension AuthEndpoint: SMSEndpoint {
             return .post("")
         case .logout:
             return .delete("")
+        case .withdrawal:
+            return .delete("/withdrawal")
         }
     }
 
@@ -37,6 +40,8 @@ extension AuthEndpoint: SMSEndpoint {
 
     var jwtTokenType: JwtTokenType {
         switch self {
+        case .withdrawal:
+            return .accessToken
         default:
             return .none
         }
@@ -52,6 +57,10 @@ extension AuthEndpoint: SMSEndpoint {
                 500: .internalServerError
             ]
         case .logout:
+            return [
+                404: .internalServerError
+            ]
+        case .withdrawal:
             return [
                 404: .internalServerError
             ]

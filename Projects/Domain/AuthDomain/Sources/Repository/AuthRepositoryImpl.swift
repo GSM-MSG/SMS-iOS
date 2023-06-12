@@ -18,7 +18,12 @@ struct AuthRepositoryImpl: AuthRepository {
     }
 
     func logout() async throws {
-        try await remoteAuthDataSource.logout()
+//        try await remoteAuthDataSource.logout() WARNING: 서버랑 연결 해줘야함
         try await localAuthDataSource.logout()
+    }
+
+    func withdrawal() async throws {
+        try await remoteAuthDataSource.withdrawal()
+        try await localAuthDataSource.withdrawal()
     }
 }
