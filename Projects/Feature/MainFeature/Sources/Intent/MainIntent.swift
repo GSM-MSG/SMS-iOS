@@ -82,4 +82,12 @@ final class MainIntent: MainIntentProtocol {
         }
         model?.updateIsPresentedWithdrawalDialog(isPresented: false)
     }
+
+    func studentDidSelect(userID: String) {
+        model?.updateSelectedUserID(userID: userID)
+    }
+
+    func studentDetailDismissed() {
+        model?.updateSelectedUserID(userID: nil)
+    }
 }

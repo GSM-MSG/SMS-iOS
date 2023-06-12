@@ -12,7 +12,7 @@ public protocol StudentDetailDependency: Dependency {
 }
 
 public final class StudentDetailComponent: Component<StudentDetailDependency>, StudentDetailBuildable {
-    public func makeView(userID: String, with profileImageNamespace: Namespace.ID) -> some View {
+    public func makeView(userID: String) -> some View {
         let model = StudentDetailModel()
         let intent = StudentDetailIntent(
             userID: userID,
@@ -26,8 +26,7 @@ public final class StudentDetailComponent: Component<StudentDetailDependency>, S
             modelChangePublisher: model.objectWillChange
         )
         return StudentDetailView(
-            container: container,
-            profileImageNamespace: profileImageNamespace
+            container: container
         )
     }
 }

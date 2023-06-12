@@ -10,6 +10,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
     @Published var content: [SingleStudentEntity] =  []
+    @Published var selectedUserID: String?
 }
 
 extension MainModel: MainActionProtocol {
@@ -43,5 +44,9 @@ extension MainModel: MainActionProtocol {
 
     func appendContent(content: [SingleStudentEntity]) {
         self.content.append(contentsOf: content)
+    }
+
+    func updateSelectedUserID(userID: String?) {
+        self.selectedUserID = userID
     }
 }

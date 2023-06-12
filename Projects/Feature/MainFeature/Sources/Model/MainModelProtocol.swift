@@ -9,6 +9,7 @@ protocol MainStateProtocol {
     var isPresentedLogoutDialog: Bool { get }
     var isPresentedWithdrawalDialog: Bool { get }
     var content: [SingleStudentEntity] { get }
+    var selectedUserID: String? { get }
 }
 
 protocol MainActionProtocol: AnyObject {
@@ -20,4 +21,5 @@ protocol MainActionProtocol: AnyObject {
     func updateIsPresentedLogoutDialog(isPresented: Bool)
     func updateIsPresentedWithdrawalDialog(isPresented: Bool)
     func appendContent(content: [SingleStudentEntity])
+    func updateSelectedUserID(userID: String?)
 }
