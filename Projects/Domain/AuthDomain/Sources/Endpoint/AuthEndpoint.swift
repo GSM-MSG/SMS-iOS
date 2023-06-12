@@ -42,6 +42,7 @@ extension AuthEndpoint: SMSEndpoint {
         switch self {
         case .withdrawal:
             return .accessToken
+
         default:
             return .none
         }
