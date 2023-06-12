@@ -10,7 +10,7 @@ let project = Project.makeModule(
         .SPM.TagLayoutView
     ],
     internalDependencies: [
-        .Shared.ViewUtil,
+        .Shared.ViewUtil
     ],
     resources: ["Resources/**"]
 )
