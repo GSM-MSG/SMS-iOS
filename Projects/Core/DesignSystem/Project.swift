@@ -7,10 +7,14 @@ let project = Project.makeModule(
     product: .framework,
     targets: [.demo],
     externalDependencies: [
-        .SPM.TagLayoutView
+        .SPM.TagLayoutView,
+        .SPM.Lottie
     ],
     internalDependencies: [
         .Shared.ViewUtil
     ],
-    resources: ["Resources/**"]
+    resources: ["Resources/**"],
+    resourceSynthesizers: .default + [
+        .custom(name: "Lottie", parser: .json, extensions: ["json"])
+    ]
 )

@@ -15,7 +15,7 @@ struct SigninView: View {
             Text("STUDENT\nMANAGEMENT\nSERVICE")
                 .multilineTextAlignment(.center)
                 .padding(.top, 124)
-                .font(.sms(.headline1))
+                .font(.sms(.headline2))
                 .foregroundColor(.sms(.system(.white)))
 
             Text("학생 정보 통합관리 서비스")

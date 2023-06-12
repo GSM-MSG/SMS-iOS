@@ -1,5 +1,6 @@
 import SwiftUI
 import ViewUtil
+import Lottie
 
 public extension View {
     func smsLoading(
@@ -13,17 +14,17 @@ struct SMSLoadingModifier: ViewModifier {
     var isLoading: Bool
 
     func body(content: Content) -> some View {
-        content
-            .overlay {
-                ZStack {
-                    Color.sms(.neutral(.n40))
-                        .opacity(0.3)
-                        .ignoresSafeArea()
+        ZStack {
+            content
 
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
-                .conditional(isLoading)
+            if isLoading {
+                Color.sms(.neutral(.n40))
+                    .opacity(0.3)
+                    .ignoresSafeArea()
+
+                LottieView(asset: AnimationAsset.smsLoading, contentMode: .scaleAspectFit)
+                    .frame(width: 80, height: 80)
             }
+        }
     }
 }
