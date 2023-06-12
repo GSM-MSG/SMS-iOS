@@ -30,6 +30,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
     }
 
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {
+        model?.updateIsCompleteToInputAllInfo(isComplete: false)
         guard
             let inputProfileInfo = state.inputProfileInformationObject,
             let inputSchoolLifeInfo = state.inputSchoolLifeInformationObject,
@@ -67,9 +68,11 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 )
 
                 try await inputInformationUseCase.execute(req: inputInformationRequest)
+                inputInformationDelegate?.completeToInputInformation()
                 model?.updateIsLoading(isLoading: false)
             } catch {
                 model?.updateIsLoading(isLoading: false)
+                model?.updateIsCompleteToInputAllInfo(isComplete: false)
             }
         }
     }
