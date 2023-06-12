@@ -12,7 +12,7 @@ struct StudentDetailDemoApp: App {
         WindowGroup {
             let model = StudentDetailModel()
             let intent = StudentDetailIntent(
-                userID: "A",
+                userID: "2f004cba-a22e-414a-9e52-afd54c762216",
                 model: model,
                 loadUserRoleUseCase: LoadUserRoleUseCaseSpy(),
                 fetchStudentDetailUseCase: FetchStudentDetailUseCaseSpy()

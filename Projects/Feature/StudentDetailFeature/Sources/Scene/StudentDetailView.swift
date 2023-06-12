@@ -1,7 +1,9 @@
 import BaseFeature
 import DesignSystem
+import NukeUI
 import SwiftUI
 import UserDomainInterface
+import StudentDomainInterface
 import ViewUtil
 
 struct StudentDetailView: View {
@@ -11,15 +13,24 @@ struct StudentDetailView: View {
     var intent: any StudentDetailIntentProtocol { container.intent }
     var state: any StudentDetailStateProtocol { container.model }
     let profileImageNamespace: Namespace.ID
+    var studentDetail: StudentDetailEntity? {
+        state.studentDetailEntity
+    }
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack {
                 Group {
-                    if state.userRole == .guest {
-                        SMSIcon(.profile, width: nil, height: nil)
+                    if let studentDetail, !studentDetail.profileImageURL.isEmpty {
+                        LazyImage(url: URL(string: studentDetail.profileImageURL)) { state in
+                            if let image = state.image {
+                                image.resizable()
+                            } else {
+                                SMSIcon(.profile, width: nil, height: nil)
+                            }
+                        }
                     } else {
-                        Image(systemName: "")
+                        SMSIcon(.profile, width: nil, height: nil)
                     }
                 }
                 .aspectRatio(1.0, contentMode: .fill)
@@ -66,35 +77,61 @@ struct StudentDetailView: View {
     @ViewBuilder
     func studentInfoView(geometry: GeometryProxy) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            if state.userRole == .teacher {
+            Spacer().frame(height: 16)
+
+            if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
                 HStack {
-                    SMSText("Design", font: .body1)
+                    SMSText(studentDetail?.major ?? "전공", font: .body1)
                         .foregroundColor(.sms(.sub(.s2)))
-                        .padding(.top, 16)
 
                     Spacer()
 
                     SMSIcon(.book)
                 }
             } else {
-                SMSText("Design", font: .body1)
+                SMSText(studentDetail?.major ?? "전공", font: .body1)
                     .foregroundColor(.sms(.sub(.s2)))
-                    .padding(.top, 16)
             }
 
-            SMSText("변찬우", font: .headline3)
+            Spacer().frame(height: 4)
+
+            SMSText(studentDetail?.name ?? "김**", font: .headline3)
                 .foregroundColor(.sms(.system(.black)))
-                .padding(.top, 4)
 
             ConditionView(state.userRole != .guest) {
-                SMSText("3학년 2반 12번 • 소프트웨어 개발과", font: .body2)
+                Spacer().frame(height: 8)
+
+                UnwrapView(studentDetail?.detailInfoByStudent) { detailInfo in
+                    let grade = detailInfo.grade
+                    let `class` = detailInfo.class
+                    let number = detailInfo.number
+                    let department = detailInfo.department
+                    SMSText(
+                        "\(grade)학년 \(`class`)반 \(number)번 • \(department.display)",
+                        font: .body2
+                    )
                     .foregroundColor(.sms(.neutral(.n40)))
+                }
+
+                UnwrapView(studentDetail?.detailInfoByTeacher) { detailInfo in
+                    let grade = detailInfo.grade
+                    let `class` = detailInfo.class
+                    let number = detailInfo.number
+                    let department = detailInfo.department
+                    SMSText(
+                        "\(grade)학년 \(`class`)반 \(number)번 • \(department.display)",
+                        font: .body2
+                    )
+                    .foregroundColor(.sms(.neutral(.n40)))
+                }
             }
+
+            Spacer().frame(height: 16)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 4) {
-                    ForEach(1...10, id: \.self) { count in
-                        SMSText("Figma \(count)", font: .caption2)
+                    ForEach(studentDetail?.techStacks ?? [], id: \.self) { techStack in
+                        SMSText(techStack, font: .caption2)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6.5)
                             .background {
@@ -104,16 +141,22 @@ struct StudentDetailView: View {
                     }
                 }
             }
-            .padding(.top, 16)
 
-            SMSText("더 나은\n사용자사용자사용자사용자사용자사용자사용자사용자사용자사용자사용자", font: .body2)
-                .lineLimit(nil)
-                .padding(.top, 16)
+            Group {
+                Spacer().frame(height: 16)
 
-            ConditionView(state.userRole != .teacher) {
-                studentInfoForTeacher(geometry: geometry)
-                    .padding(.top, 32)
+                SMSText(studentDetail?.introduce ?? "자기소개", font: .body2)
+                    .lineLimit(nil)
+
+                Spacer().frame(height: 32)
+
+                UnwrapView(studentDetail?.detailInfoByTeacher) { detailInfoByTeacher in
+                    studentInfoForTeacher(geometry: geometry, detailInfo: detailInfoByTeacher)
+                }
             }
+
+            Color.sms(.system(.white))
+                .frame(height: 300)
         }
         .padding(.horizontal, 20)
         .background {
@@ -123,7 +166,10 @@ struct StudentDetailView: View {
     }
 
     @ViewBuilder
-    func studentInfoForTeacher(geometry: GeometryProxy) -> some View {
+    func studentInfoForTeacher(
+        geometry: GeometryProxy,
+        detailInfo: StudentDetailEntity.DetailInfoByTeacher
+    ) -> some View {
         VStack(spacing: 16) {
             Group {
                 studentInfoRowView(name: "이메일", value: "baegteun@gmail.com", geometry: geometry)
@@ -158,6 +204,8 @@ struct StudentDetailView: View {
             }
 
             studentInfoRowView(name: "자격증", value: "정보처리산업기사", geometry: geometry)
+
+            Spacer().frame(height: 40)
 
             CTAButton(text: "포트폴리오")
         }

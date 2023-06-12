@@ -14,7 +14,7 @@ public final class FetchStudentDetailUseCaseSpy: FetchStudentDetailUseCase {
             name: "name",
             introduce: "introduce",
             major: "major",
-            profileImageURL: "prifileImageURL",
+            profileImageURL: "https://avatars.githubusercontent.com/u/74440939?v=4",
             techStacks: []
         )
     }
