@@ -9,8 +9,6 @@ import JwtStoreInterface
 
 @main
 struct StudentDetailDemoApp: App {
-    @Namespace var dummyNamespace
-
     var body: some Scene {
         WindowGroup {
             let jwtStore = FakeJwtStore()
@@ -29,7 +27,7 @@ struct StudentDetailDemoApp: App {
                 model: model as StudentDetailStateProtocol,
                 modelChangePublisher: model.objectWillChange
             )
-            StudentDetailView(container: container, profileImageNamespace: dummyNamespace)
+            StudentDetailView(container: container)
         }
     }
 }

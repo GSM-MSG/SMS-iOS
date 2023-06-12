@@ -11,4 +11,6 @@ protocol MainIntentProtocol {
     func withdrawalDialogIsRequired()
     func withdrawalDialogDismissed()
     func withdrawalDialogIsComplete()
+    func studentDidSelect(userID: String)
+    func studentDetailDismissed()
 }
