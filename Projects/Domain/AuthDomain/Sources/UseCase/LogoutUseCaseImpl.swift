@@ -1,9 +1,13 @@
-//
-//  LogoutUseCAse.swift
-//  AuthDomain
-//
-//  Created by sunghun on 6/12/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import AuthDomainInterface
 
-import Foundation
+struct LogoutUseCaseImpl: LogoutUseCase {
+    private let authRepository: any AuthRepository
+
+    init(authRepository: any AuthRepository) {
+        self.authRepository = authRepository
+    }
+
+    func execute() async throws {
+        return try await authRepository.logout()
+    }
+}

@@ -1,27 +1,18 @@
 import Foundation
-import UserDomainInterface
+import AuthDomainInterface
+import JwtStoreInterface
 
-struct LocalAuthDataSourceImpl: LocalUserDataSource {
-    private enum UserDefaultsKey {
-        static let userRole = "USER_ROLE"
+struct LocalAuthDataSourceImpl: LocalAuthDataSource {
+    private let jwtStore: JwtStore
+
+    init(jwtStore: JwtStore) {
+        self.jwtStore = jwtStore
     }
 
-    private let userDefaults: UserDefaults
-
-    init(userDefaults: UserDefaults) {
-        self.userDefaults = userDefaults
-    }
-
-    func saveUserRole(role: UserRoleType) {
-        userDefaults.setValue(role.rawValue, forKey: UserDefaultsKey.userRole)
-    }
-
-    func loadUserRole() -> UserRoleType {
-        let userRole = userDefaults.string(forKey: UserDefaultsKey.userRole)
-        if let userRole {
-            return UserRoleType(rawValue: userRole) ?? .guest
-        } else {
-            return .guest
-        }
+    func logout() async throws {
+        jwtStore.delete(property: .accessToken)
+        jwtStore.delete(property: .accessExpiresAt)
+        jwtStore.delete(property: .refreshToken)
+        jwtStore.delete(property: .refreshExpiresAt)
     }
 }

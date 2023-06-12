@@ -4,6 +4,7 @@ import Emdpoint
 
 enum AuthEndpoint {
     case signin(code: String)
+    case logout
 }
 
 extension AuthEndpoint: SMSEndpoint {
@@ -17,6 +18,8 @@ extension AuthEndpoint: SMSEndpoint {
         switch self {
         case .signin:
             return .post("")
+        case .logout:
+            return .delete("")
         }
     }
 
@@ -47,6 +50,10 @@ extension AuthEndpoint: SMSEndpoint {
                 401: .failedToGAuthSignin,
                 404: .failedToGAuthSignin,
                 500: .internalServerError
+            ]
+        case .logout:
+            return [
+                404: .internalServerError
             ]
         }
     }
