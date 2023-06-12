@@ -66,9 +66,21 @@ struct StudentDetailView: View {
     @ViewBuilder
     func studentInfoView(geometry: GeometryProxy) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            SMSText("Design", font: .body1)
-                .foregroundColor(.sms(.sub(.s2)))
-                .padding(.top, 16)
+            if state.userRole == .teacher {
+                HStack {
+                    SMSText("Design", font: .body1)
+                        .foregroundColor(.sms(.sub(.s2)))
+                        .padding(.top, 16)
+
+                    Spacer()
+
+                    SMSIcon(.book)
+                }
+            } else {
+                SMSText("Design", font: .body1)
+                    .foregroundColor(.sms(.sub(.s2)))
+                    .padding(.top, 16)
+            }
 
             SMSText("변찬우", font: .headline3)
                 .foregroundColor(.sms(.system(.black)))
@@ -146,6 +158,8 @@ struct StudentDetailView: View {
             }
 
             studentInfoRowView(name: "자격증", value: "정보처리산업기사", geometry: geometry)
+
+            CTAButton(text: "포트폴리오")
         }
     }
 
