@@ -28,8 +28,12 @@ public struct JwtInterceptor: InterceptorType {
         var newRequest = request
         newRequest.httpShouldHandleCookies = false
         let token = getToken(type: jwtType.toJwtStoreProperty)
+        guard !token.isEmpty else {
+            completion(.success(newRequest))
+            return
+        }
 
-        newRequest.setValue(token, forHTTPHeaderField: jwtType.rawValue)
+        newRequest.setValue(jwtType == .accessToken ? "Bearer \(token)" : token, forHTTPHeaderField: jwtType.rawValue)
         if checkTokenIsExpired() {
             reissueToken(newRequest, jwtType: jwtType, completion: completion)
         } else {
@@ -54,7 +58,7 @@ private extension JwtInterceptor {
     func getToken(type: JwtStoreProperty) -> String {
         switch type {
         case .accessToken:
-            return "Bearer \(jwtStore.load(property: type))"
+            return jwtStore.load(property: type)
 
         default:
             return jwtStore.load(property: type)

@@ -9,6 +9,18 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let MainFeatureTesting = TargetDependency.project(
+        target: ModulePaths.Feature.MainFeature.targetName(type: .testing),
+        path: .relativeToFeature(ModulePaths.Feature.MainFeature.rawValue)
+    )
+    static let MainFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.MainFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.MainFeature.rawValue)
+    )
+    static let MainFeature = TargetDependency.project(
+        target: ModulePaths.Feature.MainFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.MainFeature.rawValue)
+    )
     static let TechStackAppendFeatureInterface = TargetDependency.project(
         target: ModulePaths.Feature.TechStackAppendFeature.targetName(type: .interface),
         path: .relativeToFeature(ModulePaths.Feature.TechStackAppendFeature.rawValue)

@@ -73,6 +73,7 @@ struct InputProfileInfoView: View {
                         ) {
                             intent.majorSheetIsRequired()
                         }
+                        .keyboardType(.emailAddress)
                         .focused($focusField, equals: .email)
                         .titleWrapper("이메일")
 
@@ -105,6 +106,7 @@ struct InputProfileInfoView: View {
                         ) {
                             focusField = .techStack
                         }
+                        .keyboardType(.URL)
                         .focused($focusField, equals: .portfoilo)
                         .titleWrapper("포트폴리오 URL")
 

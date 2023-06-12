@@ -17,6 +17,8 @@ import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
+import MainFeature
+import MainFeatureInterface
 import RootFeature
 import TechStackAppendFeatureInterface
 import TechStackAppendFeature
@@ -79,6 +81,10 @@ final class AppComponent: BootstrapComponent {
 
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         InputLanguageInfoComponent(parent: self)
+    }
+
+    var mainBuildable: any MainBuildable {
+        MainComponent(parent: self)
     }
 
     var techStackAppendBuildable: any TechStackAppendBuildable {

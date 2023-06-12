@@ -35,7 +35,10 @@ final class InputInformationIntent: InputInformationIntentProtocol {
             let inputSchoolLifeInfo = state.inputSchoolLifeInformationObject,
             let inputWorkInfo = state.inputWorkInfomationObject,
             let militaryServiceType = state.militaryServiceType
-        else { return }
+        else {
+            model?.updateIsCompleteToInputAllInfo(isComplete: false)
+            return
+        }
 
         model?.updateIsLoading(isLoading: true)
         Task {
@@ -67,10 +70,12 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 )
 
                 try await inputInformationUseCase.execute(req: inputInformationRequest)
+                inputInformationDelegate?.completeToInputInformation()
                 model?.updateIsLoading(isLoading: false)
             } catch {
                 model?.updateErrorMessage(message: error.localizedDescription)
                 model?.updateIsLoading(isLoading: false)
+                model?.updateIsCompleteToInputAllInfo(isComplete: false)
             }
         }
     }
