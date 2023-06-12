@@ -34,6 +34,7 @@ public struct SMSIcon: View {
         case trash
         case leftArrow
         case smallPlus
+        case upArrow
         case xmark
     }
 
@@ -91,6 +92,9 @@ public struct SMSIcon: View {
 
         case .smallPlus:
             return DesignSystemAsset.Icons.smallPlus.swiftUIImage
+
+        case .upArrow:
+            return DesignSystemAsset.Icons.upArrow.swiftUIImage
 
         case .xmark:
             return DesignSystemAsset.Icons.xmark.swiftUIImage
