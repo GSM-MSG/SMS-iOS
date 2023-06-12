@@ -86,6 +86,7 @@ struct InputProfileInfoView: View {
                                 focusField = nil
                                 intent.majorSheetIsRequired()
                             }
+                            .keyboardType(.emailAddress)
                             .focused($focusField, equals: .email)
                             .titleWrapper("이메일")
 
@@ -112,16 +113,19 @@ struct InputProfileInfoView: View {
                             .titleWrapper("분야")
 
                             SMSTextField(
-                                "공개용 이메일 입력",
-                                text: Binding(get: { state.email }, set: intent.updateEmail(email:)),
-                                errorText: "이메일 형식에 맞게 입력해주세요",
-                                isError: state.inputProfileErrorFieldSet.contains(.email)
+                                "E.g. https://github.com",
+                                text: Binding(
+                                    get: { state.portfolioURL },
+                                    set: intent.updatePortfolioURL(portfolioURL:)
+                                ),
+                                errorText: "URL 형식에 맞게 입력해주세요",
+                                isError: state.inputProfileErrorFieldSet.contains(.portfoilo)
                             ) {
-                                intent.majorSheetIsRequired()
+                                intent.techStackAppendIsRequired()
                             }
-                            .keyboardType(.emailAddress)
-                            .focused($focusField, equals: .email)
-                            .titleWrapper("이메일")
+                            .keyboardType(.URL)
+                            .focused($focusField, equals: .portfoilo)
+                            .titleWrapper("포트폴리오 URL")
 
                             VStack(spacing: 8) {
                                 HStack(spacing: 8) {
@@ -165,9 +169,6 @@ struct InputProfileInfoView: View {
                             }
                             .titleWrapper("세부스택")
                         }
-                        .keyboardType(.URL)
-                        .focused($focusField, equals: .portfoilo)
-                        .titleWrapper("포트폴리오 URL")
 
                         CTAButton(text: "다음") {
                             intent.nextButtonDidTap(state: state)
