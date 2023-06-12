@@ -18,15 +18,13 @@ final class MainIntent: MainIntentProtocol {
     }
 
     func reachedBottom(page: Int, isLast: Bool) {
-        guard isLast else {
-            Task {
-                let studentList = try await fetchStudentListUseCase.execute(req: .init(page: page, size: 20))
-                model?.appendContent(content: studentList.studentList)
-                model?.updateTotalSize(totalSize: studentList.totalSize)
-                model?.updatePage(page: page + 1)
-                model?.updateIsLast(isLast: studentList.isLast)
-            }
-            return
+        guard !isLast else { return }
+        Task {
+            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: page, size: 20))
+            model?.appendContent(content: studentList.studentList)
+            model?.updateTotalSize(totalSize: studentList.totalSize)
+            model?.updatePage(page: page + 1)
+            model?.updateIsLast(isLast: studentList.isLast)
         }
     }
 }

@@ -3,6 +3,7 @@ import UIKit
 import BaseFeature
 import ViewUtil
 import DesignSystem
+import NukeUI
 
 enum MainStudentIDProperty {
     static let studentScrollToTopID = "STUDENT_SCROLL_TO_TOP"
@@ -71,6 +72,7 @@ struct MainView: View {
                 }
             }
             .navigationViewStyle(.stack)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 
@@ -98,11 +100,13 @@ struct MainView: View {
         techStack: [String]
     ) -> some View {
         HStack(spacing: 12) {
-            AsyncImage(url: URL(string: profileImageUrl)) { image in
-                image
-                    .resizable()
-            } placeholder: {
-                SMSIcon(.profile, width: 101, height: 101)
+            LazyImage(url: URL(string: profileImageUrl)) { state in
+                if let image = state.image {
+                    image
+                        .resizable()
+                } else {
+                    SMSIcon(.profile, width: 101, height: 101)
+                }
             }
             .frame(width: 101, height: 101)
             .cornerRadius(8)
@@ -119,7 +123,7 @@ struct MainView: View {
     }
 
     @ViewBuilder
-func techStackListView(techStack: [String]) -> some View {
+    func techStackListView(techStack: [String]) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
                 ForEach(techStack, id: \.self) { text in

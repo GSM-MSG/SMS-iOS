@@ -7,7 +7,6 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var isLast: Bool = false
     @Published var isError: Bool = false
     @Published var content: [SingleStudentEntity] =  []
-    @Published var studentList: PagedStudentListEntity = .init(studentList: [], totalSize: 0, isLast: false)
 }
 
 extension MainModel: MainActionProtocol {
