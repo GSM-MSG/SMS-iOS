@@ -9,4 +9,14 @@ final class AuthRepositorySpy: AuthRepository {
         }
         return .init(isAlreadySignup: true, userRole: .guest)
     }
+
+    var logoutCallCount = 0
+    func logout() async throws {
+        logoutCallCount += 1
+    }
+
+    var withdrawalCallCount = 0
+    func withdrawal() async throws {
+        withdrawalCallCount += 1
+    }
 }
