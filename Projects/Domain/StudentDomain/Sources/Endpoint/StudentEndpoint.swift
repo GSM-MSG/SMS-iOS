@@ -30,9 +30,6 @@ extension StudentEndpoint: SMSEndpoint {
             return .requestJSONEncodable(req)
 
         case let .fetchStudentList(request):
-            print(request.page)
-            print(request.size)
-//            return .requestParameters(body: <#T##[String : Any]?#>, query: <#T##[String : Any]?#>)
             return .requestParameters(query: [
                 "page": "\(request.page)",
                 "size": "\(request.size)"
