@@ -63,13 +63,13 @@ struct MainView: View {
             .navigationViewStyle(.stack)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     SMSIcon(.profile)
                         .clipShape(Circle())
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     SMSIcon(.smsLogo, width: 80, height: 29)
                 }
             }
