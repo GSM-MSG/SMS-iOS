@@ -38,7 +38,7 @@ struct StudentDetailView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .cornerRadius(24, corners: [.bottomLeft, .bottomRight])
                 .matchedGeometryEffect(
-                    id: ViewNamespaceIDProperty.studentDetailNamespaceID,
+                    id: ViewNamespaceIDProperty.Student.studentDetailNamespaceID,
                     in: profileImageNamespace
                 )
 
