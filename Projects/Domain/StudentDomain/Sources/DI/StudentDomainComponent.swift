@@ -13,6 +13,9 @@ public final class StudentDomainComponent: Component<StudentDomainDependency>, S
     public var fetchStudentListUseCase: any FetchStudentListUseCase {
         FetchStudentListUseCaseImpl(studentRepository: studentRepository)
     }
+    public var fetchStudentDetailUSeCase: any FetchStudentDetailUseCase {
+        FetchStudentDetailUseCaseImpl(studentRepository: studentRepository)
+    }
     public var studentRepository: any StudentRepository {
         StudentRepositoryImpl(remoteStudentDataSource: remoteStudentDataSource)
     }

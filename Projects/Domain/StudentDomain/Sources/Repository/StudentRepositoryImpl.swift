@@ -15,4 +15,16 @@ struct StudentRepositoryImpl: StudentRepository {
     func fetchStudentList(req: FetchStudentListRequestDTO) async throws -> PagedStudentListEntity {
         try await remoteStudentDataSource.fetchStudentList(req: req)
     }
+
+    func fetchStudentDetailByStudent(userID: String) async throws -> StudentDetailEntity {
+        try await remoteStudentDataSource.fetchStudentDetailByStudent(userID: userID)
+    }
+
+    func fetchStudentDetailByGuest(userID: String) async throws -> StudentDetailEntity {
+        try await remoteStudentDataSource.fetchStudentDetailByGuest(userID: userID)
+    }
+
+    func fetchStudentDetailByTeacher(userID: String) async throws -> StudentDetailEntity {
+        try await remoteStudentDataSource.fetchStudentDetailByTeacher(userID: userID)
+    }
 }

@@ -48,6 +48,7 @@ let targets: [Target] = [
             .Feature.InputLanguageInfoFeature,
             .Feature.MainFeature,
             .Feature.TechStackAppendFeature,
+            .Feature.StudentDetailFeature,
             .Domain.AuthDomain,
             .Domain.StudentDomain,
             .Domain.FileDomain,
