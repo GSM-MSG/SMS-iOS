@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 import BaseFeature
 import ViewUtil
 import DesignSystem
@@ -11,6 +12,12 @@ struct MainView: View {
     @StateObject var container: MVIContainer<MainIntentProtocol, MainStateProtocol>
     var intent: any MainIntentProtocol { container.intent }
     var state: any MainStateProtocol { container.model }
+    @State var testString: [String] = ["asfds1234", "12313212w33", "43534545"]
+    @State private var textSizes: [Int: CGSize] = [:]
+    @State private var truncatedIndices: [Int] = []
+    @State private var shouldTruncateLastText = false
+    @State private var breakIndex = 0
+    @State private var textEmpty = false
 
     var body: some View {
         NavigationView {
