@@ -35,6 +35,10 @@ import StudentDetailFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
+import TechStackAppendFeature
+import TechStackAppendFeatureInterface
+import TechStackDomain
+import TechStackDomainInterface
 import UserDomain
 import UserDomainInterface
 
@@ -140,6 +144,19 @@ private class InputLanguageInfoDependencye83ef16d0fe38d31cb64Provider: InputLang
 private func factory36893d70245037098109e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputLanguageInfoDependencye83ef16d0fe38d31cb64Provider()
 }
+private class TechStackAppendDependencycd739ed38983dbb168e8Provider: TechStackAppendDependency {
+    var techStackDomainBuildable: any TechStackDomainBuildable {
+        return appComponent.techStackDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->TechStackAppendComponent
+private func factory84921fd8019bf910b0aff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return TechStackAppendDependencycd739ed38983dbb168e8Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInformationDependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable {
         return appComponent.inputProfileInfoBuildable
@@ -223,6 +240,19 @@ private class StudentDomainDependency71a7287ffa1377bc3ca1Provider: StudentDomain
 /// ^->AppComponent->StudentDomainComponent
 private func factory2686a7e321a220c3265af47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return StudentDomainDependency71a7287ffa1377bc3ca1Provider(appComponent: parent1(component) as! AppComponent)
+}
+private class TechStackDomainDependencyc7e8371994569e951d57Provider: TechStackDomainDependency {
+    var jwtStoreBuildable: any JwtStoreBuildable {
+        return appComponent.jwtStoreBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->TechStackDomainComponent
+private func factory254149359ff45b2db35bf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return TechStackDomainDependencyc7e8371994569e951d57Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class AuthDomainDependency4518b8977185a5c9ff71Provider: AuthDomainDependency {
     var jwtStoreBuildable: any JwtStoreBuildable {
@@ -311,6 +341,11 @@ extension InputLanguageInfoComponent: Registration {
 
     }
 }
+extension TechStackAppendComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\TechStackAppendDependency.techStackDomainBuildable] = "techStackDomainBuildable-any TechStackDomainBuildable"
+    }
+}
 extension InputInformationComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputInformationDependency.inputProfileInfoBuildable] = "inputProfileInfoBuildable-any InputProfileInfoBuildable"
@@ -341,6 +376,11 @@ extension FileDomainComponent: Registration {
 extension StudentDomainComponent: Registration {
     public func registerItems() {
         keyPathToName[\StudentDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
+    }
+}
+extension TechStackDomainComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\TechStackDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
     }
 }
 extension AuthDomainComponent: Registration {
@@ -383,11 +423,13 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->SigninComponent", factory2882a056d84a613debccf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputMilitaryInfoComponent", factory6e35522c47cca1190471e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputLanguageInfoComponent", factory36893d70245037098109e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->TechStackAppendComponent", factory84921fd8019bf910b0aff47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputInformationComponent", factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->FileDomainComponent", factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->TechStackDomainComponent", factory254149359ff45b2db35bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MajorDomainComponent", factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->UserDomainComponent", factory46488402f315d7f9530ce3b0c44298fc1c149afb)
