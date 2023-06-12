@@ -6,6 +6,7 @@ import ViewUtil
 import UtilityModule
 
 struct SigninView: View {
+    @Environment(\.openURL) var openURL
     @StateObject var container: MVIContainer<SigninIntentProtocol, SigninStateProtocol>
     var intent: any SigninIntentProtocol { container.intent }
     var state: any SigninStateProtocol { container.model }
@@ -32,13 +33,24 @@ struct SigninView: View {
             .frame(height: 50)
             .padding(.bottom, 16)
 
-            Text("게스트로 둘러보기")
-                .underline()
-                .smsFont(.body2, color: .system(.white))
-                .padding(.bottom, 38)
-                .buttonWrapper {
-                    intent.guestSigninButtonDidTap()
-                }
+            HStack(spacing: 16) {
+                Text("게스트로 둘러보기")
+                    .underline()
+                    .buttonWrapper {
+                        intent.guestSigninButtonDidTap()
+                    }
+
+                Text("약관 보기")
+                    .underline()
+                    .buttonWrapper {
+                        let privacyURLString =
+                        "https://www.notion.so/matsogeum/b84900a818ce4bf3a5741b0a0507053f?pvs=4"
+                        guard let privacyURL = URL(string: privacyURLString) else { return }
+                        openURL(privacyURL)
+                    }
+            }
+            .smsFont(.body2, color: .system(.white))
+            .padding(.bottom, 32)
         }
         .background {
             SMSImage(.background)
