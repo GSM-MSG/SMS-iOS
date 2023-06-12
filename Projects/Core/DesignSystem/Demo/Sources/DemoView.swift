@@ -2,17 +2,19 @@ import DesignSystem
 import SwiftUI
 
 public struct DemoView: View {
-    @State var isShowing = false
+    @State var isLoading = false
 
     public var body: some View {
         VStack {
             Button {
-                self.isShowing = true
+                withAnimation {
+                    self.isLoading = true
+                }
             } label: {
                 Text("A")
             }
         }
-        .smsToast(text: "ASDF", isShowing: $isShowing)
+        .smsLoading(isLoading: isLoading)
     }
 }
 

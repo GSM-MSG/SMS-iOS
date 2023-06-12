@@ -5,6 +5,7 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.SPM {
+    static let Lottie = TargetDependency.external(name: "Lottie")
     static let TagLayoutView = TargetDependency.external(name: "TagLayoutView")
     static let NukeUI = TargetDependency.external(name: "NukeUI")
     static let Needle = TargetDependency.external(name: "NeedleFoundation")

@@ -32,7 +32,8 @@ public extension Project {
         resources: ResourceFileElements? = nil,
         settings: SettingsDictionary = [:],
         additionalPlistRows: [String: ProjectDescription.InfoPlist.Value] = [:],
-        additionalFiles: [FileElement] = []
+        additionalFiles: [FileElement] = [],
+        resourceSynthesizers: [ResourceSynthesizer] = .default
     ) -> Project {
         let scripts: [TargetScript] = isCI ? [] : [.swiftLint]
         let ldFlagsSettings: SettingsDictionary = product == .framework ?
@@ -197,7 +198,8 @@ public extension Project {
             packages: packages,
             settings: settings,
             targets: allTargets,
-            schemes: schemes
+            schemes: schemes,
+            resourceSynthesizers: resourceSynthesizers
         )
     }
 }

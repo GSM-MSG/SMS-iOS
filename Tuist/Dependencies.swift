@@ -5,6 +5,7 @@ let dependencies = Dependencies(
     carthage: nil,
     swiftPackageManager: SwiftPackageManagerDependencies(
         [
+            .remote(url: "https://github.com/airbnb/lottie-ios.git", requirement: .exact("4.2.0")),
             .remote(url: "https://github.com/giiiita/TagLayoutView.git", requirement: .branch("master")),
             .remote(url: "https://github.com/kean/Nuke.git", requirement: .exact("12.1.0")),
             .remote(url: "https://github.com/uber/needle", requirement: .exact("0.22.0")),
