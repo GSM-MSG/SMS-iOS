@@ -241,6 +241,9 @@ private class InputProfileInfoDependencydedc6189ad35e7ff3001Provider: InputProfi
     var majorDomainBuildable: any MajorDomainBuildable {
         return appComponent.majorDomainBuildable
     }
+    var techStackAppendBuildable: any TechStackAppendBuildable {
+        return appComponent.techStackAppendBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -413,6 +416,7 @@ extension StudentDetailComponent: Registration {
 extension InputProfileInfoComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputProfileInfoDependency.majorDomainBuildable] = "majorDomainBuildable-any MajorDomainBuildable"
+        keyPathToName[\InputProfileInfoDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
     }
 }
 extension FileDomainComponent: Registration {
@@ -460,7 +464,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-private func register1() {
+@inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)

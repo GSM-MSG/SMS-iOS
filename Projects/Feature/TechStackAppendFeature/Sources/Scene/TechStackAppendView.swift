@@ -12,26 +12,7 @@ struct TechStackAppendView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            ScrollView {
-                SMSSeparator()
-                    .padding(.top, 12)
-
-                if isFocusedSearchTextField {
-                    techStackListView()
-                } else {
-                    recentAppendedTechStackListView()
-                }
-            }
-
-            FillButton(text: "세부 스택 \(state.selectedTechStacks.count)개 추가") {
-                dismiss()
-                intent.appendButtonDidTap(techStacks: Array(state.selectedTechStacks))
-            }
-            .disabled(state.selectedTechStacks.isEmpty)
-        }
-        .hideKeyboardWhenTap()
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
+            VStack(spacing: 8) {
                 HStack(spacing: 16) {
                     SMSIcon(.leftArrow)
                         .buttonWrapper {
@@ -49,16 +30,42 @@ struct TechStackAppendView: View {
                     }
                     .focused($isFocusedSearchTextField)
                 }
+                .padding(.horizontal, 20)
+
+                ScrollView {
+                    SMSSeparator()
+                        .padding(.top, 12)
+
+                    if isFocusedSearchTextField {
+                        techStackListView()
+                    } else {
+                        recentAppendedTechStackListView()
+                    }
+                }
             }
+
+            FillButton(text: "세부 스택 \(state.selectedTechStacks.count)개 추가") {
+                dismiss()
+                intent.appendButtonDidTap(techStacks: Array(state.selectedTechStacks))
+            }
+            .disabled(state.selectedTechStacks.isEmpty)
         }
+        .hideKeyboardWhenTap()
     }
 
     @ViewBuilder
     func techStackListView() -> some View {
         if state.techStacks.isEmpty {
-            SMSText("검색결과가 없습니다.", font: .body1)
-                .foregroundColor(.sms(.neutral(.n30)))
-                .padding(.top, 16)
+            VStack(spacing: 8) {
+                SMSText("검색결과가 없습니다.", font: .body1)
+                    .foregroundColor(.sms(.neutral(.n30)))
+                    .padding(.top, 16)
+
+                SMSChip("\"\(state.searchText)\" 직접 추가하기") {
+                    intent.directAppendButtonDidTap(techStack: state.searchText)
+                }
+                .conditional(state.techStacks.last != state.searchText && !state.searchText.isEmpty)
+            }
         } else {
             LazyVStack(spacing: 8) {
                 ForEach(state.techStacks, id: \.self) { techStack in

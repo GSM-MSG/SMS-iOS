@@ -38,6 +38,7 @@ public struct SMSIcon: View {
         case upArrow
         case magnifyingglass
         case xmark
+        case xmarkOutline
     }
 
     public var body: some View {
@@ -106,6 +107,9 @@ public struct SMSIcon: View {
 
         case .xmark:
             return DesignSystemAsset.Icons.xmark.swiftUIImage
+
+        case .xmarkOutline:
+            return DesignSystemAsset.Icons.xmarkOutline.swiftUIImage
         }
     }
     // swiftlint: enable cyclomatic_complexity
