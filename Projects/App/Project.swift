@@ -47,10 +47,13 @@ let targets: [Target] = [
             .Feature.InputCertificateInfoFeature,
             .Feature.InputLanguageInfoFeature,
             .Feature.MainFeature,
+            .Feature.TechStackAppendFeature,
             .Domain.AuthDomain,
             .Domain.StudentDomain,
             .Domain.FileDomain,
             .Domain.MajorDomain,
+            .Domain.UserDomain,
+            .Domain.TechStackDomain,
             .Core.JwtStore,
             .Shared.KeychainModule
         ],

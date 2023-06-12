@@ -30,7 +30,15 @@ struct SigninView: View {
             }
             .padding(.horizontal, 20)
             .frame(height: 50)
-            .padding(.bottom, 54)
+            .padding(.bottom, 16)
+
+            Text("게스트로 둘러보기")
+                .underline()
+                .smsFont(.body2, color: .system(.white))
+                .padding(.bottom, 38)
+                .buttonWrapper {
+                    intent.guestSigninButtonDidTap()
+                }
         }
         .background {
             SMSImage(.background)
