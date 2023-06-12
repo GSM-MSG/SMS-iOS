@@ -42,7 +42,8 @@ import UserDomainInterface
 
 final class AppComponent: BootstrapComponent {
     func makeRootView() -> some View {
-        rootComponent.makeView()
+        studentDetailBuildable.makeView(userID: "156a0b0b-5da5-4a17-befd-51bd48a157f2", with: Namespace().wrappedValue)
+            .eraseToAnyView()
     }
 
     var rootComponent: RootComponent {

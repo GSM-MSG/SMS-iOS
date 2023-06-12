@@ -9,6 +9,7 @@ import ViewUtil
 struct StudentDetailView: View {
     @Environment(\.safeAreaInsets) var safeAreaInsets
     @Environment(\.dismiss) var dismiss
+    @Environment(\.openURL) var openURL
     @StateObject var container: MVIContainer<StudentDetailIntentProtocol, StudentDetailStateProtocol>
     var intent: any StudentDetailIntentProtocol { container.intent }
     var state: any StudentDetailStateProtocol { container.model }
@@ -47,18 +48,36 @@ struct StudentDetailView: View {
             .ignoresSafeArea(edges: .top)
 
             GeometryReader { geometry in
-                ScrollView(showsIndicators: false) {
-                    Color.clear
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .aspectRatio(1.0, contentMode: .fill)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .ignoresSafeArea(edges: .top)
+                ZStack(alignment: .bottom) {
+                    ScrollView(showsIndicators: false) {
+                        Color.clear
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .aspectRatio(1.0, contentMode: .fill)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .ignoresSafeArea(edges: .top)
 
-                    studentInfoView(geometry: geometry)
+                        studentInfoView(geometry: geometry)
+                    }
+
+                    if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
+                        CTAButton(text: "포트폴리오") {
+                            guard
+                                let portfolioURLString = detailInfoByTeacher.portfolioURL,
+                                let portfolioURL = URL(string: portfolioURLString)
+                            else { return }
+                            openURL(portfolioURL)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, safeAreaInsets.bottom + 16)
+                        .background {
+                            Color.sms(.system(.white))
+                        }
+                        .ignoresSafeArea()
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea(edges: .top)
+            .ignoresSafeArea()
 
             SMSIcon(.xmark)
                 .padding(.top, 8)
@@ -80,7 +99,7 @@ struct StudentDetailView: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer().frame(height: 16)
 
-            if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
+            if studentDetail?.detailInfoByTeacher != nil {
                 HStack {
                     SMSText(studentDetail?.major ?? "전공", font: .body1)
                         .foregroundColor(.sms(.sub(.s2)))
@@ -88,6 +107,13 @@ struct StudentDetailView: View {
                     Spacer()
 
                     SMSIcon(.book)
+                        .buttonWrapper {
+                            guard
+                                let dreamBookURLString = studentDetail?.detailInfoByTeacher?.dreamBookFileURL,
+                                let dreamBookURL = URL(string: dreamBookURLString)
+                            else { return }
+                            openURL(dreamBookURL)
+                        }
                 }
             } else {
                 SMSText(studentDetail?.major ?? "전공", font: .body1)
@@ -147,6 +173,7 @@ struct StudentDetailView: View {
                 Spacer().frame(height: 16)
 
                 SMSText(studentDetail?.introduce ?? "자기소개", font: .body2)
+                    .foregroundColor(.sms(.neutral(.n40)))
                     .lineLimit(nil)
 
                 Spacer().frame(height: 32)
@@ -158,6 +185,7 @@ struct StudentDetailView: View {
 
             Color.sms(.system(.white))
                 .frame(height: 300)
+                .conditional(state.userRole != .teacher)
         }
         .padding(.horizontal, 20)
         .background {
@@ -209,8 +237,10 @@ struct StudentDetailView: View {
                     value: detailInfo.regions.joined(separator: ", "),
                     geometry: geometry
                 )
+                .conditional(!detailInfo.regions.isEmpty)
 
                 SMSSeparator(.neutral(.n20), height: 1)
+                    .conditional(!detailInfo.languageCertificate.isEmpty)
             }
 
             Group {
@@ -219,6 +249,7 @@ struct StudentDetailView: View {
                 }
 
                 SMSSeparator(.neutral(.n20), height: 1)
+                    .conditional(!detailInfo.certificate.isEmpty)
             }
 
             studentInfoRowView(
@@ -226,25 +257,26 @@ struct StudentDetailView: View {
                 value: detailInfo.certificate.joined(separator: "\n"),
                 geometry: geometry
             )
+            .conditional(!detailInfo.certificate.isEmpty)
 
-            Spacer().frame(height: 40)
-
-            CTAButton(text: "포트폴리오")
+            Spacer().frame(height: 120)
         }
     }
 
     @ViewBuilder
     func studentInfoRowView(name: String, value: String, geometry: GeometryProxy) -> some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .top) {
             SMSText(name, font: .body1)
+                .lineLimit(nil)
                 .foregroundColor(.sms(.system(.black)))
+                .frame(width: 120, alignment: .leading)
 
             Spacer()
 
             SMSText(value, font: .body2)
-                .lineLimit(0)
+                .lineLimit(nil)
                 .foregroundColor(.sms(.neutral(.n40)))
-                .frame(width: geometry.size.width * 0.6, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
