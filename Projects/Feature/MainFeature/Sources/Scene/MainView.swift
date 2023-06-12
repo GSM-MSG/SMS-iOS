@@ -40,8 +40,7 @@ struct MainView: View {
                                     techStack: item.techStack
                                 )
 
-                                Divider()
-                                    .background(Color.sms(.neutral(.n10)))
+                                SMSSeparator(.neutral(.n10), height: 1)
                             }
 
                             Color.clear
