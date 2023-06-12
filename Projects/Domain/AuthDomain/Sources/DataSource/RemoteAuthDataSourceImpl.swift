@@ -6,4 +6,12 @@ final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthEndpoint>, Remote
         try await request(.signin(code: code), dto: SigninResponseDTO.self)
             .toDomain()
     }
+
+    func logout() async throws {
+        try await request(.logout)
+    }
+
+    func withdrawal() async throws {
+        try await request(.withdrawal)
+    }
 }

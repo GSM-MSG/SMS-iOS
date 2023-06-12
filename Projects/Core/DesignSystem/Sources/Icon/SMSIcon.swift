@@ -30,6 +30,8 @@ public struct SMSIcon: View {
         case plus
         case profile
         case profileSmallPlus
+        case redLogout
+        case redPerson
         case search
         case smsLogo
         case trash
@@ -95,6 +97,12 @@ public struct SMSIcon: View {
 
         case .leftArrow:
             return DesignSystemAsset.Icons.leftArrow.swiftUIImage
+
+        case .redLogout:
+            return DesignSystemAsset.Icons.redLogout.swiftUIImage
+
+        case .redPerson:
+            return DesignSystemAsset.Icons.redPerson.swiftUIImage
 
         case .smallPlus:
             return DesignSystemAsset.Icons.smallPlus.swiftUIImage
