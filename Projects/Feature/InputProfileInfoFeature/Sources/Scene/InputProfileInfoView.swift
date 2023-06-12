@@ -2,130 +2,194 @@ import BaseFeature
 import DesignSystem
 import SwiftUI
 import InputInformationBaseFeature
+import TechStackAppendFeatureInterface
+import TagLayoutView
+import ViewUtil
 
 struct InputProfileInfoView: View {
     enum FocusField: Hashable {
         case introduce
         case email
         case portfoilo
-        case techStack
     }
     @FocusState var isFocuesedMajorTextField: Bool
     @FocusState var focusField: FocusField?
     @StateObject var container: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>
     var intent: any InputProfileInfoIntentProtocol { container.intent }
     var state: any InputProfileInfoStateProtocol { container.model }
+    private let techStackAppendBuildable: any TechStackAppendBuildable
+
+    init(
+        container: MVIContainer<InputProfileInfoIntentProtocol, InputProfileInfoStateProtocol>,
+        techStackAppendBuildable: any TechStackAppendBuildable
+    ) {
+        self._container = StateObject(wrappedValue: container)
+        self.techStackAppendBuildable = techStackAppendBuildable
+    }
 
     var body: some View {
         SMSNavigationTitleView(title: "정보입력") {
-            ScrollView(showsIndicators: false) {
-                SMSSeparator()
+            GeometryReader { geometry in
+                ScrollView(showsIndicators: false) {
+                    SMSSeparator()
 
-                VStack(spacing: 32) {
-                    InputInformationPageTitleView(title: "프로필", pageCount: 6, selectedPage: 0)
+                    VStack(spacing: 32) {
+                        InputInformationPageTitleView(title: "프로필", pageCount: 6, selectedPage: 0)
 
-                    VStack(alignment: .leading, spacing: 24) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            ZStack(alignment: .bottomTrailing) {
-                                if let profileImage = state.profileImage {
-                                    Image(uiImage: profileImage.uiImage)
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(4)
-                                } else {
-                                    SMSIcon(.profile, width: 100, height: 100)
+                        VStack(alignment: .leading, spacing: 24) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                ZStack(alignment: .bottomTrailing) {
+                                    if let profileImage = state.profileImage {
+                                        Image(uiImage: profileImage.uiImage)
+                                            .resizable()
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(4)
+                                    } else {
+                                        SMSIcon(.profile, width: 100, height: 100)
+                                    }
+
+                                    SMSIcon(.profileSmallPlus)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 7)
+                                                .strokeBorder(Color.sms(.system(.white)), lineWidth: 4)
+                                        }
+                                        .offset(x: 5, y: 4)
+                                }
+                                .buttonWrapper {
+                                    intent.imageMethodPickerIsRequired()
+                                }
+                                .titleWrapper("사진")
+
+                                if state.inputProfileErrorFieldSet.contains(.profile) {
+                                    SMSText("이미지를 선택해주세요", font: .caption1)
+                                        .foregroundColor(.sms(.system(.error)))
+                                }
+                            }
+
+                            SMSTextField(
+                                "1줄 자기소개 입력",
+                                text: Binding(get: { state.introduce }, set: intent.updateIntroduce(introduce:)),
+                                errorText: "1글자에서 50글자 사이로 입력해주세요",
+                                isError: state.inputProfileErrorFieldSet.contains(.introduce)
+                            ) {
+                                focusField = .email
+                            }
+                            .focused($focusField, equals: .introduce)
+                            .titleWrapper("자기소개")
+
+                            SMSTextField(
+                                "공개용 이메일 입력",
+                                text: Binding(get: { state.email }, set: intent.updateEmail(email:)),
+                                errorText: "이메일 형식에 맞게 입력해주세요",
+                                isError: state.inputProfileErrorFieldSet.contains(.email)
+                            ) {
+                                focusField = nil
+                                intent.majorSheetIsRequired()
+                            }
+                            .focused($focusField, equals: .email)
+                            .titleWrapper("이메일")
+
+                            SMSTextField(
+                                state.isSelfEntering ? "전공 분야 입력" : "전공 분야 선택",
+                                text: Binding(get: { state.major }, set: intent.updateMajor(major:)),
+                                errorText: "전공 분야를 선택해주세요",
+                                isError: state.inputProfileErrorFieldSet.contains(.major),
+                                isOnClear: false
+                            ) {
+                                focusField = .portfoilo
+                            }
+                            .focused($isFocuesedMajorTextField)
+                            .disabled(!state.isSelfEntering)
+                            .overlay(alignment: .topTrailing) {
+                                SMSIcon(.downChevron)
+                                    .padding([.top, .trailing], 12)
+                            }
+                            .onTapGesture {
+                                focusField = nil
+                                intent.majorSheetIsRequired()
+                                intent.deActiveSelfEntering()
+                            }
+                            .titleWrapper("분야")
+
+                            SMSTextField(
+                                "예시) https://github.com/",
+                                text: Binding(
+                                    get: { state.portfolioURL },
+                                    set: intent.updatePortfolioURL(portfolioURL:)
+                                ),
+                                errorText: "URL 형식에 맞게 입력해주세요",
+                                isError: state.inputProfileErrorFieldSet.contains(.portfoilo)
+                            ) {
+                                focusField = nil
+                                intent.techStackAppendIsRequired()
+                            }
+                            .focused($focusField, equals: .portfoilo)
+                            .titleWrapper("포트폴리오 URL")
+
+                            VStack(spacing: 8) {
+                                HStack(spacing: 8) {
+                                    SMSIcon(.magnifyingglass)
+
+                                    SMSText("찾고 싶은 세부 스택 입력", font: .body1)
+                                        .foregroundColor(.sms(.neutral(.n30)))
+
+                                    Spacer()
+                                }
+                                .padding(12)
+                                .background {
+                                    Color.sms(.neutral(.n10))
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .buttonWrapper {
+                                    focusField = nil
+                                    intent.techStackAppendIsRequired()
                                 }
 
-                                SMSIcon(.profileSmallPlus)
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 7)
-                                            .strokeBorder(Color.sms(.system(.white)), lineWidth: 4)
+                                TagLayoutView(
+                                    state.techStacks,
+                                    tagFont: UIFont(
+                                        font: DesignSystemFontFamily.Pretendard.regular,
+                                        size: 24
+                                    ) ?? .init(),
+                                    padding: 20,
+                                    parentWidth: geometry.size.width
+                                ) { techStack in
+                                    HStack {
+                                        SMSText(techStack, font: .body2)
+
+                                        SMSIcon(.xmarkOutline, width: 20, height: 20)
                                     }
-                                    .offset(x: 5, y: 4)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 10)
+                                    .background(Color.sms(.neutral(.n10)))
+                                    .fixedSize()
+                                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                                }
                             }
-                            .buttonWrapper {
-                                intent.imageMethodPickerIsRequired()
-                            }
-                            .titleWrapper("사진")
-
-                            if state.inputProfileErrorFieldSet.contains(.profile) {
-                                SMSText("이미지를 선택해주세요", font: .caption1)
-                                    .foregroundColor(.sms(.system(.error)))
-                            }
+                            .titleWrapper("세부스택")
                         }
 
-                        SMSTextField(
-                            "1줄 자기소개 입력",
-                            text: Binding(get: { state.introduce }, set: intent.updateIntroduce(introduce:)),
-                            errorText: "1글자에서 50글자 사이로 입력해주세요",
-                            isError: state.inputProfileErrorFieldSet.contains(.introduce)
-                        ) {
-                            focusField = .email
-                        }
-                        .focused($focusField, equals: .introduce)
-                        .titleWrapper("자기소개")
-
-                        SMSTextField(
-                            "공개용 이메일 입력",
-                            text: Binding(get: { state.email }, set: intent.updateEmail(email:)),
-                            errorText: "이메일 형식에 맞게 입력해주세요",
-                            isError: state.inputProfileErrorFieldSet.contains(.email)
-                        ) {
-                            intent.majorSheetIsRequired()
-                        }
-                        .focused($focusField, equals: .email)
-                        .titleWrapper("이메일")
-
-                        SMSTextField(
-                            state.isSelfEntering ? "전공 분야 입력" : "전공 분야 선택",
-                            text: Binding(get: { state.major }, set: intent.updateMajor(major:)),
-                            errorText: "전공 분야를 선택해주세요",
-                            isError: state.inputProfileErrorFieldSet.contains(.major),
-                            isOnClear: false
-                        ) {
-                            focusField = .portfoilo
-                        }
-                        .focused($isFocuesedMajorTextField)
-                        .disabled(!state.isSelfEntering)
-                        .overlay(alignment: .topTrailing) {
-                            SMSIcon(.downChevron)
-                                .padding([.top, .trailing], 12)
-                        }
-                        .onTapGesture {
-                            intent.majorSheetIsRequired()
-                            intent.deActiveSelfEntering()
-                        }
-                        .titleWrapper("분야")
-
-                        SMSTextField(
-                            "예시) https://github.com/",
-                            text: Binding(get: { state.portfolioURL }, set: intent.updatePortfolioURL(portfolioURL:)),
-                            errorText: "URL 형식에 맞게 입력해주세요",
-                            isError: state.inputProfileErrorFieldSet.contains(.portfoilo)
-                        ) {
-                            focusField = .techStack
-                        }
-                        .focused($focusField, equals: .portfoilo)
-                        .titleWrapper("포트폴리오 URL")
-
-                        SMSTextField(
-                            "예시) C, Java, Python",
-                            text: Binding(get: { state.techStack }, set: intent.updateTechStack(techStack:))
-                        ) {
-                            focusField = nil
+                        CTAButton(text: "다음") {
                             intent.nextButtonDidTap(state: state)
                         }
-                        .focused($focusField, equals: .techStack)
-                        .titleWrapper("세부스택")
+                        .disabled(state.isDisabledNextButton)
+                        .padding(.bottom, 32)
                     }
-
-                    CTAButton(text: "다음") {
-                        intent.nextButtonDidTap(state: state)
-                    }
-                    .disabled(state.isDisabledNextButton)
-                    .padding(.bottom, 32)
+                    .padding([.top, .horizontal], 20)
                 }
-                .padding([.top, .horizontal], 20)
+            }
+        }
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { state.isPresentedTechStackAppend },
+                set: { _ in intent.techStackAppendDismissed() }
+            )
+        ) {
+            DeferView {
+                techStackAppendBuildable.makeView { techStacks in
+                    intent.techStackAppendDidComplete(techStacks: techStacks)
+                }
+                .eraseToAnyView()
             }
         }
         .hideKeyboardWhenTap()

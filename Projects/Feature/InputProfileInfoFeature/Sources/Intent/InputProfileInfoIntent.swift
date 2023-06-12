@@ -35,8 +35,16 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updatePortfolioURL(portfolioURL: portfolioURL)
     }
 
-    func updateTechStack(techStack: String) {
-        model?.updateTeckStack(techStack: techStack)
+    func techStackAppendIsRequired() {
+        model?.updateIsPresentedTeckStackAppend(isPresented: true)
+    }
+
+    func techStackAppendDismissed() {
+        model?.updateIsPresentedTeckStackAppend(isPresented: false)
+    }
+
+    func techStackAppendDidComplete(techStacks: [String]) {
+        model?.appendTeckStacks(techStacks: techStacks)
     }
 
     func majorSheetIsRequired() {
@@ -108,9 +116,7 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
             contactEmail: state.email,
             major: state.major,
             portfoiloURL: state.portfolioURL,
-            techStack: state.techStack.components(separatedBy: ",")
-                .prefix(5)
-                .map { $0.trimmingCharacters(in: .whitespaces) }
+            techStack: state.techStacks
         )
         inputProfileDelegate?.completeToInputProfile(input: input)
     }

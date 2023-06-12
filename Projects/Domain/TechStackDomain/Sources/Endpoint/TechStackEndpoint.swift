@@ -24,7 +24,7 @@ extension TechStackEndpoint: SMSEndpoint {
         switch self {
         case let .fetchTechStackList(keyword):
             return .requestParameters(query: [
-                "name": keyword
+                "stack": keyword
             ])
 
         default:
