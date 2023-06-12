@@ -73,10 +73,15 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 inputInformationDelegate?.completeToInputInformation()
                 model?.updateIsLoading(isLoading: false)
             } catch {
+                model?.updateErrorMessage(message: error.localizedDescription)
                 model?.updateIsLoading(isLoading: false)
                 model?.updateIsCompleteToInputAllInfo(isComplete: false)
             }
         }
+    }
+
+    func errorAlertDismissed() {
+        model?.updateIsError(isError: true)
     }
 }
 

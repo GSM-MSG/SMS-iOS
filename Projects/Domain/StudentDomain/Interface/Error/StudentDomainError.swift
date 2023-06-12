@@ -12,7 +12,7 @@ extension StudentDomainError: LocalizedError {
             return "알 수 없는 에러가 발생하였습니다."
 
         case .alreadyExistUser:
-            return "이미 존재하는 유저입니다."
+            return "이미 정보입력을 완료한 유저입니다."
         }
     }
 }
