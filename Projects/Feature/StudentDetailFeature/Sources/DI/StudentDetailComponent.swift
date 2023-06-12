@@ -25,6 +25,9 @@ public final class StudentDetailComponent: Component<StudentDetailDependency>, S
             model: model as StudentDetailStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
-        return StudentDetailView(container: container)
+        return StudentDetailView(
+            container: container,
+            profileImageNamespace: profileImageNamespace
+        )
     }
 }

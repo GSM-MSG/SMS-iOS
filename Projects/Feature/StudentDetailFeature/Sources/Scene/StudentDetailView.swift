@@ -10,6 +10,7 @@ struct StudentDetailView: View {
     @StateObject var container: MVIContainer<StudentDetailIntentProtocol, StudentDetailStateProtocol>
     var intent: any StudentDetailIntentProtocol { container.intent }
     var state: any StudentDetailStateProtocol { container.model }
+    let profileImageNamespace: Namespace.ID
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -24,6 +25,10 @@ struct StudentDetailView: View {
                 .aspectRatio(1.0, contentMode: .fill)
                 .fixedSize(horizontal: false, vertical: true)
                 .cornerRadius(24, corners: [.bottomLeft, .bottomRight])
+                .matchedGeometryEffect(
+                    id: ViewNamespaceIDProperty.studentDetailNamespaceID,
+                    in: profileImageNamespace
+                )
 
                 Spacer()
             }
