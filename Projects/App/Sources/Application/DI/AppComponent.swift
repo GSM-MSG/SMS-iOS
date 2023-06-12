@@ -1,12 +1,8 @@
 import AuthDomain
 import AuthDomainInterface
-import StudentDomain
-import StudentDomainInterface
+import BaseDomain
 import FileDomain
 import FileDomainInterface
-import MajorDomain
-import MajorDomainInterface
-import BaseDomain
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -30,10 +26,17 @@ import JwtStore
 import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
+import MajorDomain
+import MajorDomainInterface
 import NeedleFoundation
+import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import StudentDomain
+import StudentDomainInterface
 import SwiftUI
+import UserDomain
+import UserDomainInterface
 
 final class AppComponent: BootstrapComponent {
     func makeRootView() -> some View {
@@ -94,6 +97,10 @@ final class AppComponent: BootstrapComponent {
 
     var fileDomainBuildable: any FileDomainBuildable {
         FileDomainComponent(parent: self)
+    }
+
+    var userDomainBuildable: any UserDomainBuildable {
+        UserDomainComponent(parent: self)
     }
 
     var techStackDomainBuildable: any TechStackDomainBuildable {
