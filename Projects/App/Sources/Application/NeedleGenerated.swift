@@ -34,12 +34,12 @@ import SigninFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
-import UserDomain
-import UserDomainInterface
 import TechStackAppendFeature
 import TechStackAppendFeatureInterface
 import TechStackDomain
 import TechStackDomainInterface
+import UserDomain
+import UserDomainInterface
 
 // swiftlint:disable unused_declaration
 private let needleDependenciesHash : String? = nil

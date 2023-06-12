@@ -10,6 +10,7 @@ protocol TechStackAppendStateProtocol {
 protocol TechStackAppendActionProtocol: AnyObject {
     func updateSearchText(text: String)
     func updateTechStacks(stacks: [String])
+    func appendDirectTechStacks(stack: String)
     func appendTechStack(stack: String)
     func removeTechStack(stack: String)
     func resetTechStack()

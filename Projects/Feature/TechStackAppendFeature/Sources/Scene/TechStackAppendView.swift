@@ -64,6 +64,11 @@ struct TechStackAppendView: View {
                 ForEach(state.techStacks, id: \.self) { techStack in
                     techStackRowView(stack: techStack)
                 }
+
+                SMSChip("\"\(state.searchText)\" 직접 추가하기") {
+                    intent.directAppendButtonDidTap(techStack: state.searchText)
+                }
+                .conditional(state.techStacks.last != state.searchText)
             }
         }
     }

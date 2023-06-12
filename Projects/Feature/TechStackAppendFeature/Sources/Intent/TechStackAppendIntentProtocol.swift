@@ -6,4 +6,5 @@ protocol TechStackAppendIntentProtocol {
     func deselectTechStack(stack: String)
     func resetRecentTechStackButtonDidTap()
     func appendButtonDidTap(techStacks: [String])
+    func directAppendButtonDidTap(techStack: String)
 }

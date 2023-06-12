@@ -47,4 +47,8 @@ final class TechStackAppendIntent: TechStackAppendIntentProtocol {
     func appendButtonDidTap(techStacks: [String]) {
         completion(techStacks)
     }
+
+    func directAppendButtonDidTap(techStack: String) {
+        model?.appendDirectTechStacks(stack: techStack)
+    }
 }

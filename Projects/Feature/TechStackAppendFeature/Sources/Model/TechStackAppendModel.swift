@@ -17,6 +17,12 @@ extension TechStackAppendModel: TechStackAppendActionProtocol {
         self.techStacks = stacks
     }
 
+    func appendDirectTechStacks(stack: String) {
+        techStacks.append(stack)
+        selectedTechStacks.insert(stack)
+        recentTechStacks.append(stack)
+    }
+
     func appendTechStack(stack: String) {
         selectedTechStacks.insert(stack)
         recentTechStacks.append(stack)
