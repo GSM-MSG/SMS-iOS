@@ -1,11 +1,13 @@
 import SwiftUI
 import MainFeatureInterface
 import StudentDomainInterface
+import StudentDetailFeatureInterface
 import NeedleFoundation
 import BaseFeature
 
 public protocol MainDependency: Dependency {
     var studentDomainBuildable: any StudentDomainBuildable { get }
+    var studentDetailBuildable: any StudentDetailBuildable { get }
 }
 
 public final class MainComponent: Component<MainDependency>, MainBuildable {
@@ -21,6 +23,9 @@ public final class MainComponent: Component<MainDependency>, MainBuildable {
             model: model as MainStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
-        return MainView(container: container)
+        return MainView(
+            container: container,
+            studentDetailBuildable: dependency.studentDetailBuildable
+        )
     }
 }

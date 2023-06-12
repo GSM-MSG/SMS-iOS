@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 import BaseFeature
 import ViewUtil
+import StudentDetailFeatureInterface
 import DesignSystem
 import NukeUI
 
@@ -10,9 +11,19 @@ enum MainStudentIDProperty {
 }
 
 struct MainView: View {
+    @Namespace var profileImageNamespace
     @StateObject var container: MVIContainer<MainIntentProtocol, MainStateProtocol>
     var intent: any MainIntentProtocol { container.intent }
     var state: any MainStateProtocol { container.model }
+    private let studentDetailBuildable: any StudentDetailBuildable
+
+    init(
+        container: MVIContainer<MainIntentProtocol, MainStateProtocol>,
+        studentDetailBuildable: any StudentDetailBuildable
+    ) {
+        self._container = StateObject(wrappedValue: container)
+        self.studentDetailBuildable = studentDetailBuildable
+    }
 
     var body: some View {
         NavigationView {
@@ -34,11 +45,18 @@ struct MainView: View {
                         LazyVStack(alignment: .leading, spacing: 16) {
                             ForEach(state.content, id: \.id) { item in
                                 studentListRow(
+                                    id: item.id,
                                     profileImageUrl: item.profileImageURL,
                                     name: item.name,
                                     major: item.major,
                                     techStack: item.techStack
                                 )
+                                .foregroundColor(.sms(.system(.black)))
+                                .buttonWrapper {
+                                    withAnimation {
+                                        intent.studentDidSelect(userID: item.id)
+                                    }
+                                }
 
                                 SMSSeparator(.neutral(.n10), height: 1)
                             }
@@ -59,6 +77,19 @@ struct MainView: View {
                     }
                 }
                 .padding(.horizontal, 20)
+            }
+            .fullScreenCover(
+                isPresented: Binding(
+                    get: { state.selectedUserID != nil },
+                    set: { _ in intent.studentDetailDismissed() }
+                )
+            ) {
+                UnwrapView(state.selectedUserID) { userID in
+                    studentDetailBuildable.makeView(
+                        userID: userID
+                    )
+                    .eraseToAnyView()
+                }
             }
             .navigationViewStyle(.stack)
             .navigationBarTitleDisplayMode(.inline)
@@ -94,21 +125,28 @@ struct MainView: View {
 
     @ViewBuilder
     func studentListRow(
+        id: String,
         profileImageUrl: String,
         name: String,
         major: String,
         techStack: [String]
     ) -> some View {
         HStack(spacing: 12) {
-            LazyImage(url: URL(string: profileImageUrl)) { state in
-                if let image = state.image {
-                    image
-                        .resizable()
+            Group {
+                if !profileImageUrl.isEmpty, let imageURL = URL(string: profileImageUrl) {
+                    LazyImage(url: imageURL) { state in
+                        if let image = state.image {
+                            image
+                                .resizable()
+                        } else {
+                            SMSIcon(.profile, width: 101, height: 101)
+                        }
+                    }
+                    .frame(width: 101, height: 101)
                 } else {
                     SMSIcon(.profile, width: 101, height: 101)
                 }
             }
-            .frame(width: 101, height: 101)
             .cornerRadius(8)
 
             VStack(alignment: .leading, spacing: 4) {

@@ -13,7 +13,6 @@ struct StudentDetailView: View {
     @StateObject var container: MVIContainer<StudentDetailIntentProtocol, StudentDetailStateProtocol>
     var intent: any StudentDetailIntentProtocol { container.intent }
     var state: any StudentDetailStateProtocol { container.model }
-    let profileImageNamespace: Namespace.ID
     var studentDetail: StudentDetailEntity? {
         state.studentDetailEntity
     }
@@ -37,10 +36,6 @@ struct StudentDetailView: View {
                 .aspectRatio(1.0, contentMode: .fill)
                 .fixedSize(horizontal: false, vertical: true)
                 .cornerRadius(24, corners: [.bottomLeft, .bottomRight])
-                .matchedGeometryEffect(
-                    id: ViewNamespaceIDProperty.Student.studentDetailNamespaceID,
-                    in: profileImageNamespace
-                )
 
                 Spacer()
             }
@@ -236,7 +231,8 @@ struct StudentDetailView: View {
                     geometry: geometry
                 )
 
-                studentInfoRowView(name: "희망 연봉", value: "\(detailInfo.salary)만원", geometry: geometry)
+                let salaryString = detailInfo.salary == 0 ? "상관없음" : "\(detailInfo.salary)만원"
+                studentInfoRowView(name: "희망 연봉", value: salaryString, geometry: geometry)
 
                 studentInfoRowView(
                     name: "근무 희망 지역",

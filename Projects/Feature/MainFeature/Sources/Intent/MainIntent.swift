@@ -27,4 +27,12 @@ final class MainIntent: MainIntentProtocol {
             model?.updateIsLast(isLast: studentList.isLast)
         }
     }
+
+    func studentDidSelect(userID: String) {
+        model?.updateSelectedUserID(userID: userID)
+    }
+
+    func studentDetailDismissed() {
+        model?.updateSelectedUserID(userID: nil)
+    }
 }

@@ -86,6 +86,9 @@ private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
     var studentDomainBuildable: any StudentDomainBuildable {
         return appComponent.studentDomainBuildable
     }
+    var studentDetailBuildable: any StudentDetailBuildable {
+        return appComponent.studentDetailBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -355,6 +358,7 @@ extension InputWorkInfoComponent: Registration {
 extension MainComponent: Registration {
     public func registerItems() {
         keyPathToName[\MainDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
+        keyPathToName[\MainDependency.studentDetailBuildable] = "studentDetailBuildable-any StudentDetailBuildable"
     }
 }
 extension InputSchoolLifeInfoComponent: Registration {

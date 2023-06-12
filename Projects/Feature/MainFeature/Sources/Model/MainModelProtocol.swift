@@ -6,6 +6,7 @@ protocol MainStateProtocol {
     var isLast: Bool { get }
     var isError: Bool { get }
     var content: [SingleStudentEntity] { get }
+    var selectedUserID: String? { get }
 }
 
 protocol MainActionProtocol: AnyObject {
@@ -14,4 +15,5 @@ protocol MainActionProtocol: AnyObject {
     func updateTotalSize(totalSize: Int)
     func updateIsLast(isLast: Bool)
     func appendContent(content: [SingleStudentEntity])
+    func updateSelectedUserID(userID: String?)
 }
