@@ -1,9 +1,14 @@
-//
-//  StudentDetailStrategyExecutor.swift
-//  StudentDomain
-//
-//  Created by 최형우 on 2023/06/12.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
 import Foundation
+import StudentDomainInterface
+
+public struct StudentDetailStrategyExecutor {
+    private let studentDetailViewStrategy: any StudentDetailViewStrategy
+
+    init(studentDetailViewStrategy: any StudentDetailViewStrategy) {
+        self.studentDetailViewStrategy = studentDetailViewStrategy
+    }
+
+    func execute(userID: String) async throws -> StudentDetailEntity {
+        try await studentDetailViewStrategy.fetchStudentInfo(userID: userID)
+    }
+}
