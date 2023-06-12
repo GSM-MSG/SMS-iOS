@@ -91,7 +91,6 @@ struct MainView: View {
                     .eraseToAnyView()
                 }
             }
-            .navigationViewStyle(.stack)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -177,6 +176,7 @@ struct MainView: View {
                     }
                 ])
         }
+        .navigationViewStyle(.stack)
     }
 
     @ViewBuilder
