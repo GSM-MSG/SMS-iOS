@@ -112,19 +112,16 @@ struct InputProfileInfoView: View {
                             .titleWrapper("분야")
 
                             SMSTextField(
-                                "예시) https://github.com/",
-                                text: Binding(
-                                    get: { state.portfolioURL },
-                                    set: intent.updatePortfolioURL(portfolioURL:)
-                                ),
-                                errorText: "URL 형식에 맞게 입력해주세요",
-                                isError: state.inputProfileErrorFieldSet.contains(.portfoilo)
+                                "공개용 이메일 입력",
+                                text: Binding(get: { state.email }, set: intent.updateEmail(email:)),
+                                errorText: "이메일 형식에 맞게 입력해주세요",
+                                isError: state.inputProfileErrorFieldSet.contains(.email)
                             ) {
-                                focusField = nil
-                                intent.techStackAppendIsRequired()
+                                intent.majorSheetIsRequired()
                             }
-                            .focused($focusField, equals: .portfoilo)
-                            .titleWrapper("포트폴리오 URL")
+                            .keyboardType(.emailAddress)
+                            .focused($focusField, equals: .email)
+                            .titleWrapper("이메일")
 
                             VStack(spacing: 8) {
                                 HStack(spacing: 8) {
@@ -168,6 +165,9 @@ struct InputProfileInfoView: View {
                             }
                             .titleWrapper("세부스택")
                         }
+                        .keyboardType(.URL)
+                        .focused($focusField, equals: .portfoilo)
+                        .titleWrapper("포트폴리오 URL")
 
                         CTAButton(text: "다음") {
                             intent.nextButtonDidTap(state: state)

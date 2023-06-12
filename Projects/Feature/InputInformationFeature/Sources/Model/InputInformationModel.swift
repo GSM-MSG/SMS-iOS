@@ -15,7 +15,7 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var certificates: [String] = []
     var militaryServiceType: MilitaryServiceType?
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] = []
-    var isCompleteToInputAllInfo: Bool = false
+    @Published var isCompleteToInputAllInfo: Bool = false
 }
 
 extension InputInformationModel: InputInformationActionProtocol {

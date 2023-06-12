@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "SMSLogo.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
