@@ -74,6 +74,7 @@ struct StudentDetailView: View {
         .navigationBarHidden(true)
     }
 
+    // swiftlint: disable function_body_length
     @ViewBuilder
     func studentInfoView(geometry: GeometryProxy) -> some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -164,6 +165,7 @@ struct StudentDetailView: View {
                 .cornerRadius(24, corners: [.topLeft, .topRight])
         }
     }
+    // swiftlint: enable function_body_length
 
     @ViewBuilder
     func studentInfoForTeacher(
@@ -172,38 +174,58 @@ struct StudentDetailView: View {
     ) -> some View {
         VStack(spacing: 16) {
             Group {
-                studentInfoRowView(name: "이메일", value: "baegteun@gmail.com", geometry: geometry)
+                studentInfoRowView(name: "이메일", value: detailInfo.contactEmail, geometry: geometry)
 
-                studentInfoRowView(name: "인증제점수", value: "800", geometry: geometry)
-
-                SMSSeparator(.neutral(.n20), height: 1)
-            }
-
-            Group {
-                studentInfoRowView(name: "병특 희망 여부", value: "병특 희망", geometry: geometry)
+                studentInfoRowView(
+                    name: "인증제점수",
+                    value: "\(detailInfo.gsmAuthenticationScore)",
+                    geometry: geometry
+                )
 
                 SMSSeparator(.neutral(.n20), height: 1)
             }
 
             Group {
-                studentInfoRowView(name: "희망 고용 형태", value: "정규직", geometry: geometry)
-
-                studentInfoRowView(name: "희망 연봉", value: "9999만원", geometry: geometry)
-
-                studentInfoRowView(name: "근무 희망 지역", value: "서울, 부산", geometry: geometry)
+                studentInfoRowView(
+                    name: "병특 희망 여부",
+                    value: detailInfo.militaryService.display(),
+                    geometry: geometry
+                )
 
                 SMSSeparator(.neutral(.n20), height: 1)
             }
 
             Group {
-                ForEach(0...2, id: \.self) { _ in
-                    studentInfoRowView(name: "한국어", value: "원어민", geometry: geometry)
+                studentInfoRowView(
+                    name: "희망 고용 형태",
+                    value: detailInfo.formOfEmployment.display(),
+                    geometry: geometry
+                )
+
+                studentInfoRowView(name: "희망 연봉", value: "\(detailInfo.salary)만원", geometry: geometry)
+
+                studentInfoRowView(
+                    name: "근무 희망 지역",
+                    value: detailInfo.regions.joined(separator: ", "),
+                    geometry: geometry
+                )
+
+                SMSSeparator(.neutral(.n20), height: 1)
+            }
+
+            Group {
+                ForEach(detailInfo.languageCertificate, id: \.name) { language in
+                    studentInfoRowView(name: language.name, value: language.score, geometry: geometry)
                 }
 
                 SMSSeparator(.neutral(.n20), height: 1)
             }
 
-            studentInfoRowView(name: "자격증", value: "정보처리산업기사", geometry: geometry)
+            studentInfoRowView(
+                name: "자격증",
+                value: detailInfo.certificate.joined(separator: "\n"),
+                geometry: geometry
+            )
 
             Spacer().frame(height: 40)
 

@@ -10,7 +10,26 @@ public struct FetchStudentDetailByTeacherResponseDTO: Decodable {
     public let department: DepartmentType
     public let major: String
     public let profileImg: String
+    public let contactEmail: String
+    public let gsmAuthenticationScore: Int
+    public let formOfEmployment: FormOfEmployment
+    public let regions: [String]
+    public let militaryService: MilitaryServiceType
+    public let salary: Int
+    public let languageCertificate: [LanguageCertificateResponseDTO]
+    public let certificate: [String]
     public let techStack: [String]
+
+    public struct LanguageCertificateResponseDTO: Decodable {
+        public let name: String
+        public let score: String
+    }
+}
+
+public extension FetchStudentDetailByTeacherResponseDTO.LanguageCertificateResponseDTO {
+    func toDomain() -> LanguageCertificateEntity {
+        LanguageCertificateEntity(name: name, score: score)
+    }
 }
 
 public extension FetchStudentDetailByTeacherResponseDTO {
@@ -21,11 +40,19 @@ public extension FetchStudentDetailByTeacherResponseDTO {
             major: major,
             profileImageURL: profileImg,
             techStacks: techStack,
-            detailInfoByStudent: .init(
+            detailInfoByTeacher: .init(
                 grade: grade,
                 class: classNum,
                 number: number,
-                department: department
+                department: department,
+                contactEmail: contactEmail,
+                gsmAuthenticationScore: gsmAuthenticationScore,
+                formOfEmployment: formOfEmployment,
+                regions: regions,
+                militaryService: militaryService,
+                salary: salary,
+                languageCertificate: languageCertificate.map { $0.toDomain() },
+                certificate: certificate
             )
         )
     }

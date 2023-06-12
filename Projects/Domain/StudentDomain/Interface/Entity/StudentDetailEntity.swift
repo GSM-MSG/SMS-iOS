@@ -48,12 +48,41 @@ extension StudentDetailEntity {
         public let `class`: Int
         public let number: Int
         public let department: DepartmentType
+        public let contactEmail: String
+        public let gsmAuthenticationScore: Int
+        public let formOfEmployment: FormOfEmployment
+        public let regions: [String]
+        public let militaryService: MilitaryServiceType
+        public let salary: Int
+        public let languageCertificate: [LanguageCertificateEntity]
+        public let certificate: [String]
 
-        public init(grade: Int, class: Int, number: Int, department: DepartmentType) {
+        public init(
+            grade: Int,
+            class: Int,
+            number: Int,
+            department: DepartmentType,
+            contactEmail: String,
+            gsmAuthenticationScore: Int,
+            formOfEmployment: FormOfEmployment,
+            regions: [String],
+            militaryService: MilitaryServiceType,
+            salary: Int,
+            languageCertificate: [LanguageCertificateEntity],
+            certificate: [String]
+        ) {
             self.grade = grade
             self.class = `class`
             self.number = number
             self.department = department
+            self.contactEmail = contactEmail
+            self.gsmAuthenticationScore = gsmAuthenticationScore
+            self.formOfEmployment = formOfEmployment
+            self.regions = regions
+            self.militaryService = militaryService
+            self.salary = salary
+            self.languageCertificate = languageCertificate
+            self.certificate = certificate
         }
     }
 }
