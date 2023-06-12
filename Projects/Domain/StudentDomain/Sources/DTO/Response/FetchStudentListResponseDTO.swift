@@ -7,6 +7,7 @@ public struct FetchStudentListResponseDTO: Decodable {
     public let isLast: Bool
 
     public struct SingleStudentResponseDTO: Decodable {
+        public let id: String
         public let profileImg: String
         public let name: String
         public let major: String
@@ -22,6 +23,7 @@ public struct FetchStudentListResponseDTO: Decodable {
 public extension FetchStudentListResponseDTO.SingleStudentResponseDTO {
     func toDomain() -> SingleStudentEntity {
         SingleStudentEntity(
+            id: id,
             profileImageURL: profileImg,
             name: name,
             major: major,
