@@ -1,9 +1,32 @@
-//
-//  FetchStudentDetailByTeacherResponseDTO.swift
-//  StudentDomain
-//
-//  Created by 최형우 on 2023/06/12.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
+import StudentDomainInterface
 import Foundation
+
+public struct FetchStudentDetailByTeacherResponseDTO: Decodable {
+    public let name: String
+    public let introduce: String
+    public let grade: Int
+    public let classNum: Int
+    public let number: Int
+    public let department: DepartmentType
+    public let major: String
+    public let profileImg: String
+    public let techStack: [String]
+}
+
+public extension FetchStudentDetailByTeacherResponseDTO {
+    func toDomain() -> StudentDetailEntity {
+        StudentDetailEntity(
+            name: name,
+            introduce: introduce,
+            major: major,
+            profileImageURL: profileImg,
+            techStacks: techStack,
+            detailInfoByStudent: .init(
+                grade: grade,
+                class: classNum,
+                number: number,
+                department: department
+            )
+        )
+    }
+}

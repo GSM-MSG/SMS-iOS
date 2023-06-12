@@ -18,4 +18,20 @@ final class RemoteStudentDataSourceImpl: BaseRemoteDataSource<StudentEndpoint>, 
         )
         .toDomain()
     }
+
+    func fetchStudentDetailByGuest(userID: String) async throws -> StudentDetailEntity {
+        try await request(
+            .fetchStudentDetailByStudent(userID: userID),
+            dto: FetchStudentDetailByStudentResponseDTO.self
+        )
+        .toDomain()
+    }
+
+    func fetchStudentDetailByTeacher(userID: String) async throws -> StudentDetailEntity {
+        try await request(
+            .fetchStudentDetailByStudent(userID: userID),
+            dto: FetchStudentDetailByTeacherResponseDTO.self
+        )
+        .toDomain()
+    }
 }

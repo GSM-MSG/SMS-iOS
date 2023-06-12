@@ -6,6 +6,8 @@ enum StudentEndpoint {
     case inputInformation(InputStudentInformationRequestDTO)
     case fetchStudentList(FetchStudentListRequestDTO)
     case fetchStudentDetailByStudent(userID: String)
+    case fetchStudentDetailByGuest(userID: String)
+    case fetchStudentDetailByTeacher(userID: String)
 }
 
 extension StudentEndpoint: SMSEndpoint {
@@ -25,6 +27,12 @@ extension StudentEndpoint: SMSEndpoint {
 
         case let .fetchStudentDetailByStudent(userID):
             return .get("/\(userID)")
+
+        case let .fetchStudentDetailByGuest(userID):
+            return .get("/anonymous/\(userID)")
+
+        case let .fetchStudentDetailByTeacher(userID):
+            return .get("/teacher/\(userID)")
         }
     }
 
@@ -35,8 +43,8 @@ extension StudentEndpoint: SMSEndpoint {
 
         case let .fetchStudentList(request):
             return .requestParameters(query: [
-                "page": request.page,
-                "size": request.size
+                "page": "\(request.page)",
+                "size": "\(request.size)"
             ])
 
         default:
@@ -65,6 +73,12 @@ extension StudentEndpoint: SMSEndpoint {
             ]
 
         case .fetchStudentDetailByStudent:
+            return [:]
+
+        case .fetchStudentDetailByGuest:
+            return [:]
+
+        case .fetchStudentDetailByTeacher:
             return [:]
         }
     }
