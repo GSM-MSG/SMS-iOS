@@ -19,7 +19,7 @@ struct AuthRepositoryImpl: AuthRepository {
 
     func logout() async throws {
         #warning("통신 오류 남")
-        try await remoteAuthDataSource.logout()
+//        try await remoteAuthDataSource.logout()
         try await localAuthDataSource.logout()
     }
 
