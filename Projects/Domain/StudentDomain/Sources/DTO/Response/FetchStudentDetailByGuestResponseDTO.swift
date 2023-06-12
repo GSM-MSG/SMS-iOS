@@ -1,4 +1,5 @@
 import Foundation
+import StudentDomainInterface
 
 public struct FetchStudentDetailByGuestResponseDTO: Decodable {
     public let name: String
@@ -13,5 +14,17 @@ public struct FetchStudentDetailByGuestResponseDTO: Decodable {
         self.major = major
         self.profileImg = profileImg
         self.techStack = techStack
+    }
+}
+
+public extension FetchStudentDetailByGuestResponseDTO {
+    func toDomain() -> StudentDetailEntity {
+        StudentDetailEntity(
+            name: name,
+            introduce: introduce,
+            major: major,
+            profileImageURL: profileImg,
+            techStacks: techStack
+        )
     }
 }
