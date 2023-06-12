@@ -5,6 +5,7 @@ import StudentDomainInterface
 enum StudentEndpoint {
     case inputInformation(InputStudentInformationRequestDTO)
     case fetchStudentList(FetchStudentListRequestDTO)
+    case fetchStudentDetailByStudent(userID: String)
 }
 
 extension StudentEndpoint: SMSEndpoint {
@@ -21,6 +22,9 @@ extension StudentEndpoint: SMSEndpoint {
 
         case .fetchStudentList:
             return .get("")
+
+        case let .fetchStudentDetailByStudent(userID):
+            return .get("/\(userID)")
         }
     }
 
@@ -59,6 +63,9 @@ extension StudentEndpoint: SMSEndpoint {
             return [
                 400: .invalidRequest
             ]
+
+        case .fetchStudentDetailByStudent:
+            return [:]
         }
     }
 }

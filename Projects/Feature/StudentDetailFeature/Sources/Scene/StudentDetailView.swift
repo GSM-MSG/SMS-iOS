@@ -59,7 +59,7 @@ struct StudentDetailView: View {
     }
 
     @ViewBuilder
-    func studentInfoView(geometry: GeometryReader) -> some View {
+    func studentInfoView(geometry: GeometryProxy) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             SMSText("Design", font: .body1)
                 .foregroundColor(.sms(.sub(.s2)))

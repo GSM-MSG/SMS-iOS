@@ -6,6 +6,7 @@ import BaseDomain
 import BaseFeature
 import FileDomain
 import FileDomainInterface
+import Foundation
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -30,6 +31,7 @@ import NeedleFoundation
 import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import StudentDetailFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
