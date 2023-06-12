@@ -13,6 +13,8 @@ let project = Project.makeModule(
     ],
     demoDependencies: [
         .Domain.UserDomainTesting,
-        .Domain.StudentDomainTesting
+        .Domain.StudentDomainTesting,
+        .Domain.StudentDomain,
+        .Core.JwtStoreTesting
     ]
 )
