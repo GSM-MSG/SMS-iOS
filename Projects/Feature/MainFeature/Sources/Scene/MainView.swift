@@ -1,10 +1,11 @@
-import SwiftUI
-import UIKit
 import BaseFeature
-import ViewUtil
-import StudentDetailFeatureInterface
 import DesignSystem
 import NukeUI
+import StudentDetailFeatureInterface
+import SwiftUI
+import UIKit
+import UserDomainInterface
+import ViewUtil
 
 enum MainStudentIDProperty {
     static let studentScrollToTopID = "STUDENT_SCROLL_TO_TOP"
@@ -138,6 +139,7 @@ struct MainView: View {
                             Spacer()
                         }
                     }
+                    .conditional(state.currentUserRole != .guest)
                 }
                 .padding(.top, 12)
                 .padding(.horizontal, 20)
