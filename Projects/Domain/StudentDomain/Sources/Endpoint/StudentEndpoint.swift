@@ -36,21 +36,35 @@ extension StudentEndpoint: SMSEndpoint {
         }
     }
 
+    // swiftlint: disable syntactic_sugar
     var task: HTTPTask {
         switch self {
         case let .inputInformation(req):
             return .requestJSONEncodable(req)
 
         case let .fetchStudentList(request):
-            return .requestParameters(query: [
-                "page": "\(request.page)",
-                "size": "\(request.size)"
-            ])
+            let mirror = Mirror(reflecting: request)
+            let requestQuery = mirror.children
+                .lazy
+                .compactMap { (label: String?, value: Any) -> (String, Any)? in
+                    guard let label = label,
+                          case Optional<Any>.some = value
+                    else { return nil }
+
+                    if value is (any RawRepresentable),
+                       let rawValue = (value as? (any RawRepresentable))?.rawValue {
+                        return (label, "\(rawValue)")
+                    }
+                    return (label, "\(value)")
+                }
+            let requestDictionary = Dictionary(uniqueKeysWithValues: requestQuery)
+            return .requestParameters(query: requestDictionary)
 
         default:
             return .requestPlain
         }
     }
+    // swiftlint: enable syntactic_sugar
 
     var jwtTokenType: JwtTokenType {
         switch self {
