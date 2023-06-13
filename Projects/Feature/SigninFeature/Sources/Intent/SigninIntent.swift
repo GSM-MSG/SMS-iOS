@@ -9,17 +9,20 @@ final class SigninIntent: SigninIntentProtocol {
     private weak var signinDelegate: (any SigninDelegate)?
     private let loginUseCase: any LoginUseCase
     private let saveUserRoleUseCase: any SaveUserRoleUseCase
+    private let clearTokenUseCase: any ClearTokenUseCase
 
     init(
         model: any SigninActionProtocol,
         signinDelegate: any SigninDelegate,
         loginUseCase: any LoginUseCase,
-        saveUserRoleUseCase: any SaveUserRoleUseCase
+        saveUserRoleUseCase: any SaveUserRoleUseCase,
+        clearTokenUseCase: any ClearTokenUseCase
     ) {
         self.model = model
         self.signinDelegate = signinDelegate
         self.loginUseCase = loginUseCase
         self.saveUserRoleUseCase = saveUserRoleUseCase
+        self.clearTokenUseCase = clearTokenUseCase
     }
 
     func signin(code: String) {
@@ -36,6 +39,7 @@ final class SigninIntent: SigninIntentProtocol {
 
     func guestSigninButtonDidTap() {
         saveUserRoleUseCase.execute(role: .guest)
+        clearTokenUseCase.execute()
         signinDelegate?.guestSignin()
     }
 }
