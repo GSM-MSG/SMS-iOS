@@ -9,6 +9,34 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let MainFeatureTesting = TargetDependency.project(
+        target: ModulePaths.Feature.MainFeature.targetName(type: .testing),
+        path: .relativeToFeature(ModulePaths.Feature.MainFeature.rawValue)
+    )
+    static let MainFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.MainFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.MainFeature.rawValue)
+    )
+    static let MainFeature = TargetDependency.project(
+        target: ModulePaths.Feature.MainFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.MainFeature.rawValue)
+    )
+    static let TechStackAppendFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.TechStackAppendFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.TechStackAppendFeature.rawValue)
+    )
+    static let TechStackAppendFeature = TargetDependency.project(
+        target: ModulePaths.Feature.TechStackAppendFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.TechStackAppendFeature.rawValue)
+    )
+    static let StudentDetailFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.StudentDetailFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.StudentDetailFeature.rawValue)
+    )
+    static let StudentDetailFeature = TargetDependency.project(
+        target: ModulePaths.Feature.StudentDetailFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.StudentDetailFeature.rawValue)
+    )
     static let FilterFeatureTesting = TargetDependency.project(
         target: ModulePaths.Feature.FilterFeature.targetName(type: .testing),
         path: .relativeToFeature(ModulePaths.Feature.FilterFeature.rawValue)
@@ -100,6 +128,30 @@ public extension TargetDependency.Feature {
 }
 
 public extension TargetDependency.Domain {
+    static let UserDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.UserDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.UserDomain.rawValue)
+    )
+    static let UserDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.UserDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.UserDomain.rawValue)
+    )
+    static let UserDomain = TargetDependency.project(
+        target: ModulePaths.Domain.UserDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.UserDomain.rawValue)
+    )
+    static let TechStackDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.TechStackDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.TechStackDomain.rawValue)
+    )
+    static let TechStackDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.TechStackDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.TechStackDomain.rawValue)
+    )
+    static let TechStackDomain = TargetDependency.project(
+        target: ModulePaths.Domain.TechStackDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.TechStackDomain.rawValue)
+    )
     static let FileDomainTesting = TargetDependency.project(
         target: ModulePaths.Domain.FileDomain.targetName(type: .testing),
         path: .relativeToDomain(ModulePaths.Domain.FileDomain.rawValue)
@@ -155,6 +207,10 @@ public extension TargetDependency.Domain {
 }
 
 public extension TargetDependency.Core {
+    static let EventLimiter = TargetDependency.project(
+        target: ModulePaths.Core.EventLimiter.targetName(type: .sources),
+        path: .relativeToCore(ModulePaths.Core.EventLimiter.rawValue)
+    )
     static let JwtStoreTesting = TargetDependency.project(
         target: ModulePaths.Core.JwtStore.targetName(type: .testing),
         path: .relativeToCore(ModulePaths.Core.JwtStore.rawValue)

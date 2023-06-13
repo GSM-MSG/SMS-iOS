@@ -10,6 +10,9 @@ public enum ModulePaths {
 
 public extension ModulePaths {
     enum Feature: String {
+        case MainFeature
+        case TechStackAppendFeature
+        case StudentDetailFeature
         case FilterFeature
         case InputInformationBaseFeature
         case RootFeature
@@ -31,6 +34,8 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Domain: String {
+        case UserDomain
+        case TechStackDomain
         case FileDomain
         case MajorDomain
         case StudentDomain
@@ -45,6 +50,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Core: String {
+        case EventLimiter
         case JwtStore
         case DesignSystem
 

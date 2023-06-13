@@ -14,4 +14,5 @@ protocol InputInformationIntentProtocol:
     InputCertificateDelegate,
     InputLanguageDelegate {
     func completeToInputAllInfo(state: any InputInformationStateProtocol)
+    func errorAlertDismissed()
 }

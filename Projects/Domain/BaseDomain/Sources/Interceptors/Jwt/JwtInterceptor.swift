@@ -9,6 +9,11 @@ public struct JwtInterceptor: InterceptorType {
         self.jwtStore = jwtStore
     }
 
+    public func willRequest(_ request: URLRequest, endpoint: EndpointType) {
+        HTTPCookieStorage.shared.cookies?
+            .forEach(HTTPCookieStorage.shared.deleteCookie(_:))
+    }
+
     public func prepare(
         _ request: URLRequest,
         endpoint: EndpointType,
@@ -21,20 +26,43 @@ public struct JwtInterceptor: InterceptorType {
             return
         }
         var newRequest = request
+        newRequest.httpShouldHandleCookies = false
         let token = getToken(type: jwtType.toJwtStoreProperty)
+        guard !token.isEmpty else {
+            completion(.success(newRequest))
+            return
+        }
 
-        newRequest.setValue(token, forHTTPHeaderField: jwtType.rawValue)
+        newRequest.setValue(jwtType == .accessToken ? "Bearer \(token)" : token, forHTTPHeaderField: jwtType.rawValue)
         if checkTokenIsExpired() {
             reissueToken(newRequest, jwtType: jwtType, completion: completion)
         } else {
             completion(.success(newRequest))
         }
     }
+
+    public func didReceive(_ result: Result<DataResponse, EmdpointError>, endpoint: EndpointType) {
+        switch result {
+        case let .success(res):
+            if let tokenDTO = try? JSONDecoder().decode(JwtTokenDTO.self, from: res.data) {
+                saveToken(tokenDTO: tokenDTO)
+            }
+
+        default:
+            break
+        }
+    }
 }
 
 private extension JwtInterceptor {
     func getToken(type: JwtStoreProperty) -> String {
-        jwtStore.load(property: type)
+        switch type {
+        case .accessToken:
+            return jwtStore.load(property: type)
+
+        default:
+            return jwtStore.load(property: type)
+        }
     }
 
     func saveToken(tokenDTO: JwtTokenDTO) {

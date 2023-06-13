@@ -1,6 +1,7 @@
 import Foundation
 import InputInformationFeatureInterface
 import SigninFeatureInterface
+import MainFeatureInterface
 
 final class RootIntent: RootIntentProtocol {
     private weak var model: (any RootActionProtocol)?
@@ -12,12 +13,22 @@ final class RootIntent: RootIntentProtocol {
 
 extension RootIntent: InputInformationDelegate {
     func completeToInputInformation() {
-        model?.updateSceneType(type: .home)
+        model?.updateSceneType(type: .main)
     }
 }
 
 extension RootIntent: SigninDelegate {
     func successToSignin(isAlreadySignUp: Bool) {
-        model?.updateSceneType(type: isAlreadySignUp ? .home : .inputInformation)
+        model?.updateSceneType(type: isAlreadySignUp ? .main : .inputInformation)
+    }
+
+    func guestSignin() {
+        model?.updateSceneType(type: .main)
+    }
+}
+
+extension RootIntent: MainDelegate {
+    func logout() {
+        model?.updateSceneType(type: .signin)
     }
 }

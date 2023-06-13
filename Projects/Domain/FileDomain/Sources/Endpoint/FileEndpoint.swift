@@ -32,6 +32,11 @@ extension FileEndpoint: SMSEndpoint {
                 MultiPartFormData(field: "file", data: file, fileName: fileName)
             ])
 
+        case let .imageUpload(image, fileName):
+            return .uploadMultipart([
+                MultiPartFormData(field: "file", data: image, fileName: fileName)
+            ])
+
         default:
             return .requestPlain
         }
@@ -39,12 +44,16 @@ extension FileEndpoint: SMSEndpoint {
 
     var jwtTokenType: JwtTokenType {
         switch self {
-        case .dreamBookUpload:
+        case .dreamBookUpload, .imageUpload:
             return .accessToken
 
         default:
             return .none
         }
+    }
+
+    var headers: [String: String]? {
+        nil
     }
 
     var errorMap: [Int: ErrorType]? {

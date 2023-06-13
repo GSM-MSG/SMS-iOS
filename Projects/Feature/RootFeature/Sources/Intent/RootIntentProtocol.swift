@@ -1,6 +1,6 @@
 import Foundation
 import InputInformationFeatureInterface
 import SigninFeatureInterface
-import FilterFeatureInterface
+import MainFeatureInterface
 
-protocol RootIntentProtocol: InputInformationDelegate, SigninDelegate, FilterDelegate {}
+protocol RootIntentProtocol: InputInformationDelegate, SigninDelegate, MainDelegate {}

@@ -42,7 +42,17 @@ private extension BaseRemoteDataSource {
     @discardableResult
     func retryingRequest(_ endpoint: Endpoint) async throws -> DataResponse {
         try await Task.retrying(priority: Task.currentPriority, maxRetryCount: maxRetryCount) {
-            try await self.performRequest(endpoint)
+            do {
+                return try await self.client.request(endpoint)
+            } catch {
+                guard
+                    case let EmdpointError.statusCode(response) = error,
+                    let httpResponse = response.response as? HTTPURLResponse
+                else {
+                    throw error
+                }
+                throw endpoint.errorMap?[httpResponse.statusCode] ?? error
+            }
         }
         .value
     }

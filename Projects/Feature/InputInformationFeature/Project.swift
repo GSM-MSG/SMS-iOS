@@ -15,6 +15,7 @@ let project = Project.makeModule(
         .Feature.InputCertificateInfoFeatureInterface,
         .Feature.InputLanguageInfoFeatureInterface,
         .Domain.FileDomainInterface,
-        .Domain.StudentDomainInterface
+        .Domain.StudentDomainInterface,
+        .Domain.UserDomainInterface
     ]
 )

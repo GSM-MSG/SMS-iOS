@@ -3,9 +3,11 @@ import InputProfileInfoFeatureInterface
 import MajorDomainInterface
 import NeedleFoundation
 import SwiftUI
+import TechStackAppendFeatureInterface
 
 public protocol InputProfileInfoDependency: Dependency {
     var majorDomainBuildable: any MajorDomainBuildable { get }
+    var techStackAppendBuildable: any TechStackAppendBuildable { get }
 }
 
 public final class InputProfileInfoComponent:
@@ -24,6 +26,9 @@ public final class InputProfileInfoComponent:
             model: model as InputProfileInfoStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
-        return InputProfileInfoView(container: container)
+        return InputProfileInfoView(
+            container: container,
+            techStackAppendBuildable: dependency.techStackAppendBuildable
+        )
     }
 }
