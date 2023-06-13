@@ -24,4 +24,10 @@ final class AuthRepositorySpy: AuthRepository {
     func refresh() async throws {
         refreshCallCount += 1
     }
+
+    var verifyIsExistUserCallCount = 0
+    func verifyIsExistUser() async throws -> Bool {
+        verifyIsExistUserCallCount += 1
+        return true
+    }
 }
