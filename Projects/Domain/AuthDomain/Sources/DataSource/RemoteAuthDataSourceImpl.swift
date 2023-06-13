@@ -18,4 +18,9 @@ final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthEndpoint>, Remote
     func refresh() async throws {
         try await request(.refresh)
     }
+
+    func verifyIsExistUser() async throws -> Bool {
+        try await request(.verifyIsExistUser, dto: VerifyIsInputedUserResponseDTO.self)
+            .isExist
+    }
 }

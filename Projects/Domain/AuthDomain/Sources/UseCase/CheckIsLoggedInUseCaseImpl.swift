@@ -8,6 +8,9 @@ struct CheckIsLoggedInUseCaseImpl: CheckIsLoggedInUseCase {
     }
 
     func execute() async throws {
+        guard try await authRepository.verifyIsExistUser() else {
+            throw AuthDomainError.notExistUserInputed
+        }
         try await authRepository.refresh()
     }
 }
