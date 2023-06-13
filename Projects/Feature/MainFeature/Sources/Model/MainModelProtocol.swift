@@ -1,4 +1,5 @@
 import StudentDomainInterface
+import UserDomainInterface
 
 protocol MainStateProtocol {
     var page: Int { get }
@@ -10,6 +11,7 @@ protocol MainStateProtocol {
     var isPresentedWithdrawalDialog: Bool { get }
     var content: [SingleStudentEntity] { get }
     var selectedUserID: String? { get }
+    var currentUserRole: UserRoleType { get }
 }
 
 protocol MainActionProtocol: AnyObject {
@@ -22,4 +24,5 @@ protocol MainActionProtocol: AnyObject {
     func updateIsPresentedWithdrawalDialog(isPresented: Bool)
     func appendContent(content: [SingleStudentEntity])
     func updateSelectedUserID(userID: String?)
+    func updateUserRole(role: UserRoleType)
 }

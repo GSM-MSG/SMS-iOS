@@ -1,15 +1,17 @@
-import SwiftUI
-import MainFeatureInterface
-import StudentDomainInterface
 import AuthDomainInterface
-import StudentDetailFeatureInterface
-import NeedleFoundation
 import BaseFeature
+import MainFeatureInterface
+import NeedleFoundation
+import StudentDetailFeatureInterface
+import StudentDomainInterface
+import SwiftUI
+import UserDomainInterface
 
 public protocol MainDependency: Dependency {
     var studentDomainBuildable: any StudentDomainBuildable { get }
     var authDomainBuildable: any AuthDomainBuildable { get }
     var studentDetailBuildable: any StudentDetailBuildable { get }
+    var userDomainBuildable: any UserDomainBuildable { get }
 }
 
 public final class MainComponent: Component<MainDependency>, MainBuildable {
@@ -20,7 +22,8 @@ public final class MainComponent: Component<MainDependency>, MainBuildable {
             mainDelegate: delegate,
             fetchStudentListUseCase: dependency.studentDomainBuildable.fetchStudentListUseCase,
             logoutUseCase: dependency.authDomainBuildable.logoutUseCase,
-            withdrawalUseCase: dependency.authDomainBuildable.withdrawalUseCase
+            withdrawalUseCase: dependency.authDomainBuildable.withdrawalUseCase,
+            loadUserRoleUseCase: dependency.userDomainBuildable.loadUserRoleUseCase
         )
         let container = MVIContainer(
             intent: intent as MainIntentProtocol,

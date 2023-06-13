@@ -35,4 +35,8 @@ struct AuthRepositoryImpl: AuthRepository {
     func verifyIsExistUser() async throws -> Bool {
         try await remoteAuthDataSource.verifyIsExistUser()
     }
+
+    func clearToken() {
+        localAuthDataSource.clearToken()
+    }
 }

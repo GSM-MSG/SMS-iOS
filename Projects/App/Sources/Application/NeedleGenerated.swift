@@ -107,6 +107,9 @@ private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
     var studentDetailBuildable: any StudentDetailBuildable {
         return appComponent.studentDetailBuildable
     }
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -386,6 +389,7 @@ extension MainComponent: Registration {
         keyPathToName[\MainDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
         keyPathToName[\MainDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
         keyPathToName[\MainDependency.studentDetailBuildable] = "studentDetailBuildable-any StudentDetailBuildable"
+        keyPathToName[\MainDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
     }
 }
 extension InputSchoolLifeInfoComponent: Registration {

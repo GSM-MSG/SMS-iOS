@@ -19,6 +19,9 @@ public final class AuthDomainComponent: Component<AuthDomainDependency>, AuthDom
     public var checkIsLoggedInUseCase: any CheckIsLoggedInUseCase {
         CheckIsLoggedInUseCaseImpl(authRepository: authRepository)
     }
+    public var clearTokenUseCase: any ClearTokenUseCase {
+        ClearTokenUseCaseImpl(authRepository: authRepository)
+    }
     public var authRepository: any AuthRepository {
         AuthRepositoryImpl(
             remoteAuthDataSource: remoteAuthDataSource,

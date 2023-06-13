@@ -1,5 +1,6 @@
 import Foundation
 import StudentDomainInterface
+import UserDomainInterface
 
 // swiftlint: disable identifier_name
 final class MainModel: ObservableObject, MainStateProtocol {
@@ -27,6 +28,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     }
     @Published var _content: [SingleStudentEntity] = []
     @Published var selectedUserID: String?
+    @Published var currentUserRole: UserRoleType = .guest
 }
 // swiftlint: enable identifier_name
 
@@ -65,5 +67,9 @@ extension MainModel: MainActionProtocol {
 
     func updateSelectedUserID(userID: String?) {
         self.selectedUserID = userID
+    }
+    
+    func updateUserRole(role: UserRoleType) {
+        self.currentUserRole = role
     }
 }

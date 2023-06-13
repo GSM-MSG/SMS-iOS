@@ -1,7 +1,8 @@
+import AuthDomainInterface
 import Combine
 import MainFeatureInterface
 import StudentDomainInterface
-import AuthDomainInterface
+import UserDomainInterface
 
 final class MainIntent: MainIntentProtocol {
     private weak var model: (any MainActionProtocol)?
@@ -9,19 +10,24 @@ final class MainIntent: MainIntentProtocol {
     private let fetchStudentListUseCase: any FetchStudentListUseCase
     private let logoutUseCase: any LogoutUseCase
     private let withdrawalUseCase: any WithdrawalUseCase
+    private let loadUserRoleUseCase: any LoadUserRoleUseCase
 
     init(
         model: any MainActionProtocol,
         mainDelegate: any MainDelegate,
         fetchStudentListUseCase: any FetchStudentListUseCase,
         logoutUseCase: any LogoutUseCase,
-        withdrawalUseCase: any WithdrawalUseCase
+        withdrawalUseCase: any WithdrawalUseCase,
+        loadUserRoleUseCase: any LoadUserRoleUseCase
     ) {
         self.mainDelegate = mainDelegate
         self.model = model
         self.fetchStudentListUseCase = fetchStudentListUseCase
         self.logoutUseCase = logoutUseCase
         self.withdrawalUseCase = withdrawalUseCase
+        self.loadUserRoleUseCase = loadUserRoleUseCase
+
+        model.updateUserRole(role: loadUserRoleUseCase.execute())
     }
 
     func reachedBottom(page: Int, isLast: Bool) {
