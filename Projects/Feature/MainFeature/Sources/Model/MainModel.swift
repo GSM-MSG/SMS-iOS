@@ -1,6 +1,7 @@
 import Foundation
 import StudentDomainInterface
 
+// swiftlint: disable identifier_name
 final class MainModel: ObservableObject, MainStateProtocol {
     @Published var page: Int = 1
     @Published var totalSize: Int = 0
@@ -27,6 +28,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var _content: [SingleStudentEntity] = []
     @Published var selectedUserID: String?
 }
+// swiftlint: enable identifier_name
 
 extension MainModel: MainActionProtocol {
     func updateIsError(isError: Bool) {
