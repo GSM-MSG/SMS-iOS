@@ -99,6 +99,7 @@ struct InputProfileInfoView: View {
                                 isError: state.inputProfileErrorFieldSet.contains(.major),
                                 isOnClear: false
                             ) {
+                                
                                 focusField = .portfoilo
                             }
                             .focused($isFocuesedMajorTextField)
@@ -107,11 +108,14 @@ struct InputProfileInfoView: View {
                                 SMSIcon(.downChevron)
                                     .padding([.top, .trailing], 12)
                             }
-                            .onTapGesture {
-                                focusField = nil
-                                intent.majorSheetIsRequired()
-                                intent.deActiveSelfEntering()
-                            }
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        focusField = nil
+                                        intent.majorSheetIsRequired()
+                                        intent.deActiveSelfEntering()
+                                    }
+                            )
                             .titleWrapper("분야")
 
                             SMSTextField(
