@@ -10,6 +10,7 @@ let project = Project.makeModule(
         .Feature.SigninFeatureInterface,
         .Feature.InputInformationFeatureInterface,
         .Feature.MainFeatureInterface,
+        .Feature.SplashFeatureInterface,
         .Feature.BaseFeature
     ]
 )
