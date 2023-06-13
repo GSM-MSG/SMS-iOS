@@ -14,4 +14,8 @@ final class RemoteAuthDataSourceImpl: BaseRemoteDataSource<AuthEndpoint>, Remote
     func withdrawal() async throws {
         try await request(.withdrawal)
     }
+
+    func refresh() async throws {
+        try await request(.refresh)
+    }
 }

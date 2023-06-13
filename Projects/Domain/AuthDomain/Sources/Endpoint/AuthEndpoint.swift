@@ -6,6 +6,7 @@ enum AuthEndpoint {
     case signin(code: String)
     case logout
     case withdrawal
+    case refresh
 }
 
 extension AuthEndpoint: SMSEndpoint {
@@ -19,10 +20,15 @@ extension AuthEndpoint: SMSEndpoint {
         switch self {
         case .signin:
             return .post("")
+
         case .logout:
             return .delete("")
+
         case .withdrawal:
             return .delete("/withdrawal")
+
+        case .refresh:
+            return .patch("")
         }
     }
 
@@ -43,6 +49,9 @@ extension AuthEndpoint: SMSEndpoint {
         case .withdrawal:
             return .accessToken
 
+        case .refresh:
+            return .refreshToken
+
         default:
             return .none
         }
@@ -61,10 +70,14 @@ extension AuthEndpoint: SMSEndpoint {
             return [
                 404: .internalServerError
             ]
+
         case .withdrawal:
             return [
                 404: .internalServerError
             ]
+
+        case .refresh:
+            return [:]
         }
     }
 }

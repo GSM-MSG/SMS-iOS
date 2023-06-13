@@ -27,4 +27,8 @@ struct AuthRepositoryImpl: AuthRepository {
         try await remoteAuthDataSource.withdrawal()
         try await localAuthDataSource.withdrawal()
     }
+
+    func refresh() async throws {
+        try await remoteAuthDataSource.refresh()
+    }
 }
