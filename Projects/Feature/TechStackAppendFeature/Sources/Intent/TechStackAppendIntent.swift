@@ -33,10 +33,16 @@ final class TechStackAppendIntent: TechStackAppendIntentProtocol {
 
     func selectTechStack(stack: String) {
         model?.appendTechStack(stack: stack)
+        model?.updateToastMessage(message: "세부스택이 추가되었습니다.")
+        model?.updateToastStyle(style: .appended)
+        model?.updateIsPresentedToast(isPresented: true)
     }
 
     func deselectTechStack(stack: String) {
         model?.removeTechStack(stack: stack)
+        model?.updateToastMessage(message: "세부스택이 해제되었습니다.")
+        model?.updateToastStyle(style: .removed)
+        model?.updateIsPresentedToast(isPresented: true)
     }
 
     func resetRecentTechStackButtonDidTap() {
@@ -50,5 +56,9 @@ final class TechStackAppendIntent: TechStackAppendIntentProtocol {
 
     func directAppendButtonDidTap(techStack: String) {
         model?.appendDirectTechStacks(stack: techStack)
+    }
+
+    func toastDismissed() {
+        model?.updateIsPresentedToast(isPresented: false)
     }
 }
