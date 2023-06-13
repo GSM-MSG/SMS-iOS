@@ -6,4 +6,5 @@ public protocol AuthRepository {
     func withdrawal() async throws
     func refresh() async throws
     func verifyIsExistUser() async throws -> Bool
+    func clearnToken()
 }

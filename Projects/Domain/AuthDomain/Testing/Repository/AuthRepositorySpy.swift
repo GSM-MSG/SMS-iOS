@@ -30,4 +30,9 @@ final class AuthRepositorySpy: AuthRepository {
         verifyIsExistUserCallCount += 1
         return true
     }
+
+    var clearTokenCallCount = 0
+    func clearnToken() {
+        clearTokenCallCount += 1
+    }
 }
