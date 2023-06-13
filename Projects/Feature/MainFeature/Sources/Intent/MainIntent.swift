@@ -43,6 +43,14 @@ final class MainIntent: MainIntentProtocol {
         model?.updateIsPresentedExistActionSheet(isPresented: false)
     }
 
+    func filterIsRequired() {
+        model?.updateIsPresentedFilterPage(isPresented: true)
+    }
+
+    func filterDismissed() {
+        model?.updateIsPresentedFilterPage(isPresented: false)
+    }
+
     func logoutDialogIsRequired() {
         model?.updateIsPresentedLogoutDialog(isPresented: true)
     }

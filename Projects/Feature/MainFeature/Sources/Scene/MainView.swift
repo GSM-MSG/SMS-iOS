@@ -3,6 +3,7 @@ import UIKit
 import BaseFeature
 import ViewUtil
 import StudentDetailFeatureInterface
+import FilterFeatureInterface
 import DesignSystem
 import NukeUI
 
@@ -16,13 +17,16 @@ struct MainView: View {
     var intent: any MainIntentProtocol { container.intent }
     var state: any MainStateProtocol { container.model }
     private let studentDetailBuildable: any StudentDetailBuildable
+    private let filterBuildable: any FilterBuildable
 
     init(
         container: MVIContainer<MainIntentProtocol, MainStateProtocol>,
-        studentDetailBuildable: any StudentDetailBuildable
+        studentDetailBuildable: any StudentDetailBuildable,
+        filterBuildable: any FilterBuildable
     ) {
         self._container = StateObject(wrappedValue: container)
         self.studentDetailBuildable = studentDetailBuildable
+        self.filterBuildable = filterBuildable
     }
 
     var body: some View {
@@ -91,9 +95,21 @@ struct MainView: View {
                     .eraseToAnyView()
                 }
             }
+            .navigate(
+                to: filterBuildable.makeView(delegate: intent).eraseToAnyView(),
+                when: Binding(
+                    get: { state.isPresentedFilterPage },
+                    set: { _ in intent.filterDismissed() }
+                    )
+                )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    SMSIcon(.filter)
+                        .onTapGesture {
+                            intent.filterIsRequired()
+                        }
+
                     SMSIcon(.profile)
                         .clipShape(Circle())
                         .onTapGesture {

@@ -9,6 +9,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var isPresentedExistActionSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
+    @Published var isPresentedFilterPage: Bool = false
     @Published var content: [SingleStudentEntity] =  []
     @Published var selectedUserID: String?
 }
@@ -40,6 +41,10 @@ extension MainModel: MainActionProtocol {
 
     func updateIsPresentedWithdrawalDialog(isPresented: Bool) {
         self.isPresentedWithdrawalDialog = isPresented
+    }
+
+    func updateIsPresentedFilterPage(isPresented: Bool) {
+        self.isPresentedFilterPage = isPresented
     }
 
     func appendContent(content: [SingleStudentEntity]) {
