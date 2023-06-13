@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol TechStackAppendBuildable {
     associatedtype ViewType: View
-    func makeView(completion: @escaping ([String]) -> Void) -> ViewType
+    func makeView(initial techStacks: [String], completion: @escaping ([String]) -> Void) -> ViewType
 }
