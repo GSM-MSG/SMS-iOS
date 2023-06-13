@@ -19,4 +19,9 @@ final class AuthRepositorySpy: AuthRepository {
     func withdrawal() async throws {
         withdrawalCallCount += 1
     }
+
+    var refreshCallCount = 0
+    func refresh() async throws {
+        refreshCallCount += 1
+    }
 }
