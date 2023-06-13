@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FetchStudentListRequestDTO {
+public struct FetchStudentListRequestDTO: Encodable {
     public let page: Int
     public let size: Int
     public let majors: [String]?
