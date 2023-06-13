@@ -44,7 +44,11 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     }
 
     func techStackAppendDidComplete(techStacks: [String]) {
-        model?.appendTeckStacks(techStacks: techStacks)
+        model?.updateTeckStacks(techStacks: techStacks)
+    }
+
+    func removeTechStack(techStack: String) {
+        model?.removeTeckStacks(techStack: techStack)
     }
 
     func majorSheetIsRequired() {

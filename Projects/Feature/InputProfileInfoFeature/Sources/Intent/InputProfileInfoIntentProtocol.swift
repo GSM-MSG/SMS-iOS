@@ -9,6 +9,7 @@ protocol InputProfileInfoIntentProtocol {
     func techStackAppendIsRequired()
     func techStackAppendDismissed()
     func techStackAppendDidComplete(techStacks: [String])
+    func removeTechStack(techStack: String)
     func majorSheetIsRequired()
     func majorSheetDismissed()
     func imagePickerIsRequired()
