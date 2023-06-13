@@ -137,6 +137,9 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var mainBuildable: any MainBuildable {
         return appComponent.mainBuildable
     }
+    var splashBuildable: any SplashBuildable {
+        return appComponent.splashBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -395,6 +398,7 @@ extension RootComponent: Registration {
         keyPathToName[\RootDependency.signinBuildable] = "signinBuildable-any SigninBuildable"
         keyPathToName[\RootDependency.inputInformationBuildable] = "inputInformationBuildable-any InputInformationBuildable"
         keyPathToName[\RootDependency.mainBuildable] = "mainBuildable-any MainBuildable"
+        keyPathToName[\RootDependency.splashBuildable] = "splashBuildable-any SplashBuildable"
     }
 }
 extension SigninComponent: Registration {
