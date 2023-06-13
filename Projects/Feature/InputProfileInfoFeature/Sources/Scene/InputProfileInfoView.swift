@@ -161,6 +161,9 @@ struct InputProfileInfoView: View {
                                         SMSText(techStack, font: .body2)
 
                                         SMSIcon(.xmarkOutline, width: 20, height: 20)
+                                            .buttonWrapper {
+                                                intent.removeTechStack(techStack: techStack)
+                                            }
                                     }
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 10)
@@ -189,7 +192,7 @@ struct InputProfileInfoView: View {
             )
         ) {
             DeferView {
-                techStackAppendBuildable.makeView { techStacks in
+                techStackAppendBuildable.makeView(initial: state.techStacks) { techStacks in
                     intent.techStackAppendDidComplete(techStacks: techStacks)
                 }
                 .eraseToAnyView()

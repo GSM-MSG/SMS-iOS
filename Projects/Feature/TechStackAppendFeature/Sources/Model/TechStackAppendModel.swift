@@ -6,6 +6,11 @@ final class TechStackAppendModel: ObservableObject, TechStackAppendStateProtocol
     @Published var techStacks: [String] = []
     @Published var selectedTechStacks: Set<String> = []
     @Published var recentTechStacks: [String] = []
+
+    init(initialTechStack: [String]) {
+        self.selectedTechStacks = Set(initialTechStack)
+        self.recentTechStacks = initialTechStack
+    }
 }
 
 extension TechStackAppendModel: TechStackAppendActionProtocol {

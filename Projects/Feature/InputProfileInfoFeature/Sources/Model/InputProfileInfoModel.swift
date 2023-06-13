@@ -45,8 +45,12 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
         self.portfolioURL = portfolioURL
     }
 
-    func appendTeckStacks(techStacks: [String]) {
-        self.techStacks.append(contentsOf: techStacks)
+    func updateTeckStacks(techStacks: [String]) {
+        self.techStacks = techStacks
+    }
+
+    func removeTeckStacks(techStack: String) {
+        self.techStacks.removeAll { $0 == techStack }
     }
 
     func updateIsPresentedTeckStackAppend(isPresented: Bool) {

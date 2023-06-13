@@ -7,7 +7,7 @@ import TechStackDomainTesting
 public struct DemoView: View {
     public var body: some View {
         VStack {
-            let model = TechStackAppendModel()
+            let model = TechStackAppendModel(initialTechStack: [])
             let intent = TechStackAppendIntent(
                 model: model,
                 fetchTechStackListUseCase: FetchTechStackListUseCaseStub(),
