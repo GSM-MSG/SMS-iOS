@@ -9,6 +9,7 @@ final class MainIntent: MainIntentProtocol {
     private let fetchStudentListUseCase: any FetchStudentListUseCase
     private let logoutUseCase: any LogoutUseCase
     private let withdrawalUseCase: any WithdrawalUseCase
+    
 
     init(
         model: any MainActionProtocol,
