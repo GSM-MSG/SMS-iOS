@@ -51,6 +51,19 @@ struct TechStackAppendView: View {
             .disabled(state.selectedTechStacks.isEmpty)
         }
         .hideKeyboardWhenTap()
+        .smsToast(
+            text: state.toastMessage,
+            isShowing: Binding(
+                get: { state.isPresentedToast },
+                set: { _ in intent.toastDismissed() }
+            )
+        ) {
+            if state.toastStyle == .appended {
+                SMSIcon(.greenCheck)
+            } else {
+                SMSIcon(.check)
+            }
+        }
     }
 
     @ViewBuilder
