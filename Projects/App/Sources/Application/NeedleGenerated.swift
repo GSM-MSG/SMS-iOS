@@ -33,6 +33,7 @@ import NeedleFoundation
 import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import SplashFeatureInterface
 import StudentDetailFeature
 import StudentDetailFeatureInterface
 import StudentDomain
