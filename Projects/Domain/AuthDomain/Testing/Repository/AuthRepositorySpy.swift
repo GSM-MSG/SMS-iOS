@@ -32,7 +32,7 @@ final class AuthRepositorySpy: AuthRepository {
     }
 
     var clearTokenCallCount = 0
-    func clearnToken() {
+    func clearToken() {
         clearTokenCallCount += 1
     }
 }

@@ -8,6 +8,6 @@ struct ClearTokenUseCaseImpl: ClearTokenUseCase {
     }
 
     func execute() {
-        authRepository.clearnToken()
+        authRepository.clearToken()
     }
 }
