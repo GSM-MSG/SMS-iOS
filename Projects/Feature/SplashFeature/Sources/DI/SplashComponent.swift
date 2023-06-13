@@ -9,10 +9,12 @@ public protocol SplashDependency: Dependency {
 }
 
 public final class SplashComponent: Component<SplashDependency>, SplashBuildable {
-    public func makeView() -> some View {
+    public func makeView(delegate: SplashDelegate) -> some View {
         let model = SplashModel()
         let intent = SplashIntent(
-            model: model
+            model: model,
+            splashDelegate: delegate,
+            checkIsLoggedInUseCase: dependency.authDomainBuildable.checkIsLoggedInUseCase
         )
         let container = MVIContainer(
             intent: intent as SplashIntentProtocol,
