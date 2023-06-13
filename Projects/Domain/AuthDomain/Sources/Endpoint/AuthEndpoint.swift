@@ -7,6 +7,7 @@ enum AuthEndpoint {
     case logout
     case withdrawal
     case refresh
+    case verifyIsExistUser
 }
 
 extension AuthEndpoint: SMSEndpoint {
@@ -29,6 +30,9 @@ extension AuthEndpoint: SMSEndpoint {
 
         case .refresh:
             return .patch("")
+
+        case .verifyIsExistUser:
+            return .get("/verify/access")
         }
     }
 
@@ -46,7 +50,7 @@ extension AuthEndpoint: SMSEndpoint {
 
     var jwtTokenType: JwtTokenType {
         switch self {
-        case .withdrawal:
+        case .withdrawal, .verifyIsExistUser:
             return .accessToken
 
         case .refresh:
@@ -77,6 +81,9 @@ extension AuthEndpoint: SMSEndpoint {
             ]
 
         case .refresh:
+            return [:]
+
+        case .verifyIsExistUser:
             return [:]
         }
     }

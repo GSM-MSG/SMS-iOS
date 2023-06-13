@@ -31,4 +31,8 @@ struct AuthRepositoryImpl: AuthRepository {
     func refresh() async throws {
         try await remoteAuthDataSource.refresh()
     }
+
+    func verifyIsExistUser() async throws -> Bool {
+        try await remoteAuthDataSource.verifyIsExistUser()
+    }
 }
