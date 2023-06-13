@@ -222,7 +222,7 @@ struct MainView: View {
             .cornerRadius(8)
 
             VStack(alignment: .leading, spacing: 4) {
-                SMSText(name.replacingOccurrences(of: "**", with: "소금"), font: .title2)
+                SMSText(name, font: .title2)
 
                 SMSText(major, font: .body2)
                     .padding(.bottom, 16)

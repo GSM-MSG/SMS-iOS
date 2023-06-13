@@ -9,7 +9,22 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var isPresentedExistActionSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
-    @Published var content: [SingleStudentEntity] =  []
+    var content: [SingleStudentEntity] {
+        get { _content }
+        set {
+            _content = newValue
+                .map {
+                    SingleStudentEntity(
+                        id: $0.id,
+                        profileImageURL: $0.profileImageURL,
+                        name: $0.name.replacingOccurrences(of: "**", with: "소금"),
+                        major: $0.major,
+                        techStack: $0.techStack
+                    )
+                }
+        }
+    }
+    @Published var _content: [SingleStudentEntity] = []
     @Published var selectedUserID: String?
 }
 
