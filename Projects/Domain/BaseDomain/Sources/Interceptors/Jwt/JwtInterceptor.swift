@@ -88,14 +88,17 @@ private extension JwtInterceptor {
 #else
         let client = EmdpointClient<RefreshEndpoint>()
 #endif
-        client.request(.refresh) { result in
+        let refreshToken = jwtStore.load(property: .refreshToken)
+        client.request(.refresh(refreshToken: refreshToken)) { result in
             switch result {
             case let .success(response):
                 var request = request
                 if let tokenDTO = try? JSONDecoder().decode(JwtTokenDTO.self, from: response.data) {
                     saveToken(tokenDTO: tokenDTO)
+                    let isAccess = jwtType == .accessToken
+                    let token = getToken(type: jwtType.toJwtStoreProperty)
                     request.setValue(
-                        getToken(type: jwtType.toJwtStoreProperty),
+                        isAccess ? "Bearer \(token)" : token,
                         forHTTPHeaderField: jwtType.rawValue
                     )
                 }

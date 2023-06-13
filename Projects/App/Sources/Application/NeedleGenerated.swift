@@ -33,6 +33,8 @@ import NeedleFoundation
 import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import SplashFeature
+import SplashFeatureInterface
 import StudentDetailFeature
 import StudentDetailFeatureInterface
 import StudentDomain
@@ -70,6 +72,19 @@ private class JwtStoreDependency5613ee3d4fea5093f6faProvider: JwtStoreDependency
 /// ^->AppComponent->JwtStoreComponent
 private func factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return JwtStoreDependency5613ee3d4fea5093f6faProvider(appComponent: parent1(component) as! AppComponent)
+}
+private class SplashDependencye0cb7136f2ec3edfd60aProvider: SplashDependency {
+    var authDomainBuildable: any AuthDomainBuildable {
+        return appComponent.authDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->SplashComponent
+private func factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return SplashDependencye0cb7136f2ec3edfd60aProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputWorkInfoDependency74441f61366e4e5af9a2Provider: InputWorkInfoDependency {
 
@@ -121,6 +136,9 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     }
     var mainBuildable: any MainBuildable {
         return appComponent.mainBuildable
+    }
+    var splashBuildable: any SplashBuildable {
+        return appComponent.splashBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -353,6 +371,11 @@ extension KeychainComponent: Registration {
 
     }
 }
+extension SplashComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\SplashDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+    }
+}
 extension InputWorkInfoComponent: Registration {
     public func registerItems() {
 
@@ -375,6 +398,7 @@ extension RootComponent: Registration {
         keyPathToName[\RootDependency.signinBuildable] = "signinBuildable-any SigninBuildable"
         keyPathToName[\RootDependency.inputInformationBuildable] = "inputInformationBuildable-any InputInformationBuildable"
         keyPathToName[\RootDependency.mainBuildable] = "mainBuildable-any MainBuildable"
+        keyPathToName[\RootDependency.splashBuildable] = "splashBuildable-any SplashBuildable"
     }
 }
 extension SigninComponent: Registration {
@@ -476,6 +500,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
+    registerProviderFactory("^->AppComponent->SplashComponent", factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)
