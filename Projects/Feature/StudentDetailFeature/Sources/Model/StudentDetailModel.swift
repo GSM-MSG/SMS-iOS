@@ -4,7 +4,23 @@ import StudentDomainInterface
 
 final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     @Published var userRole: UserRoleType = .guest
-    @Published var studentDetailEntity: StudentDetailEntity?
+    var studentDetailEntity: StudentDetailEntity? {
+        get {
+            _studentDetailEntity.map {
+                StudentDetailEntity(
+                    name: $0.name.replacingOccurrences(of: "**", with: "소금"),
+                    introduce: $0.introduce,
+                    major: $0.major,
+                    profileImageURL: $0.profileImageURL,
+                    techStacks: $0.techStacks,
+                    detailInfoByStudent: $0.detailInfoByStudent,
+                    detailInfoByTeacher: $0.detailInfoByTeacher
+                )
+            }
+        }
+        set { _studentDetailEntity = newValue }
+    }
+    @Published var _studentDetailEntity: StudentDetailEntity?
     @Published var isLoading: Bool = false
 }
 
