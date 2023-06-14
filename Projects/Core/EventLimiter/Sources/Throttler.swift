@@ -5,6 +5,7 @@ public final class Throttler {
     private let dueTime: UInt64
     private var task: Task<Void, Never>?
     private var action: (() async -> Void)?
+    private var isInitial = true
 
     public init(for dueTime: TimeInterval, latest: Bool = true) {
         self.dueTime = UInt64(dueTime * 1_000_000_000)
@@ -27,10 +28,11 @@ public final class Throttler {
 
         Task {
             await action()
-            self.action = action
+            self.action = nil
         }
 
-        self.task = Task {
+        self.task = Task { [weak self] in
+            guard let self else { return }
             try? await Task.sleep(nanoseconds: dueTime)
             self.task?.cancel()
             self.task = nil
