@@ -1,6 +1,6 @@
 import Foundation
 
-public actor Debouncer {
+public final class Debouncer {
     private let dueTime: UInt64
     private var task: Task<Void, Never>?
 
@@ -12,13 +12,11 @@ public actor Debouncer {
         self.dueTime = UInt64(dueTime * 1_000_000_000)
     }
 
-    public nonisolated func callAsFunction(action: @escaping () async -> Void) {
-        Task {
-            await execute(action: action)
-        }
+    public func callAsFunction(action: @escaping () async -> Void) {
+        execute(action: action)
     }
 
-    public func execute(action: @escaping () async -> Void) {
+    private func execute(action: @escaping () async -> Void) {
         task?.cancel()
         self.task = Task {
             do {

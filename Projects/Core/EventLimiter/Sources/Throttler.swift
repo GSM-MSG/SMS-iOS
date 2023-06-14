@@ -1,37 +1,49 @@
 import Foundation
 
-@available(*, unavailable, message: "아직 구현되지 않은 객체입니다.")
-public actor Throttler {
-    private let dueTime: TimeInterval
+public final class Throttler {
+    private let latest: Bool
+    private let dueTime: UInt64
     private var task: Task<Void, Never>?
+    private var action: (() async -> Void)?
 
-    public init(for dueTime: TimeInterval) {
-        self.dueTime = dueTime
+    public init(for dueTime: Double, latest: Bool = true) {
+        self.dueTime = UInt64(dueTime * 1_000_000_000)
+        self.latest = latest
     }
 
-    public nonisolated func callAsFunction(
-        latest: Bool = true,
+    public init(for dueTime: Int, latest: Bool = true) {
+        self.dueTime = UInt64(dueTime * 1_000_000_000)
+        self.latest = latest
+    }
+
+    public func callAsFunction(
         action: @escaping () async -> Void
     ) {
-        Task {
-            await execute(latest: latest, action: action)
+        execute(action: action)
+    }
+
+    private func execute(
+        action: @escaping () async -> Void
+    ) {
+        if latest {
+            self.action = action
         }
-    }
-
-    public func execute(
-        latest: Bool = true,
-        action: @escaping () async -> Void
-    ) {
         guard task?.isCancelled ?? true else { return }
 
         Task {
             await action()
+            self.action = action
         }
 
         self.task = Task {
-            try? await Task.sleep(nanoseconds: UInt64(dueTime) * 1_000_000_000)
+            try? await Task.sleep(nanoseconds: dueTime)
             self.task?.cancel()
             self.task = nil
+
+            if latest, let action = self.action {
+                await action()
+                self.action = nil
+            }
         }
     }
 }
