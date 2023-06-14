@@ -4,11 +4,7 @@ public final class Debouncer {
     private let dueTime: UInt64
     private var task: Task<Void, Never>?
 
-    public init(for dueTime: Double) {
-        self.dueTime = UInt64(dueTime * 1_000_000_000)
-    }
-
-    public init(for dueTime: Int) {
+    public init(for dueTime: TimeInterval) {
         self.dueTime = UInt64(dueTime * 1_000_000_000)
     }
 

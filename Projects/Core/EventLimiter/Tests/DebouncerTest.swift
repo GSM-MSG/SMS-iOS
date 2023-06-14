@@ -7,7 +7,7 @@ final class DebouncerTests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func testExample() async {
-        let throttler = Throttler(for: 1, latest: false)
+        let throttler = Throttler(for: 0.6, latest: false)
 
         throttler {
             print("ASDf")
@@ -31,7 +31,7 @@ final class DebouncerTests: XCTestCase {
             print("ASDf5")
         }
 
-        try? await Task.sleep(nanoseconds: 300_000_000)
+        try? await Task.sleep(nanoseconds: 400_000_000)
         throttler {
             print("ASDf6")
         }

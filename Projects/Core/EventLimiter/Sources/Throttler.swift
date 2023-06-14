@@ -6,12 +6,7 @@ public final class Throttler {
     private var task: Task<Void, Never>?
     private var action: (() async -> Void)?
 
-    public init(for dueTime: Double, latest: Bool = true) {
-        self.dueTime = UInt64(dueTime * 1_000_000_000)
-        self.latest = latest
-    }
-
-    public init(for dueTime: Int, latest: Bool = true) {
+    public init(for dueTime: TimeInterval, latest: Bool = true) {
         self.dueTime = UInt64(dueTime * 1_000_000_000)
         self.latest = latest
     }
