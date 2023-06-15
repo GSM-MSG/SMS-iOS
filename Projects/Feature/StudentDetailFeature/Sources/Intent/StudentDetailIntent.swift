@@ -1,12 +1,14 @@
 import Foundation
 import UserDomainInterface
 import StudentDomainInterface
+import EventLimiter
 
 final class StudentDetailIntent: StudentDetailIntentProtocol {
     private let userID: String
     private weak var model: (any StudentDetailActionProtocol)?
     private let loadUserRoleUseCase: any LoadUserRoleUseCase
     private let fetchStudentDetailUseCase: any FetchStudentDetailUseCase
+    private let throttler = Throttler(for: 1)
 
     init(
         userID: String,
@@ -37,6 +39,33 @@ final class StudentDetailIntent: StudentDetailIntentProtocol {
                 print(error.localizedDescription)
             }
         }
+    }
+
+    func dreamBookDownloadButtonDidTap(dreamBookFileURL: String) {
+        guard let url = URL(string: dreamBookFileURL) else { return }
+        throttler {
+            self.model?.updateIsDownloading(isDownloading: true)
+            Task(priority: .background) {
+                do {
+                    let (dreamBookFileData, _) = try await URLSession.shared.data(from: url)
+                    let hwpDocument = HWPDocument(hwpData: dreamBookFileData)
+                    self.model?.updateHWPDocument(hwpDocument: hwpDocument)
+                    try await Task.sleep(nanoseconds: 1_000_000_000)
+                    self.model?.updateIsDownloading(isDownloading: false)
+                    self.model?.updateIsPresentedDreamBookExporter(isPresented: true)
+                } catch {
+                    self.model?.updateIsDownloading(isDownloading: false)
+                }
+            }
+        }
+    }
+
+    deinit {
+        print("DEIIN")
+    }
+
+    func dreamBookFileExporterDismissed() {
+        model?.updateIsPresentedDreamBookExporter(isPresented: false)
     }
 }
 

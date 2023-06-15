@@ -9,7 +9,8 @@ let project = Project.makeModule(
     internalDependencies: [
         .Feature.BaseFeature,
         .Domain.StudentDomainInterface,
-        .Domain.UserDomainInterface
+        .Domain.UserDomainInterface,
+        .Core.EventLimiter
     ],
     demoDependencies: [
         .Domain.UserDomainTesting,
