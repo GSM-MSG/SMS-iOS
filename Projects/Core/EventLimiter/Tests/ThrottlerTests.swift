@@ -1,50 +1,44 @@
 import XCTest
 import EventLimiter
 
-final class DebouncerTests: XCTestCase {
+final class ThrottlerTests: XCTestCase {
     override func setUpWithError() throws {}
 
     override func tearDownWithError() throws {}
 
     func testExample() async {
-        let debouncer = Debouncer(for: 1)
+        let throttler = Throttler(for: 1)
 
-        debouncer {
+        throttler {
             print("ASDf")
         }
-        debouncer {
+        throttler {
             print("ASDf2")
         }
 
-        try? await Task.sleep(nanoseconds: 1_000_000_000)
-        debouncer {
+        try? await Task.sleep(nanoseconds: 500_000_000)
+        throttler {
             print("ASDf3")
         }
 
         try? await Task.sleep(nanoseconds: 600_000_000)
-        debouncer {
+        throttler {
             print("ASDf4")
         }
 
         try? await Task.sleep(nanoseconds: 200_000_000)
-        debouncer {
+        throttler {
             print("ASDf5")
         }
 
         try? await Task.sleep(nanoseconds: 400_000_000)
-        debouncer {
+        throttler {
             print("ASDf6")
         }
-        debouncer {
+        throttler {
             print("ASDf7")
         }
 
-        try? await Task.sleep(nanoseconds: 2_000_000_000)
-
-        debouncer {
-            print("ASDf8")
-        }
-
-        try? await Task.sleep(nanoseconds: 2_000_000_000)
+        try? await Task.sleep(nanoseconds: 5_000_000_000)
     }
 }
