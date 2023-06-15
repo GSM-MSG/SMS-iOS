@@ -38,6 +38,27 @@ final class StudentDetailIntent: StudentDetailIntentProtocol {
             }
         }
     }
+
+    func dreamBookDownloadButtonDidTap(dreamBookFileURL: String) {
+        guard let url = URL(string: dreamBookFileURL) else { return }
+        model?.updateIsDownloading(isDownloading: true)
+        Task(priority: .background) {
+            do {
+                let (dreamBookFileData, _) = try await URLSession.shared.data(from: url)
+                let hwpDocument = HWPDocument(hwpData: dreamBookFileData)
+                model?.updateHWPDocument(hwpDocument: hwpDocument)
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                model?.updateIsDownloading(isDownloading: false)
+                model?.updateIsPresentedDreamBookExporter(isPresented: true)
+            } catch {
+                model?.updateIsDownloading(isDownloading: false)
+            }
+        }
+    }
+
+    func dreamBookFileExporterDismissed() {
+        model?.updateIsPresentedDreamBookExporter(isPresented: false)
+    }
 }
 
 private extension UserRoleType {
