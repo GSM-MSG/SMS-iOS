@@ -1,5 +1,6 @@
 import Foundation
 import InputLanguageInfoFeatureInterface
+import Validator
 
 final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
     private weak var model: (any InputLanguageInfoActionProtocol)?
@@ -18,6 +19,7 @@ final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
     }
 
     func updateLanguageScore(score: String, at index: Int) {
+        let stringSizeValidator = StringSizeValidator(min: 0, max: 20)
         model?.updateLanguageScore(score: score, at: index)
     }
 
