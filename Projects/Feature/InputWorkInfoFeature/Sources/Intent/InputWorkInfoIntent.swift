@@ -1,6 +1,8 @@
 import Foundation
 import InputWorkInfoFeatureInterface
 import StudentDomainInterface
+import Validator
+import FoundationUtil
 
 final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
     private weak var model: (any InputWorkInfoActionProtocol)?
@@ -19,6 +21,8 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
     }
 
     func updateWorkRegion(region: String, at index: Int) {
+        let regexValidator = RegexValidator(pattern: "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]$")
+        guard regexValidator.validate(region) || region.isEmpty else { return }
         model?.updateWorkRegion(region: region, at: index)
     }
 
@@ -51,7 +55,8 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
             formOfEmployment: state.formOfEmployment.rawValue,
             salary: Int(state.salary) ?? 0,
             workRegion: state.workRegionList
-                .filter { !$0.isEmpty }
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { $0.isNotEmpty }
         )
         inputWorkDelegate?.completeToInputWork(input: input)
     }
