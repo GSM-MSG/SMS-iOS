@@ -99,7 +99,6 @@ struct InputProfileInfoView: View {
                                 isError: state.inputProfileErrorFieldSet.contains(.major),
                                 isOnClear: false
                             ) {
-                                
                                 focusField = .portfoilo
                             }
                             .focused($isFocuesedMajorTextField)
