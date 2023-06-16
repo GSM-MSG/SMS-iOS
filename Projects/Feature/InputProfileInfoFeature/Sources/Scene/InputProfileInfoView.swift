@@ -57,6 +57,7 @@ struct InputProfileInfoView: View {
                                 }
                                 .buttonWrapper {
                                     withAnimation {
+                                        focusField = nil
                                         intent.imageMethodPickerIsRequired()
                                     }
                                 }
