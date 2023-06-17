@@ -64,7 +64,6 @@ struct MainView: View {
 
                             Color.clear
                                 .onAppear {
-                                    print(state.isRefresh)
                                     guard !state.isRefresh else { return }
                                     intent.reachedBottom(page: state.page, isLast: state.isLast)
                                 }
