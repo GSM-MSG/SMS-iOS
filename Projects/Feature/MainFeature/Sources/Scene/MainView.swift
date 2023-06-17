@@ -64,9 +64,14 @@ struct MainView: View {
 
                             Color.clear
                                 .onAppear {
+                                    print(state.isRefresh)
+                                    guard !state.isRefresh else { return }
                                     intent.reachedBottom(page: state.page, isLast: state.isLast)
                                 }
                         }
+                    }
+                    .refreshable {
+                        intent.refresh()
                     }
                     .overlay(alignment: .bottomTrailing) {
                         floatingButton {
@@ -160,7 +165,8 @@ struct MainView: View {
                     .init(text: "취소") {
                         intent.logoutDialogDismissed()
                     }
-                ])
+                ]
+            )
             .smsAlert(
                 title: "회원탈퇴",
                 description: "정말로 회원탈퇴 하시겠습니까?",
