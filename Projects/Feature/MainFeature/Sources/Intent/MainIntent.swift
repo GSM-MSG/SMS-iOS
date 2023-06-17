@@ -33,7 +33,7 @@ final class MainIntent: MainIntentProtocol {
     func reachedBottom(page: Int, isLast: Bool) {
         guard !isLast else { return }
         Task {
-            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: page, size: 6))
+            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: page, size: 20))
             model?.appendContent(content: studentList.studentList)
             model?.updateTotalSize(totalSize: studentList.totalSize)
             model?.updatePage(page: page + 1)
@@ -44,7 +44,7 @@ final class MainIntent: MainIntentProtocol {
     func refresh() {
         model?.updateRefresh(isRefresh: true)
         Task {
-            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: 1, size: 6))
+            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: 1, size: 20))
             model?.updateContent(content: studentList.studentList)
             model?.updatePage(page: 2)
             model?.updateTotalSize(totalSize: studentList.totalSize)
