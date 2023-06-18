@@ -8,6 +8,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var totalSize: Int = 0
     @Published var isLast: Bool = false
     @Published var isError: Bool = false
+    @Published var isShowedScreenshotDetect: Bool = false
     @Published var isPresentedExistActionSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
@@ -49,6 +50,10 @@ extension MainModel: MainActionProtocol {
         self.isLast = isLast
     }
 
+    func updateIsScreenshotDetectToast(isShowed: Bool) {
+        self.isShowedScreenshotDetect = isShowed
+    }
+
     func updateIsPresentedExistActionSheet(isPresented: Bool) {
         self.isPresentedExistActionSheet = isPresented
     }
@@ -68,7 +73,7 @@ extension MainModel: MainActionProtocol {
     func updateSelectedUserID(userID: String?) {
         self.selectedUserID = userID
     }
-    
+
     func updateUserRole(role: UserRoleType) {
         self.currentUserRole = role
     }

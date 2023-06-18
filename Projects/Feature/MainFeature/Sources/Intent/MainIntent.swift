@@ -96,4 +96,12 @@ final class MainIntent: MainIntentProtocol {
     func studentDetailDismissed() {
         model?.updateSelectedUserID(userID: nil)
     }
+
+    func screenshotDetectToastIsRequired() {
+        model?.updateIsScreenshotDetectToast(isShowed: true)
+    }
+
+    func screenshotDetectToastDismissed() {
+        model?.updateIsScreenshotDetectToast(isShowed: false)
+    }
 }

@@ -178,6 +178,17 @@ struct MainView: View {
                     }
                 ])
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)) { _ in
+            print("123r")
+            intent.screenshotDetectToastIsRequired()
+        }
+        .smsToast(
+            text: "화면 캡쳐가 인식되었습니다",
+            isShowing: Binding(
+                get: { state.isShowedScreenshotDetect },
+                set: { _ in intent.screenshotDetectToastDismissed() }
+            )
+        )
         .navigationViewStyle(.stack)
     }
 

@@ -13,4 +13,6 @@ protocol MainIntentProtocol {
     func withdrawalDialogIsComplete()
     func studentDidSelect(userID: String)
     func studentDetailDismissed()
+    func screenshotDetectToastIsRequired()
+    func screenshotDetectToastDismissed()
 }
