@@ -42,14 +42,14 @@ final class MainIntent: MainIntentProtocol {
     }
 
     func refresh() {
-        model?.updateRefresh(isRefresh: true)
+        model?.updateIsRefresh(isRefresh: true)
         Task {
             let studentList = try await fetchStudentListUseCase.execute(req: .init(page: 1, size: 20))
             model?.updateContent(content: studentList.studentList)
             model?.updatePage(page: 2)
             model?.updateTotalSize(totalSize: studentList.totalSize)
             model?.updateIsLast(isLast: false)
-            model?.updateRefresh(isRefresh: false)
+            model?.updateIsRefresh(isRefresh: false)
         }
     }
 

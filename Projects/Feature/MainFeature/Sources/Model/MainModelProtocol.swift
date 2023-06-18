@@ -25,7 +25,7 @@ protocol MainActionProtocol: AnyObject {
     func updateIsPresentedWithdrawalDialog(isPresented: Bool)
     func appendContent(content: [SingleStudentEntity])
     func updateContent(content: [SingleStudentEntity])
-    func updateRefresh(isRefresh: Bool)
+    func updateIsRefresh(isRefresh: Bool)
     func updateSelectedUserID(userID: String?)
     func updateUserRole(role: UserRoleType)
 }

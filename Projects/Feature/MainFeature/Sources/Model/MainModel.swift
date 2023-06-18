@@ -74,7 +74,7 @@ extension MainModel: MainActionProtocol {
         self.selectedUserID = userID
     }
 
-    func updateRefresh(isRefresh: Bool) {
+    func updateIsRefresh(isRefresh: Bool) {
         self.isRefresh = isRefresh
     }
 
