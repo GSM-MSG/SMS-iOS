@@ -3,6 +3,7 @@ import StudentDomainInterface
 
 protocol MainIntentProtocol {
     func reachedBottom(page: Int, isLast: Bool)
+    func refresh()
     func existActionSheetIsRequired()
     func existActionSheetDismissed()
     func logoutDialogIsRequired()

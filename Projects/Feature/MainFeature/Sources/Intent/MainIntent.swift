@@ -41,6 +41,18 @@ final class MainIntent: MainIntentProtocol {
         }
     }
 
+    func refresh() {
+        model?.updateIsRefresh(isRefresh: true)
+        Task {
+            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: 1, size: 20))
+            model?.updateContent(content: studentList.studentList)
+            model?.updatePage(page: 2)
+            model?.updateTotalSize(totalSize: studentList.totalSize)
+            model?.updateIsLast(isLast: false)
+            model?.updateIsRefresh(isRefresh: false)
+        }
+    }
+
     func existActionSheetIsRequired() {
         model?.updateIsPresentedExistActionSheet(isPresented: true)
     }

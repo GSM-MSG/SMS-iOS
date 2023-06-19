@@ -8,6 +8,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var totalSize: Int = 0
     @Published var isLast: Bool = false
     @Published var isError: Bool = false
+    @Published var isRefresh: Bool = false
     @Published var isPresentedExistActionSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
@@ -65,10 +66,18 @@ extension MainModel: MainActionProtocol {
         self.content.append(contentsOf: content)
     }
 
+    func updateContent(content: [SingleStudentEntity]) {
+        self.content = content
+    }
+
     func updateSelectedUserID(userID: String?) {
         self.selectedUserID = userID
     }
-    
+
+    func updateIsRefresh(isRefresh: Bool) {
+        self.isRefresh = isRefresh
+    }
+
     func updateUserRole(role: UserRoleType) {
         self.currentUserRole = role
     }

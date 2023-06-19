@@ -6,6 +6,7 @@ protocol MainStateProtocol {
     var totalSize: Int { get }
     var isLast: Bool { get }
     var isError: Bool { get }
+    var isRefresh: Bool { get }
     var isPresentedExistActionSheet: Bool { get }
     var isPresentedLogoutDialog: Bool { get }
     var isPresentedWithdrawalDialog: Bool { get }
@@ -23,6 +24,8 @@ protocol MainActionProtocol: AnyObject {
     func updateIsPresentedLogoutDialog(isPresented: Bool)
     func updateIsPresentedWithdrawalDialog(isPresented: Bool)
     func appendContent(content: [SingleStudentEntity])
+    func updateContent(content: [SingleStudentEntity])
+    func updateIsRefresh(isRefresh: Bool)
     func updateSelectedUserID(userID: String?)
     func updateUserRole(role: UserRoleType)
 }
