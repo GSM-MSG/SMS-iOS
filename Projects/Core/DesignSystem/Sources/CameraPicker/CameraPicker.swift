@@ -33,7 +33,7 @@ struct CameraPicker: UIViewControllerRepresentable {
         pickerController.sourceType = .camera
         pickerController.delegate = context.coordinator
         pickerController.allowsEditing = true
-        pickerController.mediaTypes = ["public.movie", "public.image"]
+        pickerController.mediaTypes = ["public.image"]
         pickerController.cameraFlashMode = .auto
         return pickerController
     }
