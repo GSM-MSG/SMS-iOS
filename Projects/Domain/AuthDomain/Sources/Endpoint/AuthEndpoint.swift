@@ -4,6 +4,10 @@ import Emdpoint
 
 enum AuthEndpoint {
     case signin(code: String)
+    case logout
+    case withdrawal
+    case refresh
+    case verifyIsExistUser
 }
 
 extension AuthEndpoint: SMSEndpoint {
@@ -17,6 +21,18 @@ extension AuthEndpoint: SMSEndpoint {
         switch self {
         case .signin:
             return .post("")
+
+        case .logout:
+            return .delete("")
+
+        case .withdrawal:
+            return .delete("/withdrawal")
+
+        case .refresh:
+            return .patch("")
+
+        case .verifyIsExistUser:
+            return .get("/verify/access")
         }
     }
 
@@ -34,6 +50,12 @@ extension AuthEndpoint: SMSEndpoint {
 
     var jwtTokenType: JwtTokenType {
         switch self {
+        case .withdrawal, .verifyIsExistUser:
+            return .accessToken
+
+        case .refresh:
+            return .refreshToken
+
         default:
             return .none
         }
@@ -48,6 +70,21 @@ extension AuthEndpoint: SMSEndpoint {
                 404: .failedToGAuthSignin,
                 500: .internalServerError
             ]
+        case .logout:
+            return [
+                404: .internalServerError
+            ]
+
+        case .withdrawal:
+            return [
+                404: .internalServerError
+            ]
+
+        case .refresh:
+            return [:]
+
+        case .verifyIsExistUser:
+            return [:]
         }
     }
 }

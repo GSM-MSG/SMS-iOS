@@ -8,11 +8,16 @@ import Quick
 final class AuthRepositorySpec: QuickSpec {
     override func spec() {
         var remoteAuthDataSourceSpy: RemoteAuthDataSourceSpy!
+        var localAuthDataSourceSpy: LocalAuthDataSourceSpy!
         var authRepositoryImpl: AuthRepositoryImpl!
 
         beforeEach {
             remoteAuthDataSourceSpy = RemoteAuthDataSourceSpy()
-            authRepositoryImpl = AuthRepositoryImpl(remoteAuthDataSource: remoteAuthDataSourceSpy)
+            localAuthDataSourceSpy = LocalAuthDataSourceSpy()
+            authRepositoryImpl = AuthRepositoryImpl(
+                remoteAuthDataSource: remoteAuthDataSourceSpy,
+                localAuthDataSource: localAuthDataSourceSpy
+            )
         }
 
         describe("AuthRepositoryImpl에서") {

@@ -2,14 +2,19 @@ import DesignSystem
 import SwiftUI
 
 public struct DemoView: View {
-    @State var text = ""
+    @State var isLoading = false
 
     public var body: some View {
         VStack {
-            Group {
-                SMSTextField("ASDF", text: $text)
+            Button {
+                withAnimation {
+                    self.isLoading = true
+                }
+            } label: {
+                Text("A")
             }
         }
+        .smsLoading(isLoading: isLoading)
     }
 }
 

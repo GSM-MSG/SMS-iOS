@@ -1,5 +1,7 @@
 import Foundation
+import FoundationUtil
 import InputLanguageInfoFeatureInterface
+import Validator
 
 final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
     private weak var model: (any InputLanguageInfoActionProtocol)?
@@ -18,6 +20,7 @@ final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
     }
 
     func updateLanguageScore(score: String, at index: Int) {
+        let stringSizeValidator = StringSizeValidator(min: 0, max: 20)
         model?.updateLanguageScore(score: score, at: index)
     }
 
@@ -35,8 +38,13 @@ final class InputLanguageInfoIntent: InputLanguageInfoIntentProtocol {
 
     func completeButtonDidTap(languages: [LanguageInputModel]) {
         let tupledLanguages = languages
-            .filter { !$0.languageName.isEmpty && !$0.languageScore.isEmpty }
-            .map { (name: $0.languageName, score: $0.languageScore) }
+            .map {
+                (
+                    name: $0.languageName.trimmingCharacters(in: .whitespacesAndNewlines),
+                    score: $0.languageScore.trimmingCharacters(in: .whitespacesAndNewlines)
+                )
+            }
+            .filter { $0.isNotEmpty && $1.isNotEmpty }
         languageDelegate?.completeToInputLanguage(languages: tupledLanguages)
     }
 }

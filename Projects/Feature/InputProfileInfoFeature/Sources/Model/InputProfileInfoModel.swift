@@ -7,7 +7,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var major: String = ""
     @Published var majorList: [String] = []
     @Published var portfolioURL: String = ""
-    @Published var techStack: String = ""
+    @Published var techStacks: [String] = []
     @Published var isPresentedMajorSheet: Bool = false
     @Published var isPresentedImagePicker: Bool = false
     @Published var isPresentedImageMethodPicker: Bool = false
@@ -15,6 +15,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var isSelfEntering: Bool = false
     @Published var inputProfileErrorFieldSet: Set<InputProfileErrorField> = []
     @Published var profileImage: PickedImageResult?
+    @Published var isPresentedTechStackAppend: Bool = false
     var isDisabledNextButton: Bool {
         introduce.isEmpty ||
         email.isEmpty ||
@@ -44,8 +45,16 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
         self.portfolioURL = portfolioURL
     }
 
-    func updateTeckStack(techStack: String) {
-        self.techStack = techStack
+    func updateTeckStacks(techStacks: [String]) {
+        self.techStacks = techStacks
+    }
+
+    func removeTeckStacks(techStack: String) {
+        self.techStacks.removeAll { $0 == techStack }
+    }
+
+    func updateIsPresentedTeckStackAppend(isPresented: Bool) {
+        self.isPresentedTechStackAppend = isPresented
     }
 
     func updateIsPresentedMajorSheet(isPresented: Bool) {

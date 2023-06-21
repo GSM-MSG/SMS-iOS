@@ -1,12 +1,8 @@
 import AuthDomain
 import AuthDomainInterface
-import StudentDomain
-import StudentDomainInterface
+import BaseDomain
 import FileDomain
 import FileDomainInterface
-import MajorDomain
-import MajorDomainInterface
-import BaseDomain
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -21,15 +17,32 @@ import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
-import RootFeature
 import JwtStore
 import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
+import MainFeature
+import MainFeatureInterface
+import MajorDomain
+import MajorDomainInterface
 import NeedleFoundation
+import RootFeature
+import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import SplashFeature
+import SplashFeatureInterface
+import StudentDetailFeature
+import StudentDetailFeatureInterface
+import StudentDomain
+import StudentDomainInterface
 import SwiftUI
+import TechStackAppendFeature
+import TechStackAppendFeatureInterface
+import TechStackDomain
+import TechStackDomainInterface
+import UserDomain
+import UserDomainInterface
 
 final class AppComponent: BootstrapComponent {
     func makeRootView() -> some View {
@@ -72,6 +85,22 @@ final class AppComponent: BootstrapComponent {
         InputLanguageInfoComponent(parent: self)
     }
 
+    var mainBuildable: any MainBuildable {
+        MainComponent(parent: self)
+    }
+
+    var techStackAppendBuildable: any TechStackAppendBuildable {
+        TechStackAppendComponent(parent: self)
+    }
+
+    var studentDetailBuildable: any StudentDetailBuildable {
+        StudentDetailComponent(parent: self)
+    }
+
+    var splashBuildable: any SplashBuildable {
+        SplashComponent(parent: self)
+    }
+
     var authDomainBuildable: any AuthDomainBuildable {
         AuthDomainComponent(parent: self)
     }
@@ -86,6 +115,14 @@ final class AppComponent: BootstrapComponent {
 
     var fileDomainBuildable: any FileDomainBuildable {
         FileDomainComponent(parent: self)
+    }
+
+    var userDomainBuildable: any UserDomainBuildable {
+        UserDomainComponent(parent: self)
+    }
+
+    var techStackDomainBuildable: any TechStackDomainBuildable {
+        TechStackDomainComponent(parent: self)
     }
 
     var jwtStoreBuildable: any JwtStoreBuildable {

@@ -1,4 +1,5 @@
 import Foundation
+import FoundationUtil
 import InputCertificateInfoFeatureInterface
 
 final class InputCertificateInfoIntent: InputCertificateInfoIntentProtocol {
@@ -32,7 +33,8 @@ final class InputCertificateInfoIntent: InputCertificateInfoIntentProtocol {
     func nextButtonDidTap(certificates: [String]) {
         certificateDelegate?.completeToInputCertificate(
             certificates: certificates
-                .filter { !$0.isEmpty }
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .filter { $0.isNotEmpty }
         )
     }
 }

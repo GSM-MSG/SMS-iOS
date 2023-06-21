@@ -54,7 +54,7 @@ struct InputLanguageInfoView: View {
             ForEach(state.languageList.indices, id: \.self) { index in
                 HStack(spacing: 16) {
                     SMSTextField(
-                        "예) 토익",
+                        "예) 영어, 토익",
                         text: Binding(
                             get: { state.languageList[safe: index]?.languageName ?? "" },
                             set: { intent.updateLanguageName(name: $0, at: index) }
@@ -63,7 +63,7 @@ struct InputLanguageInfoView: View {
                     .frame(maxWidth: .infinity)
 
                     SMSTextField(
-                        "900",
+                        "원어민수준",
                         text: Binding(
                             get: { state.languageList[safe: index]?.languageScore ?? "" },
                             set: { intent.updateLanguageScore(score: $0, at: index) }

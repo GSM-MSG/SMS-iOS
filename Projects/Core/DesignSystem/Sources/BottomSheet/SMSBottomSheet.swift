@@ -79,6 +79,7 @@ struct SMSBottomSheet<T: View>: ViewModifier {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             .ignoresSafeArea()
+            .animation(.default, value: isShowing)
         }
     }
 }

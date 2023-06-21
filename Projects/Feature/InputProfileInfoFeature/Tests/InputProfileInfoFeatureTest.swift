@@ -73,15 +73,6 @@ final class InputProfileInfoFeatureTests: XCTestCase {
         XCTAssertEqual(sut.model.portfolioURL, uuid)
     }
 
-    func test_update_techStack() {
-        sut.intent.updateTechStack(techStack: "A")
-        XCTAssertEqual(sut.model.techStack, "A")
-
-        let uuid = UUID().uuidString
-        sut.intent.updateTechStack(techStack: uuid)
-        XCTAssertEqual(sut.model.techStack, uuid)
-    }
-
     func test_bottomSheet_intet() async throws {
         sut.intent.majorSheetIsRequired()
         XCTAssertEqual(sut.model.isPresentedMajorSheet, true)

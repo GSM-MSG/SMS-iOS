@@ -70,23 +70,26 @@ struct InputInformationView: View {
                 .eraseToAnyView()
                 .tag(InformationPhase.language)
         }
+        .ignoresSafeArea(.container, edges: .top)
+        .smsAlert(
+            title: "정보입력 실패",
+            description: state.errorMessage,
+            isShowing: Binding(
+                get: { state.isError },
+                set: { _ in intent.errorAlertDismissed() }
+            ),
+            alertActions: [
+                .init(text: "확인") {
+                    intent.errorAlertDismissed()
+                }
+            ]
+        )
         .animation(.default, value: state.phase)
         .onChange(of: state.isCompleteToInputAllInfo) { newValue in
             if newValue {
                 intent.completeToInputAllInfo(state: state)
             }
         }
-        .overlay {
-            if state.isLoading {
-                ZStack {
-                    Color.sms(.neutral(.n40))
-                        .opacity(0.3)
-                        .ignoresSafeArea()
-
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                }
-            }
-        }
+        .smsLoading(isLoading: state.isLoading)
     }
 }

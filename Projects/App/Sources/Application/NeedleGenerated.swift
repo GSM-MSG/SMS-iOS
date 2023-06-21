@@ -6,6 +6,7 @@ import BaseDomain
 import BaseFeature
 import FileDomain
 import FileDomainInterface
+import Foundation
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -24,15 +25,27 @@ import JwtStore
 import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
+import MainFeature
+import MainFeatureInterface
 import MajorDomain
 import MajorDomainInterface
 import NeedleFoundation
 import RootFeature
 import SigninFeature
 import SigninFeatureInterface
+import SplashFeature
+import SplashFeatureInterface
+import StudentDetailFeature
+import StudentDetailFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
+import TechStackAppendFeature
+import TechStackAppendFeatureInterface
+import TechStackDomain
+import TechStackDomainInterface
+import UserDomain
+import UserDomainInterface
 
 // swiftlint:disable unused_declaration
 private let needleDependenciesHash : String? = nil
@@ -60,6 +73,19 @@ private class JwtStoreDependency5613ee3d4fea5093f6faProvider: JwtStoreDependency
 private func factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return JwtStoreDependency5613ee3d4fea5093f6faProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class SplashDependencye0cb7136f2ec3edfd60aProvider: SplashDependency {
+    var authDomainBuildable: any AuthDomainBuildable {
+        return appComponent.authDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->SplashComponent
+private func factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return SplashDependencye0cb7136f2ec3edfd60aProvider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputWorkInfoDependency74441f61366e4e5af9a2Provider: InputWorkInfoDependency {
 
 
@@ -70,6 +96,28 @@ private class InputWorkInfoDependency74441f61366e4e5af9a2Provider: InputWorkInfo
 /// ^->AppComponent->InputWorkInfoComponent
 private func factoryfff86bd7854b30412216e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputWorkInfoDependency74441f61366e4e5af9a2Provider()
+}
+private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
+    var studentDomainBuildable: any StudentDomainBuildable {
+        return appComponent.studentDomainBuildable
+    }
+    var authDomainBuildable: any AuthDomainBuildable {
+        return appComponent.authDomainBuildable
+    }
+    var studentDetailBuildable: any StudentDetailBuildable {
+        return appComponent.studentDetailBuildable
+    }
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->MainComponent
+private func factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainDependency7c6a5b4738b211b8e155Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider: InputSchoolLifeInfoDependency {
 
@@ -89,6 +137,12 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var inputInformationBuildable: any InputInformationBuildable {
         return appComponent.inputInformationBuildable
     }
+    var mainBuildable: any MainBuildable {
+        return appComponent.mainBuildable
+    }
+    var splashBuildable: any SplashBuildable {
+        return appComponent.splashBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -101,6 +155,9 @@ private func factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5(_ component: Needle
 private class SigninDependencyde06a9d0b22764487733Provider: SigninDependency {
     var authDomainBuildable: any AuthDomainBuildable {
         return appComponent.authDomainBuildable
+    }
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -132,6 +189,19 @@ private class InputLanguageInfoDependencye83ef16d0fe38d31cb64Provider: InputLang
 /// ^->AppComponent->InputLanguageInfoComponent
 private func factory36893d70245037098109e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputLanguageInfoDependencye83ef16d0fe38d31cb64Provider()
+}
+private class TechStackAppendDependencycd739ed38983dbb168e8Provider: TechStackAppendDependency {
+    var techStackDomainBuildable: any TechStackDomainBuildable {
+        return appComponent.techStackDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->TechStackAppendComponent
+private func factory84921fd8019bf910b0aff47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return TechStackAppendDependencycd739ed38983dbb168e8Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInformationDependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable {
@@ -178,9 +248,28 @@ private class InputCertificateInfoDependencyd369771b4dc3e8540791Provider: InputC
 private func factory9df85876e39e1206b924e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputCertificateInfoDependencyd369771b4dc3e8540791Provider()
 }
+private class StudentDetailDependencyf86509655a52b42363b7Provider: StudentDetailDependency {
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
+    }
+    var studentDomainBuildable: any StudentDomainBuildable {
+        return appComponent.studentDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->StudentDetailComponent
+private func factory3e27a26da31e522f5755f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return StudentDetailDependencyf86509655a52b42363b7Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputProfileInfoDependencydedc6189ad35e7ff3001Provider: InputProfileInfoDependency {
     var majorDomainBuildable: any MajorDomainBuildable {
         return appComponent.majorDomainBuildable
+    }
+    var techStackAppendBuildable: any TechStackAppendBuildable {
+        return appComponent.techStackAppendBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -217,6 +306,19 @@ private class StudentDomainDependency71a7287ffa1377bc3ca1Provider: StudentDomain
 private func factory2686a7e321a220c3265af47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return StudentDomainDependency71a7287ffa1377bc3ca1Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class TechStackDomainDependencyc7e8371994569e951d57Provider: TechStackDomainDependency {
+    var jwtStoreBuildable: any JwtStoreBuildable {
+        return appComponent.jwtStoreBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->TechStackDomainComponent
+private func factory254149359ff45b2db35bf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return TechStackDomainDependencyc7e8371994569e951d57Provider(appComponent: parent1(component) as! AppComponent)
+}
 private class AuthDomainDependency4518b8977185a5c9ff71Provider: AuthDomainDependency {
     var jwtStoreBuildable: any JwtStoreBuildable {
         return appComponent.jwtStoreBuildable
@@ -243,6 +345,17 @@ private class MajorDomainDependency4dd341ec0ebe68acad8bProvider: MajorDomainDepe
 private func factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return MajorDomainDependency4dd341ec0ebe68acad8bProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class UserDomainDependencyf39d2a2922733361cbe1Provider: UserDomainDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->UserDomainComponent
+private func factory46488402f315d7f9530ce3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return UserDomainDependencyf39d2a2922733361cbe1Provider()
+}
 
 #else
 extension JwtStoreComponent: Registration {
@@ -261,9 +374,22 @@ extension KeychainComponent: Registration {
 
     }
 }
+extension SplashComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\SplashDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+    }
+}
 extension InputWorkInfoComponent: Registration {
     public func registerItems() {
 
+    }
+}
+extension MainComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\MainDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
+        keyPathToName[\MainDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+        keyPathToName[\MainDependency.studentDetailBuildable] = "studentDetailBuildable-any StudentDetailBuildable"
+        keyPathToName[\MainDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
     }
 }
 extension InputSchoolLifeInfoComponent: Registration {
@@ -275,11 +401,14 @@ extension RootComponent: Registration {
     public func registerItems() {
         keyPathToName[\RootDependency.signinBuildable] = "signinBuildable-any SigninBuildable"
         keyPathToName[\RootDependency.inputInformationBuildable] = "inputInformationBuildable-any InputInformationBuildable"
+        keyPathToName[\RootDependency.mainBuildable] = "mainBuildable-any MainBuildable"
+        keyPathToName[\RootDependency.splashBuildable] = "splashBuildable-any SplashBuildable"
     }
 }
 extension SigninComponent: Registration {
     public func registerItems() {
         keyPathToName[\SigninDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+        keyPathToName[\SigninDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
     }
 }
 extension InputMilitaryInfoComponent: Registration {
@@ -290,6 +419,11 @@ extension InputMilitaryInfoComponent: Registration {
 extension InputLanguageInfoComponent: Registration {
     public func registerItems() {
 
+    }
+}
+extension TechStackAppendComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\TechStackAppendDependency.techStackDomainBuildable] = "techStackDomainBuildable-any TechStackDomainBuildable"
     }
 }
 extension InputInformationComponent: Registration {
@@ -309,9 +443,16 @@ extension InputCertificateInfoComponent: Registration {
 
     }
 }
+extension StudentDetailComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\StudentDetailDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
+        keyPathToName[\StudentDetailDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
+    }
+}
 extension InputProfileInfoComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputProfileInfoDependency.majorDomainBuildable] = "majorDomainBuildable-any MajorDomainBuildable"
+        keyPathToName[\InputProfileInfoDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
     }
 }
 extension FileDomainComponent: Registration {
@@ -324,6 +465,11 @@ extension StudentDomainComponent: Registration {
         keyPathToName[\StudentDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
     }
 }
+extension TechStackDomainComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\TechStackDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
+    }
+}
 extension AuthDomainComponent: Registration {
     public func registerItems() {
         keyPathToName[\AuthDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
@@ -332,6 +478,11 @@ extension AuthDomainComponent: Registration {
 extension MajorDomainComponent: Registration {
     public func registerItems() {
         keyPathToName[\MajorDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
+    }
+}
+extension UserDomainComponent: Registration {
+    public func registerItems() {
+
     }
 }
 
@@ -349,23 +500,29 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-@inline(never) private func register1() {
+private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
+    registerProviderFactory("^->AppComponent->SplashComponent", factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SigninComponent", factory2882a056d84a613debccf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputMilitaryInfoComponent", factory6e35522c47cca1190471e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputLanguageInfoComponent", factory36893d70245037098109e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->TechStackAppendComponent", factory84921fd8019bf910b0aff47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputInformationComponent", factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->StudentDetailComponent", factory3e27a26da31e522f5755f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->FileDomainComponent", factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->TechStackDomainComponent", factory254149359ff45b2db35bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MajorDomainComponent", factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->UserDomainComponent", factory46488402f315d7f9530ce3b0c44298fc1c149afb)
 }
 #endif
 

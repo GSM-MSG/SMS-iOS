@@ -15,7 +15,7 @@ protocol InputProfileInfoStateProtocol {
     var major: String { get }
     var majorList: [String] { get }
     var portfolioURL: String { get }
-    var techStack: String { get }
+    var techStacks: [String] { get }
     var isPresentedMajorSheet: Bool { get }
     var isPresentedImagePicker: Bool { get }
     var isPresentedImageMethodPicker: Bool { get }
@@ -24,6 +24,7 @@ protocol InputProfileInfoStateProtocol {
     var inputProfileErrorFieldSet: Set<InputProfileErrorField> { get }
     var profileImage: PickedImageResult? { get }
     var isDisabledNextButton: Bool { get }
+    var isPresentedTechStackAppend: Bool { get }
 }
 
 protocol InputProfileInfoActionProtocol: AnyObject {
@@ -32,7 +33,9 @@ protocol InputProfileInfoActionProtocol: AnyObject {
     func updateMajor(major: String)
     func updateMajorList(majorList: [String])
     func updatePortfolioURL(portfolioURL: String)
-    func updateTeckStack(techStack: String)
+    func updateTeckStacks(techStacks: [String])
+    func removeTeckStacks(techStack: String)
+    func updateIsPresentedTeckStackAppend(isPresented: Bool)
     func updateIsPresentedMajorSheet(isPresented: Bool)
     func updateIsPresentedImagePicker(isPresented: Bool)
     func updateIsPresentedImageMethodPicker(isPresented: Bool)
