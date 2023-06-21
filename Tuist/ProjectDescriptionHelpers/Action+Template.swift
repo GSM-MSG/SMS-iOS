@@ -11,4 +11,9 @@ public extension TargetScript {
         name: "Needle",
         basedOnDependencyAnalysis: false
     )
+    static let apolloGraphQL = TargetScript.pre(
+        path: .relativeToRoot("Scripts/GenerateApolloGraphQLAPI.sh"),
+        name: "Apollo Graph QL",
+        basedOnDependencyAnalysis: false
+    )
 }
