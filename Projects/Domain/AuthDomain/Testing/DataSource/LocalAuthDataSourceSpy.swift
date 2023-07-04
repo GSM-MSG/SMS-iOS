@@ -11,4 +11,9 @@ final class LocalAuthDataSourceSpy: LocalAuthDataSource {
     func withdrawal() async throws {
         withdrawalCallCount += 1
     }
+
+    var clearTokenCallCount = 0
+    func clearToken() {
+        clearTokenCallCount += 1
+    }
 }

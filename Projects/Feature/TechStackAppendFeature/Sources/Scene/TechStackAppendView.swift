@@ -51,12 +51,25 @@ struct TechStackAppendView: View {
             .disabled(state.selectedTechStacks.isEmpty)
         }
         .hideKeyboardWhenTap()
+        .smsToast(
+            text: state.toastMessage,
+            isShowing: Binding(
+                get: { state.isPresentedToast },
+                set: { _ in intent.toastDismissed() }
+            )
+        ) {
+            if state.toastStyle == .appended {
+                SMSIcon(.greenCheck)
+            } else {
+                SMSIcon(.check)
+            }
+        }
     }
 
     @ViewBuilder
     func techStackListView() -> some View {
         if state.techStacks.isEmpty {
-            VStack(spacing: 8) {
+            VStack(spacing: 16) {
                 SMSText("검색결과가 없습니다.", font: .body1)
                     .foregroundColor(.sms(.neutral(.n30)))
                     .padding(.top, 16)
@@ -64,10 +77,10 @@ struct TechStackAppendView: View {
                 SMSChip("\"\(state.searchText)\" 직접 추가하기") {
                     intent.directAppendButtonDidTap(techStack: state.searchText)
                 }
-                .conditional(state.techStacks.last != state.searchText && !state.searchText.isEmpty)
+                .conditional(!state.selectedTechStacks.contains(state.searchText) && !state.searchText.isEmpty)
             }
         } else {
-            LazyVStack(spacing: 8) {
+            LazyVStack(spacing: 16) {
                 ForEach(state.techStacks, id: \.self) { techStack in
                     techStackRowView(stack: techStack)
                 }
@@ -75,7 +88,7 @@ struct TechStackAppendView: View {
                 SMSChip("\"\(state.searchText)\" 직접 추가하기") {
                     intent.directAppendButtonDidTap(techStack: state.searchText)
                 }
-                .conditional(state.techStacks.last != state.searchText)
+                .conditional(!state.selectedTechStacks.contains(state.searchText) && !state.searchText.isEmpty)
             }
         }
     }

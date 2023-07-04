@@ -17,7 +17,8 @@ public final class SigninComponent: Component<SigninDependency>, SigninBuildable
             model: model,
             signinDelegate: delegate,
             loginUseCase: dependency.authDomainBuildable.loginUseCase,
-            saveUserRoleUseCase: dependency.userDomainBuildable.saveUserRoleUseCase
+            saveUserRoleUseCase: dependency.userDomainBuildable.saveUserRoleUseCase,
+            clearTokenUseCase: dependency.authDomainBuildable.clearTokenUseCase
         )
         let container = MVIContainer(
             intent: intent as SigninIntentProtocol,

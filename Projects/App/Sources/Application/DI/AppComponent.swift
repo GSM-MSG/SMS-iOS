@@ -17,30 +17,32 @@ import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
-import MainFeature
-import MainFeatureInterface
 import FilterFeature
 import FilterFeatureInterface
-import RootFeature
-import TechStackAppendFeatureInterface
-import TechStackAppendFeature
-import TechStackDomainInterface
-import TechStackDomain
 import JwtStore
 import JwtStoreInterface
 import KeychainModule
 import KeychainModuleInterface
+import MainFeature
+import MainFeatureInterface
 import MajorDomain
 import MajorDomainInterface
 import NeedleFoundation
 import RootFeature
+import RootFeature
 import SigninFeature
 import SigninFeatureInterface
-import StudentDomain
-import StudentDomainInterface
+import SplashFeature
+import SplashFeatureInterface
 import StudentDetailFeature
 import StudentDetailFeatureInterface
+import StudentDomain
+import StudentDomainInterface
 import SwiftUI
+import TechStackAppendFeature
+import TechStackAppendFeatureInterface
+import TechStackDomain
+import TechStackDomainInterface
 import UserDomain
 import UserDomainInterface
 
@@ -99,6 +101,10 @@ final class AppComponent: BootstrapComponent {
 
     var filterBuildable: any FilterBuildable {
         FilterComponent(parent: self)
+    }
+
+    var splashBuildable: any SplashBuildable {
+        SplashComponent(parent: self)
     }
 
     var authDomainBuildable: any AuthDomainBuildable {

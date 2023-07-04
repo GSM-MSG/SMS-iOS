@@ -57,6 +57,7 @@ struct InputProfileInfoView: View {
                                 }
                                 .buttonWrapper {
                                     withAnimation {
+                                        focusField = nil
                                         intent.imageMethodPickerIsRequired()
                                     }
                                 }
@@ -107,11 +108,14 @@ struct InputProfileInfoView: View {
                                 SMSIcon(.downChevron)
                                     .padding([.top, .trailing], 12)
                             }
-                            .onTapGesture {
-                                focusField = nil
-                                intent.majorSheetIsRequired()
-                                intent.deActiveSelfEntering()
-                            }
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        focusField = nil
+                                        intent.majorSheetIsRequired()
+                                        intent.deActiveSelfEntering()
+                                    }
+                            )
                             .titleWrapper("분야")
 
                             SMSTextField(

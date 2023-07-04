@@ -6,6 +6,9 @@ final class TechStackAppendModel: ObservableObject, TechStackAppendStateProtocol
     @Published var techStacks: [String] = []
     @Published var selectedTechStacks: Set<String> = []
     @Published var recentTechStacks: [String] = []
+    @Published var isPresentedToast: Bool = false
+    @Published var toastMessage: String = ""
+    @Published var toastStyle: TechStackToastStyle = .appended
 
     init(initialTechStack: [String]) {
         self.selectedTechStacks = Set(initialTechStack)
@@ -44,5 +47,17 @@ extension TechStackAppendModel: TechStackAppendActionProtocol {
 
     func resetRecentTechStack() {
         recentTechStacks.removeAll()
+    }
+
+    func updateIsPresentedToast(isPresented: Bool) {
+        isPresentedToast = isPresented
+    }
+
+    func updateToastMessage(message: String) {
+        toastMessage = message
+    }
+
+    func updateToastStyle(style: TechStackToastStyle) {
+        toastStyle = style
     }
 }

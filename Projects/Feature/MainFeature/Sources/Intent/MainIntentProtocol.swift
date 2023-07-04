@@ -4,6 +4,7 @@ import FilterFeatureInterface
 
 protocol MainIntentProtocol: FilterDelegate {
     func reachedBottom(page: Int, isLast: Bool)
+    func refresh()
     func existActionSheetIsRequired()
     func existActionSheetDismissed()
     func filterIsRequired()

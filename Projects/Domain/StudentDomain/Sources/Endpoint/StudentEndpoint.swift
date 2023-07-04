@@ -48,14 +48,22 @@ extension StudentEndpoint: SMSEndpoint {
                 .lazy
                 .compactMap { (label: String?, value: Any) -> (String, Any)? in
                     guard let label = label,
-                          case Optional<Any>.some = value
+                          case Optional<Any>.some = value,
+                          let optionalValue = value as? Any?,
+                          let unwrapedValue = optionalValue
                     else { return nil }
 
                     if value is (any RawRepresentable),
                        let rawValue = (value as? (any RawRepresentable))?.rawValue {
                         return (label, "\(rawValue)")
                     }
-                    return (label, "\(value)")
+                    return (
+                        label,
+                        "\(unwrapedValue)"
+                            .replacingOccurrences(of: "[", with: "")
+                            .replacingOccurrences(of: "]", with: "")
+                            .replacingOccurrences(of: "\"", with: "")
+                    )
                 }
             let requestDictionary = Dictionary(uniqueKeysWithValues: requestQuery)
             return .requestParameters(query: requestDictionary)

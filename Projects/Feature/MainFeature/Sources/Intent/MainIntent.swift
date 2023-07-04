@@ -1,7 +1,8 @@
+import AuthDomainInterface
 import Combine
 import MainFeatureInterface
 import StudentDomainInterface
-import AuthDomainInterface
+import UserDomainInterface
 
 final class MainIntent: MainIntentProtocol {
     private weak var model: (any MainActionProtocol)?
@@ -9,19 +10,24 @@ final class MainIntent: MainIntentProtocol {
     private let fetchStudentListUseCase: any FetchStudentListUseCase
     private let logoutUseCase: any LogoutUseCase
     private let withdrawalUseCase: any WithdrawalUseCase
+    private let loadUserRoleUseCase: any LoadUserRoleUseCase
 
     init(
         model: any MainActionProtocol,
         mainDelegate: any MainDelegate,
         fetchStudentListUseCase: any FetchStudentListUseCase,
         logoutUseCase: any LogoutUseCase,
-        withdrawalUseCase: any WithdrawalUseCase
+        withdrawalUseCase: any WithdrawalUseCase,
+        loadUserRoleUseCase: any LoadUserRoleUseCase
     ) {
         self.mainDelegate = mainDelegate
         self.model = model
         self.fetchStudentListUseCase = fetchStudentListUseCase
         self.logoutUseCase = logoutUseCase
         self.withdrawalUseCase = withdrawalUseCase
+        self.loadUserRoleUseCase = loadUserRoleUseCase
+
+        model.updateUserRole(role: loadUserRoleUseCase.execute())
     }
 
     func reachedBottom(page: Int, isLast: Bool) {
@@ -32,6 +38,18 @@ final class MainIntent: MainIntentProtocol {
             model?.updateTotalSize(totalSize: studentList.totalSize)
             model?.updatePage(page: page + 1)
             model?.updateIsLast(isLast: studentList.isLast)
+        }
+    }
+
+    func refresh() {
+        model?.updateIsRefresh(isRefresh: true)
+        Task {
+            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: 1, size: 20))
+            model?.updateContent(content: studentList.studentList)
+            model?.updatePage(page: 2)
+            model?.updateTotalSize(totalSize: studentList.totalSize)
+            model?.updateIsLast(isLast: false)
+            model?.updateIsRefresh(isRefresh: false)
         }
     }
 

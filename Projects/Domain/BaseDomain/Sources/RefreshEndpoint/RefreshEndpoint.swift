@@ -2,7 +2,7 @@ import Emdpoint
 import Foundation
 
 enum RefreshEndpoint: SMSEndpoint {
-    case refresh
+    case refresh(refreshToken: String)
 }
 
 extension RefreshEndpoint {
@@ -19,7 +19,16 @@ extension RefreshEndpoint {
     }
 
     var jwtTokenType: JwtTokenType {
-        return .refreshToken
+        return .none
+    }
+
+    var headers: [String : String]? {
+        switch self {
+        case let .refresh(refreshToken):
+            return [
+                "Refresh-Token": refreshToken
+            ]
+        }
     }
 
     typealias ErrorType = Error
