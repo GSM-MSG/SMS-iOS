@@ -6,9 +6,9 @@ import BaseDomain
 import BaseFeature
 import FileDomain
 import FileDomainInterface
-import Foundation
 import FilterFeature
 import FilterFeatureInterface
+import Foundation
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -91,6 +91,9 @@ private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
     var authDomainBuildable: any AuthDomainBuildable {
         return appComponent.authDomainBuildable
     }
+    var filterBuildable: any FilterBuildable {
+        return appComponent.filterBuildable
+    }
     var studentDetailBuildable: any StudentDetailBuildable {
         return appComponent.studentDetailBuildable
     }
@@ -115,15 +118,17 @@ private func factorydc1feebed8f042db375fe3b0c44298fc1c149afb(_ component: Needle
     return InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider()
 }
 private class FilterDependencya3adf5d0affb84ca15efProvider: FilterDependency {
-
-
-    init() {
-
+    var techStackAppendBuildable: any TechStackAppendBuildable {
+        return appComponent.techStackAppendBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->FilterComponent
-private func factoryf50b858bcdf190c46b17e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return FilterDependencya3adf5d0affb84ca15efProvider()
+private func factoryf50b858bcdf190c46b17f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return FilterDependencya3adf5d0affb84ca15efProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     var signinBuildable: any SigninBuildable {
@@ -378,6 +383,7 @@ extension MainComponent: Registration {
     public func registerItems() {
         keyPathToName[\MainDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
         keyPathToName[\MainDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+        keyPathToName[\MainDependency.filterBuildable] = "filterBuildable-any FilterBuildable"
         keyPathToName[\MainDependency.studentDetailBuildable] = "studentDetailBuildable-any StudentDetailBuildable"
     }
 }
@@ -388,7 +394,7 @@ extension InputSchoolLifeInfoComponent: Registration {
 }
 extension FilterComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\FilterDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
     }
 }
 extension RootComponent: Registration {
@@ -494,14 +500,14 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-@inline(never) private func register1() {
+private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->FilterComponent", factoryf50b858bcdf190c46b17e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->FilterComponent", factoryf50b858bcdf190c46b17f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->SigninComponent", factory2882a056d84a613debccf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputMilitaryInfoComponent", factory6e35522c47cca1190471e3b0c44298fc1c149afb)

@@ -47,10 +47,6 @@ struct RootView: View {
             case .inputInformation:
                 inputInformationBuildable.makeView(delegate: intent)
                     .eraseToAnyView()
-
-            case .filter:
-                filterBuildable.makeView(delegate: intent)
-                    .eraseToAnyView()
             }
         }
         .animation(.default, value: state.sceneType)
