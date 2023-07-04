@@ -6,10 +6,7 @@ import SwiftUI
 import UIKit
 import UserDomainInterface
 import ViewUtil
-import StudentDetailFeatureInterface
 import FilterFeatureInterface
-import DesignSystem
-import NukeUI
 
 enum MainStudentIDProperty {
     static let studentScrollToTopID = "STUDENT_SCROLL_TO_TOP"

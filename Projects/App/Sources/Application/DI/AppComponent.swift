@@ -29,7 +29,6 @@ import MajorDomain
 import MajorDomainInterface
 import NeedleFoundation
 import RootFeature
-import RootFeature
 import SigninFeature
 import SigninFeatureInterface
 import SplashFeature

@@ -1,14 +1,11 @@
 import AuthDomainInterface
+import SwiftUI
 import BaseFeature
 import MainFeatureInterface
 import NeedleFoundation
 import StudentDetailFeatureInterface
 import StudentDomainInterface
-import AuthDomainInterface
-import StudentDetailFeatureInterface
 import FilterFeatureInterface
-import NeedleFoundation
-import BaseFeature
 import UserDomainInterface
 
 public protocol MainDependency: Dependency {
