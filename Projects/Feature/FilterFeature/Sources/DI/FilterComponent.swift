@@ -1,9 +1,11 @@
 import SwiftUI
 import FilterFeatureInterface
+import TechStackAppendFeatureInterface
 import BaseFeature
 import NeedleFoundation
 
 public protocol FilterDependency: Dependency {
+    var techStackAppendBuildable: any TechStackAppendBuildable { get }
 }
 
 public final class FilterComponent: Component<FilterDependency>, FilterBuildable {
@@ -18,6 +20,9 @@ public final class FilterComponent: Component<FilterDependency>, FilterBuildable
             model: model as FilterStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
-        return FilterView(container: container)
+        return FilterView(
+            container: container,
+            techStackAppendBuildable: dependency.techStackAppendBuildable
+        )
     }
 }
