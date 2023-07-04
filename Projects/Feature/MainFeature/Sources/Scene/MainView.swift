@@ -105,12 +105,13 @@ struct MainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    SMSIcon(.filter)
+                    SMSIcon(.filter, width: 24, height: 24)
+                        .padding(.trailing, 6)
                         .onTapGesture {
                             intent.filterIsRequired()
                         }
 
-                    SMSIcon(.profile)
+                    SMSIcon(.profile, width: 32, height: 32)
                         .clipShape(Circle())
                         .onTapGesture {
                             intent.existActionSheetIsRequired()
