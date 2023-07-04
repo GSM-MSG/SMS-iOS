@@ -12,4 +12,16 @@ final class FilterIntent: FilterIntentProtocol {
         self.filterDelegate = filterDelegate
         self.model = model
     }
+
+    func techStackAppendIsRequired() {
+        model?.updateIsPresentedTeckStackAppend(isPresented: true)
+    }
+
+    func techStackAppendDismissed() {
+        model?.updateIsPresentedTeckStackAppend(isPresented: false)
+    }
+
+    func techStackAppendDidComplete(techStacks: [String]) {
+        model?.updateTeckStacks(techStacks: techStacks)
+    }
 }
