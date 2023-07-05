@@ -1,4 +1,5 @@
 import Foundation
+import FilterFeatureInterface
 import StudentDomainInterface
 
 protocol FilterIntentProtocol {
@@ -24,4 +25,5 @@ protocol FilterIntentProtocol {
     func scoreSortTypeSelect(scoreSortType: SortType)
     func salarySortyTypeSelect(salarySortType: SortType)
     func clearFilter()
+    func filterCompleteButtonDidTap(state: any FilterStateProtocol)
 }

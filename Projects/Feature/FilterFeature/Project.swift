@@ -8,6 +8,11 @@ let project = Project.makeModule(
     targets: [.interface, .testing, .unitTest],
     internalDependencies: [
         .Feature.BaseFeature,
-        .Domain.MajorDomainInterface
+        .Domain.MajorDomainInterface,
+        .Domain.UserDomainInterface,
+        .Domain.StudentDomainInterface
+    ],
+    interfaceDependencies: [
+        .Domain.StudentDomainInterface
     ]
 )

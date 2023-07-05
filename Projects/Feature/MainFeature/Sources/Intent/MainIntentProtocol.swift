@@ -1,10 +1,10 @@
 import Foundation
-import StudentDomainInterface
 import FilterFeatureInterface
+import StudentDomainInterface
 
 protocol MainIntentProtocol: FilterDelegate {
-    func reachedBottom(page: Int, isLast: Bool)
-    func refresh()
+    func reachedBottom(page: Int, isLast: Bool, filterOption: FilterOption?)
+    func refresh(filterOption: FilterOption?)
     func existActionSheetIsRequired()
     func existActionSheetDismissed()
     func filterIsRequired()

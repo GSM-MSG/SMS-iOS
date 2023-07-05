@@ -31,6 +31,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var isPresentedFilterPage: Bool = false
     @Published var selectedUserID: String?
     @Published var currentUserRole: UserRoleType = .guest
+    @Published var filterOption: FilterOption?
 }
 // swiftlint: enable identifier_name
 
@@ -85,5 +86,9 @@ extension MainModel: MainActionProtocol {
 
     func updateUserRole(role: UserRoleType) {
         self.currentUserRole = role
+    }
+
+    func updateFilterOption(filterOpion: FilterOption?) {
+        self.filterOption = filterOpion
     }
 }

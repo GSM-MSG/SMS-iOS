@@ -69,12 +69,12 @@ struct MainView: View {
                             Color.clear
                                 .onAppear {
                                     guard !state.isRefresh else { return }
-                                    intent.reachedBottom(page: state.page, isLast: state.isLast)
+                                    intent.reachedBottom(page: state.page, isLast: state.isLast, filterOption: state.filterOption)
                                 }
                         }
                     }
                     .refreshable {
-                        intent.refresh()
+                        intent.refresh(filterOption: state.filterOption)
                     }
                     .overlay(alignment: .bottomTrailing) {
                         floatingButton {

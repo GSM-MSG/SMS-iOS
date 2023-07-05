@@ -14,6 +14,7 @@ protocol MainStateProtocol {
     var content: [SingleStudentEntity] { get }
     var selectedUserID: String? { get }
     var currentUserRole: UserRoleType { get }
+    var filterOption: FilterOption? { get }
 }
 
 protocol MainActionProtocol: AnyObject {
@@ -30,4 +31,5 @@ protocol MainActionProtocol: AnyObject {
     func updateIsRefresh(isRefresh: Bool)
     func updateSelectedUserID(userID: String?)
     func updateUserRole(role: UserRoleType)
+    func updateFilterOption(filterOpion: FilterOption?)
 }

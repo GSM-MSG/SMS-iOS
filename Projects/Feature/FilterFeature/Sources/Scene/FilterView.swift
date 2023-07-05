@@ -36,7 +36,7 @@ struct FilterView: View {
                     } else {
                         VStack(alignment: .leading, spacing: 40) {
                             ConditionView(state.userRole == .guest) {
-                                checkBoxCell(
+                                checkBoxSection(
                                     text: "학년",
                                     isSelected: {
                                         state.gradeSet.contains($0)
@@ -54,7 +54,7 @@ struct FilterView: View {
                                     SMSText("\(text.rawValue)학년", font: .body2)
                                 }
 
-                                checkBoxCell(
+                                checkBoxSection(
                                     text: "반",
                                     isSelected: {
                                         state.classSet.contains($0)
@@ -72,7 +72,7 @@ struct FilterView: View {
                                     SMSText("\(text.rawValue)반", font: .body2)
                                 }
 
-                                checkBoxCell(
+                                checkBoxSection(
                                     text: "학과",
                                     isSelected: {
                                         state.departmentSet.contains($0)
@@ -91,7 +91,7 @@ struct FilterView: View {
                                 }
                             }
 
-                            checkBoxCell(
+                            checkBoxSection(
                                 text: "분야",
                                 isSelected: {
                                     state.majorSet.contains($0)
@@ -111,7 +111,7 @@ struct FilterView: View {
 
                             ConditionView(state.userRole == .guest) {
                                 ConditionView(state.userRole == .guest) {
-                                    checkBoxCell(
+                                    checkBoxSection(
                                         text: "희망 고용 형태",
                                         isSelected: {
                                             state.formOfEmploymentSet.contains($0)
@@ -349,6 +349,8 @@ struct FilterView: View {
                 }
 
                 FillButton(text: "확인") {
+                    intent.filterCompleteButtonDidTap(state: state)
+                    dismiss()
                 }
                 .padding(.bottom, safeAreaInsets.bottom)
                 .background {
@@ -397,7 +399,7 @@ struct FilterView: View {
     }
 
     @ViewBuilder
-    func checkBoxCell<T, ID, Content>(
+    func checkBoxSection<T, ID, Content>(
         text: String,
         isSelected: @escaping (T) -> Bool,
         selectAction: @escaping (T) -> Void,
