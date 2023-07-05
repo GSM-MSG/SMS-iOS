@@ -58,7 +58,7 @@ public struct RangedSliderView: View {
                         let newValue = sliderBounds.lowerBound + Int(xThumbOffset / stepWidthInPixel)
 
                         if newValue < maxValue {
-                            minValue = newValue + betweenValue < maxValue ? newValue : maxValue - betweenValue
+                            minValue = newValue
                         }
                     })
 
@@ -69,10 +69,9 @@ public struct RangedSliderView: View {
 
                         var newValue = Int(xThumbOffset / stepWidthInPixel)
                         newValue = min(newValue, sliderBounds.upperBound)
-                        print(newValue)
 
                         if newValue > minValue {
-                            maxValue = newValue - betweenValue > minValue ? newValue : minValue + betweenValue
+                            maxValue = newValue
                         }
                     })
             }
