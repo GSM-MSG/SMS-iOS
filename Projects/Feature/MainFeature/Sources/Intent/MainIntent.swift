@@ -32,9 +32,12 @@ final class MainIntent: MainIntentProtocol {
     }
 
     func reachedBottom(page: Int, isLast: Bool, filterOption: FilterOption?) {
-        guard let filterOption, !isLast else { return }
         Task {
-            let req = filterOption.toRequestDTO(page: page, size: 20)
+            let req = if let filterOption {
+                filterOption.toRequestDTO(page: page, size: 20)
+            } else {
+                FetchStudentListRequestDTO(page: page, size: 20)
+            }
             let studentList = try await fetchStudentListUseCase.execute(req: req)
             model?.appendContent(content: studentList.studentList)
             model?.updateTotalSize(totalSize: studentList.totalSize)
@@ -44,10 +47,13 @@ final class MainIntent: MainIntentProtocol {
     }
 
     func refresh(filterOption: FilterOption?) {
-        guard let filterOption else { return }
         model?.updateIsRefresh(isRefresh: true)
         Task {
-            let req = filterOption.toRequestDTO(page: 1, size: 20)
+            let req = if let filterOption {
+                filterOption.toRequestDTO(page: 1, size: 20)
+            } else {
+                FetchStudentListRequestDTO(page: 1, size: 20)
+            }
             let studentList = try await fetchStudentListUseCase.execute(req: req)
             model?.updateContent(content: studentList.studentList)
             model?.updatePage(page: 2)
@@ -125,5 +131,6 @@ final class MainIntent: MainIntentProtocol {
 extension MainIntent: FilterDelegate {
     func filterDidCompleted(filterOption: FilterOptionDTO?) {
         model?.updateFilterOption(filterOpion: .init(dto: filterOption ?? .init()))
+        model?.updatePage(page: 1)
     }
 }

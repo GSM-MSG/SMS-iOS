@@ -5,8 +5,8 @@ import StudentDomainInterface
 public struct FilterOption {
     public let majors: [String]?
     public let techStacks: [String]?
-    public let grade: Int?
-    public let classNum: Int?
+    public let grade: [Int]?
+    public let classNum: [Int]?
     public let department: [String]?
     public let stuNumSort: SortType?
     public let formOfEmployment: [String]?

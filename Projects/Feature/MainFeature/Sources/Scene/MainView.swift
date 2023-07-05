@@ -69,7 +69,11 @@ struct MainView: View {
                             Color.clear
                                 .onAppear {
                                     guard !state.isRefresh else { return }
-                                    intent.reachedBottom(page: state.page, isLast: state.isLast, filterOption: state.filterOption)
+                                    intent.reachedBottom(
+                                        page: state.page,
+                                        isLast: state.isLast,
+                                        filterOption: state.filterOption
+                                    )
                                 }
                         }
                     }
