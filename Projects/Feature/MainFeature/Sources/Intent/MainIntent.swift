@@ -33,10 +33,11 @@ final class MainIntent: MainIntentProtocol {
 
     func reachedBottom(page: Int, isLast: Bool, filterOption: FilterOption?) {
         Task {
-            let req = if let filterOption {
-                filterOption.toRequestDTO(page: page, size: 20)
+            let req: FetchStudentListRequestDTO
+            if let filterOption {
+                req = filterOption.toRequestDTO(page: page, size: 20)
             } else {
-                FetchStudentListRequestDTO(page: page, size: 20)
+                req = FetchStudentListRequestDTO(page: page, size: 20)
             }
             let studentList = try await fetchStudentListUseCase.execute(req: req)
             model?.appendContent(content: studentList.studentList)
@@ -49,10 +50,11 @@ final class MainIntent: MainIntentProtocol {
     func refresh(filterOption: FilterOption?) {
         model?.updateIsRefresh(isRefresh: true)
         Task {
-            let req = if let filterOption {
-                filterOption.toRequestDTO(page: 1, size: 20)
+            let req: FetchStudentListRequestDTO
+            if let filterOption {
+                req = filterOption.toRequestDTO(page: 1, size: 20)
             } else {
-                FetchStudentListRequestDTO(page: 1, size: 20)
+                req = FetchStudentListRequestDTO(page: 1, size: 20)
             }
             let studentList = try await fetchStudentListUseCase.execute(req: req)
             model?.updateContent(content: studentList.studentList)
