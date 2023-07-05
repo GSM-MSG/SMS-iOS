@@ -1,5 +1,4 @@
 import Foundation
-import FilterFeatureInterface
 import StudentDomainInterface
 
 public struct FilterOption {
