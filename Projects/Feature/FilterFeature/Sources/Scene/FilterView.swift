@@ -374,7 +374,9 @@ struct FilterView: View {
             text: "희망 연봉",
             data: SortType.allCases,
             id: \.self,
-            isSelected: ==state.salarySortType,
+            isSelected: {
+                state.salarySortType == $0
+            },
             selectAction: {
                 intent.salarySortyTypeSelect(salarySortType: $0)
             }
