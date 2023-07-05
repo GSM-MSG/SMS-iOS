@@ -4,10 +4,8 @@ import StudentDomainInterface
 
 final class FilterModel: ObservableObject, FilterStateProtocol {
     @Published var userRole: UserRoleType = .guest
-    @Published var isError: Bool = false
     @Published var isPresentedTechStackAppend: Bool = false
     @Published var techStacks: [String] = []
-    @Published var isLoading: Bool = false
     @Published var gradeSet: Set<GradeType> = []
     @Published var classSet: Set<ClassType> = []
     @Published var departmentSet: Set<DepartmentType> = []
@@ -24,20 +22,12 @@ final class FilterModel: ObservableObject, FilterStateProtocol {
 }
 
 extension FilterModel: FilterActionProtocol {
-    func updateIsError(isError: Bool) {
-        self.isError = isError
-    }
-
     func updateIsPresentedTeckStackAppend(isPresented: Bool) {
         self.isPresentedTechStackAppend = isPresented
     }
 
     func updateTeckStacks(techStacks: [String]) {
         self.techStacks = techStacks
-    }
-
-    func updateIsLoading(isLoading: Bool) {
-        self.isLoading = isLoading
     }
 
     func updateUserRole(role: UserRoleType) {

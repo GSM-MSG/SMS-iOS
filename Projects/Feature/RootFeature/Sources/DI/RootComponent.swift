@@ -5,13 +5,11 @@ import NeedleFoundation
 import SigninFeatureInterface
 import SplashFeatureInterface
 import SwiftUI
-import FilterFeatureInterface
 
 public protocol RootDependency: Dependency {
     var signinBuildable: any SigninBuildable { get }
     var inputInformationBuildable: any InputInformationBuildable { get }
     var mainBuildable: any MainBuildable { get }
-    var filterBuildable: any FilterBuildable { get }
     var splashBuildable: any SplashBuildable { get }
 }
 
@@ -28,7 +26,6 @@ public final class RootComponent: Component<RootDependency> {
             signinBuildable: dependency.signinBuildable,
             inputInformationBuildable: dependency.inputInformationBuildable,
             mainBuildable: dependency.mainBuildable,
-            filterBuildable: dependency.filterBuildable,
             splashBuildable: dependency.splashBuildable,
             container: container
         )

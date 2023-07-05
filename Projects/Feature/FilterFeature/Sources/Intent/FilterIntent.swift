@@ -47,43 +47,24 @@ final class FilterIntent: FilterIntentProtocol {
     }
 
     func lowerSalaryValue(lowValue: String, upperValue: Int) {
-        let low: String
-        if lowValue.contains("만원") {
-            low = lowValue.replacingOccurrences(of: "만원", with: "")
-        } else if lowValue.contains("만") {
-            var replacing = lowValue.replacingOccurrences(of: "만", with: "")
-            replacing.removeLast()
-            low = replacing
-        } else {
-            low = lowValue
-        }
-        if Int(low) ?? 0 > upperValue {
+        let low = removeCurrency(lowValue)
+
+        if low > upperValue {
             model?.updateLowerSalaryValue(lowerValue: upperValue)
         } else {
-            model?.updateLowerSalaryValue(lowerValue: Int(low) ?? 0)
+            model?.updateLowerSalaryValue(lowerValue: low)
         }
     }
 
     func upperSalaryValue(lowValue: Int, upperValue: String) {
-        let upp: String
-        if upperValue.contains("만원") {
-            upp = upperValue.replacingOccurrences(of: "만원", with: "")
-        } else if upperValue.contains("만") {
-            var replacing = upperValue.replacingOccurrences(of: "만", with: "")
-            replacing.removeLast()
-            upp = replacing
-        } else {
-            upp = upperValue
-        }
+        let upp = removeCurrency(upperValue)
 
-        if Int(upp) ?? 0 > 9999 {
+        if upp > 9999 {
             model?.updateUpperSalaryValue(upperValue: 9999)
+        } else if upp < lowValue {
+            model?.updateUpperSalaryValue(upperValue: lowValue)
         } else {
-            if Int(upp) ?? 0 < lowValue {
-                model?.updateUpperSalaryValue(upperValue: lowValue)
-            } else {
-                model?.updateUpperSalaryValue(upperValue: Int(upp) ?? 0)
-            }
+            model?.updateUpperSalaryValue(upperValue: upp)
         }
     }
 
@@ -174,5 +155,23 @@ final class FilterIntent: FilterIntentProtocol {
                     salarySort: state.salarySortType
                 )
         )
+    }
+}
+
+private extension FilterIntent {
+    func removeCurrency(_ input: String) -> Int {
+        let output: String
+
+        if input.contains("만원") {
+            output = input.replacingOccurrences(of: "만원", with: "")
+        } else if input.contains("만") {
+            var replacing = input.replacingOccurrences(of: "만", with: "")
+            replacing.removeLast()
+            output = replacing
+        } else {
+            output = input
+        }
+
+        return Int(output) ?? 0
     }
 }

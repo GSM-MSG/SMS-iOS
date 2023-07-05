@@ -1,22 +1,23 @@
 import Foundation
+import FilterFeatureInterface
 import StudentDomainInterface
 
-public struct FilterOption {
-    public let majors: [String]?
-    public let techStacks: [String]?
-    public let grade: [Int]?
-    public let classNum: [Int]?
-    public let department: [String]?
-    public let stuNumSort: SortType?
-    public let formOfEmployment: [String]?
-    public let minGsmAuthenticationScore: Int?
-    public let maxGsmAuthenticationScore: Int?
-    public let gsmAuthenticationScoreSort: SortType?
-    public let minSalary: Int?
-    public let maxSalary: Int?
-    public let salarySort: SortType?
+struct FilterOption {
+    let majors: [String]?
+    let techStacks: [String]?
+    let grade: [Int]?
+    let classNum: [Int]?
+    let department: [String]?
+    let stuNumSort: SortType?
+    let formOfEmployment: [String]?
+    let minGsmAuthenticationScore: Int?
+    let maxGsmAuthenticationScore: Int?
+    let gsmAuthenticationScoreSort: SortType?
+    let minSalary: Int?
+    let maxSalary: Int?
+    let salarySort: SortType?
 
-    public init(
+    init(
         dto: FilterOptionDTO
     ) {
         self.majors = dto.majors

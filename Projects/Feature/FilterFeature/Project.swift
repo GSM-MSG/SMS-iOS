@@ -8,6 +8,7 @@ let project = Project.makeModule(
     targets: [.interface, .testing, .unitTest],
     internalDependencies: [
         .Feature.BaseFeature,
+        .Feature.TechStackAppendFeatureInterface,
         .Domain.MajorDomainInterface,
         .Domain.UserDomainInterface,
         .Domain.StudentDomainInterface

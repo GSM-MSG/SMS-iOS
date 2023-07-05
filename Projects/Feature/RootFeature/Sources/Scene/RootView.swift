@@ -15,21 +15,18 @@ struct RootView: View {
     private let signinBuildable: any SigninBuildable
     private let inputInformationBuildable: any InputInformationBuildable
     private let mainBuildable: any MainBuildable
-    private let filterBuildable: any FilterBuildable
     private let splashBuildable: any SplashBuildable
 
     init(
         signinBuildable: any SigninBuildable,
         inputInformationBuildable: any InputInformationBuildable,
         mainBuildable: any MainBuildable,
-        filterBuildable: any FilterBuildable,
         splashBuildable: any SplashBuildable,
         container: MVIContainer<RootIntentProtocol, RootStateProtocol>
     ) {
         self.signinBuildable = signinBuildable
         self.inputInformationBuildable = inputInformationBuildable
         self.mainBuildable = mainBuildable
-        self.filterBuildable = filterBuildable
         self.splashBuildable = splashBuildable
         self._container = StateObject(wrappedValue: container)
     }

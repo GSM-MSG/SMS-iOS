@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import DesignSystem
 
-public struct RangedSliderView: View {
+struct RangedSliderView: View {
     @Binding var minValue: Int
     @Binding var maxValue: Int
     let sliderBounds: ClosedRange<Int>
@@ -17,14 +17,14 @@ public struct RangedSliderView: View {
         self.sliderBounds = bounds
     }
 
-    public var body: some View {
+    var body: some View {
         GeometryReader { geometry in
             sliderView(sliderSize: geometry.size)
         }
     }
 
     @ViewBuilder
-    private func sliderView(sliderSize: CGSize) -> some View {
+    func sliderView(sliderSize: CGSize) -> some View {
         let sliderViewYCenter = sliderSize.height / 2
         ZStack {
             RoundedRectangle(cornerRadius: 2)

@@ -1,7 +1,7 @@
 import Foundation
 
 final class RootModel: ObservableObject, RootStateProtocol {
-    @Published var sceneType: RootSceneType = .main
+    @Published var sceneType: RootSceneType = .signin
 }
 
 extension RootModel: RootActionProtocol {
