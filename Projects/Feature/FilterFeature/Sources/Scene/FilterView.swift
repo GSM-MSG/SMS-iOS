@@ -282,7 +282,7 @@ struct FilterView: View {
                                     ) { text in
                                         SMSText(text.display, font: .body2)
                                     }
-//
+
                                     radioCell(
                                         text: "희망 연봉",
                                         isSelected: {
