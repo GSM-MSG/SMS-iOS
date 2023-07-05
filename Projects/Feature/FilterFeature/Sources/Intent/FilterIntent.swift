@@ -150,4 +150,8 @@ final class FilterIntent: FilterIntentProtocol {
     func salarySortyTypeSelect(salarySortType: SortType) {
         model?.insertSalarySortType(salarySortType: salarySortType)
     }
+
+    func clearFilter() {
+        model?.resetState()
+    }
 }

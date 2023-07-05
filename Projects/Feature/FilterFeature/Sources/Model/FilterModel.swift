@@ -115,4 +115,20 @@ extension FilterModel: FilterActionProtocol {
     func insertSalarySortType(salarySortType: SortType) {
         self.salarySortType = salarySortType
     }
+
+    func resetState() {
+        self.techStacks = []
+        self.gradeSet = []
+        self.classSet = []
+        self.departmentSet = []
+        self.majorSet = []
+        self.formOfEmploymentSet = []
+        self.lowerScoreValue = 0
+        self.upperScoreValue = 2000
+        self.lowerSalaryValue = 0
+        self.upperSalaryValue = 9999
+        self.stuNumSortType = .asc
+        self.scoreSortType = .asc
+        self.salarySortType = .asc
+    }
 }

@@ -365,7 +365,7 @@ struct FilterView: View {
                 SMSText("초기화", font: .body2)
                     .foregroundStyle(Color.sms(.system(.black)))
                     .onTapGesture {
-                        // TODO: 필터 값 다 지우기
+                        intent.clearFilter()
                     }
             }
         }

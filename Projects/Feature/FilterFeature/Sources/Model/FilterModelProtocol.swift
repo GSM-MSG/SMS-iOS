@@ -59,4 +59,5 @@ protocol FilterActionProtocol: AnyObject {
     func insertStuNumSortType(stuNumSortType: SortType)
     func insertScoreSortType(scoreSortType: SortType)
     func insertSalarySortType(salarySortType: SortType)
+    func resetState()
 }

@@ -23,4 +23,5 @@ protocol FilterIntentProtocol {
     func stuNumSortTypeSelect(stuNumSortType: SortType)
     func scoreSortTypeSelect(scoreSortType: SortType)
     func salarySortyTypeSelect(salarySortType: SortType)
+    func clearFilter()
 }
