@@ -237,8 +237,7 @@ struct FilterView: View {
             HStack {
                 SMSTextField(
                     "",
-                    text:
-                        Binding<String>(
+                    text: Binding<String>(
                             get: { "\(state.lowerScoreValue)" },
                             set: { newValue in
                                 intent.lowerScoreValue(
@@ -256,8 +255,7 @@ struct FilterView: View {
 
                 SMSTextField(
                     "",
-                    text:
-                        Binding<String>(
+                    text: Binding<String>(
                             get: { "\(state.upperScoreValue)" },
                             set: { newValue in
                                 intent.upperScoreValue(
@@ -301,8 +299,7 @@ struct FilterView: View {
             HStack {
                 SMSTextField(
                     "",
-                    text:
-                        Binding<String>(
+                    text: Binding<String>(
                             get: { "\(state.lowerSalaryValue)만원" },
                             set: { newValue in
                                 intent.lowerSalaryValue(
@@ -320,8 +317,7 @@ struct FilterView: View {
 
                 SMSTextField(
                     "",
-                    text:
-                        Binding<String>(
+                    text: Binding<String>(
                             get: { "\(state.upperSalaryValue)만원" },
                             set: { newValue in
                                 intent.upperSalaryValue(
@@ -378,9 +374,7 @@ struct FilterView: View {
             text: "희망 연봉",
             data: SortType.allCases,
             id: \.self,
-            isSelected: {
-                state.salarySortType == $0
-            },
+            isSelected: ==state.salarySortType,
             selectAction: {
                 intent.salarySortyTypeSelect(salarySortType: $0)
             }
