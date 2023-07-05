@@ -109,8 +109,8 @@ struct MainView: View {
                 when: Binding(
                     get: { state.isPresentedFilterPage },
                     set: { _ in intent.filterDismissed() }
-                    )
                 )
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
