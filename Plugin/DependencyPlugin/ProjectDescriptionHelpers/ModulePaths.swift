@@ -14,6 +14,7 @@ public extension ModulePaths {
         case MainFeature
         case TechStackAppendFeature
         case StudentDetailFeature
+        case FilterFeature
         case InputInformationBaseFeature
         case RootFeature
         case InputLanguageInfoFeature

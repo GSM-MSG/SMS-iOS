@@ -6,6 +6,7 @@ import SwiftUI
 import UIKit
 import UserDomainInterface
 import ViewUtil
+import FilterFeatureInterface
 
 enum MainStudentIDProperty {
     static let studentScrollToTopID = "STUDENT_SCROLL_TO_TOP"
@@ -17,13 +18,16 @@ struct MainView: View {
     var intent: any MainIntentProtocol { container.intent }
     var state: any MainStateProtocol { container.model }
     private let studentDetailBuildable: any StudentDetailBuildable
+    private let filterBuildable: any FilterBuildable
 
     init(
         container: MVIContainer<MainIntentProtocol, MainStateProtocol>,
-        studentDetailBuildable: any StudentDetailBuildable
+        studentDetailBuildable: any StudentDetailBuildable,
+        filterBuildable: any FilterBuildable
     ) {
         self._container = StateObject(wrappedValue: container)
         self.studentDetailBuildable = studentDetailBuildable
+        self.filterBuildable = filterBuildable
     }
 
     var body: some View {
@@ -65,12 +69,16 @@ struct MainView: View {
                             Color.clear
                                 .onAppear {
                                     guard !state.isRefresh else { return }
-                                    intent.reachedBottom(page: state.page, isLast: state.isLast)
+                                    intent.reachedBottom(
+                                        page: state.page,
+                                        isLast: state.isLast,
+                                        filterOption: state.filterOption
+                                    )
                                 }
                         }
                     }
                     .refreshable {
-                        intent.refresh()
+                        intent.refresh(filterOption: state.filterOption)
                     }
                     .overlay(alignment: .bottomTrailing) {
                         floatingButton {
@@ -96,10 +104,23 @@ struct MainView: View {
                     .eraseToAnyView()
                 }
             }
+            .navigate(
+                to: filterBuildable.makeView(delegate: intent).eraseToAnyView(),
+                when: Binding(
+                    get: { state.isPresentedFilterPage },
+                    set: { _ in intent.filterDismissed() }
+                )
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    SMSIcon(.profile)
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    SMSIcon(.filter, width: 24, height: 24)
+                        .padding(.trailing, 6)
+                        .onTapGesture {
+                            intent.filterIsRequired()
+                        }
+
+                    SMSIcon(.profile, width: 32, height: 32)
                         .clipShape(Circle())
                         .onTapGesture {
                             intent.existActionSheetIsRequired()

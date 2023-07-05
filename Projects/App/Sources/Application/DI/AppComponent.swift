@@ -17,6 +17,8 @@ import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
+import FilterFeature
+import FilterFeatureInterface
 import JwtStore
 import JwtStoreInterface
 import KeychainModule
@@ -26,7 +28,6 @@ import MainFeatureInterface
 import MajorDomain
 import MajorDomainInterface
 import NeedleFoundation
-import RootFeature
 import RootFeature
 import SigninFeature
 import SigninFeatureInterface
@@ -95,6 +96,10 @@ final class AppComponent: BootstrapComponent {
 
     var studentDetailBuildable: any StudentDetailBuildable {
         StudentDetailComponent(parent: self)
+    }
+
+    var filterBuildable: any FilterBuildable {
+        FilterComponent(parent: self)
     }
 
     var splashBuildable: any SplashBuildable {

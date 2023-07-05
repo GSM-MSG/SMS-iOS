@@ -1,15 +1,17 @@
 import AuthDomainInterface
+import SwiftUI
 import BaseFeature
 import MainFeatureInterface
 import NeedleFoundation
 import StudentDetailFeatureInterface
 import StudentDomainInterface
-import SwiftUI
+import FilterFeatureInterface
 import UserDomainInterface
 
 public protocol MainDependency: Dependency {
     var studentDomainBuildable: any StudentDomainBuildable { get }
     var authDomainBuildable: any AuthDomainBuildable { get }
+    var filterBuildable: any FilterBuildable { get }
     var studentDetailBuildable: any StudentDetailBuildable { get }
     var userDomainBuildable: any UserDomainBuildable { get }
 }
@@ -32,7 +34,8 @@ public final class MainComponent: Component<MainDependency>, MainBuildable {
         )
         return MainView(
             container: container,
-            studentDetailBuildable: dependency.studentDetailBuildable
+            studentDetailBuildable: dependency.studentDetailBuildable,
+            filterBuildable: dependency.filterBuildable
         )
     }
 }

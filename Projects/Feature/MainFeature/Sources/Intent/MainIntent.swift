@@ -1,4 +1,5 @@
 import AuthDomainInterface
+import FilterFeatureInterface
 import Combine
 import MainFeatureInterface
 import StudentDomainInterface
@@ -30,10 +31,15 @@ final class MainIntent: MainIntentProtocol {
         model.updateUserRole(role: loadUserRoleUseCase.execute())
     }
 
-    func reachedBottom(page: Int, isLast: Bool) {
-        guard !isLast else { return }
+    func reachedBottom(page: Int, isLast: Bool, filterOption: FilterOption?) {
         Task {
-            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: page, size: 20))
+            let req: FetchStudentListRequestDTO
+            if let filterOption {
+                req = filterOption.toRequestDTO(page: page, size: 20)
+            } else {
+                req = FetchStudentListRequestDTO(page: page, size: 20)
+            }
+            let studentList = try await fetchStudentListUseCase.execute(req: req)
             model?.appendContent(content: studentList.studentList)
             model?.updateTotalSize(totalSize: studentList.totalSize)
             model?.updatePage(page: page + 1)
@@ -41,10 +47,16 @@ final class MainIntent: MainIntentProtocol {
         }
     }
 
-    func refresh() {
+    func refresh(filterOption: FilterOption?) {
         model?.updateIsRefresh(isRefresh: true)
         Task {
-            let studentList = try await fetchStudentListUseCase.execute(req: .init(page: 1, size: 20))
+            let req: FetchStudentListRequestDTO
+            if let filterOption {
+                req = filterOption.toRequestDTO(page: 1, size: 20)
+            } else {
+                req = FetchStudentListRequestDTO(page: 1, size: 20)
+            }
+            let studentList = try await fetchStudentListUseCase.execute(req: req)
             model?.updateContent(content: studentList.studentList)
             model?.updatePage(page: 2)
             model?.updateTotalSize(totalSize: studentList.totalSize)
@@ -59,6 +71,14 @@ final class MainIntent: MainIntentProtocol {
 
     func existActionSheetDismissed() {
         model?.updateIsPresentedExistActionSheet(isPresented: false)
+    }
+
+    func filterIsRequired() {
+        model?.updateIsPresentedFilterPage(isPresented: true)
+    }
+
+    func filterDismissed() {
+        model?.updateIsPresentedFilterPage(isPresented: false)
     }
 
     func logoutDialogIsRequired() {
@@ -107,5 +127,12 @@ final class MainIntent: MainIntentProtocol {
 
     func studentDetailDismissed() {
         model?.updateSelectedUserID(userID: nil)
+    }
+}
+
+extension MainIntent: FilterDelegate {
+    func filterDidCompleted(filterOption: FilterOptionDTO?) {
+        model?.updateFilterOption(filterOpion: .init(dto: filterOption ?? .init()))
+        model?.updatePage(page: 1)
     }
 }

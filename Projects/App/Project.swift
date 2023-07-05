@@ -50,6 +50,7 @@ let targets: [Target] = [
             .Feature.SplashFeature,
             .Feature.TechStackAppendFeature,
             .Feature.StudentDetailFeature,
+            .Feature.FilterFeature,
             .Domain.AuthDomain,
             .Domain.StudentDomain,
             .Domain.FileDomain,

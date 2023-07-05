@@ -28,8 +28,10 @@ final class MainModel: ObservableObject, MainStateProtocol {
         }
     }
     @Published var _content: [SingleStudentEntity] = []
+    @Published var isPresentedFilterPage: Bool = false
     @Published var selectedUserID: String?
     @Published var currentUserRole: UserRoleType = .guest
+    @Published var filterOption: FilterOption?
 }
 // swiftlint: enable identifier_name
 
@@ -62,6 +64,10 @@ extension MainModel: MainActionProtocol {
         self.isPresentedWithdrawalDialog = isPresented
     }
 
+    func updateIsPresentedFilterPage(isPresented: Bool) {
+        self.isPresentedFilterPage = isPresented
+    }
+
     func appendContent(content: [SingleStudentEntity]) {
         self.content.append(contentsOf: content)
     }
@@ -80,5 +86,9 @@ extension MainModel: MainActionProtocol {
 
     func updateUserRole(role: UserRoleType) {
         self.currentUserRole = role
+    }
+
+    func updateFilterOption(filterOpion: FilterOption?) {
+        self.filterOption = filterOpion
     }
 }

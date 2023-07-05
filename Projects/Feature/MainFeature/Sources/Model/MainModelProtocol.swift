@@ -10,9 +10,11 @@ protocol MainStateProtocol {
     var isPresentedExistActionSheet: Bool { get }
     var isPresentedLogoutDialog: Bool { get }
     var isPresentedWithdrawalDialog: Bool { get }
+    var isPresentedFilterPage: Bool { get }
     var content: [SingleStudentEntity] { get }
     var selectedUserID: String? { get }
     var currentUserRole: UserRoleType { get }
+    var filterOption: FilterOption? { get }
 }
 
 protocol MainActionProtocol: AnyObject {
@@ -23,9 +25,11 @@ protocol MainActionProtocol: AnyObject {
     func updateIsPresentedExistActionSheet(isPresented: Bool)
     func updateIsPresentedLogoutDialog(isPresented: Bool)
     func updateIsPresentedWithdrawalDialog(isPresented: Bool)
+    func updateIsPresentedFilterPage(isPresented: Bool)
     func appendContent(content: [SingleStudentEntity])
     func updateContent(content: [SingleStudentEntity])
     func updateIsRefresh(isRefresh: Bool)
     func updateSelectedUserID(userID: String?)
     func updateUserRole(role: UserRoleType)
+    func updateFilterOption(filterOpion: FilterOption?)
 }

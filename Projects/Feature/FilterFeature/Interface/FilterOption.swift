@@ -1,8 +1,7 @@
 import Foundation
+import StudentDomainInterface
 
-public struct FetchStudentListRequestDTO: Encodable {
-    public let page: Int
-    public let size: Int
+public struct FilterOptionDTO {
     public let majors: [String]?
     public let techStacks: [String]?
     public let grade: [Int]?
@@ -18,8 +17,6 @@ public struct FetchStudentListRequestDTO: Encodable {
     public let salarySort: SortType?
 
     public init(
-        page: Int,
-        size: Int,
         majors: [String]? = nil,
         techStacks: [String]? = nil,
         grade: [Int]? = nil,
@@ -34,8 +31,6 @@ public struct FetchStudentListRequestDTO: Encodable {
         maxSalary: Int? = nil,
         salarySort: SortType? = nil
     ) {
-        self.page = page
-        self.size = size
         self.majors = majors
         self.techStacks = techStacks
         self.grade = grade

@@ -2,6 +2,7 @@ import BaseFeature
 import InputInformationFeatureInterface
 import MainFeatureInterface
 import SigninFeatureInterface
+import FilterFeatureInterface
 import SplashFeatureInterface
 import SwiftUI
 import ViewUtil
