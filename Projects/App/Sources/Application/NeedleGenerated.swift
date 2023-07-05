@@ -139,6 +139,9 @@ private class FilterDependencya3adf5d0affb84ca15efProvider: FilterDependency {
     var techStackAppendBuildable: any TechStackAppendBuildable {
         return appComponent.techStackAppendBuildable
     }
+    var majorDomainBuildable: any MajorDomainBuildable {
+        return appComponent.majorDomainBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -422,6 +425,7 @@ extension InputSchoolLifeInfoComponent: Registration {
 extension FilterComponent: Registration {
     public func registerItems() {
         keyPathToName[\FilterDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
+        keyPathToName[\FilterDependency.majorDomainBuildable] = "majorDomainBuildable-any MajorDomainBuildable"
     }
 }
 extension RootComponent: Registration {
