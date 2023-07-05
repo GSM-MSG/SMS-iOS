@@ -135,23 +135,24 @@ final class FilterIntent: FilterIntentProtocol {
     }
 
     func filterCompleteButtonDidTap(state: any FilterStateProtocol) {
+        let filterOption: FilterOptionDTO =
+            .init(
+                majors: Array(state.majorSet),
+                techStacks: state.techStacks,
+                grade: state.gradeSet.map(\.rawValue),
+                classNum: state.classSet.map(\.rawValue),
+                department: state.departmentSet.map(\.rawValue),
+                stuNumSort: state.stuNumSortType,
+                formOfEmployment: state.formOfEmploymentSet.map(\.rawValue),
+                minGsmAuthenticationScore: state.lowerScoreValue,
+                maxGsmAuthenticationScore: state.upperScoreValue,
+                gsmAuthenticationScoreSort: state.scoreSortType,
+                minSalary: state.lowerSalaryValue,
+                maxSalary: state.upperSalaryValue,
+                salarySort: state.salarySortType
+            )
         filterDelegate?.filterDidCompleted(
-            filterOption:
-                .init(
-                    majors: Array(state.majorSet),
-                    techStacks: state.techStacks,
-                    grade: state.gradeSet.map(\.rawValue),
-                    classNum: state.classSet.map(\.rawValue),
-                    department: state.departmentSet.map(\.rawValue),
-                    stuNumSort: state.stuNumSortType,
-                    formOfEmployment: state.formOfEmploymentSet.map(\.rawValue),
-                    minGsmAuthenticationScore: state.lowerScoreValue,
-                    maxGsmAuthenticationScore: state.upperScoreValue,
-                    gsmAuthenticationScoreSort: state.scoreSortType,
-                    minSalary: state.lowerSalaryValue,
-                    maxSalary: state.upperSalaryValue,
-                    salarySort: state.salarySortType
-                )
+            filterOption: filterOption
         )
     }
 }
