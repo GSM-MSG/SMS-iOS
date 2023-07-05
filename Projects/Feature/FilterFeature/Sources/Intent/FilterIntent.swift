@@ -37,12 +37,10 @@ final class FilterIntent: FilterIntentProtocol {
     func upperScoreValue(lowValue: Int, upperValue: String) {
         if Int(upperValue) ?? 0 > 2000 {
             model?.updateUpperScoreValue(upperValue: 2000)
-        } else {
-            if Int(upperValue) ?? 0 < lowValue {
+        } else if Int(upperValue) ?? 0 < lowValue {
                 model?.updateUpperScoreValue(upperValue: lowValue)
-            } else {
-                model?.updateUpperScoreValue(upperValue: Int(upperValue) ?? 0)
-            }
+        } else {
+            model?.updateUpperScoreValue(upperValue: Int(upperValue) ?? 0)
         }
     }
 
