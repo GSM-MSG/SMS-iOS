@@ -2,10 +2,12 @@ import SwiftUI
 import FilterFeatureInterface
 import TechStackAppendFeatureInterface
 import BaseFeature
+import MajorDomainInterface
 import NeedleFoundation
 
 public protocol FilterDependency: Dependency {
     var techStackAppendBuildable: any TechStackAppendBuildable { get }
+    var majorDomainBuildable: any MajorDomainBuildable { get }
 }
 
 public final class FilterComponent: Component<FilterDependency>, FilterBuildable {
@@ -13,7 +15,8 @@ public final class FilterComponent: Component<FilterDependency>, FilterBuildable
         let model = FilterModel()
         let intent = FilterIntent(
             model: model,
-            filterDelegate: delegate
+            filterDelegate: delegate,
+            fetchMajorListUseCase: dependency.majorDomainBuildable.fetchMajorListUseCase
         )
         let container = MVIContainer(
             intent: intent as FilterIntentProtocol,
