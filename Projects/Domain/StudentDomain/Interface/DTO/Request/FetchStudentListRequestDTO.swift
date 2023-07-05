@@ -5,8 +5,8 @@ public struct FetchStudentListRequestDTO: Encodable {
     public let size: Int
     public let majors: [String]?
     public let techStacks: [String]?
-    public let grade: Int?
-    public let classNum: Int?
+    public let grade: [Int]?
+    public let classNum: [Int]?
     public let department: [String]?
     public let stuNumSort: SortType?
     public let formOfEmployment: [String]?
@@ -22,8 +22,8 @@ public struct FetchStudentListRequestDTO: Encodable {
         size: Int,
         majors: [String]? = nil,
         techStacks: [String]? = nil,
-        grade: Int? = nil,
-        classNum: Int? = nil,
+        grade: [Int]? = nil,
+        classNum: [Int]? = nil,
         department: [String]? = nil,
         stuNumSort: SortType? = nil,
         formOfEmployment: [String]? = nil,
