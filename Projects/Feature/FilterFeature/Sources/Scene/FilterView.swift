@@ -238,14 +238,14 @@ struct FilterView: View {
                 SMSTextField(
                     "",
                     text: Binding<String>(
-                            get: { "\(state.lowerScoreValue)" },
-                            set: { newValue in
-                                intent.lowerScoreValue(
-                                    lowValue: newValue,
-                                    upperValue: state.upperScoreValue
-                                )
-                            }
-                        ),
+                        get: { "\(state.lowerScoreValue)" },
+                        set: { newValue in
+                            intent.lowerScoreValue(
+                                lowValue: newValue,
+                                upperValue: state.upperScoreValue
+                            )
+                        }
+                    ),
                     isOnClear: false
                 )
                 .keyboardType(.numberPad)
@@ -256,14 +256,14 @@ struct FilterView: View {
                 SMSTextField(
                     "",
                     text: Binding<String>(
-                            get: { "\(state.upperScoreValue)" },
-                            set: { newValue in
-                                intent.upperScoreValue(
-                                    lowValue: state.lowerScoreValue,
-                                    upperValue: newValue
-                                )
-                            }
-                        ),
+                        get: { "\(state.upperScoreValue)" },
+                        set: { newValue in
+                            intent.upperScoreValue(
+                                lowValue: state.lowerScoreValue,
+                                upperValue: newValue
+                            )
+                        }
+                    ),
                     isOnClear: false
                 )
                 .keyboardType(.numberPad)
@@ -300,14 +300,14 @@ struct FilterView: View {
                 SMSTextField(
                     "",
                     text: Binding<String>(
-                            get: { "\(state.lowerSalaryValue)만원" },
-                            set: { newValue in
-                                intent.lowerSalaryValue(
-                                    lowValue: newValue,
-                                    upperValue: state.upperSalaryValue
-                                )
-                            }
-                        ),
+                        get: { "\(state.lowerSalaryValue)만원" },
+                        set: { newValue in
+                            intent.lowerSalaryValue(
+                                lowValue: newValue,
+                                upperValue: state.upperSalaryValue
+                            )
+                        }
+                    ),
                     isOnClear: false
                 )
                 .keyboardType(.numberPad)
@@ -318,14 +318,14 @@ struct FilterView: View {
                 SMSTextField(
                     "",
                     text: Binding<String>(
-                            get: { "\(state.upperSalaryValue)만원" },
-                            set: { newValue in
-                                intent.upperSalaryValue(
-                                    lowValue: state.lowerSalaryValue,
-                                    upperValue: newValue
-                                )
-                            }
-                        ),
+                        get: { "\(state.upperSalaryValue)만원" },
+                        set: { newValue in
+                            intent.upperSalaryValue(
+                                lowValue: state.lowerSalaryValue,
+                                upperValue: newValue
+                            )
+                        }
+                    ),
                     isOnClear: false
                 )
                 .keyboardType(.numberPad)
