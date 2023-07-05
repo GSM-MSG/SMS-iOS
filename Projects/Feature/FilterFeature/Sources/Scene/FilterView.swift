@@ -147,8 +147,7 @@ struct FilterView: View {
                                                     upperValue: $0.description
                                                 )}
                                             ),
-                                            bounds: 0...2000,
-                                            betweenValue: 300
+                                            bounds: 0...2000
                                         )
                                             .padding(.horizontal, 12)
 
@@ -209,8 +208,7 @@ struct FilterView: View {
                                                     upperValue: $0.description
                                                 )}
                                             ),
-                                            bounds: 0...9999,
-                                            betweenValue: 1000
+                                            bounds: 0...9999
                                         )
                                             .padding(.horizontal, 12)
 

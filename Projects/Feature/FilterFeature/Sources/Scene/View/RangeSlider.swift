@@ -6,18 +6,15 @@ public struct RangedSliderView: View {
     @Binding var minValue: Int
     @Binding var maxValue: Int
     let sliderBounds: ClosedRange<Int>
-    let betweenValue: Int
 
     public init(
         minValue: Binding<Int>,
         maxValue: Binding<Int>,
-        bounds: ClosedRange<Int>,
-        betweenValue: Int
+        bounds: ClosedRange<Int>
     ) {
         self._minValue = minValue
         self._maxValue = maxValue
         self.sliderBounds = bounds
-        self.betweenValue = betweenValue
     }
 
     public var body: some View {
