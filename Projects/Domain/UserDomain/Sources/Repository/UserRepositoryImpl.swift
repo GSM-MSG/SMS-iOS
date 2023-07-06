@@ -24,4 +24,8 @@ struct UserRepositoryImpl: UserRepository {
     func fetchMyMiniProfile() async throws -> String {
         try await remoteUserDataSource.fetchMyMiniProfile()
     }
+
+    func fetchMyProfile() async throws -> MyPageEntity {
+        try await remoteUserDataSource.fetchMyProfile()
+    }
 }

@@ -16,6 +16,9 @@ public final class UserDomainComponent: Component<UserDomainDependency>, UserDom
     public var fetchMyMiniProfileUseCase: any FetchMyMiniProfileUseCase {
         FetchMyMiniProfileUseCaseImpl(userRepository: userRepository)
     }
+    public var fetchMyProfileUseCase: FetchMyProfileUseCase {
+        FetchMyProfileUseCaseImpl(userRepository: userRepository)
+    }
     public var userRepository: any UserRepository {
         UserRepositoryImpl(
             localUserDataSource: localUserDataSource,

@@ -1,8 +1,10 @@
 import BaseDomain
 import Emdpoint
+import UserDomainInterface
 
 enum UserEndpoint {
     case fetchMyMiniProfile
+    case fetchMyProfile
 }
 
 extension UserEndpoint: SMSEndpoint {
@@ -15,15 +17,15 @@ extension UserEndpoint: SMSEndpoint {
     var route: Route {
         switch self {
         case .fetchMyMiniProfile:
+            return .get("/profile/img")
+
+        case .fetchMyProfile:
             return .get("/profile")
         }
     }
 
     var task: HTTPTask {
         switch self {
-        case .fetchMyMiniProfile:
-            return .requestPlain
-
         default:
             return .requestPlain
         }
@@ -32,13 +34,13 @@ extension UserEndpoint: SMSEndpoint {
     var jwtTokenType: JwtTokenType {
         switch self {
         default:
-            return .none
+            return .accessToken
         }
     }
 
     var errorMap: [Int: ErrorType]? {
         switch self {
-        case .fetchMyMiniProfile:
+        case .fetchMyMiniProfile, .fetchMyProfile:
             return [:]
         }
     }

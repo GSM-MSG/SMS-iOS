@@ -6,4 +6,9 @@ final class RemoteUserDataSourceImpl: BaseRemoteDataSource<UserEndpoint>, Remote
         try await request(.fetchMyMiniProfile, dto: FetchMyMiniProfileResponseDTO.self)
             .profileImageURL
     }
+
+    func fetchMyProfile() async throws -> MyPageEntity {
+        try await request(.fetchMyProfile, dto: FetchMyProfileResponseDTO.self)
+            .toDomain()
+    }
 }
