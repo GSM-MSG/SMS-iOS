@@ -3,9 +3,14 @@ import UserDomainInterface
 
 struct UserRepositoryImpl: UserRepository {
     private let localUserDataSource: any LocalUserDataSource
+    private let remoteUserDataSource: any RemoteUserDataSource
 
-    init(localUserDataSource: any LocalUserDataSource) {
+    init(
+        localUserDataSource: any LocalUserDataSource,
+        remoteUserDataSource: any RemoteUserDataSource
+    ) {
         self.localUserDataSource = localUserDataSource
+        self.remoteUserDataSource = remoteUserDataSource
     }
 
     func saveUserRole(role: UserRoleType) {
@@ -14,5 +19,9 @@ struct UserRepositoryImpl: UserRepository {
 
     func loadUserRole() -> UserRoleType {
         localUserDataSource.loadUserRole()
+    }
+
+    func fetchMyMiniProfile() async throws -> String {
+        try await remoteUserDataSource.fetchMyMiniProfile()
     }
 }

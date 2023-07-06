@@ -6,4 +6,5 @@ public enum SMSDomain: String {
     case file
     case major
     case techStack = "stack"
+    case user
 }
