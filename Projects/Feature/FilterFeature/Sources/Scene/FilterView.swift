@@ -7,6 +7,7 @@ import TagLayoutView
 import StudentDomainInterface
 import TechStackAppendFeatureInterface
 
+// swiftlint: disable type_body_length
 struct FilterView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.safeAreaInsets) var safeAreaInsets
@@ -432,3 +433,4 @@ struct FilterView: View {
         }
     }
 }
+// swiftlint: enable type_body_length

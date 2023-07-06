@@ -367,15 +367,17 @@ private func factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5(_ component: Needle
     return MajorDomainDependency4dd341ec0ebe68acad8bProvider(appComponent: parent1(component) as! AppComponent)
 }
 private class UserDomainDependencyf39d2a2922733361cbe1Provider: UserDomainDependency {
-
-
-    init() {
-
+    var jwtStoreBuildable: any JwtStoreBuildable {
+        return appComponent.jwtStoreBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->UserDomainComponent
-private func factory46488402f315d7f9530ce3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserDomainDependencyf39d2a2922733361cbe1Provider()
+private func factory46488402f315d7f9530cf47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return UserDomainDependencyf39d2a2922733361cbe1Provider(appComponent: parent1(component) as! AppComponent)
 }
 
 #else
@@ -510,7 +512,7 @@ extension MajorDomainComponent: Registration {
 }
 extension UserDomainComponent: Registration {
     public func registerItems() {
-
+        keyPathToName[\UserDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
     }
 }
 
@@ -528,7 +530,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-private func register1() {
+@inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
@@ -551,7 +553,7 @@ private func register1() {
     registerProviderFactory("^->AppComponent->TechStackDomainComponent", factory254149359ff45b2db35bf47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->AuthDomainComponent", factoryc9b20c320bb79402d4c1f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MajorDomainComponent", factoryc6563cd3e82b012ec3bef47b58f8f304c97af4d5)
-    registerProviderFactory("^->AppComponent->UserDomainComponent", factory46488402f315d7f9530ce3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->UserDomainComponent", factory46488402f315d7f9530cf47b58f8f304c97af4d5)
 }
 #endif
 
