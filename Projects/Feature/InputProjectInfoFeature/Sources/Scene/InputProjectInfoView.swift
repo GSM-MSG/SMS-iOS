@@ -4,27 +4,33 @@ import SwiftUI
 import ViewUtil
 
 struct InputProjectInfoView: View {
+    @FocusState var projectContentIsFocused: Bool
     var body: some View {
-        SMSNavigationTitleView(title: "프로젝트") {
-            ScrollView(showsIndicators: true) {
-                SMSSeparator()
+        GeometryReader { geometry in
+            SMSNavigationTitleView(title: "프로젝트") {
+                ScrollView(showsIndicators: true) {
+                    SMSSeparator()
 
-                VStack(spacing: 32) {
-                    InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 7, selectedPage: 6)
+                    VStack(spacing: 32) {
+                        InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 7, selectedPage: 6)
 
-                    projectListRowView()
+                        projectListRowView(geometry: geometry)
 
-                    SMSChip("추가") {}
-                    .foregroundColor(.sms(.system(.black)))
-                    .aligned(.trailing)
+                        SMSSeparator(height: 1)
+
+                        SMSChip("추가") {
+                        }
+                        .foregroundColor(.sms(.system(.black)))
+                        .aligned(.trailing)
+                    }
+                    .padding([.top, .horizontal], 20)
                 }
-                .padding([.top, .horizontal], 20)
             }
         }
     }
 
     @ViewBuilder
-    func projectListRowView() -> some View {
+    func projectListRowView(geometry: GeometryProxy) -> some View {
         VStack(alignment: .leading, spacing: 24) {
             HStack(spacing: 16) {
                 SMSText("프로젝트", font: .title1)
@@ -49,6 +55,8 @@ struct InputProjectInfoView: View {
             projectTechStack()
 
             projectDuration()
+
+            projectRelatedLink(geometry: geometry)
         }
     }
 }
@@ -90,15 +98,23 @@ private extension InputProjectInfoView {
     func projectContentTextEditor() -> some View {
         TextEditor(text: .constant(""))
             .smsFont(.body1, color: .system(.black))
+            .focused($projectContentIsFocused)
             .colorMultiply(.sms(.neutral(.n10)))
             .frame(minHeight: 48)
             .cornerRadius(8)
-            .roundedStroke(cornerRadius: 8, color: .sms(.primary(.p1)), lineWidth: 1)
+            .roundedStroke(
+                cornerRadius: 8,
+                color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
+                lineWidth: projectContentIsFocused ? 1 : 0
+            )
             .overlay(alignment: .topLeading) {
                 ConditionView(true) {
                     SMSText("프로젝트 내용 입력", font: .body1)
                         .foregroundColor(.sms(.neutral(.n30)))
                         .padding([.top, .leading], 12)
+                        .onTapGesture {
+                            projectContentIsFocused = true
+                        }
                 }
             }
             .titleWrapper("내용")
@@ -137,6 +153,36 @@ private extension InputProjectInfoView {
             .frame(maxWidth: .infinity)
         }
         .titleWrapper("진행 기간")
+    }
+
+    @ViewBuilder
+    func projectRelatedLink(geometry: GeometryProxy) -> some View {
+        VStack(spacing: 8) {
+            ForEach(1..<2, id: \.self) { index in
+                HStack(spacing: 16) {
+                    SMSTextField(
+                        "이름",
+                        text: .constant("")
+                    )
+                    .frame(maxWidth: geometry.size.width / 4)
+
+                    SMSTextField(
+                        "URL",
+                        text: .constant("")
+                    )
+                    .frame(maxWidth: .infinity)
+
+                    Button {
+                    } label: {
+                        SMSIcon(.trash)
+                    }
+                }
+            }
+
+            SMSChip("추가") {}
+                .aligned(.leading)
+        }
+        .titleWrapper("관련 링크")
     }
 }
 
