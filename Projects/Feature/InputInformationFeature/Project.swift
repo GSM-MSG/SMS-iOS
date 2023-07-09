@@ -14,6 +14,7 @@ let project = Project.makeModule(
         .Feature.InputMilitaryInfoFeatureInterface,
         .Feature.InputCertificateInfoFeatureInterface,
         .Feature.InputLanguageInfoFeatureInterface,
+        .Feature.InputProjectInfoFeatureInterface,
         .Domain.FileDomainInterface,
         .Domain.StudentDomainInterface,
         .Domain.UserDomainInterface
