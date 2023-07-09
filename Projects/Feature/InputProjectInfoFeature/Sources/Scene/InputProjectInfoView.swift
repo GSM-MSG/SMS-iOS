@@ -1,5 +1,6 @@
 import BaseFeature
 import DesignSystem
+import FoundationUtil
 import InputInformationBaseFeature
 import SwiftUI
 import ViewUtil
@@ -26,11 +27,16 @@ struct InputProjectInfoView: View {
                     VStack(spacing: 32) {
                         InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 7, selectedPage: 6)
 
-                        projectListRowView(geometry: geometry)
+                        ForEach(state.projectList.indices, id: \.self) { index in
+                            projectListRowView(index: index, geometry: geometry)
+                        }
 
                         SMSSeparator(height: 1)
 
                         SMSChip("추가") {
+                            withAnimation {
+                                intent.projectAppendButtonDidTap()
+                            }
                         }
                         .foregroundColor(.sms(.system(.black)))
                         .aligned(.trailing)
@@ -42,7 +48,7 @@ struct InputProjectInfoView: View {
     }
 
     @ViewBuilder
-    func projectListRowView(geometry: GeometryProxy) -> some View {
+    func projectListRowView(index: Int, geometry: GeometryProxy) -> some View {
         VStack(alignment: .leading, spacing: 24) {
             HStack(spacing: 16) {
                 SMSText("프로젝트", font: .title1)
@@ -56,19 +62,19 @@ struct InputProjectInfoView: View {
             }
             .padding(.bottom, 8)
 
-            projectName()
+            projectName(index: index)
 
-            projectIcon()
+            projectIcon(index: index)
 
-            projectPreviewImageList()
+            projectPreviewImageList(index: index)
 
-            projectContentTextEditor()
+            projectContentTextEditor(index: index)
 
-            projectTechStack()
+            projectTechStack(index: index)
 
-            projectDuration()
+            projectDuration(index: index)
 
-            projectRelatedLink(geometry: geometry)
+            projectRelatedLink(index: index, geometry: geometry)
         }
     }
 }
@@ -76,64 +82,97 @@ struct InputProjectInfoView: View {
 // MARK: - View Section
 private extension InputProjectInfoView {
     @ViewBuilder
-    func projectName() -> some View {
-        SMSTextField("프로젝트 이름 입력", text: .constant(""))
-            .titleWrapper("이름")
+    func projectName(index: Int) -> some View {
+        SMSTextField(
+            "프로젝트 이름 입력",
+            text: Binding(
+                get: { state.projectList[safe: index]?.name ?? "" },
+                set: { intent.updateProjectName(index: index, name: $0) }
+            )
+        )
+        .titleWrapper("이름")
     }
 
     @ViewBuilder
-    func projectIcon() -> some View {
-        imagePlaceholder(size: 108)
-            .overlay {
-                SMSIcon(.photo)
-            }
-            .titleWrapper("아이콘")
+    func projectIcon(index: Int) -> some View {
+        if let iconData = state.projectList[safe: index]?.iconImage {
+            Image(uiImage: UIImage(data: iconData) ?? .init())
+                .resizable()
+                .frame(width: 108, height: 108)
+                .cornerRadius(8)
+        } else {
+            imagePlaceholder(size: 108)
+                .overlay {
+                    SMSIcon(.photo)
+                }
+                .titleWrapper("아이콘")
+        }
     }
 
     @ViewBuilder
-    func projectPreviewImageList() -> some View {
+    func projectPreviewImageList(index: Int) -> some View {
         LazyHStack(spacing: 8) {
+            let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
             imagePlaceholder(size: 132)
                 .overlay {
                     VStack(spacing: 4) {
                         SMSIcon(.photo)
 
-                        SMSText("0/4", font: .body2)
-                            .foregroundColor(.sms(.system(.black)))
+                        
+                        SMSText(
+                            "\(projectPreviewImages.count)/4",
+                            font: .body2
+                        )
+                        .foregroundColor(.sms(.system(.black)))
                     }
                 }
+                .buttonWrapper {
+                }
+
+            ForEach(projectPreviewImages, id: \.self) { previewImageData in
+                Image(uiImage: UIImage(data: previewImageData) ?? .init())
+                    .resizable()
+                    .frame(width: 132, height: 132)
+                    .cornerRadius(8)
+            }
         }
         .titleWrapper("미리보기 사진")
     }
 
     @ViewBuilder
-    func projectContentTextEditor() -> some View {
-        TextEditor(text: .constant(""))
-            .smsFont(.body1, color: .system(.black))
-            .focused($projectContentIsFocused)
-            .colorMultiply(.sms(.neutral(.n10)))
-            .frame(minHeight: 48)
-            .cornerRadius(8)
-            .roundedStroke(
-                cornerRadius: 8,
-                color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
-                lineWidth: projectContentIsFocused ? 1 : 0
+    func projectContentTextEditor(index: Int) -> some View {
+        let projectContent = state.projectList[safe: index]?.content ?? ""
+        TextEditor(
+            text: Binding(
+                get: { projectContent },
+                set: { intent.updateProjectContent(index: index, content: $0) }
             )
-            .overlay(alignment: .topLeading) {
-                ConditionView(true) {
-                    SMSText("프로젝트 내용 입력", font: .body1)
-                        .foregroundColor(.sms(.neutral(.n30)))
-                        .padding([.top, .leading], 12)
-                        .onTapGesture {
-                            projectContentIsFocused = true
-                        }
-                }
+        )
+        .smsFont(.body1, color: .system(.black))
+        .focused($projectContentIsFocused)
+        .colorMultiply(.sms(.neutral(.n10)))
+        .frame(minHeight: 48)
+        .cornerRadius(8)
+        .roundedStroke(
+            cornerRadius: 8,
+            color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
+            lineWidth: projectContentIsFocused ? 1 : 0
+        )
+        .overlay(alignment: .topLeading) {
+            ConditionView(projectContent.isEmpty) {
+                SMSText("프로젝트 내용 입력", font: .body1)
+                    .foregroundColor(.sms(.neutral(.n30)))
+                    .padding([.top, .leading], 12)
+                    .onTapGesture {
+                        projectContentIsFocused = true
+                    }
             }
-            .titleWrapper("내용")
+        }
+        .titleWrapper("내용")
     }
 
     @ViewBuilder
-    func projectTechStack() -> some View {
+    func projectTechStack(index: Int) -> some View {
         HStack(spacing: 8) {
             SMSIcon(.magnifyingglass)
 
@@ -152,15 +191,18 @@ private extension InputProjectInfoView {
     }
 
     @ViewBuilder
-    func projectDuration() -> some View {
+    func projectDuration(index: Int) -> some View {
         HStack(spacing: 8) {
-            datePickerField {
+            let project = state.projectList[safe: index]
+            datePickerField(dateText: project?.startAtString ?? "") {
+                intent.projectStartAtDidSelect(index: index, startAt: $0)
             }
             .frame(maxWidth: .infinity)
 
             SMSIcon(.waterWave)
 
-            datePickerField {
+            datePickerField(dateText: project?.endAtString ?? "") {
+                intent.projectEndAtDidSelect(index: index, endAt: $0)
             }
             .frame(maxWidth: .infinity)
         }
@@ -168,19 +210,26 @@ private extension InputProjectInfoView {
     }
 
     @ViewBuilder
-    func projectRelatedLink(geometry: GeometryProxy) -> some View {
+    func projectRelatedLink(index: Int, geometry: GeometryProxy) -> some View {
         VStack(spacing: 8) {
-            ForEach(1..<2, id: \.self) { index in
+            let relatedLinks = state.projectList[safe: index]?.relatedLinks ?? []
+            ForEach(relatedLinks.indices, id: \.self) { relatedIndex in
                 HStack(spacing: 16) {
                     SMSTextField(
                         "이름",
-                        text: .constant("")
+                        text: Binding(
+                            get: { relatedLinks[relatedIndex].name },
+                            set: { intent.updateProjectLinkName(index: index, linkIndex: relatedIndex, name: $0) }
+                        )
                     )
                     .frame(maxWidth: geometry.size.width / 4)
 
                     SMSTextField(
                         "URL",
-                        text: .constant("")
+                        text: Binding(
+                            get: { relatedLinks[relatedIndex].url },
+                            set: { intent.updateProjectLinkURL(index: index, linkIndex: relatedIndex, url: $0) }
+                        )
                     )
                     .frame(maxWidth: .infinity)
 
@@ -191,8 +240,10 @@ private extension InputProjectInfoView {
                 }
             }
 
-            SMSChip("추가") {}
-                .aligned(.leading)
+            SMSChip("추가") {
+                intent.relatedLinkAppendButtonDidTap(index: index)
+            }
+            .aligned(.leading)
         }
         .titleWrapper("관련 링크")
     }
@@ -208,10 +259,13 @@ private extension InputProjectInfoView {
     }
 
     @ViewBuilder
-    func datePickerField(action: @escaping () -> Void) -> some View {
+    func datePickerField(dateText: String, action: @escaping (Date) -> Void) -> some View {
         SMSTextField(
             "yyyy.mm",
-            text: .constant(""),
+            text: Binding(
+                get: { dateText },
+                set: { _ in }
+            ),
             isOnClear: false
         )
         .disabled(true)
@@ -222,7 +276,7 @@ private extension InputProjectInfoView {
         .simultaneousGesture(
             TapGesture()
                 .onEnded {
-                    action()
+                    action(.init())
                 }
         )
     }

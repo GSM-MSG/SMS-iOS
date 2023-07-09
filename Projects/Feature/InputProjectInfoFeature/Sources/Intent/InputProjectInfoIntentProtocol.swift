@@ -12,5 +12,7 @@ protocol InputProjectInfoIntentProtocol {
     func projectEndAtDidSelect(index: Int, endAt: Date)
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String)
     func updateProjectLinkURL(index: Int, linkIndex: Int, url: String)
+    func relatedLinkAppendButtonDidTap(index: Int)
     func removeProjectRelatedLinkDidTap(index: Int, linkIndex: Int)
+    func projectAppendButtonDidTap()
 }

@@ -1,7 +1,7 @@
 import Foundation
 import FoundationUtil
 
-final class InputProjectInfoModel: ObservableObject , InputProjectInfoStateProtocol {
+final class InputProjectInfoModel: ObservableObject, InputProjectInfoStateProtocol {
     @Published var projectList: [ProjectInfo] = []
     @Published var projectErrorSetList: [Set<InputProjectInfoErrorField>] = []
 }
@@ -68,11 +68,30 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
         self.projectList[index].relatedLinks[linkIndex].url = url
     }
 
+    func appendEmptyRelatedLink(index: Int) {
+        guard projectList[safe: index] != nil else { return }
+        let relatedLink = ProjectInfo.RelatedLink(name: "", url: "")
+        self.projectList[index].relatedLinks.append(relatedLink)
+    }
+
     func removeProjectRelatedLink(index: Int, linkIndex: Int) {
         guard
             let project = projectList[safe: index],
             project.relatedLinks[safe: linkIndex] != nil
         else { return }
         self.projectList[index].relatedLinks.remove(at: linkIndex)
+    }
+
+    func appendEmptyProject() {
+        let newProject = ProjectInfo(
+            name: "",
+            previewImages: [],
+            content: "",
+            techStacks: [],
+            mainTask: "",
+            startAt: Date(),
+            relatedLinks: []
+        )
+        self.projectList.append(newProject)
     }
 }

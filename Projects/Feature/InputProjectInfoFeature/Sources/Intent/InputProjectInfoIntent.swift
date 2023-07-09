@@ -46,12 +46,20 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String) {
         model?.updateProjectLinkName(index: index, linkIndex: linkIndex, name: name)
     }
-    
+
     func updateProjectLinkURL(index: Int, linkIndex: Int, url: String) {
         model?.updateProjectLinkURL(index: index, linkIndex: linkIndex, url: url)
     }
-    
+
+    func relatedLinkAppendButtonDidTap(index: Int) {
+        model?.appendEmptyRelatedLink(index: index)
+    }
+
     func removeProjectRelatedLinkDidTap(index: Int, linkIndex: Int) {
         model?.removeProjectRelatedLink(index: index, linkIndex: linkIndex)
+    }
+
+    func projectAppendButtonDidTap() {
+        model?.appendEmptyProject()
     }
 }
