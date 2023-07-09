@@ -47,6 +47,8 @@ struct InputProjectInfoView: View {
             projectContentTextEditor()
 
             projectTechStack()
+
+            projectDuration()
         }
     }
 }
@@ -121,7 +123,21 @@ private extension InputProjectInfoView {
         .titleWrapper("사용 기술")
     }
 
-    
+    @ViewBuilder
+    func projectDuration() -> some View {
+        HStack(spacing: 8) {
+            datePickerField {
+            }
+            .frame(maxWidth: .infinity)
+
+            SMSIcon(.waterWave)
+
+            datePickerField {
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .titleWrapper("진행 기간")
+    }
 }
 
 // MARK: - Reusable View
@@ -131,5 +147,25 @@ private extension InputProjectInfoView {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.sms(.neutral(.n10)))
             .frame(width: size, height: size)
+    }
+
+    @ViewBuilder
+    func datePickerField(action: @escaping () -> Void) -> some View {
+        SMSTextField(
+            "yyyy.mm",
+            text: .constant(""),
+            isOnClear: false
+        )
+        .disabled(true)
+        .overlay(alignment: .trailing) {
+            SMSIcon(.calendar)
+                .padding(.trailing, 12)
+        }
+        .simultaneousGesture(
+            TapGesture()
+                .onEnded {
+                    action()
+                }
+        )
     }
 }

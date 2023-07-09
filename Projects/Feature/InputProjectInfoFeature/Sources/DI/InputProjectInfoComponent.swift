@@ -1,5 +1,6 @@
-import SwiftUI
+import InputProjectInfoFeatureInterface
 import NeedleFoundation
+import SwiftUI
 
 protocol InputProjectInfoDependency: Dependency {}
 
