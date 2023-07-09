@@ -32,7 +32,7 @@ struct FilterView: View {
                         .padding(.bottom, 20)
 
                     VStack(alignment: .leading, spacing: 40) {
-                        ConditionView(state.userRole == .student) {
+                        ConditionView(state.userRole == .student || state.userRole == .teacher) {
                             gradeSection()
 
                             classSection()
@@ -42,7 +42,7 @@ struct FilterView: View {
 
                         majorSection()
 
-                        ConditionView(state.userRole == .student) {
+                        ConditionView(state.userRole == .student || state.userRole == .teacher) {
                             ConditionView(state.userRole == .teacher) {
                                 formOfEmploymentSetcion()
 

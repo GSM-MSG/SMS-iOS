@@ -19,6 +19,7 @@ import InputMilitaryInfoFeature
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeature
 import InputProfileInfoFeatureInterface
+import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
@@ -141,6 +142,9 @@ private class FilterDependencya3adf5d0affb84ca15efProvider: FilterDependency {
     }
     var majorDomainBuildable: any MajorDomainBuildable {
         return appComponent.majorDomainBuildable
+    }
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -425,6 +429,7 @@ extension FilterComponent: Registration {
     public func registerItems() {
         keyPathToName[\FilterDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
         keyPathToName[\FilterDependency.majorDomainBuildable] = "majorDomainBuildable-any MajorDomainBuildable"
+        keyPathToName[\FilterDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
     }
 }
 extension RootComponent: Registration {
