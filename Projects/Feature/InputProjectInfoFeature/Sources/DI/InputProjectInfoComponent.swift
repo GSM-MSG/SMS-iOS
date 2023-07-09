@@ -1,3 +1,4 @@
+import BaseFeature
 import InputProjectInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
@@ -8,6 +9,15 @@ final class InputProjectInfoComponent:
     Component<InputProjectInfoDependency>,
     InputProjectInfoBuildable {
     func makeView() -> some View {
-        EmptyView()
+        let model = InputProjectInfoModel()
+        let intent = InputProjectInfoIntent(
+            model: model
+        )
+        let container = MVIContainer(
+            intent: intent as InputProjectInfoIntentProtocol,
+            model: model as InputProjectInfoStateProtocol,
+            modelChangePublisher: model.objectWillChange
+        )
+        return InputProjectInfoView(container: container)
     }
 }

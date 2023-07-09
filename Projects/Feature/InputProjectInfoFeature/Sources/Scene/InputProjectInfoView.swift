@@ -1,3 +1,4 @@
+import BaseFeature
 import DesignSystem
 import InputInformationBaseFeature
 import SwiftUI
@@ -5,6 +6,17 @@ import ViewUtil
 
 struct InputProjectInfoView: View {
     @FocusState var projectContentIsFocused: Bool
+
+    @StateObject var container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
+    var intent: any InputProjectInfoIntentProtocol { container.intent }
+    var state: any InputProjectInfoStateProtocol { container.model }
+
+    init(
+        container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
+    ) {
+        self._container = StateObject(wrappedValue: container)
+    }
+
     var body: some View {
         GeometryReader { geometry in
             SMSNavigationTitleView(title: "프로젝트") {

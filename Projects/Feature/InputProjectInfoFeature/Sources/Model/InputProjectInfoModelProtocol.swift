@@ -1,21 +1,21 @@
 import Foundation
 
 struct ProjectInfo {
-    let name: String
-    let iconImage: Data
-    let previewImages: [Data]
-    let content: String
-    let techStacks: [String]
-    let mainTask: String
-    let startAt: Date
-    let endAt: Date?
-    let relatedLinks: [RelatedLink]
+    var name: String
+    var iconImage: Data
+    var previewImages: [Data]
+    var content: String
+    var techStacks: [String]
+    var mainTask: String
+    var startAt: Date
+    var endAt: Date?
+    var relatedLinks: [RelatedLink]
 }
 
 extension ProjectInfo {
     struct RelatedLink {
-        let name: String
-        let url: String
+        var name: String
+        var url: String
     }
 }
 
@@ -31,5 +31,16 @@ protocol InputProjectInfoStateProtocol {
 }
 
 protocol InputProjectInfoActionProtocol: AnyObject {
-    
+    func updateProjectName(index: Int, name: String)
+    func updateIconImage(index: Int, data: Data)
+    func appendPreviewImage(index: Int, data: Data)
+    func removePreviewImage(index: Int, previewIndex: Int)
+    func updateProjectContent(index: Int, content: String)
+    func updateProjectTechStacks(index: Int, techStacks: [String])
+    func updateProjectMainTask(index: Int, mainTask: String)
+    func updateProjectStartAt(index: Int, startAt: Date)
+    func updateProjectEndAt(index: Int, endAt: Date)
+    func updateProjectLinkName(index: Int, linkIndex: Int, name: String)
+    func updateProjectLinkURL(index: Int, linkIndex: Int, url: String)
+    func removeProjectRelatedLink(index: Int, linkIndex: Int)
 }

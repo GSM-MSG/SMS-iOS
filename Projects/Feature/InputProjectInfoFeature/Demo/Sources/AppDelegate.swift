@@ -1,3 +1,4 @@
+import BaseFeature
 import SwiftUI
 @testable import InputProjectInfoFeature
 
@@ -5,7 +6,16 @@ import SwiftUI
 struct InputProjectInfoApp: App {
     var body: some Scene {
         WindowGroup {
-            InputProjectInfoView()
+            let model = InputProjectInfoModel()
+            let intent = InputProjectInfoIntent(
+                model: model
+            )
+            let container = MVIContainer(
+                intent: intent as InputProjectInfoIntentProtocol,
+                model: model as InputProjectInfoStateProtocol,
+                modelChangePublisher: model.objectWillChange
+            )
+            InputProjectInfoView(container: container)
         }
     }
 }
