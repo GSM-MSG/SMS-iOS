@@ -27,11 +27,13 @@ struct InputProjectInfoView: View {
                     VStack(spacing: 32) {
                         InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 7, selectedPage: 6)
 
-                        ForEach(state.projectList.indices, id: \.self) { index in
-                            projectListRowView(index: index, geometry: geometry)
-                        }
+                        VStack(spacing: 24) {
+                            ForEach(state.projectList.indices, id: \.self) { index in
+                                projectListRowView(index: index, geometry: geometry)
 
-                        SMSSeparator(height: 1)
+                                SMSSeparator(height: 1)
+                            }
+                        }
 
                         SMSChip("추가") {
                             withAnimation {
@@ -89,6 +91,7 @@ struct InputProjectInfoView: View {
 
     @ViewBuilder
     func projectListRowView(index: Int, geometry: GeometryProxy) -> some View {
+        let collapsed = state.collapsedProject[safe: index] ?? false
         VStack(alignment: .leading, spacing: 24) {
             HStack(spacing: 16) {
                 SMSText("프로젝트", font: .title1)
@@ -97,24 +100,33 @@ struct InputProjectInfoView: View {
                 Spacer()
 
                 SMSIcon(.downChevron)
+                    .rotationEffect(collapsed ? .degrees(90) : .degrees(0))
+                    .buttonWrapper {
+                        intent.projectToggleButtonDidTap(index: index)
+                    }
 
                 SMSIcon(.xmarkOutline)
+                    .buttonWrapper {
+                        intent.projectRemoveButtonDidTap(index: index)
+                    }
             }
             .padding(.bottom, 8)
 
-            projectName(index: index)
+            ConditionView(!collapsed) {
+                projectName(index: index)
 
-            projectIcon(index: index)
+                projectIcon(index: index)
 
-            projectPreviewImageList(index: index)
+                projectPreviewImageList(index: index)
 
-            projectContentTextEditor(index: index)
+                projectContentTextEditor(index: index)
 
-            projectTechStack(index: index)
+                projectTechStack(index: index)
 
-            projectDuration(index: index)
+                projectDuration(index: index)
 
-            projectRelatedLink(index: index, geometry: geometry)
+                projectRelatedLink(index: index, geometry: geometry)
+            }
         }
     }
 }

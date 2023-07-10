@@ -4,6 +4,7 @@ import FoundationUtil
 
 final class InputProjectInfoModel: ObservableObject, InputProjectInfoStateProtocol {
     @Published var projectList: [ProjectInfo] = []
+    @Published var collapsedProject: [Bool] = []
     @Published var projectErrorSetList: [Set<InputProjectInfoErrorField>] = []
     @Published var isPresentedImagePicker: Bool = false
     @Published var isPresentedPreviewImagePicker: Bool = false
@@ -13,6 +14,11 @@ final class InputProjectInfoModel: ObservableObject, InputProjectInfoStateProtoc
 }
 
 extension InputProjectInfoModel: InputProjectInfoActionProtocol {
+    func toggleCollapsedProject(index: Int) {
+        guard collapsedProject[safe: index] != nil else { return }
+        self.collapsedProject[index].toggle()
+    }
+
     func updateProjectName(index: Int, name: String) {
         guard projectList[safe: index] != nil else { return }
         self.projectList[index].name = name
@@ -102,6 +108,13 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
             relatedLinks: []
         )
         self.projectList.append(newProject)
+        self.collapsedProject.append(false)
+    }
+
+    func removeProject(index: Int) {
+        guard projectList[safe: index] != nil, collapsedProject[safe: index] != nil else { return }
+        self.projectList.remove(at: index)
+        self.collapsedProject.remove(at: index)
     }
 
     func updateFocusedProjectIndex(index: Int) {

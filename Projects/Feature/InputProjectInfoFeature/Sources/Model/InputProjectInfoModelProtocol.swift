@@ -36,6 +36,7 @@ enum InputProjectInfoErrorField: Hashable {
 
 protocol InputProjectInfoStateProtocol {
     var projectList: [ProjectInfo] { get }
+    var collapsedProject: [Bool] { get }
     var projectErrorSetList: [Set<InputProjectInfoErrorField>] { get }
     var focusedProjectIndex: Int { get }
     var isPresentedImagePicker: Bool { get }
@@ -45,6 +46,7 @@ protocol InputProjectInfoStateProtocol {
 }
 
 protocol InputProjectInfoActionProtocol: AnyObject {
+    func toggleCollapsedProject(index: Int)
     func updateProjectName(index: Int, name: String)
     func updateIconImage(index: Int, image: PickedImageResult)
     func appendPreviewImage(index: Int, image: PickedImageResult)
@@ -59,6 +61,7 @@ protocol InputProjectInfoActionProtocol: AnyObject {
     func appendEmptyRelatedLink(index: Int)
     func removeProjectRelatedLink(index: Int, linkIndex: Int)
     func appendEmptyProject()
+    func removeProject(index: Int)
     func updateFocusedProjectIndex(index: Int)
     func updateIsPresentedImagePicker(isPresented: Bool)
     func updateIsPresentedPreviewImagePicker(isPresented: Bool)

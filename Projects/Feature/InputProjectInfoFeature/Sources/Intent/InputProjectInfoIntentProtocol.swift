@@ -2,6 +2,7 @@ import DesignSystem
 import Foundation
 
 protocol InputProjectInfoIntentProtocol {
+    func projectToggleButtonDidTap(index: Int)
     func updateProjectName(index: Int, name: String)
     func updateIconImage(index: Int, image: PickedImageResult)
     func appendPreviewImageButtonDidTap(index: Int)
@@ -19,6 +20,7 @@ protocol InputProjectInfoIntentProtocol {
     func relatedLinkAppendButtonDidTap(index: Int)
     func removeProjectRelatedLinkDidTap(index: Int, linkIndex: Int)
     func projectAppendButtonDidTap()
+    func projectRemoveButtonDidTap(index: Int)
     func iconImageButtonDidTap(index: Int)
     func iconImagePickerDismissed()
     func previewImagePickerDismissed()

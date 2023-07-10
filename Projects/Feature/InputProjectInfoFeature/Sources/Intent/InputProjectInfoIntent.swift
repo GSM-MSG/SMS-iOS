@@ -8,6 +8,10 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
         self.model = model
     }
 
+    func projectToggleButtonDidTap(index: Int) {
+        model?.toggleCollapsedProject(index: index)
+    }
+
     func updateProjectName(index: Int, name: String) {
         model?.updateProjectName(index: index, name: name)
     }
@@ -77,6 +81,10 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
 
     func projectAppendButtonDidTap() {
         model?.appendEmptyProject()
+    }
+
+    func projectRemoveButtonDidTap(index: Int) {
+        model?.removeProject(index: index)
     }
 
     func iconImageButtonDidTap(index: Int) {
