@@ -79,7 +79,8 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
         model?.appendEmptyProject()
     }
 
-    func iconImagePickerIsRequired() {
+    func iconImageButtonDidTap(index: Int) {
+        model?.updateFocusedProjectIndex(index: index)
         model?.updateIsPresentedImagePicker(isPresented: true)
     }
 

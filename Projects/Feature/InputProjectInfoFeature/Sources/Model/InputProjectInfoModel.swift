@@ -56,6 +56,9 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
     func updateProjectEndAt(index: Int, endAt: Date) {
         guard projectList[safe: index] != nil else { return }
         self.projectList[index].endAt = endAt
+        if endAt <= projectList[index].startAt {
+            self.projectList[index].startAt = endAt
+        }
     }
 
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String) {

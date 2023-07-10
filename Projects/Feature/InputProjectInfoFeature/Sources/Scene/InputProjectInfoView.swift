@@ -138,6 +138,9 @@ private extension InputProjectInfoView {
                     .titleWrapper("아이콘")
             }
         }
+        .buttonWrapper {
+            intent.iconImageButtonDidTap(index: index)
+        }
         .imagePicker(
             isShow: Binding(
                 get: { state.isPresentedImagePicker && state.focusedProjectIndex == index },

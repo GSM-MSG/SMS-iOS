@@ -19,7 +19,7 @@ protocol InputProjectInfoIntentProtocol {
     func relatedLinkAppendButtonDidTap(index: Int)
     func removeProjectRelatedLinkDidTap(index: Int, linkIndex: Int)
     func projectAppendButtonDidTap()
-    func iconImagePickerIsRequired()
+    func iconImageButtonDidTap(index: Int)
     func iconImagePickerDismissed()
     func previewImagePickerDismissed()
     func startAtButtonDidTap(index: Int)
