@@ -135,12 +135,12 @@ private extension InputProjectInfoView {
                     .overlay {
                         SMSIcon(.photo)
                     }
-                    .titleWrapper("아이콘")
             }
         }
         .buttonWrapper {
             intent.iconImageButtonDidTap(index: index)
         }
+        .titleWrapper("아이콘")
         .imagePicker(
             isShow: Binding(
                 get: { state.isPresentedImagePicker && state.focusedProjectIndex == index },
