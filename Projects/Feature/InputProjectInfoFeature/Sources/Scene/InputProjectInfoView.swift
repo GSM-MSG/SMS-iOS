@@ -40,6 +40,17 @@ struct InputProjectInfoView: View {
                         }
                         .foregroundColor(.sms(.system(.black)))
                         .aligned(.trailing)
+
+                        HStack(spacing: 8) {
+                            CTAButton(text: "이전", style: .outline) {
+                            }
+                            .frame(maxWidth: geometry.size.width / 3)
+
+                            CTAButton(text: "다음") {
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        .padding(.bottom, 32)
                     }
                     .padding([.top, .horizontal], 20)
                 }
