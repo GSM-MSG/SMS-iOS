@@ -1,9 +1,15 @@
+import DesignSystem
 import Foundation
 import FoundationUtil
 
 final class InputProjectInfoModel: ObservableObject, InputProjectInfoStateProtocol {
     @Published var projectList: [ProjectInfo] = []
     @Published var projectErrorSetList: [Set<InputProjectInfoErrorField>] = []
+    @Published var isPresentedImagePicker: Bool = false
+    @Published var isPresentedPreviewImagePicker: Bool = false
+    @Published var isPresentedStartAtDatePicker: Bool = false
+    @Published var isPresentedEndAtDatePicker: Bool = false
+    var focusedProjectIndex: Int = 0
 }
 
 extension InputProjectInfoModel: InputProjectInfoActionProtocol {
@@ -12,14 +18,14 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
         self.projectList[index].name = name
     }
 
-    func updateIconImage(index: Int, data: Data) {
+    func updateIconImage(index: Int, image: PickedImageResult) {
         guard projectList[safe: index] != nil else { return }
-        self.projectList[index].iconImage = data
+        self.projectList[index].iconImage = image
     }
 
-    func appendPreviewImage(index: Int, data: Data) {
+    func appendPreviewImage(index: Int, image: PickedImageResult) {
         guard projectList[safe: index] != nil else { return }
-        self.projectList[index].previewImages.append(data)
+        self.projectList[index].previewImages.append(image)
     }
 
     func removePreviewImage(index: Int, previewIndex: Int) {
@@ -93,5 +99,25 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
             relatedLinks: []
         )
         self.projectList.append(newProject)
+    }
+
+    func updateFocusedProjectIndex(index: Int) {
+        self.focusedProjectIndex = index
+    }
+
+    func updateIsPresentedImagePicker(isPresented: Bool) {
+        self.isPresentedImagePicker = isPresented
+    }
+
+    func updateIsPresentedPreviewImagePicker(isPresented: Bool) {
+        self.isPresentedPreviewImagePicker = isPresented
+    }
+
+    func updateIsPresentedStartAtDatePicker(isPresented: Bool) {
+        self.isPresentedStartAtDatePicker = isPresented
+    }
+
+    func updateIsPresentedEndAtDatePicker(isPresented: Bool) {
+        self.isPresentedEndAtDatePicker = isPresented
     }
 }

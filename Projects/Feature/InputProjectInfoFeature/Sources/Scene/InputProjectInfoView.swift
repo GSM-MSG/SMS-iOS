@@ -19,8 +19,8 @@ struct InputProjectInfoView: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            SMSNavigationTitleView(title: "프로젝트") {
+        SMSNavigationTitleView(title: "프로젝트") {
+            GeometryReader { geometry in
                 ScrollView(showsIndicators: true) {
                     SMSSeparator()
 
@@ -44,6 +44,35 @@ struct InputProjectInfoView: View {
                     .padding([.top, .horizontal], 20)
                 }
             }
+        }
+        .imagePicker(
+            isShow: Binding(
+                get: { state.isPresentedPreviewImagePicker },
+                set: { _ in intent.previewImagePickerDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { .none },
+                set: {
+                    guard let image = $0 else { return }
+                    intent.appendPreviewImage(index: state.focusedProjectIndex, image: image)
+                }
+            )
+        )
+        .datePicker(
+            isShowing: Binding(
+                get: { state.isPresentedStartAtDatePicker },
+                set: { _ in intent.startAtDatePickerDismissed() }
+            )
+        ) { date in
+            intent.projectStartAtDidSelect(index: state.focusedProjectIndex, startAt: date)
+        }
+        .datePicker(
+            isShowing: Binding(
+                get: { state.isPresentedEndAtDatePicker },
+                set: { _ in intent.endAtDatePickerDismissed() }
+            )
+        ) { date in
+            intent.projectEndAtDidSelect(index: state.focusedProjectIndex, endAt: date)
         }
     }
 
@@ -95,45 +124,69 @@ private extension InputProjectInfoView {
 
     @ViewBuilder
     func projectIcon(index: Int) -> some View {
-        if let iconData = state.projectList[safe: index]?.iconImage {
-            Image(uiImage: UIImage(data: iconData) ?? .init())
-                .resizable()
-                .frame(width: 108, height: 108)
-                .cornerRadius(8)
-        } else {
-            imagePlaceholder(size: 108)
-                .overlay {
-                    SMSIcon(.photo)
-                }
-                .titleWrapper("아이콘")
+        Group {
+            if let iconData = state.projectList[safe: index]?.iconImage {
+                Image(uiImage: iconData.uiImage)
+                    .resizable()
+                    .frame(width: 108, height: 108)
+                    .cornerRadius(8)
+            } else {
+                imagePlaceholder(size: 108)
+                    .overlay {
+                        SMSIcon(.photo)
+                    }
+                    .titleWrapper("아이콘")
+            }
         }
+        .imagePicker(
+            isShow: Binding(
+                get: { state.isPresentedImagePicker && state.focusedProjectIndex == index },
+                set: { _ in intent.iconImagePickerDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { state.projectList[safe: index]?.iconImage },
+                set: {
+                    guard let image = $0 else { return }
+                    intent.updateIconImage(index: index, image: image)
+                }
+            )
+        )
     }
 
     @ViewBuilder
     func projectPreviewImageList(index: Int) -> some View {
         LazyHStack(spacing: 8) {
             let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
-            imagePlaceholder(size: 132)
-                .overlay {
-                    VStack(spacing: 4) {
-                        SMSIcon(.photo)
+            ConditionView(projectPreviewImages.count < 4) {
+                imagePlaceholder(size: 132)
+                    .overlay {
+                        VStack(spacing: 4) {
+                            SMSIcon(.photo)
 
-                        
-                        SMSText(
-                            "\(projectPreviewImages.count)/4",
-                            font: .body2
-                        )
-                        .foregroundColor(.sms(.system(.black)))
+                            SMSText(
+                                "\(projectPreviewImages.count)/4",
+                                font: .body2
+                            )
+                            .foregroundColor(.sms(.system(.black)))
+                        }
                     }
-                }
-                .buttonWrapper {
-                }
+                    .buttonWrapper {
+                        intent.appendPreviewImageButtonDidTap(index: index)
+                    }
+            }
 
-            ForEach(projectPreviewImages, id: \.self) { previewImageData in
-                Image(uiImage: UIImage(data: previewImageData) ?? .init())
+            ForEach(projectPreviewImages.indices, id: \.self) { previewIndex in
+                Image(uiImage: projectPreviewImages[previewIndex].uiImage)
                     .resizable()
                     .frame(width: 132, height: 132)
                     .cornerRadius(8)
+                    .overlay(alignment: .topTrailing) {
+                        SMSIcon(.xmark)
+                            .padding(4)
+                            .buttonWrapper {
+                                intent.removePreviewImageDidTap(index: index, previewIndex: previewIndex)
+                            }
+                    }
             }
         }
         .titleWrapper("미리보기 사진")
@@ -195,14 +248,14 @@ private extension InputProjectInfoView {
         HStack(spacing: 8) {
             let project = state.projectList[safe: index]
             datePickerField(dateText: project?.startAtString ?? "") {
-                intent.projectStartAtDidSelect(index: index, startAt: $0)
+                intent.startAtButtonDidTap(index: index)
             }
             .frame(maxWidth: .infinity)
 
             SMSIcon(.waterWave)
 
             datePickerField(dateText: project?.endAtString ?? "") {
-                intent.projectEndAtDidSelect(index: index, endAt: $0)
+                intent.endAtButtonDidTap(index: index)
             }
             .frame(maxWidth: .infinity)
         }
@@ -259,7 +312,7 @@ private extension InputProjectInfoView {
     }
 
     @ViewBuilder
-    func datePickerField(dateText: String, action: @escaping (Date) -> Void) -> some View {
+    func datePickerField(dateText: String, action: @escaping () -> Void) -> some View {
         SMSTextField(
             "yyyy.mm",
             text: Binding(
@@ -276,7 +329,7 @@ private extension InputProjectInfoView {
         .simultaneousGesture(
             TapGesture()
                 .onEnded {
-                    action(.init())
+                    action()
                 }
         )
     }

@@ -1,3 +1,4 @@
+import DesignSystem
 import Foundation
 
 final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
@@ -11,12 +12,17 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
         model?.updateProjectName(index: index, name: name)
     }
 
-    func updateIconImage(index: Int, data: Data) {
-        model?.updateIconImage(index: index, data: data)
+    func updateIconImage(index: Int, image: PickedImageResult) {
+        model?.updateIconImage(index: index, image: image)
     }
 
-    func appendPreviewImage(index: Int, data: Data) {
-        model?.appendPreviewImage(index: index, data: data)
+    func appendPreviewImageButtonDidTap(index: Int) {
+        model?.updateFocusedProjectIndex(index: index)
+        model?.updateIsPresentedPreviewImagePicker(isPresented: true)
+    }
+
+    func appendPreviewImage(index: Int, image: PickedImageResult) {
+        model?.appendPreviewImage(index: index, image: image)
     }
 
     func removePreviewImageDidTap(index: Int, previewIndex: Int) {
@@ -33,6 +39,16 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
 
     func updateProjectMainTask(index: Int, mainTask: String) {
         model?.updateProjectMainTask(index: index, mainTask: mainTask)
+    }
+
+    func projectStartAtButtonDidTap(index: Int) {
+        model?.updateFocusedProjectIndex(index: index)
+        model?.updateIsPresentedStartAtDatePicker(isPresented: true)
+    }
+
+    func projectEndAtButtonDidTap(index: Int) {
+        model?.updateFocusedProjectIndex(index: index)
+        model?.updateIsPresentedEndAtDatePicker(isPresented: true)
     }
 
     func projectStartAtDidSelect(index: Int, startAt: Date) {
@@ -61,5 +77,35 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
 
     func projectAppendButtonDidTap() {
         model?.appendEmptyProject()
+    }
+
+    func iconImagePickerIsRequired() {
+        model?.updateIsPresentedImagePicker(isPresented: true)
+    }
+
+    func iconImagePickerDismissed() {
+        model?.updateIsPresentedImagePicker(isPresented: false)
+    }
+
+    func previewImagePickerDismissed() {
+        model?.updateIsPresentedPreviewImagePicker(isPresented: false)
+    }
+
+    func startAtButtonDidTap(index: Int) {
+        model?.updateFocusedProjectIndex(index: index)
+        model?.updateIsPresentedStartAtDatePicker(isPresented: true)
+    }
+
+    func endAtButtonDidTap(index: Int) {
+        model?.updateFocusedProjectIndex(index: index)
+        model?.updateIsPresentedEndAtDatePicker(isPresented: true)
+    }
+
+    func startAtDatePickerDismissed() {
+        model?.updateIsPresentedStartAtDatePicker(isPresented: false)
+    }
+
+    func endAtDatePickerDismissed() {
+        model?.updateIsPresentedEndAtDatePicker(isPresented: false)
     }
 }
