@@ -19,6 +19,7 @@ import InputMilitaryInfoFeature
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeature
 import InputProfileInfoFeatureInterface
+import InputProjectInfoFeature
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
@@ -88,6 +89,17 @@ private class SplashDependencye0cb7136f2ec3edfd60aProvider: SplashDependency {
 /// ^->AppComponent->SplashComponent
 private func factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return SplashDependencye0cb7136f2ec3edfd60aProvider(appComponent: parent1(component) as! AppComponent)
+}
+private class InputProjectInfoDependencye065c7f60c5c520999a0Provider: InputProjectInfoDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputProjectInfoComponent
+private func factory2378736e5949c5e8e9f4e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputProjectInfoDependencye065c7f60c5c520999a0Provider()
 }
 private class InputWorkInfoDependency74441f61366e4e5af9a2Provider: InputWorkInfoDependency {
 
@@ -246,6 +258,9 @@ private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInfor
     }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         return appComponent.inputLanguageInfoBuildable
+    }
+    var inputProjectInfoBuildable: any InputProjectInfoBuildable {
+        return appComponent.inputProjectInfoBuildable
     }
     var fileDomainBuildable: any FileDomainBuildable {
         return appComponent.fileDomainBuildable
@@ -406,6 +421,11 @@ extension SplashComponent: Registration {
         keyPathToName[\SplashDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
     }
 }
+extension InputProjectInfoComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension InputWorkInfoComponent: Registration {
     public func registerItems() {
 
@@ -469,6 +489,7 @@ extension InputInformationComponent: Registration {
         keyPathToName[\InputInformationDependency.inputMilitaryInfoBuildable] = "inputMilitaryInfoBuildable-any InputMilitaryInfoBuildable"
         keyPathToName[\InputInformationDependency.inputCertificateInfoBuildable] = "inputCertificateInfoBuildable-any InputCertificateInfoBuildable"
         keyPathToName[\InputInformationDependency.inputLanguageInfoBuildable] = "inputLanguageInfoBuildable-any InputLanguageInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputProjectInfoBuildable] = "inputProjectInfoBuildable-any InputProjectInfoBuildable"
         keyPathToName[\InputInformationDependency.fileDomainBuildable] = "fileDomainBuildable-any FileDomainBuildable"
         keyPathToName[\InputInformationDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
     }
@@ -540,6 +561,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->SplashComponent", factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputProjectInfoComponent", factory2378736e5949c5e8e9f4e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)

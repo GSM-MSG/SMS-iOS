@@ -1,13 +1,14 @@
+import FileDomainInterface
 import Foundation
 import InputCertificateInfoFeatureInterface
+import InputInformationFeatureInterface
+import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
+import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
-import InputLanguageInfoFeatureInterface
-import InputInformationFeatureInterface
 import StudentDomainInterface
-import FileDomainInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -147,6 +148,16 @@ extension InputInformationIntent: InputLanguageDelegate {
         let languageCertificates: [InputStudentInformationRequestDTO.LanguageCertificate] = languages
             .map { .init(languageCertificateName: $0.name, score: $0.score) }
         model?.updateLanguages(languages: languageCertificates)
+    }
+}
+
+extension InputInformationIntent: InputProjectInfoDelegate {
+    func projectInfoPrevButtonDidTap() {
+        model?.prevButtonDidTap()
+    }
+
+    func completeToInputProjectInfo(input: [InputProjectInfoObject]) {
+        model?.updateProjects(projects: input)
         model?.updateIsCompleteToInputAllInfo(isComplete: true)
     }
 }

@@ -1,11 +1,12 @@
 import BaseFeature
 import DesignSystem
-import InputProfileInfoFeatureInterface
-import InputSchoolLifeInfoFeatureInterface
-import InputWorkInfoFeatureInterface
-import InputMilitaryInfoFeatureInterface
 import InputCertificateInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
+import InputProfileInfoFeatureInterface
+import InputProjectInfoFeatureInterface
+import InputSchoolLifeInfoFeatureInterface
+import InputWorkInfoFeatureInterface
 import SwiftUI
 import ViewUtil
 
@@ -20,6 +21,7 @@ struct InputInformationView: View {
     private let inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable
     private let inputCertificateInfoBuildable: any InputCertificateInfoBuildable
     private let inputLanguageInfoBuildable: any InputLanguageInfoBuildable
+    private let inputProjectInfoBuildable: any InputProjectInfoBuildable
 
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
@@ -28,6 +30,7 @@ struct InputInformationView: View {
         inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable,
         inputCertificateInfoBuildable: any InputCertificateInfoBuildable,
         inputLanguageInfoBuildable: any InputLanguageInfoBuildable,
+        inputProjectInfoBuildable: any InputProjectInfoBuildable,
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
@@ -36,6 +39,7 @@ struct InputInformationView: View {
         self.inputMilitaryInfoBuildable = inputMilitaryInfoBuildable
         self.inputCertificateInfoBuildable = inputCertificateInfoBuildable
         self.inputLanguageInfoBuildable = inputLanguageInfoBuildable
+        self.inputProjectInfoBuildable = inputProjectInfoBuildable
         self._container = StateObject(wrappedValue: container)
     }
 
@@ -69,6 +73,10 @@ struct InputInformationView: View {
             inputLanguageInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.language)
+
+            inputProjectInfoBuildable.makeView(delegate: intent)
+                .eraseToAnyView()
+                .tag(InformationPhase.project)
         }
         .ignoresSafeArea(.container, edges: .top)
         .smsAlert(

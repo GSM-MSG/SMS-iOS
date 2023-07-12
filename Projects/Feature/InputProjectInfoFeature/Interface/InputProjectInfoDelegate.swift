@@ -2,7 +2,7 @@ import Foundation
 
 public protocol InputProjectInfoDelegate: AnyObject {
     func projectInfoPrevButtonDidTap()
-    func completeToInputProjectInfo(input: InputProjectInfoObject)
+    func completeToInputProjectInfo(input: [InputProjectInfoObject])
 }
 
 public struct InputProjectInfoObject {

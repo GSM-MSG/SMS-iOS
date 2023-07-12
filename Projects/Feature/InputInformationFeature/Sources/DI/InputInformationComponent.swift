@@ -5,11 +5,12 @@ import InputInformationFeatureInterface
 import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
+import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import NeedleFoundation
-import SwiftUI
 import StudentDomainInterface
+import SwiftUI
 
 public protocol InputInformationDependency: Dependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
@@ -18,6 +19,7 @@ public protocol InputInformationDependency: Dependency {
     var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable { get }
     var inputCertificateInfoBuildable: any InputCertificateInfoBuildable { get }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable { get }
+    var inputProjectInfoBuildable: any InputProjectInfoBuildable { get }
     var fileDomainBuildable: any FileDomainBuildable { get }
     var studentDomainBuildable: any StudentDomainBuildable { get }
 }
@@ -47,6 +49,7 @@ public final class InputInformationComponent:
             inputMilitaryInfoBuildable: dependency.inputMilitaryInfoBuildable,
             inputCertificateInfoBuildable: dependency.inputCertificateInfoBuildable,
             inputLanguageInfoBuildable: dependency.inputLanguageInfoBuildable,
+            inputProjectInfoBuildable: dependency.inputProjectInfoBuildable,
             container: container
         )
     }

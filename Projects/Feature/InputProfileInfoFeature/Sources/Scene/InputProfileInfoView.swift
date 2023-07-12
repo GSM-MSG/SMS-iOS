@@ -34,7 +34,7 @@ struct InputProfileInfoView: View {
                     SMSSeparator()
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "프로필", pageCount: 6, selectedPage: 0)
+                        InputInformationPageTitleView(title: "프로필", pageCount: 7, selectedPage: 0)
 
                         VStack(alignment: .leading, spacing: 24) {
                             VStack(alignment: .leading, spacing: 8) {
