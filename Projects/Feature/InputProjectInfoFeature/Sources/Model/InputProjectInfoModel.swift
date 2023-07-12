@@ -49,7 +49,7 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
         self.projectList[index].techStacks = Set(techStacks.prefix(20))
     }
 
-    func removeProjectTechStacks(index: Int, techStack: String) {
+    func removeProjectTechStack(index: Int, techStack: String) {
         guard projectList[safe: index] != nil else { return }
         self.projectList[index].techStacks.remove(techStack)
     }

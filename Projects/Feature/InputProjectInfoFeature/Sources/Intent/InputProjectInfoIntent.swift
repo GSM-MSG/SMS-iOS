@@ -87,7 +87,7 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     }
 
     func removeProjectTechStackButtonDidTap(index: Int, techStack: String) {
-        model?.removeProjectTechStack(index: index, techStacks: techStacks)
+        model?.removeProjectTechStack(index: index, techStack: techStack)
     }
 
     func updateProjectMainTask(index: Int, mainTask: String) {
