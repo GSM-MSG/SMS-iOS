@@ -7,6 +7,7 @@ let project = Project.makeModule(
     product: .staticLibrary,
     targets: [.interface, .unitTest, .demo],
     internalDependencies: [
-        .Feature.InputInformationBaseFeature
+        .Feature.InputInformationBaseFeature,
+        .Feature.TechStackAppendFeatureInterface
     ]
 )
