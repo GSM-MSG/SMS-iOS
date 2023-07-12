@@ -1,5 +1,6 @@
 import DesignSystem
 import Foundation
+import FoundationUtil
 import InputProjectInfoFeatureInterface
 
 final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
@@ -35,9 +36,9 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
                     data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
                 )
             }
-            let relatedLinks = $0.relatedLinks.map {
-                InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url)
-            }
+            let relatedLinks = $0.relatedLinks
+                .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
+                .filter { $0.name.isNotEmpty && $0.url.isNotEmpty }
             return InputProjectInfoObject(
                 name: $0.name,
                 iconImage: iconImage,

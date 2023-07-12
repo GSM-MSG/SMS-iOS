@@ -302,7 +302,7 @@ private extension InputProjectInfoView {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
                 let project = state.projectList[safe: index]
-                datePickerField(dateText: project?.startAtString ?? "") {
+                DatePickerField(dateText: project?.startAtString ?? "") {
                     intent.startAtButtonDidTap(index: index)
                 }
                 .frame(maxWidth: .infinity)
@@ -310,7 +310,7 @@ private extension InputProjectInfoView {
                 if !(project?.isInProgress ?? false) {
                     SMSIcon(.waterWave)
 
-                    datePickerField(dateText: project?.endAtString ?? "") {
+                    DatePickerField(dateText: project?.endAtString ?? "") {
                         intent.endAtButtonDidTap(index: index)
                     }
                     .frame(maxWidth: .infinity)
@@ -386,28 +386,5 @@ private extension InputProjectInfoView {
         RoundedRectangle(cornerRadius: 8)
             .fill(Color.sms(.neutral(.n10)))
             .frame(width: size, height: size)
-    }
-
-    @ViewBuilder
-    func datePickerField(dateText: String, action: @escaping () -> Void) -> some View {
-        SMSTextField(
-            "yyyy.mm",
-            text: Binding(
-                get: { dateText },
-                set: { _ in }
-            ),
-            isOnClear: false
-        )
-        .disabled(true)
-        .overlay(alignment: .trailing) {
-            SMSIcon(.calendar)
-                .padding(.trailing, 12)
-        }
-        .simultaneousGesture(
-            TapGesture()
-                .onEnded {
-                    action()
-                }
-        )
     }
 }
