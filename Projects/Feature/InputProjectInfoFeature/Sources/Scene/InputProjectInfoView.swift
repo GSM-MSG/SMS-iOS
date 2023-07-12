@@ -8,7 +8,6 @@ import ViewUtil
 
 struct InputProjectInfoView: View {
     @FocusState var projectContentIsFocused: Bool
-
     @StateObject var container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
     var intent: any InputProjectInfoIntentProtocol { container.intent }
     var state: any InputProjectInfoStateProtocol { container.model }
