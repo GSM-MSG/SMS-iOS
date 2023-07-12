@@ -1,11 +1,18 @@
 import BaseFeature
 import SwiftUI
 import InputProjectInfoFeatureInterface
+import TechStackAppendFeatureInterface
 @testable import InputProjectInfoFeature
 
 final class DummyInputProjectInfoDelegate: InputProjectInfoDelegate {
     func projectInfoPrevButtonDidTap() {}
     func completeToInputProjectInfo(input: [InputProjectInfoObject]) {}
+}
+
+struct DummyTechStackAppendBuildable: TechStackAppendBuildable {
+    func makeView(initial techStacks: [String], completion: @escaping ([String]) -> Void) -> some View {
+        EmptyView()
+    }
 }
 
 @main
@@ -22,7 +29,10 @@ struct InputProjectInfoApp: App {
                 model: model as InputProjectInfoStateProtocol,
                 modelChangePublisher: model.objectWillChange
             )
-            InputProjectInfoView(container: container)
+            InputProjectInfoView(
+                techStackAppendBuildable: DummyTechStackAppendBuildable(),
+                container: container
+            )
         }
     }
 }
