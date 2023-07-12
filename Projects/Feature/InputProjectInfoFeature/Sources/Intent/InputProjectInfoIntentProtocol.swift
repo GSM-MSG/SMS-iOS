@@ -32,4 +32,6 @@ protocol InputProjectInfoIntentProtocol {
     func endAtButtonDidTap(index: Int)
     func startAtDatePickerDismissed()
     func endAtDatePickerDismissed()
+    func techStackAppendButtonDidTap(index: Int)
+    func techStackAppendDismissed()
 }

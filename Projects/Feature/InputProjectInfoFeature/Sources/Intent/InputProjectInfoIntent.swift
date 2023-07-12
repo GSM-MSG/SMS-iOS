@@ -171,4 +171,13 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     func endAtDatePickerDismissed() {
         model?.updateIsPresentedEndAtDatePicker(isPresented: false)
     }
+
+    func techStackAppendButtonDidTap(index: Int) {
+        model?.updateFocusedProjectIndex(index: index)
+        model?.updateIsPresentedTechStackAppend(isPresented: true)
+    }
+
+    func techStackAppendDismissed() {
+        model?.updateIsPresentedTechStackAppend(isPresented: false)
+    }
 }

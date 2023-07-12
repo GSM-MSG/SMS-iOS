@@ -4,6 +4,7 @@ import FoundationUtil
 import InputInformationBaseFeature
 import SwiftUI
 import TagLayoutView
+import TechStackAppendFeatureInterface
 import ViewUtil
 
 struct InputProjectInfoView: View {
@@ -11,10 +12,13 @@ struct InputProjectInfoView: View {
     @StateObject var container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
     var intent: any InputProjectInfoIntentProtocol { container.intent }
     var state: any InputProjectInfoStateProtocol { container.model }
+    private let techStackAppendBuildable: any TechStackAppendBuildable
 
     init(
+        techStackAppendBuildable: any TechStackAppendBuildable,
         container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
     ) {
+        self.techStackAppendBuildable = techStackAppendBuildable
         self._container = StateObject(wrappedValue: container)
     }
 
@@ -88,6 +92,21 @@ struct InputProjectInfoView: View {
             )
         ) { date in
             intent.projectEndAtDidSelect(index: state.focusedProjectIndex, endAt: date)
+        }
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { state.isPresentedTechStackAppend },
+                set: { _ in intent.techStackAppendDismissed() }
+            )
+        ) {
+            DeferView {
+                techStackAppendBuildable.makeView(
+                    initial: Array(state.projectList[safe: state.focusedProjectIndex]?.techStacks ?? [])
+                ) {
+                    intent.techStacksDidSelect(index: state.focusedProjectIndex, techStacks: $0)
+                }
+                .eraseToAnyView()
+            }
         }
     }
 
@@ -268,7 +287,9 @@ private extension InputProjectInfoView {
                 Color.sms(.neutral(.n10))
             }
             .clipShape(RoundedRectangle(cornerRadius: 8))
-            .buttonWrapper {}
+            .buttonWrapper {
+                intent.techStackAppendButtonDidTap(index: index)
+            }
 
             TagLayoutView(
                 Array(state.projectList[safe: index]?.techStacks ?? []),

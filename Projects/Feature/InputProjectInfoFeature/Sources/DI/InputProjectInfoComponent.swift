@@ -2,8 +2,11 @@ import BaseFeature
 import InputProjectInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
+import TechStackAppendFeatureInterface
 
-public protocol InputProjectInfoDependency: Dependency {}
+public protocol InputProjectInfoDependency: Dependency {
+    var techStackAppendBuildable: any TechStackAppendBuildable { get }
+}
 
 public final class InputProjectInfoComponent:
     Component<InputProjectInfoDependency>,
@@ -19,6 +22,9 @@ public final class InputProjectInfoComponent:
             model: model as InputProjectInfoStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
-        return InputProjectInfoView(container: container)
+        return InputProjectInfoView(
+            techStackAppendBuildable: dependency.techStackAppendBuildable,
+            container: container
+        )
     }
 }
