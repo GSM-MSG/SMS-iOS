@@ -294,7 +294,7 @@ private extension InputProjectInfoView {
                 .clipShape(RoundedRectangle(cornerRadius: 4))
             }
         }
-        .titleWrapper("사용 기술")
+        .titleWrapper("사용 기술 (최대 20개)")
     }
 
     @ViewBuilder

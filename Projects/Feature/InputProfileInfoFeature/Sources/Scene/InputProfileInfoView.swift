@@ -176,7 +176,7 @@ struct InputProfileInfoView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 4))
                                 }
                             }
-                            .titleWrapper("세부스택")
+                            .titleWrapper("세부스택 (최대 5개)")
                         }
 
                         CTAButton(text: "다음") {

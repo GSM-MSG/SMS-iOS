@@ -44,7 +44,7 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
     }
 
     func techStackAppendDidComplete(techStacks: [String]) {
-        model?.updateTeckStacks(techStacks: techStacks)
+        model?.updateTeckStacks(techStacks: Array(techStacks.prefix(5)))
     }
 
     func removeTechStack(techStack: String) {
