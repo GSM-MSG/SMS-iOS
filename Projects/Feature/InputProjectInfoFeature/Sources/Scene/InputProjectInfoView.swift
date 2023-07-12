@@ -45,10 +45,12 @@ struct InputProjectInfoView: View {
 
                         HStack(spacing: 8) {
                             CTAButton(text: "이전", style: .outline) {
+                                intent.prevButtonDidTap()
                             }
                             .frame(maxWidth: geometry.size.width / 3)
 
                             CTAButton(text: "다음") {
+                                intent.nextButtonDidTap(projects: state.projectList)
                             }
                             .frame(maxWidth: .infinity)
                         }
