@@ -148,6 +148,7 @@ extension InputInformationIntent: InputLanguageDelegate {
         let languageCertificates: [InputStudentInformationRequestDTO.LanguageCertificate] = languages
             .map { .init(languageCertificateName: $0.name, score: $0.score) }
         model?.updateLanguages(languages: languageCertificates)
+        model?.nextButtonDidTap()
     }
 }
 

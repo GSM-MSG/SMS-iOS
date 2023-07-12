@@ -5,7 +5,7 @@ import InputProjectInfoFeatureInterface
 
 final class DummyInputProjectInfoDelegate: InputProjectInfoDelegate {
     func projectInfoPrevButtonDidTap() {}
-    func completeToInputProjectInfo(input: InputProjectInfoObject) {}
+    func completeToInputProjectInfo(input: [InputProjectInfoObject]) {}
 }
 
 @main

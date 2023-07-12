@@ -2,7 +2,11 @@ import DateUtil
 import DesignSystem
 import Foundation
 
-struct ProjectInfo {
+struct ProjectInfo: Equatable {
+    static func == (lhs: ProjectInfo, rhs: ProjectInfo) -> Bool {
+        lhs.name == rhs.name
+    }
+
     var name: String
     var iconImage: PickedImageResult?
     var previewImages: [PickedImageResult]
@@ -11,6 +15,7 @@ struct ProjectInfo {
     var mainTask: String
     var startAt: Date
     var endAt: Date?
+    var isInProgress: Bool
     var relatedLinks: [RelatedLink]
 
     var startAtString: String {
@@ -57,6 +62,7 @@ protocol InputProjectInfoActionProtocol: AnyObject {
     func updateProjectMainTask(index: Int, mainTask: String)
     func updateProjectStartAt(index: Int, startAt: Date)
     func updateProjectEndAt(index: Int, endAt: Date)
+    func updateIsInProgress(index: Int, isInProgress: Bool)
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String)
     func updateProjectLinkURL(index: Int, linkIndex: Int, url: String)
     func appendEmptyRelatedLink(index: Int)

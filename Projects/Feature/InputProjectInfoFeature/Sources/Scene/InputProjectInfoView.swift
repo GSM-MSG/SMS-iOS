@@ -257,10 +257,10 @@ private extension InputProjectInfoView {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
                 SMSIcon(.magnifyingglass)
-                
+
                 SMSText("찾고 싶은 세부 스택 입력", font: .body1)
                     .foregroundColor(.sms(.neutral(.n30)))
-                
+
                 Spacer()
             }
             .padding(12)
@@ -299,19 +299,41 @@ private extension InputProjectInfoView {
 
     @ViewBuilder
     func projectDuration(index: Int) -> some View {
-        HStack(spacing: 8) {
-            let project = state.projectList[safe: index]
-            datePickerField(dateText: project?.startAtString ?? "") {
-                intent.startAtButtonDidTap(index: index)
-            }
-            .frame(maxWidth: .infinity)
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
+                let project = state.projectList[safe: index]
+                datePickerField(dateText: project?.startAtString ?? "") {
+                    intent.startAtButtonDidTap(index: index)
+                }
+                .frame(maxWidth: .infinity)
 
-            SMSIcon(.waterWave)
+                if !(project?.isInProgress ?? false) {
+                    SMSIcon(.waterWave)
 
-            datePickerField(dateText: project?.endAtString ?? "") {
-                intent.endAtButtonDidTap(index: index)
+                    datePickerField(dateText: project?.endAtString ?? "") {
+                        intent.endAtButtonDidTap(index: index)
+                    }
+                    .frame(maxWidth: .infinity)
+                }
             }
-            .frame(maxWidth: .infinity)
+            .animation(.spring(blendDuration: 0.3), value: state.projectList.map(\.isInProgress))
+
+            HStack(spacing: 8) {
+                SMSCheckbox(
+                    isSelected: Binding(
+                        get: { state.projectList[safe: index]?.isInProgress ?? false },
+                        set: { isInProgress in
+                            withAnimation {
+                                intent.projectIsInProgressButtonDidTap(index: index, isInProgress: isInProgress)
+                            }
+                        }
+                    )
+                )
+
+                SMSText("진행중", font: .body1)
+                    .foregroundColor(.sms(.neutral(.n30)))
+                    .aligned(.leading)
+            }
         }
         .titleWrapper("진행 기간")
     }
@@ -341,6 +363,7 @@ private extension InputProjectInfoView {
                     .frame(maxWidth: .infinity)
 
                     Button {
+                        intent.removeProjectRelatedLinkDidTap(index: index, linkIndex: relatedIndex)
                     } label: {
                         SMSIcon(.trash)
                     }

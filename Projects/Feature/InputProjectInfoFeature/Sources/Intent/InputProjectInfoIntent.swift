@@ -46,7 +46,7 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
                 techStacks: Array($0.techStacks),
                 mainTask: $0.mainTask,
                 startAt: $0.startAt,
-                endAt: $0.endAt,
+                endAt: $0.isInProgress ? nil : $0.endAt,
                 relatedLinks: relatedLinks
             )
         }
@@ -102,6 +102,10 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     func projectEndAtButtonDidTap(index: Int) {
         model?.updateFocusedProjectIndex(index: index)
         model?.updateIsPresentedEndAtDatePicker(isPresented: true)
+    }
+
+    func projectIsInProgressButtonDidTap(index: Int, isInProgress: Bool) {
+        model?.updateIsInProgress(index: index, isInProgress: isInProgress)
     }
 
     func projectStartAtDidSelect(index: Int, startAt: Date) {

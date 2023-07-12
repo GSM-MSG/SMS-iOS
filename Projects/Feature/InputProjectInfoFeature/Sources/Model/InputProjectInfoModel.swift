@@ -72,6 +72,11 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
         }
     }
 
+    func updateIsInProgress(index: Int, isInProgress: Bool) {
+        guard projectList[safe: index] != nil else { return }
+        self.projectList[index].isInProgress = isInProgress
+    }
+
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String) {
         guard
             let project = projectList[safe: index],
@@ -110,6 +115,7 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
             techStacks: [],
             mainTask: "",
             startAt: Date(),
+            isInProgress: false,
             relatedLinks: []
         )
         self.projectList.append(newProject)

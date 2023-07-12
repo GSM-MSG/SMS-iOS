@@ -18,6 +18,7 @@ protocol InputProjectInfoIntentProtocol {
     func projectEndAtButtonDidTap(index: Int)
     func projectStartAtDidSelect(index: Int, startAt: Date)
     func projectEndAtDidSelect(index: Int, endAt: Date)
+    func projectIsInProgressButtonDidTap(index: Int, isInProgress: Bool)
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String)
     func updateProjectLinkURL(index: Int, linkIndex: Int, url: String)
     func relatedLinkAppendButtonDidTap(index: Int)
