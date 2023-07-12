@@ -1,6 +1,12 @@
 import BaseFeature
 import SwiftUI
+import InputProjectInfoFeatureInterface
 @testable import InputProjectInfoFeature
+
+final class DummyInputProjectInfoDelegate: InputProjectInfoDelegate {
+    func projectInfoPrevButtonDidTap() {}
+    func completeToInputProjectInfo(input: InputProjectInfoObject) {}
+}
 
 @main
 struct InputProjectInfoApp: App {
@@ -8,7 +14,8 @@ struct InputProjectInfoApp: App {
         WindowGroup {
             let model = InputProjectInfoModel()
             let intent = InputProjectInfoIntent(
-                model: model
+                model: model,
+                delegate: DummyInputProjectInfoDelegate()
             )
             let container = MVIContainer(
                 intent: intent as InputProjectInfoIntentProtocol,

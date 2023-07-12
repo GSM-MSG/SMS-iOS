@@ -1,11 +1,17 @@
 import DesignSystem
 import Foundation
+import InputProjectInfoFeatureInterface
 
 final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     private weak var model: (any InputProjectInfoActionProtocol)?
+    private weak var delegate: (any InputProjectInfoDelegate)?
 
-    init(model: any InputProjectInfoActionProtocol) {
+    init(
+        model: any InputProjectInfoActionProtocol,
+        delegate: any InputProjectInfoDelegate
+    ) {
         self.model = model
+        self.delegate = delegate
     }
 
     func projectToggleButtonDidTap(index: Int) {

@@ -3,15 +3,16 @@ import InputProjectInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
 
-protocol InputProjectInfoDependency: Dependency {}
+public protocol InputProjectInfoDependency: Dependency {}
 
-final class InputProjectInfoComponent:
+public final class InputProjectInfoComponent:
     Component<InputProjectInfoDependency>,
     InputProjectInfoBuildable {
-    func makeView() -> some View {
+    public func makeView(delegate: any InputProjectInfoDelegate) -> some View {
         let model = InputProjectInfoModel()
         let intent = InputProjectInfoIntent(
-            model: model
+            model: model,
+            delegate: delegate
         )
         let container = MVIContainer(
             intent: intent as InputProjectInfoIntentProtocol,
