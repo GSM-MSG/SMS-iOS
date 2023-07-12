@@ -14,6 +14,45 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
         self.delegate = delegate
     }
 
+    func prevButtonDidTap() {
+        delegate?.projectInfoPrevButtonDidTap()
+    }
+
+    func nextButtonDidTap(projects: [ProjectInfo]) {
+        let projectInfoObjects = projects.map {
+            let iconImage: InputProjectInfoObject.ImageFile?
+            if let unwrapIconImage = $0.iconImage {
+                iconImage = .init(
+                    name: unwrapIconImage.fileName,
+                    data: unwrapIconImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+                )
+            } else {
+                iconImage = nil
+            }
+            let previewImages = $0.previewImages.map {
+                InputProjectInfoObject.ImageFile(
+                    name: $0.fileName,
+                    data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+                )
+            }
+            let relatedLinks = $0.relatedLinks.map {
+                InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url)
+            }
+            return InputProjectInfoObject(
+                name: $0.name,
+                iconImage: iconImage,
+                previewImages: previewImages,
+                content: $0.content,
+                techStacks: $0.techStacks,
+                mainTask: $0.mainTask,
+                startAt: $0.startAt,
+                endAt: $0.endAt,
+                relatedLinks: relatedLinks
+            )
+        }
+        delegate?.completeToInputProjectInfo(input: projectInfoObjects)
+    }
+
     func projectToggleButtonDidTap(index: Int) {
         model?.toggleCollapsedProject(index: index)
     }

@@ -2,6 +2,8 @@ import DesignSystem
 import Foundation
 
 protocol InputProjectInfoIntentProtocol {
+    func prevButtonDidTap()
+    func nextButtonDidTap(projects: [ProjectInfo])
     func projectToggleButtonDidTap(index: Int)
     func updateProjectName(index: Int, name: String)
     func updateIconImage(index: Int, image: PickedImageResult)
