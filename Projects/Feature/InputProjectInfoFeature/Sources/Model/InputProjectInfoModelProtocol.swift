@@ -7,7 +7,7 @@ struct ProjectInfo {
     var iconImage: PickedImageResult?
     var previewImages: [PickedImageResult]
     var content: String
-    var techStacks: [String]
+    var techStacks: Set<String>
     var mainTask: String
     var startAt: Date
     var endAt: Date?
@@ -53,6 +53,7 @@ protocol InputProjectInfoActionProtocol: AnyObject {
     func removePreviewImage(index: Int, previewIndex: Int)
     func updateProjectContent(index: Int, content: String)
     func updateProjectTechStacks(index: Int, techStacks: [String])
+    func removeProjectTechStack(index: Int, techStack: String)
     func updateProjectMainTask(index: Int, mainTask: String)
     func updateProjectStartAt(index: Int, startAt: Date)
     func updateProjectEndAt(index: Int, endAt: Date)

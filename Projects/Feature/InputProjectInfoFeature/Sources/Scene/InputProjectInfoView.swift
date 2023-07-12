@@ -3,6 +3,7 @@ import DesignSystem
 import FoundationUtil
 import InputInformationBaseFeature
 import SwiftUI
+import TagLayoutView
 import ViewUtil
 
 struct InputProjectInfoView: View {
@@ -123,7 +124,7 @@ struct InputProjectInfoView: View {
 
                 projectContentTextEditor(index: index)
 
-                projectTechStack(index: index)
+                projectTechStack(geometry: geometry, index: index)
 
                 projectDuration(index: index)
 
@@ -253,21 +254,47 @@ private extension InputProjectInfoView {
     }
 
     @ViewBuilder
-    func projectTechStack(index: Int) -> some View {
-        HStack(spacing: 8) {
-            SMSIcon(.magnifyingglass)
+    func projectTechStack(geometry: GeometryProxy, index: Int) -> some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
+                SMSIcon(.magnifyingglass)
+                
+                SMSText("찾고 싶은 세부 스택 입력", font: .body1)
+                    .foregroundColor(.sms(.neutral(.n30)))
+                
+                Spacer()
+            }
+            .padding(12)
+            .background {
+                Color.sms(.neutral(.n10))
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .buttonWrapper {}
 
-            SMSText("찾고 싶은 세부 스택 입력", font: .body1)
-                .foregroundColor(.sms(.neutral(.n30)))
+            TagLayoutView(
+                Array(state.projectList[safe: index]?.techStacks ?? []),
+                tagFont: UIFont(
+                    font: DesignSystemFontFamily.Pretendard.regular,
+                    size: 24
+                ) ?? .init(),
+                padding: 20,
+                parentWidth: geometry.size.width
+            ) { techStack in
+                HStack {
+                    SMSText(techStack, font: .body2)
 
-            Spacer()
+                    SMSIcon(.xmarkOutline, width: 20, height: 20)
+                        .buttonWrapper {
+                            intent.removeProjectTechStackButtonDidTap(index: index, techStack: techStack)
+                        }
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .background(Color.sms(.neutral(.n10)))
+                .fixedSize()
+                .clipShape(RoundedRectangle(cornerRadius: 4))
+            }
         }
-        .padding(12)
-        .background {
-            Color.sms(.neutral(.n10))
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-        .buttonWrapper {}
         .titleWrapper("사용 기술")
     }
 

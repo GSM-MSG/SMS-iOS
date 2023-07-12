@@ -46,7 +46,12 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
 
     func updateProjectTechStacks(index: Int, techStacks: [String]) {
         guard projectList[safe: index] != nil else { return }
-        self.projectList[index].techStacks = techStacks
+        self.projectList[index].techStacks = Set(techStacks.prefix(20))
+    }
+
+    func removeProjectTechStacks(index: Int, techStack: String) {
+        guard projectList[safe: index] != nil else { return }
+        self.projectList[index].techStacks.remove(techStack)
     }
 
     func updateProjectMainTask(index: Int, mainTask: String) {

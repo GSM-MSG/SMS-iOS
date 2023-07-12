@@ -43,7 +43,7 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
                 iconImage: iconImage,
                 previewImages: previewImages,
                 content: $0.content,
-                techStacks: $0.techStacks,
+                techStacks: Array($0.techStacks),
                 mainTask: $0.mainTask,
                 startAt: $0.startAt,
                 endAt: $0.endAt,
@@ -84,6 +84,10 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
 
     func techStacksDidSelect(index: Int, techStacks: [String]) {
         model?.updateProjectTechStacks(index: index, techStacks: techStacks)
+    }
+
+    func removeProjectTechStackButtonDidTap(index: Int, techStack: String) {
+        model?.removeProjectTechStack(index: index, techStacks: techStacks)
     }
 
     func updateProjectMainTask(index: Int, mainTask: String) {

@@ -12,6 +12,7 @@ protocol InputProjectInfoIntentProtocol {
     func removePreviewImageDidTap(index: Int, previewIndex: Int)
     func updateProjectContent(index: Int, content: String)
     func techStacksDidSelect(index: Int, techStacks: [String])
+    func removeProjectTechStackButtonDidTap(index: Int, techStack: String)
     func updateProjectMainTask(index: Int, mainTask: String)
     func projectStartAtButtonDidTap(index: Int)
     func projectEndAtButtonDidTap(index: Int)
