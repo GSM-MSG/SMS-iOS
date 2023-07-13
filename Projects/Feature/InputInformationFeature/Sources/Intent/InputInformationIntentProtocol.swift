@@ -1,10 +1,11 @@
 import Foundation
-import InputProfileInfoFeatureInterface
-import InputSchoolLifeInfoFeatureInterface
-import InputWorkInfoFeatureInterface
-import InputMilitaryInfoFeatureInterface
 import InputCertificateInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
+import InputMilitaryInfoFeatureInterface
+import InputProfileInfoFeatureInterface
+import InputProjectInfoFeatureInterface
+import InputSchoolLifeInfoFeatureInterface
+import InputWorkInfoFeatureInterface
 
 protocol InputInformationIntentProtocol:
     InputProfileDelegate,
@@ -12,7 +13,8 @@ protocol InputInformationIntentProtocol:
     InputWorkDelegate,
     InputMilitaryDelegate,
     InputCertificateDelegate,
-    InputLanguageDelegate {
+    InputLanguageDelegate,
+    InputProjectInfoDelegate {
     func completeToInputAllInfo(state: any InputInformationStateProtocol)
     func errorAlertDismissed()
 }

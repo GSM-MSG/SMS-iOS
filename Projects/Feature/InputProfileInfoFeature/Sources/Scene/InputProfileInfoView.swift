@@ -34,7 +34,7 @@ struct InputProfileInfoView: View {
                     SMSSeparator()
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "프로필", pageCount: 6, selectedPage: 0)
+                        InputInformationPageTitleView(title: "프로필", pageCount: 7, selectedPage: 0)
 
                         VStack(alignment: .leading, spacing: 24) {
                             VStack(alignment: .leading, spacing: 8) {
@@ -176,7 +176,7 @@ struct InputProfileInfoView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 4))
                                 }
                             }
-                            .titleWrapper("세부스택")
+                            .titleWrapper("세부스택 (최대 5개)")
                         }
 
                         CTAButton(text: "다음") {

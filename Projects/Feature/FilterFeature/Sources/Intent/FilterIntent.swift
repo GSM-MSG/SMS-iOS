@@ -1,25 +1,31 @@
 import Combine
-import SwiftUI
 import FilterFeatureInterface
-import StudentDomainInterface
 import MajorDomainInterface
+import StudentDomainInterface
+import SwiftUI
+import UserDomainInterface
 
 final class FilterIntent: FilterIntentProtocol {
     private weak var model: (any FilterActionProtocol)?
     private weak var filterDelegate: (any FilterDelegate)?
     private let fetchMajorListUseCase: any FetchMajorListUseCase
+    private let loadUserRoleUseCase: any LoadUserRoleUseCase
 
     init(
         model: any FilterActionProtocol,
         filterDelegate: any FilterDelegate,
-        fetchMajorListUseCase: any FetchMajorListUseCase
+        fetchMajorListUseCase: any FetchMajorListUseCase,
+        loadUserRoleUseCase: any LoadUserRoleUseCase
     ) {
         self.filterDelegate = filterDelegate
         self.model = model
         self.fetchMajorListUseCase = fetchMajorListUseCase
+        self.loadUserRoleUseCase = loadUserRoleUseCase
     }
 
     func onAppear() {
+        let userRole = loadUserRoleUseCase.execute()
+        model?.updateUserRole(role: userRole)
         Task {
             let majorList = try await fetchMajorListUseCase.execute()
             model?.updpateMajorList(majorList: majorList)

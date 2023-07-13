@@ -11,7 +11,8 @@ let project = Project.makeModule(
         .SPM.Lottie
     ],
     internalDependencies: [
-        .Shared.ViewUtil
+        .Shared.ViewUtil,
+        .Shared.DateUtil
     ],
     resources: ["Resources/**"],
     resourceSynthesizers: .default + [

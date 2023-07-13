@@ -15,7 +15,7 @@ struct InputSchoolLifeInfoView: View {
                 SMSSeparator()
 
                 VStack(spacing: 32) {
-                    InputInformationPageTitleView(title: "학교 생활", pageCount: 6, selectedPage: 1)
+                    InputInformationPageTitleView(title: "학교 생활", pageCount: 7, selectedPage: 1)
 
                     VStack(spacing: 24) {
                         SMSTextField(

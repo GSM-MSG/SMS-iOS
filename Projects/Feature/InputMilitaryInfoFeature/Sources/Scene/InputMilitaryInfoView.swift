@@ -15,7 +15,7 @@ struct InputMilitaryInfoView: View {
                 SMSSeparator()
 
                 VStack(spacing: 32) {
-                    InputInformationPageTitleView(title: "병역", pageCount: 6, selectedPage: 3)
+                    InputInformationPageTitleView(title: "병역", pageCount: 7, selectedPage: 3)
 
                     VStack(spacing: 24) {
                         SMSTextField(

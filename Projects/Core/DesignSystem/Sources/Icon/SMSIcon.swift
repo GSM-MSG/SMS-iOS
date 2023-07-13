@@ -20,6 +20,7 @@ public struct SMSIcon: View {
 
     public enum Icon: CaseIterable {
         case book
+        case calendar
         case camera
         case check
         case checkmark
@@ -39,6 +40,7 @@ public struct SMSIcon: View {
         case smallPlus
         case upArrow
         case magnifyingglass
+        case waterWave
         case xmark
         case xmarkOutline
     }
@@ -55,6 +57,9 @@ public struct SMSIcon: View {
         switch icon {
         case .book:
             return DesignSystemAsset.Icons.book.swiftUIImage
+
+        case .calendar:
+            return DesignSystemAsset.Icons.calendar.swiftUIImage
 
         case .camera:
             return DesignSystemAsset.Icons.camera.swiftUIImage
@@ -112,6 +117,9 @@ public struct SMSIcon: View {
 
         case .magnifyingglass:
             return DesignSystemAsset.Icons.magnifyingglass.swiftUIImage
+
+        case .waterWave:
+            return DesignSystemAsset.Icons.waterWave.swiftUIImage
 
         case .xmark:
             return DesignSystemAsset.Icons.xmark.swiftUIImage

@@ -1,5 +1,6 @@
 import Foundation
 import InputProfileInfoFeatureInterface
+import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import StudentDomainInterface
@@ -15,6 +16,7 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var certificates: [String] = []
     var militaryServiceType: MilitaryServiceType?
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] = []
+    var projects: [InputProjectInfoObject] = []
     @Published var isCompleteToInputAllInfo: Bool = false
 }
 
@@ -55,6 +57,10 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateLanguages(languages: [InputStudentInformationRequestDTO.LanguageCertificate]) {
         self.languages = languages
+    }
+
+    func updateProjects(projects: [InputProjectInfoObject]) {
+        self.projects = projects
     }
 
     func updateIsCompleteToInputAllInfo(isComplete: Bool) {

@@ -20,7 +20,7 @@ struct InputLanguageInfoView: View {
                         InputInformationPageTitleView(
                             title: "외국어",
                             isRequired: false,
-                            pageCount: 6,
+                            pageCount: 7,
                             selectedPage: 5
                         )
 
@@ -36,7 +36,7 @@ struct InputLanguageInfoView: View {
                     }
                     .frame(maxWidth: proxy.size.width / 3)
 
-                    CTAButton(text: "입력 완료") {
+                    CTAButton(text: "다음") {
                         intent.completeButtonDidTap(languages: state.languageList)
                     }
                     .frame(maxWidth: .infinity)

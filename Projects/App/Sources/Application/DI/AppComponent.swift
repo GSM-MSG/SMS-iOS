@@ -3,6 +3,8 @@ import AuthDomainInterface
 import BaseDomain
 import FileDomain
 import FileDomainInterface
+import FilterFeature
+import FilterFeatureInterface
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -13,12 +15,12 @@ import InputMilitaryInfoFeature
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeature
 import InputProfileInfoFeatureInterface
+import InputProjectInfoFeature
+import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
-import FilterFeature
-import FilterFeatureInterface
 import JwtStore
 import JwtStoreInterface
 import KeychainModule
@@ -84,6 +86,10 @@ final class AppComponent: BootstrapComponent {
 
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         InputLanguageInfoComponent(parent: self)
+    }
+
+    var inputProjectInfoBuildable: any InputProjectInfoBuildable {
+        InputProjectInfoComponent(parent: self)
     }
 
     var mainBuildable: any MainBuildable {
