@@ -10,6 +10,7 @@ let project = Project.makeModule(
         .Feature.BaseFeature,
         .Feature.StudentDetailFeatureInterface,
         .Feature.FilterFeatureInterface,
+        .Feature.MyPageFeatureInterface,
         .Domain.StudentDomainInterface,
         .Domain.AuthDomainInterface,
         .Domain.UserDomainInterface

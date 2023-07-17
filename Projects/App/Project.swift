@@ -52,6 +52,7 @@ let targets: [Target] = [
             .Feature.TechStackAppendFeature,
             .Feature.StudentDetailFeature,
             .Feature.FilterFeature,
+            .Feature.MyPageFeature,
             .Domain.AuthDomain,
             .Domain.StudentDomain,
             .Domain.FileDomain,
