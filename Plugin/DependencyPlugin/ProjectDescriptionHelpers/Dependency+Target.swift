@@ -9,6 +9,14 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let InputPrizeInfoFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.InputPrizeInfoFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.InputPrizeInfoFeature.rawValue)
+    )
+    static let InputPrizeInfoFeature = TargetDependency.project(
+        target: ModulePaths.Feature.InputPrizeInfoFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.InputPrizeInfoFeature.rawValue)
+    )
     static let InputProjectInfoFeatureInterface = TargetDependency.project(
         target: ModulePaths.Feature.InputProjectInfoFeature.targetName(type: .interface),
         path: .relativeToFeature(ModulePaths.Feature.InputProjectInfoFeature.rawValue)

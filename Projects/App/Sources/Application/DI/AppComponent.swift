@@ -13,6 +13,8 @@ import InputLanguageInfoFeature
 import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeature
 import InputMilitaryInfoFeatureInterface
+import InputPrizeInfoFeature
+import InputPrizeInfoFeatureInterface
 import InputProfileInfoFeature
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeature
@@ -86,6 +88,10 @@ final class AppComponent: BootstrapComponent {
 
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         InputLanguageInfoComponent(parent: self)
+    }
+
+    var inputPrizeInfoBuildable: any InputPrizeInfoBuildable {
+        inputPrizeInfoBuildable(parent: self)
     }
 
     var inputProjectInfoBuildable: any InputProjectInfoBuildable {
