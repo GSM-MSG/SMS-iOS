@@ -15,6 +15,8 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let region: [String]
     public let salary: Int
     public let techStack: [String]
+    public let projects: [Project]
+    public let prizes: [Prize]
 
     public init(
         certificate: [String],
@@ -30,7 +32,9 @@ public struct InputStudentInformationRequestDTO: Encodable {
         profileImgURL: String,
         region: [String],
         salary: Int,
-        techStack: [String]
+        techStack: [String],
+        projects: [Project] = [],
+        prizes: [Prize] = []
     ) {
         self.certificate = certificate
         self.contactEmail = contactEmail
@@ -46,6 +50,8 @@ public struct InputStudentInformationRequestDTO: Encodable {
         self.region = region
         self.salary = salary
         self.techStack = techStack
+        self.projects = projects
+        self.prizes = prizes
     }
 
     enum CodingKeys: String, CodingKey {
@@ -63,9 +69,13 @@ public struct InputStudentInformationRequestDTO: Encodable {
         case region
         case salary
         case techStack
+        case projects
+        case prizes
     }
+}
 
-    public struct LanguageCertificate: Encodable {
+public extension InputStudentInformationRequestDTO {
+    struct LanguageCertificate: Encodable {
         public let languageCertificateName: String
         public let score: String
 
@@ -73,5 +83,45 @@ public struct InputStudentInformationRequestDTO: Encodable {
             self.languageCertificateName = languageCertificateName
             self.score = score
         }
+    }
+
+    struct Project: Encodable {
+        public let name: String
+        public let iconImageURL: String
+        public let previewImageURLs: [String]
+        public let description: String
+        public let links: [Link]
+        public let techStacks: [String]
+        public let myActivity: String
+        public let inProgress: InProgress
+
+        enum CodingKeys: String, CodingKey {
+            case name
+            case iconImageURL = "icon"
+            case previewImageURLs = "previewImages"
+            case description
+            case links
+            case techStacks
+            case myActivity
+            case inProgress
+        }
+    }
+
+    struct Prize: Encodable {
+        public let name: String
+        public let type: String
+        public let date: String
+    }
+}
+
+public extension InputStudentInformationRequestDTO.Project {
+    struct Link: Encodable {
+        public let name: String
+        public let url: String
+    }
+
+    struct InProgress: Encodable {
+        public let start: String
+        public let end: String?
     }
 }
