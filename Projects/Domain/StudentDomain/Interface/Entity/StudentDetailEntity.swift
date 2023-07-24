@@ -58,6 +58,8 @@ extension StudentDetailEntity {
         public let salary: Int
         public let languageCertificate: [LanguageCertificateEntity]
         public let certificate: [String]
+        public let projects: [ProjectEntity]
+        public let prizes: [PrizeEntity]
 
         public init(
             dreamBookFileURL: String?,
@@ -73,7 +75,9 @@ extension StudentDetailEntity {
             militaryService: MilitaryServiceType,
             salary: Int,
             languageCertificate: [LanguageCertificateEntity],
-            certificate: [String]
+            certificate: [String],
+            projects: [ProjectEntity],
+            prizes: [PrizeEntity]
         ) {
             self.dreamBookFileURL = dreamBookFileURL
             self.portfolioURL = portfolioURL
@@ -89,6 +93,8 @@ extension StudentDetailEntity {
             self.salary = salary
             self.languageCertificate = languageCertificate
             self.certificate = certificate
+            self.projects = projects
+            self.prizes = prizes
         }
     }
 }
