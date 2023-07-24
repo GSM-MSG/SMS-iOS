@@ -194,9 +194,20 @@ struct StudentDetailView: View {
             Group {
                 Spacer().frame(height: 16)
 
-                SMSText(studentDetail?.introduce ?? "자기소개", font: .body2)
-                    .foregroundColor(.sms(.neutral(.n40)))
-                    .lineLimit(nil)
+                ZStack(alignment: .topLeading) {
+                    Color.sms(.neutral(.n10))
+                        .cornerRadius(8)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        SMSText("자기소개", font: .caption2)
+                            .foregroundColor(.sms(.neutral(.n40)))
+
+                        SMSText(studentDetail?.introduce ?? "자기소개", font: .body2)
+                            .foregroundColor(.sms(.system(.black)))
+                            .lineLimit(nil)
+                    }
+                    .padding(16)
+                }
 
                 Spacer().frame(height: 32)
 
