@@ -51,6 +51,8 @@ public extension FetchStudentDetailByTeacherResponseDTO {
             major: major,
             profileImageURL: profileImg,
             techStacks: techStacks,
+            projects: projects.map { $0.toDomain() },
+            prizes: prizes.map { $0.toDomain() },
             detailInfoByTeacher: .init(
                 dreamBookFileURL: dreamBookFileUrl,
                 portfolioURL: portfolioUrl,
@@ -65,9 +67,7 @@ public extension FetchStudentDetailByTeacherResponseDTO {
                 militaryService: militaryService,
                 salary: salary,
                 languageCertificate: languageCertificates.map { $0.toDomain() },
-                certificate: certificates,
-                projects: projects.map { $0.toDomain() },
-                prizes: prizes.map { $0.toDomain() }
+                certificate: certificates
             )
         )
     }
