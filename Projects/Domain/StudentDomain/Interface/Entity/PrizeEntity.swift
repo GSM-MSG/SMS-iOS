@@ -1,4 +1,4 @@
-public struct PrizeEntity: Equatable {
+public struct PrizeEntity: Equatable, Hashable {
     public let name: String
     public let type: String
     public let date: String
