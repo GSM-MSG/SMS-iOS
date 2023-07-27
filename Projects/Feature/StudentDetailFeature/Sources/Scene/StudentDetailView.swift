@@ -214,6 +214,12 @@ struct StudentDetailView: View {
                 UnwrapView(studentDetail?.detailInfoByTeacher) { detailInfoByTeacher in
                     studentInfoForTeacher(geometry: geometry, detailInfo: detailInfoByTeacher)
                 }
+
+                VStack(spacing: 32) {
+                    ForEach(studentDetail?.projects ?? [], id: \.self) { project in
+                        ProjectRowView(project: project)
+                    }
+                }
             }
 
             Color.sms(.system(.white))
