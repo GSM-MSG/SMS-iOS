@@ -214,6 +214,13 @@ struct StudentDetailView: View {
                 UnwrapView(studentDetail?.detailInfoByTeacher) { detailInfoByTeacher in
                     studentInfoForTeacher(geometry: geometry, detailInfo: detailInfoByTeacher)
                 }
+
+                VStack(spacing: 8) {
+                    ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
+                        PrizeRowView(prize: prize)
+                    }
+                }
+                .studentDetailTitleWrapper(title: "수상")
             }
 
             Color.sms(.system(.white))
@@ -295,6 +302,7 @@ struct StudentDetailView: View {
 
             Spacer().frame(height: 120)
         }
+        .studentDetailTitleWrapper(title: "수상")
     }
 
     @ViewBuilder
