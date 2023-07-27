@@ -17,8 +17,8 @@ struct ProjectRowView: View {
             projectHeaderSection()
             projectPreviewsSection()
             projectTechStacksSection()
-            projectMyActivity()
-            projectRelatedLinks()
+            projectMyActivitySection()
+            projectRelatedLinksSection()
         }
     }
 
@@ -90,14 +90,14 @@ struct ProjectRowView: View {
     }
 
     @ViewBuilder
-    func projectMyActivity() -> some View {
+    func projectMyActivitySection() -> some View {
         SMSText(project.myActivity, font: .body2)
             .lineLimit(nil)
             .aligned(.leading)
     }
 
     @ViewBuilder
-    func projectRelatedLinks() -> some View {
+    func projectRelatedLinksSection() -> some View {
         VStack(spacing: 8) {
             ForEach(project.links, id: \.self) { link in
                 HStack(alignment: .top) {
