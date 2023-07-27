@@ -215,11 +215,19 @@ struct StudentDetailView: View {
                     studentInfoForTeacher(geometry: geometry, detailInfo: detailInfoByTeacher)
                 }
 
+                VStack(spacing: 8) {
+                    ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
+                        PrizeRowView(prize: prize)
+                    }
+                }
+                .studentDetailTitleWrapper(title: "수상")
+
                 VStack(spacing: 32) {
                     ForEach(studentDetail?.projects ?? [], id: \.self) { project in
                         ProjectRowView(project: project)
                     }
                 }
+                .studentDetailTitleWrapper(title: "프로젝트")
             }
 
             Color.sms(.system(.white))
@@ -301,6 +309,7 @@ struct StudentDetailView: View {
 
             Spacer().frame(height: 120)
         }
+        .studentDetailTitleWrapper(title: "수상")
     }
 
     @ViewBuilder
