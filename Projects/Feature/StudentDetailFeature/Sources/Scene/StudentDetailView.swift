@@ -87,6 +87,7 @@ struct StudentDetailView: View {
                     dismiss()
                 }
         }
+        .statusBarHidden(true)
         .animation(.easeIn, value: state.studentDetailEntity)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
