@@ -6,6 +6,8 @@ public struct StudentDetailEntity: Equatable {
     public let major: String
     public let profileImageURL: String
     public let techStacks: [String]
+    public let projects: [ProjectEntity]
+    public let prizes: [PrizeEntity]
     public let detailInfoByStudent: DetailInfoByStudent?
     public let detailInfoByTeacher: DetailInfoByTeacher?
 
@@ -15,6 +17,8 @@ public struct StudentDetailEntity: Equatable {
         major: String,
         profileImageURL: String,
         techStacks: [String],
+        projects: [ProjectEntity],
+        prizes: [PrizeEntity],
         detailInfoByStudent: DetailInfoByStudent? = nil,
         detailInfoByTeacher: DetailInfoByTeacher? = nil
     ) {
@@ -23,6 +27,8 @@ public struct StudentDetailEntity: Equatable {
         self.major = major
         self.profileImageURL = profileImageURL
         self.techStacks = techStacks
+        self.projects = projects
+        self.prizes = prizes
         self.detailInfoByStudent = detailInfoByStudent
         self.detailInfoByTeacher = detailInfoByTeacher
     }

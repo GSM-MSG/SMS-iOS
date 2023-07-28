@@ -71,6 +71,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                     salary: inputWorkInfo.salary,
                     techStack: inputProfileInfo.techStack
                 )
+                #warning("프로젝트, 수상 정보 Request DTO에 담는 로직 추가")
 
                 try await inputInformationUseCase.execute(req: inputInformationRequest)
                 inputInformationDelegate?.completeToInputInformation()

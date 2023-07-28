@@ -14,6 +14,8 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
                     major: $0.major,
                     profileImageURL: $0.profileImageURL,
                     techStacks: $0.techStacks,
+                    projects: $0.projects,
+                    prizes: $0.prizes,
                     detailInfoByStudent: $0.detailInfoByStudent,
                     detailInfoByTeacher: $0.detailInfoByTeacher
                 )
@@ -28,7 +30,7 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     @Published var hwpDocument: HWPDocument?
     var hwpFilename: String {
         guard let studentDetailEntity, let info = studentDetailEntity.detailInfoByTeacher else { return "" }
-        var number = info.number >= 10 ? "\(info.number)" : "0\(info.number)"
+        let number = info.number >= 10 ? "\(info.number)" : "0\(info.number)"
         return "\(info.grade)\(info.class)\(number)\(studentDetailEntity.name)-드림북.hwp"
     }
 }
