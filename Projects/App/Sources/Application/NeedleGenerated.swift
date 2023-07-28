@@ -17,6 +17,8 @@ import InputLanguageInfoFeature
 import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeature
 import InputMilitaryInfoFeatureInterface
+import InputPrizeInfoFeature
+import InputPrizeInfoFeatureInterface
 import InputProfileInfoFeature
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeature
@@ -322,6 +324,17 @@ private class InputProfileInfoDependencydedc6189ad35e7ff3001Provider: InputProfi
 private func factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputProfileInfoDependencydedc6189ad35e7ff3001Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class InputPrizeInfoDependencyff32e2191f3500ff4774Provider: InputPrizeInfoDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->InputPrizeInfoComponent
+private func factory4b0dfd60fcb5e700b51ce3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return InputPrizeInfoDependencyff32e2191f3500ff4774Provider()
+}
 private class FileDomainDependency2b4ac3753c2aa3928546Provider: FileDomainDependency {
     var jwtStoreBuildable: any JwtStoreBuildable {
         return appComponent.jwtStoreBuildable
@@ -513,6 +526,11 @@ extension InputProfileInfoComponent: Registration {
         keyPathToName[\InputProfileInfoDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
     }
 }
+extension InputPrizeInfoComponent: Registration {
+    public func registerItems() {
+
+    }
+}
 extension FileDomainComponent: Registration {
     public func registerItems() {
         keyPathToName[\FileDomainDependency.jwtStoreBuildable] = "jwtStoreBuildable-any JwtStoreBuildable"
@@ -558,7 +576,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-@inline(never) private func register1() {
+private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
@@ -577,6 +595,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->InputCertificateInfoComponent", factory9df85876e39e1206b924e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->StudentDetailComponent", factory3e27a26da31e522f5755f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputProfileInfoComponent", factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->InputPrizeInfoComponent", factory4b0dfd60fcb5e700b51ce3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->FileDomainComponent", factoryd99c631e7a9c4984df37f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->StudentDomainComponent", factory2686a7e321a220c3265af47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->TechStackDomainComponent", factory254149359ff45b2db35bf47b58f8f304c97af4d5)

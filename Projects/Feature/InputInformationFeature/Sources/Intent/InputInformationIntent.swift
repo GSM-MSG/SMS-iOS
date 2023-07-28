@@ -8,6 +8,7 @@ import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 
 final class InputInformationIntent: InputInformationIntentProtocol {
@@ -160,5 +161,11 @@ extension InputInformationIntent: InputProjectInfoDelegate {
     func completeToInputProjectInfo(input: [InputProjectInfoObject]) {
         model?.updateProjects(projects: input)
         model?.updateIsCompleteToInputAllInfo(isComplete: true)
+    }
+}
+
+extension InputInformationIntent: InputPrizeDelegate {
+    func prizeInfoPrevButtonDidTap() {
+        model?.prevButtonDidTap()
     }
 }

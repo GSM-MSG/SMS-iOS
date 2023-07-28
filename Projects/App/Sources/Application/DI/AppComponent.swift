@@ -91,7 +91,7 @@ final class AppComponent: BootstrapComponent {
     }
 
     var inputPrizeInfoBuildable: any InputPrizeInfoBuildable {
-        inputPrizeInfoBuildable(parent: self)
+        InputPrizeInfoComponent(parent: self)
     }
 
     var inputProjectInfoBuildable: any InputProjectInfoBuildable {
