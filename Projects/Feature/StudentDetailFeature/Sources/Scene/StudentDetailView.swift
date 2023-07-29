@@ -87,6 +87,7 @@ struct StudentDetailView: View {
                     dismiss()
                 }
         }
+        .statusBarHidden(true)
         .animation(.easeIn, value: state.studentDetailEntity)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
@@ -221,6 +222,13 @@ struct StudentDetailView: View {
                     }
                 }
                 .studentDetailTitleWrapper(title: "수상")
+
+                VStack(spacing: 32) {
+                    ForEach(studentDetail?.projects ?? [], id: \.self) { project in
+                        ProjectRowView(project: project)
+                    }
+                }
+                .studentDetailTitleWrapper(title: "프로젝트")
             }
 
             Color.sms(.system(.white))
