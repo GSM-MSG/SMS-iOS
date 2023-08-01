@@ -1,4 +1,3 @@
+protocol MyPageStateProtocol: MyPageProfileStateProtocol {}
 
-protocol MyPageStateProtocol {}
-
-protocol MyPageActionProtocol: AnyObject {}
+protocol MyPageActionProtocol: AnyObject, MyPageProfileActionProtocol {}

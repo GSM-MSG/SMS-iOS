@@ -2,7 +2,7 @@ import Foundation
 import UserDomainInterface
 
 final class MyPageIntent: MyPageIntentProtocol {
-    private weak var model: (any MyPageActionProtocol)?
+    weak var model: (any MyPageActionProtocol)?
     private let fetchMyProfileUseCase: any FetchMyProfileUseCase
 
     init(

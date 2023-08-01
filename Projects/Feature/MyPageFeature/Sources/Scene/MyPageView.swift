@@ -7,6 +7,8 @@ struct MyPageView: View {
     var state: any MyPageStateProtocol { container.model }
 
     var body: some View {
-        EmptyView()
+        ScrollView {
+            
+        }
     }
 }
