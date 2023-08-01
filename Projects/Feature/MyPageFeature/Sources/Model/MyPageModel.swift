@@ -15,6 +15,9 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var isPresentedProfileCamera: Bool = false
     @Published var isPresentedProfileImage: Bool = false
     @Published var isPresentedTechStackAppend: Bool = false
+
+    // MARK: SchoolLife
+    @Published var gsmScore: String = ""
 }
 
 extension MyPageModel: MyPageActionProtocol {}

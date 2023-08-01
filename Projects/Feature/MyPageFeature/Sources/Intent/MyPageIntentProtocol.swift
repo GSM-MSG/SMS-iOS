@@ -1,3 +1,3 @@
 import Foundation
 
-protocol MyPageIntentProtocol: MyPageProfileIntentProtocol {}
+protocol MyPageIntentProtocol: MyPageProfileIntentProtocol, MyPageSchoolLifeIntentProtocol {}
