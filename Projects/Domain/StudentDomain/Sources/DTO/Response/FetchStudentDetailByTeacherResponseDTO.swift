@@ -21,6 +21,8 @@ public struct FetchStudentDetailByTeacherResponseDTO: Decodable {
     public let languageCertificates: [LanguageCertificateResponseDTO]
     public let certificates: [String]
     public let techStacks: [String]
+    public let projects: [ProjectResponseDTO]
+    public let prizes: [PrizeResponseDTO]
 
     public struct LanguageCertificateResponseDTO: Decodable {
         public let name: String
@@ -49,6 +51,8 @@ public extension FetchStudentDetailByTeacherResponseDTO {
             major: major,
             profileImageURL: profileImg,
             techStacks: techStacks,
+            projects: projects.map { $0.toDomain() },
+            prizes: prizes.map { $0.toDomain() },
             detailInfoByTeacher: .init(
                 dreamBookFileURL: dreamBookFileUrl,
                 portfolioURL: portfolioUrl,
