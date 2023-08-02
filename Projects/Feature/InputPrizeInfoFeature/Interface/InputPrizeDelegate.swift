@@ -1,6 +1,5 @@
 import Foundation
 import StudentDomainInterface
-import DateUtil
 
 public protocol InputPrizeDelegate: AnyObject {
     func prizeInfoPrevButtonDidTap()
