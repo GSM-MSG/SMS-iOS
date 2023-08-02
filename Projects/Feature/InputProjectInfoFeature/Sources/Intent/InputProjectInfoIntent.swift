@@ -2,17 +2,22 @@ import DesignSystem
 import Foundation
 import FoundationUtil
 import InputProjectInfoFeatureInterface
+import FileDomainInterface
+import ConcurrencyUtil
 
 final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     private weak var model: (any InputProjectInfoActionProtocol)?
     private weak var delegate: (any InputProjectInfoDelegate)?
+    private let imageUploadUseCase: any ImageUploadUseCase
 
     init(
         model: any InputProjectInfoActionProtocol,
-        delegate: any InputProjectInfoDelegate
+        delegate: any InputProjectInfoDelegate,
+        imageUploadUseCase: any ImageUploadUseCase
     ) {
         self.model = model
         self.delegate = delegate
+        self.imageUploadUseCase = imageUploadUseCase
     }
 
     func prevButtonDidTap() {
@@ -20,38 +25,55 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     }
 
     func nextButtonDidTap(projects: [ProjectInfo]) {
-        let projectInfoObjects = projects.map {
-            let iconImage: InputProjectInfoObject.ImageFile?
-            if let unwrapIconImage = $0.iconImage {
-                iconImage = .init(
-                    name: unwrapIconImage.fileName,
-                    data: unwrapIconImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+        Task {
+            let projectInfoObjects = try await projects.concurrentMap {
+                var iconImage: InputProjectInfoObject.ImageFile?
+
+                if let unwrapIconImage = $0.iconImage {
+                    async let image = self.imageUploadUseCase.execute(
+                        image: unwrapIconImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
+                        fileName: unwrapIconImage.fileName
+                    )
+
+                    iconImage = try await InputProjectInfoObject.ImageFile(
+                        name: unwrapIconImage.fileName,
+                        url: image,
+                        data: unwrapIconImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+                    )
+                } else {
+                    iconImage = nil
+                }
+
+                let previewImages = try await $0.previewImages.concurrentMap {
+                    async let previewImageURL = self.imageUploadUseCase.execute(
+                        image: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
+                        fileName: $0.fileName
+                    )
+                    return try await InputProjectInfoObject.ImageFile(
+                        name: $0.fileName,
+                        previewImageUrl: previewImageURL,
+                        data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+                    )
+                }
+
+                let relatedLinks = $0.relatedLinks
+                    .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
+                    .filter { $0.name.isNotEmpty && $0.url.isNotEmpty }
+
+                return InputProjectInfoObject(
+                    name: $0.name,
+                    iconImage: iconImage,
+                    previewImages: previewImages,
+                    content: $0.content,
+                    techStacks: Array($0.techStacks),
+                    mainTask: $0.mainTask,
+                    startAt: $0.startAt,
+                    endAt: $0.isInProgress ? nil : $0.endAt,
+                    relatedLinks: relatedLinks
                 )
-            } else {
-                iconImage = nil
             }
-            let previewImages = $0.previewImages.map {
-                InputProjectInfoObject.ImageFile(
-                    name: $0.fileName,
-                    data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
-                )
-            }
-            let relatedLinks = $0.relatedLinks
-                .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
-                .filter { $0.name.isNotEmpty && $0.url.isNotEmpty }
-            return InputProjectInfoObject(
-                name: $0.name,
-                iconImage: iconImage,
-                previewImages: previewImages,
-                content: $0.content,
-                techStacks: Array($0.techStacks),
-                mainTask: $0.mainTask,
-                startAt: $0.startAt,
-                endAt: $0.isInProgress ? nil : $0.endAt,
-                relatedLinks: relatedLinks
-            )
+            delegate?.completeToInputProjectInfo(input: projectInfoObjects)
         }
-        delegate?.completeToInputProjectInfo(input: projectInfoObjects)
     }
 
     func projectToggleButtonDidTap(index: Int) {

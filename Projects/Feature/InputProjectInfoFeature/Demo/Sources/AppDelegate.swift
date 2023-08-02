@@ -3,6 +3,7 @@ import SwiftUI
 import InputProjectInfoFeatureInterface
 import TechStackAppendFeatureInterface
 @testable import InputProjectInfoFeature
+@testable import FileDomainTesting
 
 final class DummyInputProjectInfoDelegate: InputProjectInfoDelegate {
     func projectInfoPrevButtonDidTap() {}
@@ -17,12 +18,14 @@ struct DummyTechStackAppendBuildable: TechStackAppendBuildable {
 
 @main
 struct InputProjectInfoApp: App {
+    var imageUploadUseCaseSpy: ImageUploadUseCaseSpy!
+
     var body: some Scene {
         WindowGroup {
             let model = InputProjectInfoModel()
             let intent = InputProjectInfoIntent(
                 model: model,
-                delegate: DummyInputProjectInfoDelegate()
+                delegate: DummyInputProjectInfoDelegate(), imageUploadUseCase: imageUploadUseCaseSpy
             )
             let container = MVIContainer(
                 intent: intent as InputProjectInfoIntentProtocol,

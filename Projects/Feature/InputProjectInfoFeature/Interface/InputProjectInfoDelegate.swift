@@ -1,4 +1,6 @@
 import Foundation
+import StudentDomainInterface
+import DateUtil
 
 public protocol InputProjectInfoDelegate: AnyObject {
     func projectInfoPrevButtonDidTap()
@@ -40,12 +42,41 @@ public struct InputProjectInfoObject {
 }
 
 public extension InputProjectInfoObject {
+    var startAtString: String {
+        startAt.toStringCustomFormat(format: "yyyy.MM")
+    }
+    var endAtString: String {
+        endAt?.toStringCustomFormat(format: "yyyy.MM") ?? ""
+    }
+
+    func toDTO() -> InputStudentInformationRequestDTO.Project {
+        InputStudentInformationRequestDTO.Project(
+            name: name,
+            iconImageURL: iconImage?.url ?? "",
+            previewImageURLs: previewImages.map { $0.previewImageUrl ?? "" },
+            description: content,
+            links: relatedLinks.map { $0.toDTO() },
+            techStacks: techStacks,
+            myActivity: mainTask,
+            inProgress: InputStudentInformationRequestDTO.Project.InProgress(
+                start: startAtString,
+                end: endAtString
+            )
+        )
+    }
+}
+
+public extension InputProjectInfoObject {
     struct ImageFile {
         public let name: String
+        public let url: String?
+        public let previewImageUrl: String?
         public let data: Data
 
-        public init(name: String, data: Data) {
+        public init(name: String, url: String? = .init(), previewImageUrl: String? = .init(), data: Data) {
             self.name = name
+            self.url = url
+            self.previewImageUrl = previewImageUrl
             self.data = data
         }
     }
@@ -58,5 +89,14 @@ public extension InputProjectInfoObject {
             self.name = name
             self.url = url
         }
+    }
+}
+
+extension InputProjectInfoObject.RelatedLink {
+    func toDTO() -> InputStudentInformationRequestDTO.Project.Link {
+        InputStudentInformationRequestDTO.Project.Link(
+            name: name,
+            url: url
+        )
     }
 }

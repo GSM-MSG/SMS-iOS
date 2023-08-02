@@ -9,6 +9,10 @@ let project = Project.makeModule(
     internalDependencies: [
         .Feature.InputInformationBaseFeature,
         .Feature.TechStackAppendFeatureInterface,
-        .Feature.InputPrizeInfoFeatureInterface
+        .Feature.InputPrizeInfoFeatureInterface,
+        .Domain.StudentDomainInterface,
+        .Domain.FileDomainInterface,
+        .Domain.FileDomainTesting,
+        .Shared.ConcurrencyUtil
     ]
 )
