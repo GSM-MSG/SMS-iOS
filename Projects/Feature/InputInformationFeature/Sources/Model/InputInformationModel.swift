@@ -3,6 +3,7 @@ import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 
 final class InputInformationModel: ObservableObject, InputInformationStateProtocol {
@@ -17,6 +18,7 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var militaryServiceType: MilitaryServiceType?
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] = []
     var projects: [InputProjectInfoObject] = []
+    var prizes: [InputPrizeInfoObject] = []
     @Published var isCompleteToInputAllInfo: Bool = false
 }
 
@@ -61,6 +63,10 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateProjects(projects: [InputProjectInfoObject]) {
         self.projects = projects
+    }
+
+    func updatePrizes(prizes: [InputPrizeInfoObject]) {
+        self.prizes = prizes
     }
 
     func updateIsCompleteToInputAllInfo(isComplete: Bool) {

@@ -46,11 +46,11 @@ final class InputInformationIntent: InputInformationIntentProtocol {
         model?.updateIsLoading(isLoading: true)
         Task {
             do {
-                async let profileImageURL = imageUploadUseCase.execute(
+                async let profileImageURL = self.imageUploadUseCase.execute(
                     image: inputProfileInfo.profileImageData,
                     fileName: inputProfileInfo.profileImageFilename
                 )
-                async let dreamBookURL = dreamBookUploadUseCase.execute(
+                async let dreamBookURL = self.dreamBookUploadUseCase.execute(
                     file: inputSchoolLifeInfo.hwpData,
                     fileName: inputSchoolLifeInfo.hwpFilename
                 )
@@ -69,9 +69,10 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                     profileImgURL: profileImageURL,
                     region: inputWorkInfo.workRegion,
                     salary: inputWorkInfo.salary,
-                    techStack: inputProfileInfo.techStack
+                    techStack: inputProfileInfo.techStack,
+                    projects: state.projects.map { $0.toDTO() },
+                    prizes: state.prizes.map { $0.toDTO() }
                 )
-                #warning("프로젝트, 수상 정보 Request DTO에 담는 로직 추가")
 
                 try await inputInformationUseCase.execute(req: inputInformationRequest)
                 inputInformationDelegate?.completeToInputInformation()
@@ -161,12 +162,18 @@ extension InputInformationIntent: InputProjectInfoDelegate {
 
     func completeToInputProjectInfo(input: [InputProjectInfoObject]) {
         model?.updateProjects(projects: input)
-        model?.updateIsCompleteToInputAllInfo(isComplete: true)
+        model?.nextButtonDidTap()
     }
 }
 
 extension InputInformationIntent: InputPrizeDelegate {
     func prizeInfoPrevButtonDidTap() {
         model?.prevButtonDidTap()
+    }
+
+    func completeToInputPrizeInfo(input: [InputPrizeInfoObject]) {
+        model?.updatePrizes(prizes: input)
+        model?.nextButtonDidTap()
+        model?.updateIsCompleteToInputAllInfo(isComplete: true)
     }
 }
