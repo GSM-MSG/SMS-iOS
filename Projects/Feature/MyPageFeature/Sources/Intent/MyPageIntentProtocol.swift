@@ -6,4 +6,5 @@ protocol MyPageIntentProtocol:
     MyPageWorkInfoIntentProtocol,
     MyPageMilitaryIntentProtocol,
     MyPageCertificateIntentProtocol,
-    MyPageLanguageIntentProtocol {}
+    MyPageLanguageIntentProtocol,
+    MyPageProjectIntentProtocol {}

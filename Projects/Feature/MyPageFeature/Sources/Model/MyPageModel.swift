@@ -36,6 +36,16 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
 
     // MARK: Language
     @Published var languageList: [LanguageModel] = []
+
+    // MARK: Project
+    @Published var projectList: [ProjectModel] = []
+    @Published var collapsedProject: [Bool] = []
+    @Published var focusedProjectIndex: Int = 0
+    @Published var isPresentedProjectImagePicker: Bool = false
+    @Published var isPresentedPreviewImagePicker: Bool = false
+    @Published var isPresentedProjectStartAtDatePicker: Bool = false
+    @Published var isPresentedProjectEndAtDatePicker: Bool = false
+    @Published var isPresentedProjectTechStackAppend: Bool = false
 }
 
 extension MyPageModel: MyPageActionProtocol {}

@@ -95,16 +95,6 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
         model?.updateProjectMainTask(index: index, mainTask: mainTask)
     }
 
-    func projectStartAtButtonDidTap(index: Int) {
-        model?.updateFocusedProjectIndex(index: index)
-        model?.updateIsPresentedStartAtDatePicker(isPresented: true)
-    }
-
-    func projectEndAtButtonDidTap(index: Int) {
-        model?.updateFocusedProjectIndex(index: index)
-        model?.updateIsPresentedEndAtDatePicker(isPresented: true)
-    }
-
     func projectIsInProgressButtonDidTap(index: Int, isInProgress: Bool) {
         model?.updateIsInProgress(index: index, isInProgress: isInProgress)
     }

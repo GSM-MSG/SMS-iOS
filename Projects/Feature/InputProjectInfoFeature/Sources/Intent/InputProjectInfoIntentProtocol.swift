@@ -14,8 +14,6 @@ protocol InputProjectInfoIntentProtocol {
     func techStacksDidSelect(index: Int, techStacks: [String])
     func removeProjectTechStackButtonDidTap(index: Int, techStack: String)
     func updateProjectMainTask(index: Int, mainTask: String)
-    func projectStartAtButtonDidTap(index: Int)
-    func projectEndAtButtonDidTap(index: Int)
     func projectStartAtDidSelect(index: Int, startAt: Date)
     func projectEndAtDidSelect(index: Int, endAt: Date)
     func projectIsInProgressButtonDidTap(index: Int, isInProgress: Bool)
