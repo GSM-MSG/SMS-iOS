@@ -30,6 +30,9 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     // MARK: Military
     @Published var selectedMilitaryServiceType: MilitaryServiceType = .hope
     @Published var isPresentedMilitarySheet: Bool = false
+
+    // MARK: Certificate
+    @Published var certificates: [String] = []
 }
 
 extension MyPageModel: MyPageActionProtocol {}

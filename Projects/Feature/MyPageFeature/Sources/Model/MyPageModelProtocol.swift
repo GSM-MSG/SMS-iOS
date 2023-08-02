@@ -2,11 +2,13 @@ protocol MyPageStateProtocol:
     MyPageProfileStateProtocol,
     MyPageSchoolLifeStateProtocol,
     MyPageWorkInfoStateProtocol,
-    MyPageMilitaryStateProtocol {}
+    MyPageMilitaryStateProtocol,
+    MyPageCertificateStateProtocol {}
 
 protocol MyPageActionProtocol:
     AnyObject,
     MyPageProfileActionProtocol,
     MyPageSchoolLifeActionProtocol,
     MyPageWorkInfoActionProtocol,
-    MyPageMilitaryActionProtocol {}
+    MyPageMilitaryActionProtocol,
+    MyPageCertificateActionProtocol {}
