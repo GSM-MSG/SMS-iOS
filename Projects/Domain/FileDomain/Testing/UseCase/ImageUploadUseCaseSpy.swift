@@ -1,9 +1,10 @@
-//
-//  ImageUploadUseCaseSpy.swift
-//  FileDomainInterface
-//
-//  Created by sunghun on 8/2/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
-
+import FileDomainInterface
 import Foundation
+
+final class ImageUploadUseCaseSpy: ImageUploadUseCase {
+    var executeCallCount = 0
+    func execute(image: Data, fileName: String) async throws -> String {
+        executeCallCount += 1
+        return "A"
+    }
+}

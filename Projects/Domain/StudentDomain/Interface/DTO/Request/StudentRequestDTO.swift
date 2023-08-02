@@ -95,6 +95,26 @@ public extension InputStudentInformationRequestDTO {
         public let myActivity: String
         public let inProgress: InProgress
 
+        public init(
+            name: String,
+            iconImageURL: String,
+            previewImageURLs: [String],
+            description: String,
+            links: [Link],
+            techStacks: [String],
+            myActivity: String,
+            inProgress: InProgress
+        ) {
+            self.name = name
+            self.iconImageURL = iconImageURL
+            self.previewImageURLs = previewImageURLs
+            self.description = description
+            self.links = links
+            self.techStacks = techStacks
+            self.myActivity = myActivity
+            self.inProgress = inProgress
+        }
+
         enum CodingKeys: String, CodingKey {
             case name
             case iconImageURL = "icon"
@@ -111,6 +131,16 @@ public extension InputStudentInformationRequestDTO {
         public let name: String
         public let type: String
         public let date: String
+
+        public init(
+            name: String,
+            type: String,
+            date: String
+        ) {
+            self.name = name
+            self.type = type
+            self.date = date
+        }
     }
 }
 
@@ -118,10 +148,20 @@ public extension InputStudentInformationRequestDTO.Project {
     struct Link: Encodable {
         public let name: String
         public let url: String
+
+        public init(name: String, url: String) {
+            self.name = name
+            self.url = url
+        }
     }
 
     struct InProgress: Encodable {
         public let start: String
         public let end: String?
+
+        public init(start: String, end: String?) {
+            self.start = start
+            self.end = end
+        }
     }
 }
