@@ -11,7 +11,7 @@ public final class InputPrizeInfoComponent:
 
     public func makeView(delegate: InputPrizeDelegate) -> some View {
         let model = InputPrizeInfoModel()
-        let intent = InputPrizeInfoIntent(model: model, prizeDelegate: delegate)
+        let intent = InputPrizeInfoIntent(model: model, delegate: delegate)
         let container = MVIContainer(
             intent: intent as InputPrizeInfoIntentProtocol,
             model: model as InputPrizeInfoStateProtocol,
