@@ -42,25 +42,23 @@ public struct InputProjectInfoObject {
 }
 
 public extension InputProjectInfoObject {
-    var startAtString: String {
-        startAt.toStringCustomFormat(format: "yyyy.MM")
-    }
-    var endAtString: String {
-        endAt?.toStringCustomFormat(format: "yyyy.MM") ?? ""
-    }
-
-    func toDTO() -> InputStudentInformationRequestDTO.Project {
+    func toDTO(
+        iconURL: String,
+        previewImageURLS: [String],
+        startAt: String,
+        endAt: String
+    ) -> InputStudentInformationRequestDTO.Project {
         InputStudentInformationRequestDTO.Project(
             name: name,
-            iconImageURL: iconImage?.url ?? "",
-            previewImageURLs: previewImages.map { $0.previewImageUrl ?? "" },
+            iconImageURL: iconURL,
+            previewImageURLs: previewImageURLS,
             description: content,
             links: relatedLinks.map { $0.toDTO() },
             techStacks: techStacks,
             myActivity: mainTask,
-            inProgress: InputStudentInformationRequestDTO.Project.InProgress(
-                start: startAtString,
-                end: endAtString
+            inProgress: .init(
+                start: startAt,
+                end: endAt
             )
         )
     }
@@ -69,14 +67,10 @@ public extension InputProjectInfoObject {
 public extension InputProjectInfoObject {
     struct ImageFile {
         public let name: String
-        public let url: String?
-        public let previewImageUrl: String?
         public let data: Data
 
-        public init(name: String, url: String? = .init(), previewImageUrl: String? = .init(), data: Data) {
+        public init(name: String, data: Data) {
             self.name = name
-            self.url = url
-            self.previewImageUrl = previewImageUrl
             self.data = data
         }
     }

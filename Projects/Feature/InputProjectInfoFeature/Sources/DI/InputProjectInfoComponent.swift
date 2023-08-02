@@ -3,11 +3,9 @@ import InputProjectInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
 import TechStackAppendFeatureInterface
-import FileDomainInterface
 
 public protocol InputProjectInfoDependency: Dependency {
     var techStackAppendBuildable: any TechStackAppendBuildable { get }
-    var fileDomainBuildable: any FileDomainBuildable { get }
 }
 
 public final class InputProjectInfoComponent:
@@ -17,8 +15,7 @@ public final class InputProjectInfoComponent:
         let model = InputProjectInfoModel()
         let intent = InputProjectInfoIntent(
             model: model,
-            delegate: delegate,
-            imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase
+            delegate: delegate
         )
         let container = MVIContainer(
             intent: intent as InputProjectInfoIntentProtocol,

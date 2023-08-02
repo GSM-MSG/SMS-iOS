@@ -96,9 +96,6 @@ private class InputProjectInfoDependencye065c7f60c5c520999a0Provider: InputProje
     var techStackAppendBuildable: any TechStackAppendBuildable {
         return appComponent.techStackAppendBuildable
     }
-    var fileDomainBuildable: any FileDomainBuildable {
-        return appComponent.fileDomainBuildable
-    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -445,7 +442,6 @@ extension SplashComponent: Registration {
 extension InputProjectInfoComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputProjectInfoDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
-        keyPathToName[\InputProjectInfoDependency.fileDomainBuildable] = "fileDomainBuildable-any FileDomainBuildable"
     }
 }
 extension InputWorkInfoComponent: Registration {

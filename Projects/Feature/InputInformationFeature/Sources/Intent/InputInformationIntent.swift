@@ -10,6 +10,8 @@ import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
+import ConcurrencyUtil
+import DateUtil
 
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
@@ -70,7 +72,28 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                     region: inputWorkInfo.workRegion,
                     salary: inputWorkInfo.salary,
                     techStack: inputProfileInfo.techStack,
-                    projects: state.projects.map { $0.toDTO() },
+                    projects: state.projects.concurrentMap {
+                        async let imageURL = self.imageUploadUseCase.execute(
+                            image: $0.iconImage?.data ?? .init(),
+                            fileName: $0.iconImage?.name ?? ""
+                        )
+                        let previewImages = try await $0.previewImages.concurrentMap {
+                            async let previewImageURL = self.imageUploadUseCase.execute(
+                                image: $0.data,
+                                fileName: $0.name
+                            )
+                            return try await previewImageURL
+                        }
+                        let startAtString = $0.startAt.toStringCustomFormat(format: "yyyy.MM")
+                        let endAtString = $0.endAt?.toStringCustomFormat(format: "yyyy.MM") ?? ""
+
+                        return try await $0.toDTO(
+                            iconURL: imageURL,
+                            previewImageURLS: previewImages,
+                            startAt: startAtString,
+                            endAt: endAtString
+                        )
+                    },
                     prizes: state.prizes.map { $0.toDTO() }
                 )
 

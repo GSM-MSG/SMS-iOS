@@ -12,8 +12,6 @@ let project = Project.makeModule(
         .Feature.TechStackAppendFeatureInterface,
         .Feature.InputPrizeInfoFeatureInterface,
         .Domain.StudentDomainInterface,
-        .Domain.FileDomainInterface,
-        .Domain.FileDomainTesting,
         .Shared.DateUtil
     ]
 )
