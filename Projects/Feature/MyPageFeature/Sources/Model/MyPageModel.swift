@@ -1,4 +1,5 @@
 import Foundation
+import StudentDomainInterface
 
 final class MyPageModel: ObservableObject, MyPageStateProtocol {
     // MARK: Profile
@@ -18,6 +19,13 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
 
     // MARK: SchoolLife
     @Published var gsmScore: String = ""
+
+    // MARK: WorkInfo
+    var workRegionList: [String] = []
+    var salary: String = ""
+    var salaryDisplay: String = ""
+    var formOfEmployment: FormOfEmployment = .fullTime
+    var isPresentedFormOfEmployeementSheet: Bool = false
 }
 
 extension MyPageModel: MyPageActionProtocol {}
