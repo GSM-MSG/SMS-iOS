@@ -1,4 +1,4 @@
-public struct ProjectEntity: Equatable {
+public struct ProjectEntity: Equatable, Hashable {
     public let name: String
     public let iconImageURL: String
     public let previewImageURLs: [String]
@@ -30,7 +30,7 @@ public struct ProjectEntity: Equatable {
 }
 
 public extension ProjectEntity {
-    struct LinkEntity: Equatable {
+    struct LinkEntity: Equatable, Hashable {
         public let name: String
         public let url: String
 
@@ -40,7 +40,7 @@ public extension ProjectEntity {
         }
     }
 
-    struct InProgressEntity: Equatable {
+    struct InProgressEntity: Equatable, Hashable {
         public let start: String
         public let end: String?
 
