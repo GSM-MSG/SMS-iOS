@@ -96,6 +96,9 @@ private class InputProjectInfoDependencye065c7f60c5c520999a0Provider: InputProje
     var techStackAppendBuildable: any TechStackAppendBuildable {
         return appComponent.techStackAppendBuildable
     }
+    var fileDomainBuildable: any FileDomainBuildable {
+        return appComponent.fileDomainBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -265,6 +268,9 @@ private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInfor
     }
     var inputProjectInfoBuildable: any InputProjectInfoBuildable {
         return appComponent.inputProjectInfoBuildable
+    }
+    var inputPrizeInfoBuildable: any InputPrizeInfoBuildable {
+        return appComponent.inputPrizeInfoBuildable
     }
     var fileDomainBuildable: any FileDomainBuildable {
         return appComponent.fileDomainBuildable
@@ -439,6 +445,7 @@ extension SplashComponent: Registration {
 extension InputProjectInfoComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputProjectInfoDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
+        keyPathToName[\InputProjectInfoDependency.fileDomainBuildable] = "fileDomainBuildable-any FileDomainBuildable"
     }
 }
 extension InputWorkInfoComponent: Registration {
@@ -505,6 +512,7 @@ extension InputInformationComponent: Registration {
         keyPathToName[\InputInformationDependency.inputCertificateInfoBuildable] = "inputCertificateInfoBuildable-any InputCertificateInfoBuildable"
         keyPathToName[\InputInformationDependency.inputLanguageInfoBuildable] = "inputLanguageInfoBuildable-any InputLanguageInfoBuildable"
         keyPathToName[\InputInformationDependency.inputProjectInfoBuildable] = "inputProjectInfoBuildable-any InputProjectInfoBuildable"
+        keyPathToName[\InputInformationDependency.inputPrizeInfoBuildable] = "inputPrizeInfoBuildable-any InputPrizeInfoBuildable"
         keyPathToName[\InputInformationDependency.fileDomainBuildable] = "fileDomainBuildable-any FileDomainBuildable"
         keyPathToName[\InputInformationDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
     }
