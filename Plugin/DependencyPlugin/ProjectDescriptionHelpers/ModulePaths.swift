@@ -65,6 +65,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String {
+        case ConcurrencyUtil
         case Validator
         case FoundationUtil
         case ViewUtil

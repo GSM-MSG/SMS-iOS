@@ -254,6 +254,10 @@ public extension TargetDependency.Core {
 }
 
 public extension TargetDependency.Shared {
+    static let ConcurrencyUtil = TargetDependency.project(
+        target: ModulePaths.Shared.ConcurrencyUtil.targetName(type: .sources),
+        path: .relativeToShared(ModulePaths.Shared.ConcurrencyUtil.rawValue)
+    )
     static let Validator = TargetDependency.project(
         target: ModulePaths.Shared.Validator.targetName(type: .sources),
         path: .relativeToShared(ModulePaths.Shared.Validator.rawValue)
