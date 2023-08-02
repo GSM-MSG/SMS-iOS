@@ -3,6 +3,7 @@ import DesignSystem
 import InputCertificateInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
+import InputPrizeInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
@@ -22,6 +23,7 @@ struct InputInformationView: View {
     private let inputCertificateInfoBuildable: any InputCertificateInfoBuildable
     private let inputLanguageInfoBuildable: any InputLanguageInfoBuildable
     private let inputProjectInfoBuildable: any InputProjectInfoBuildable
+    private let inputPrizeInfoBuildable: any InputPrizeInfoBuildable
 
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
@@ -31,6 +33,7 @@ struct InputInformationView: View {
         inputCertificateInfoBuildable: any InputCertificateInfoBuildable,
         inputLanguageInfoBuildable: any InputLanguageInfoBuildable,
         inputProjectInfoBuildable: any InputProjectInfoBuildable,
+        inputPrizeInfoBuildable: any InputPrizeInfoBuildable,
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
@@ -40,6 +43,7 @@ struct InputInformationView: View {
         self.inputCertificateInfoBuildable = inputCertificateInfoBuildable
         self.inputLanguageInfoBuildable = inputLanguageInfoBuildable
         self.inputProjectInfoBuildable = inputProjectInfoBuildable
+        self.inputPrizeInfoBuildable = inputPrizeInfoBuildable
         self._container = StateObject(wrappedValue: container)
     }
 
@@ -77,6 +81,10 @@ struct InputInformationView: View {
             inputProjectInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.project)
+
+            inputPrizeInfoBuildable.makeView(delegate: intent)
+                .eraseToAnyView()
+                .tag(InformationPhase.prize)
         }
         .ignoresSafeArea(.container, edges: .top)
         .smsAlert(

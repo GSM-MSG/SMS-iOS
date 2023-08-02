@@ -6,6 +6,7 @@ import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
+import InputPrizeInfoFeatureInterface
 
 protocol InputInformationIntentProtocol:
     InputProfileDelegate,
@@ -14,7 +15,8 @@ protocol InputInformationIntentProtocol:
     InputMilitaryDelegate,
     InputCertificateDelegate,
     InputLanguageDelegate,
-    InputProjectInfoDelegate {
+    InputProjectInfoDelegate,
+    InputPrizeDelegate {
     func completeToInputAllInfo(state: any InputInformationStateProtocol)
     func errorAlertDismissed()
 }

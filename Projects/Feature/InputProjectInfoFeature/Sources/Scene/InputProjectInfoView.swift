@@ -29,7 +29,7 @@ struct InputProjectInfoView: View {
                     SMSSeparator()
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 7, selectedPage: 6)
+                        InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 8, selectedPage: 6)
 
                         VStack(spacing: 24) {
                             ForEach(state.projectList.indices, id: \.self) { index in
