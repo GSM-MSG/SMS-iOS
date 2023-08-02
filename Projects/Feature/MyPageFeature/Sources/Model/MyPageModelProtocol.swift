@@ -1,10 +1,12 @@
 protocol MyPageStateProtocol:
     MyPageProfileStateProtocol,
     MyPageSchoolLifeStateProtocol,
-    MyPageWorkInfoStateProtocol {}
+    MyPageWorkInfoStateProtocol,
+    MyPageMilitaryStateProtocol {}
 
 protocol MyPageActionProtocol:
     AnyObject,
     MyPageProfileActionProtocol,
     MyPageSchoolLifeActionProtocol,
-    MyPageWorkInfoActionProtocol {}
+    MyPageWorkInfoActionProtocol,
+    MyPageMilitaryActionProtocol {}

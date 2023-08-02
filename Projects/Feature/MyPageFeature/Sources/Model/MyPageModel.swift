@@ -21,11 +21,15 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var gsmScore: String = ""
 
     // MARK: WorkInfo
-    var workRegionList: [String] = []
-    var salary: String = ""
-    var salaryDisplay: String = ""
-    var formOfEmployment: FormOfEmployment = .fullTime
-    var isPresentedFormOfEmployeementSheet: Bool = false
+    @Published var workRegionList: [String] = []
+    @Published var salary: String = ""
+    @Published var salaryDisplay: String = ""
+    @Published var formOfEmployment: FormOfEmployment = .fullTime
+    @Published var isPresentedFormOfEmployeementSheet: Bool = false
+
+    // MARK: Military
+    @Published var selectedMilitaryServiceType: MilitaryServiceType = .hope
+    @Published var isPresentedMilitarySheet: Bool = false
 }
 
 extension MyPageModel: MyPageActionProtocol {}
