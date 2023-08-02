@@ -1,5 +1,5 @@
 import Foundation
-import StudentDomainInterface
+import StudentDgenomainInterface
 import DateUtil
 
 public protocol InputProjectInfoDelegate: AnyObject {

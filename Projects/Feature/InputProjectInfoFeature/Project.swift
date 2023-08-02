@@ -13,6 +13,7 @@ let project = Project.makeModule(
         .Feature.InputPrizeInfoFeatureInterface,
         .Domain.StudentDomainInterface,
         .Domain.FileDomainInterface,
-        .Domain.FileDomainTesting
+        .Domain.FileDomainTesting,
+        .Shared.DateUtil
     ]
 )
