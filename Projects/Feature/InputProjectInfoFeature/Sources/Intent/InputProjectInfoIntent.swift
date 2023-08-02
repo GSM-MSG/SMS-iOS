@@ -33,7 +33,7 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
                 iconImage = nil
             }
 
-            let previewImages =  $0.previewImages.map {
+            let previewImages = $0.previewImages.map {
                 return InputProjectInfoObject.ImageFile(
                     name: $0.fileName,
                     data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
