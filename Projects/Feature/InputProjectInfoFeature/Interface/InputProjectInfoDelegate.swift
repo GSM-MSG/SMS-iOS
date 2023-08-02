@@ -1,5 +1,4 @@
 import Foundation
-import StudentDomainInterface
 
 public protocol InputProjectInfoDelegate: AnyObject {
     func projectInfoPrevButtonDidTap()

@@ -77,7 +77,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                             image: $0.iconImage?.data ?? .init(),
                             fileName: $0.iconImage?.name ?? ""
                         )
-                        let previewImages = try await $0.previewImages.concurrentMap {
+                        async let previewImages = $0.previewImages.concurrentMap {
                             async let previewImageURL = self.imageUploadUseCase.execute(
                                 image: $0.data,
                                 fileName: $0.name

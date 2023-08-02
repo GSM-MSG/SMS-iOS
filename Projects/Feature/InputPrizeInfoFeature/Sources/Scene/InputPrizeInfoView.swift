@@ -130,6 +130,6 @@ private extension InputPrizeInfoView {
             intent.prizeAtButtonDidTap(index: index)
         }
         .frame(maxWidth: .infinity)
-        .titleWrapper("기간")
+        .titleWrapper("수상 일자")
     }
 }
