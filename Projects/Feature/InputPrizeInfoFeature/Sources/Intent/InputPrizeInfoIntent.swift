@@ -17,7 +17,7 @@ final class InputPrizeInfoIntent: InputPrizeInfoIntentProtocol {
         delegate?.prizeInfoPrevButtonDidTap()
     }
 
-    func nextButtonDidTap(prizes: [PrizeInfo]) {
+    func completeButtonDidTap(prizes: [PrizeInfo]) {
         let prizeInfoObjects = prizes.map {
             return InputPrizeInfoObject(
                 name: $0.name,

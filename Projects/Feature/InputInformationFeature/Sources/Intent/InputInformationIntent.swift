@@ -173,7 +173,6 @@ extension InputInformationIntent: InputPrizeDelegate {
 
     func completeToInputPrizeInfo(input: [InputPrizeInfoObject]) {
         model?.updatePrizes(prizes: input)
-        model?.nextButtonDidTap()
         model?.updateIsCompleteToInputAllInfo(isComplete: true)
     }
 }

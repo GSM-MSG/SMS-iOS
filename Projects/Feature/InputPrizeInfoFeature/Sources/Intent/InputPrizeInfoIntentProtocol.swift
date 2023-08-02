@@ -2,7 +2,7 @@ import Foundation
 
 protocol InputPrizeInfoIntentProtocol {
     func prevButtonDidTap()
-    func nextButtonDidTap(prizes: [PrizeInfo])
+    func completeButtonDidTap(prizes: [PrizeInfo])
     func prizeToggleButtonDidTap(index: Int)
     func prizeRemoveButtonDidTap(index: Int)
     func updatePrizeName(index: Int, name: String)

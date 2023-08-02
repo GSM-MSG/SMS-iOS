@@ -43,7 +43,7 @@ struct InputPrizeInfoView: View {
                             .frame(maxWidth: geometry.size.width / 3)
 
                             CTAButton(text: "완료") {
-                                intent.nextButtonDidTap(prizes: state.prizeList)
+                                intent.completeButtonDidTap(prizes: state.prizeList)
                             }
                             .frame(maxWidth: .infinity)
                         }
