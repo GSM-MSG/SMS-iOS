@@ -1,5 +1,4 @@
 import Foundation
-import StudentDomainInterface
 
 public protocol InputPrizeDelegate: AnyObject {
     func prizeInfoPrevButtonDidTap()
