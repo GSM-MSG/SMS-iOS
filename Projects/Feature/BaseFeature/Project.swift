@@ -16,6 +16,7 @@ let project = Project.makeModule(
         .Shared.FoundationUtil,
         .Shared.GlobalThirdPartyLibrary,
         .Shared.Validator,
-        .Shared.UtilityModule
+        .Shared.UtilityModule,
+        .Shared.ConcurrencyUtil
     ]
 )

@@ -7,12 +7,12 @@ let project = Project.makeModule(
     product: .staticLibrary,
     targets: [.interface, .unitTest, .demo],
     internalDependencies: [
+        .Feature.BaseFeature,
         .Feature.InputInformationBaseFeature,
         .Feature.TechStackAppendFeatureInterface,
         .Feature.InputPrizeInfoFeatureInterface,
         .Domain.StudentDomainInterface,
         .Domain.FileDomainInterface,
-        .Domain.FileDomainTesting,
-        .Shared.ConcurrencyUtil
+        .Domain.FileDomainTesting
     ]
 )

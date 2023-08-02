@@ -57,8 +57,8 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
                 }
 
                 let relatedLinks = $0.relatedLinks
-                    .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
                     .filter { $0.name.isNotEmpty && $0.url.isNotEmpty }
+                    .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
 
                 return InputProjectInfoObject(
                     name: $0.name,
