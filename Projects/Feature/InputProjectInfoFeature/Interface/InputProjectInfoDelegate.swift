@@ -1,6 +1,5 @@
 import Foundation
 import StudentDomainInterface
-import DateUtil
 
 public protocol InputProjectInfoDelegate: AnyObject {
     func projectInfoPrevButtonDidTap()
@@ -42,29 +41,6 @@ public struct InputProjectInfoObject {
 }
 
 public extension InputProjectInfoObject {
-    func toDTO(
-        iconURL: String,
-        previewImageURLS: [String],
-        startAt: String,
-        endAt: String
-    ) -> InputStudentInformationRequestDTO.Project {
-        InputStudentInformationRequestDTO.Project(
-            name: name,
-            iconImageURL: iconURL,
-            previewImageURLs: previewImageURLS,
-            description: content,
-            links: relatedLinks.map { $0.toDTO() },
-            techStacks: techStacks,
-            myActivity: mainTask,
-            inProgress: .init(
-                start: startAt,
-                end: endAt
-            )
-        )
-    }
-}
-
-public extension InputProjectInfoObject {
     struct ImageFile {
         public let name: String
         public let data: Data
@@ -83,14 +59,5 @@ public extension InputProjectInfoObject {
             self.name = name
             self.url = url
         }
-    }
-}
-
-extension InputProjectInfoObject.RelatedLink {
-    func toDTO() -> InputStudentInformationRequestDTO.Project.Link {
-        InputStudentInformationRequestDTO.Project.Link(
-            name: name,
-            url: url
-        )
     }
 }

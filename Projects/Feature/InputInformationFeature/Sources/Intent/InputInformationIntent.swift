@@ -199,3 +199,48 @@ extension InputInformationIntent: InputPrizeDelegate {
         model?.updateIsCompleteToInputAllInfo(isComplete: true)
     }
 }
+
+extension InputPrizeInfoObject {
+    var prizeAtString: String {
+        prizeAt.toStringCustomFormat(format: "yyyy.MM")
+    }
+    func toDTO() -> InputStudentInformationRequestDTO.Prize {
+        InputStudentInformationRequestDTO.Prize(
+            name: name,
+            type: prize,
+            date: prizeAtString
+        )
+    }
+}
+
+extension InputProjectInfoObject {
+    func toDTO(
+        iconURL: String,
+        previewImageURLS: [String],
+        startAt: String,
+        endAt: String
+    ) -> InputStudentInformationRequestDTO.Project {
+        InputStudentInformationRequestDTO.Project(
+            name: name,
+            iconImageURL: iconURL,
+            previewImageURLs: previewImageURLS,
+            description: content,
+            links: relatedLinks.map { $0.toDTO() },
+            techStacks: techStacks,
+            myActivity: mainTask,
+            inProgress: .init(
+                start: startAt,
+                end: endAt
+            )
+        )
+    }
+}
+
+extension InputProjectInfoObject.RelatedLink {
+    func toDTO() -> InputStudentInformationRequestDTO.Project.Link {
+        InputStudentInformationRequestDTO.Project.Link(
+            name: name,
+            url: url
+        )
+    }
+}

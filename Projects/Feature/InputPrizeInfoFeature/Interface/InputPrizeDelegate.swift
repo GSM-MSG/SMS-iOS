@@ -22,16 +22,3 @@ public struct InputPrizeInfoObject {
         self.prizeAt = prizeAt
     }
 }
-
-public extension InputPrizeInfoObject {
-    var prizeAtString: String {
-        prizeAt.toStringCustomFormat(format: "yyyy.MM")
-    }
-    func toDTO() -> InputStudentInformationRequestDTO.Prize {
-        InputStudentInformationRequestDTO.Prize(
-            name: name,
-            type: prize,
-            date: prizeAtString
-        )
-    }
-}
