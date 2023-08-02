@@ -46,11 +46,11 @@ final class InputInformationIntent: InputInformationIntentProtocol {
         model?.updateIsLoading(isLoading: true)
         Task {
             do {
-                async let profileImageURL = self.imageUploadUseCase.execute(
+                async let profileImageURL = imageUploadUseCase.execute(
                     image: inputProfileInfo.profileImageData,
                     fileName: inputProfileInfo.profileImageFilename
                 )
-                async let dreamBookURL = self.dreamBookUploadUseCase.execute(
+                async let dreamBookURL = dreamBookUploadUseCase.execute(
                     file: inputSchoolLifeInfo.hwpData,
                     fileName: inputSchoolLifeInfo.hwpFilename
                 )
