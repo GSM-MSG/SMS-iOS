@@ -4,7 +4,6 @@ import DependencyPlugin
 
 let project = Project.makeModule(
     name: ModulePaths.Shared.ConcurrencyUtil.rawValue,
-    product: .staticLibrary,
-    targets: [],
-    internalDependencies: []
+    product: .framework,
+    targets: []
 )
