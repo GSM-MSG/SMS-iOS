@@ -204,6 +204,7 @@ extension InputPrizeInfoObject {
     var prizeAtString: String {
         prizeAt.toStringCustomFormat(format: "yyyy.MM")
     }
+
     func toDTO() -> InputStudentInformationRequestDTO.Prize {
         InputStudentInformationRequestDTO.Prize(
             name: name,
