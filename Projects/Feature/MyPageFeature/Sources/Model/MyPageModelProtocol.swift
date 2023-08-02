@@ -3,7 +3,8 @@ protocol MyPageStateProtocol:
     MyPageSchoolLifeStateProtocol,
     MyPageWorkInfoStateProtocol,
     MyPageMilitaryStateProtocol,
-    MyPageCertificateStateProtocol {}
+    MyPageCertificateStateProtocol,
+    MyPageLanguageInfoStateProtocol {}
 
 protocol MyPageActionProtocol:
     AnyObject,
@@ -11,4 +12,5 @@ protocol MyPageActionProtocol:
     MyPageSchoolLifeActionProtocol,
     MyPageWorkInfoActionProtocol,
     MyPageMilitaryActionProtocol,
-    MyPageCertificateActionProtocol {}
+    MyPageCertificateActionProtocol,
+    MyPageLanguageInfoActionProtocol {}

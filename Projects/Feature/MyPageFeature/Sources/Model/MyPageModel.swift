@@ -33,6 +33,9 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
 
     // MARK: Certificate
     @Published var certificates: [String] = []
+
+    // MARK: Language
+    @Published var languageList: [LanguageModel] = []
 }
 
 extension MyPageModel: MyPageActionProtocol {}
