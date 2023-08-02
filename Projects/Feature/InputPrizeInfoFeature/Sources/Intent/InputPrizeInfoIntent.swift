@@ -29,7 +29,7 @@ final class InputPrizeInfoIntent: InputPrizeInfoIntentProtocol {
     }
 
     func prizeToggleButtonDidTap(index: Int) {
-        model?.toggleCollapsedProject(index: index)
+        model?.toggleCollapsedPrize(index: index)
     }
 
     func updatePrizeName(index: Int, name: String) {

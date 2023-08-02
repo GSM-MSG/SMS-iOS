@@ -9,7 +9,7 @@ final class InputPrizeInfoModel: ObservableObject, InputPrizeInfoStateProtocol {
 }
 
 extension InputPrizeInfoModel: InputPrizeInfoActionProtocol {
-    func toggleCollapsedProject(index: Int) {
+    func toggleCollapsedPrize(index: Int) {
         guard collapsedPrize[safe: index] != nil else { return }
         self.collapsedPrize[index].toggle()
     }

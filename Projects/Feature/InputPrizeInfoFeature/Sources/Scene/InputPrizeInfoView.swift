@@ -69,7 +69,7 @@ struct InputPrizeInfoView: View {
         let collapsed = state.collapsedPrize[safe: index] ?? false
         VStack(alignment: .leading, spacing: 24) {
             HStack(spacing: 16) {
-                SMSText("프로젝트", font: .title1)
+                SMSText("수상", font: .title1)
                     .foregroundColor(.sms(.system(.black)))
 
                 Spacer()

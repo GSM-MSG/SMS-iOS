@@ -19,7 +19,7 @@ protocol InputPrizeInfoStateProtocol {
 }
 
 protocol InputPrizeInfoActionProtocol: AnyObject {
-    func toggleCollapsedProject(index: Int)
+    func toggleCollapsedPrize(index: Int)
     func updatePrizeName(index: Int, name: String)
     func updatePrizePrize(index: Int, prize: String)
     func updatePrizePrizeAt(index: Int, prizeAt: Date)
