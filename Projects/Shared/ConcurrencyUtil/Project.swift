@@ -3,7 +3,7 @@ import ProjectDescriptionHelpers
 import DependencyPlugin
 
 let project = Project.makeModule(
-    name: ModulePaths.Shared.��ConcurrencyUtil.rawValue,
+    name: ModulePaths.Shared.ConcurrencyUtil.rawValue,
     product: .staticLibrary,
     targets: [],
     internalDependencies: []
