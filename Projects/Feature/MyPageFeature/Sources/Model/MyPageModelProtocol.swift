@@ -5,7 +5,8 @@ protocol MyPageStateProtocol:
     MyPageMilitaryStateProtocol,
     MyPageCertificateStateProtocol,
     MyPageLanguageInfoStateProtocol,
-    MyPageProjectStateProtocol {}
+    MyPageProjectStateProtocol,
+    MyPagePrizeStateProtocol {}
 
 protocol MyPageActionProtocol:
     AnyObject,
@@ -15,4 +16,5 @@ protocol MyPageActionProtocol:
     MyPageMilitaryActionProtocol,
     MyPageCertificateActionProtocol,
     MyPageLanguageInfoActionProtocol,
-    MyPageProjectActionProtocol {}
+    MyPageProjectActionProtocol,
+    MyPagePrizeActionProtocol {}
