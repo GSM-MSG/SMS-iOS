@@ -46,6 +46,12 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var isPresentedProjectStartAtDatePicker: Bool = false
     @Published var isPresentedProjectEndAtDatePicker: Bool = false
     @Published var isPresentedProjectTechStackAppend: Bool = false
+
+    // MARK: Prize
+    @Published var prizeList: [PrizeModel] = []
+    @Published var collapsedPrize: [Bool] = []
+    @Published var isPresentedPrizeAtDatePicker: Bool = false
+    @Published var focusedPrizeIndex: Int = 0
 }
 
 extension MyPageModel: MyPageActionProtocol {}

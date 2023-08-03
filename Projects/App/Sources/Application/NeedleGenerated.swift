@@ -35,6 +35,7 @@ import MainFeature
 import MainFeatureInterface
 import MajorDomain
 import MajorDomainInterface
+import MyPageFeatureInterface
 import NeedleFoundation
 import RootFeature
 import SigninFeature
