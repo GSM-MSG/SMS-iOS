@@ -20,7 +20,7 @@ struct InputLanguageInfoView: View {
                         InputInformationPageTitleView(
                             title: "외국어",
                             isRequired: false,
-                            pageCount: 7,
+                            pageCount: 8,
                             selectedPage: 5
                         )
 

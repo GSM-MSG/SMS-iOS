@@ -20,7 +20,7 @@ struct InputCertificateInfoView: View {
                         InputInformationPageTitleView(
                             title: "자격증",
                             isRequired: false,
-                            pageCount: 7,
+                            pageCount: 8,
                             selectedPage: 4
                         )
 

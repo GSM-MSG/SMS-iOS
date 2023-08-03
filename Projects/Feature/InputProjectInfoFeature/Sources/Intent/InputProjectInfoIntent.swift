@@ -2,6 +2,7 @@ import DesignSystem
 import Foundation
 import FoundationUtil
 import InputProjectInfoFeatureInterface
+import ConcurrencyUtil
 
 final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     private weak var model: (any InputProjectInfoActionProtocol)?
@@ -21,24 +22,28 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
 
     func nextButtonDidTap(projects: [ProjectInfo]) {
         let projectInfoObjects = projects.map {
-            let iconImage: InputProjectInfoObject.ImageFile?
+            var iconImage: InputProjectInfoObject.ImageFile?
+
             if let unwrapIconImage = $0.iconImage {
-                iconImage = .init(
+                iconImage = InputProjectInfoObject.ImageFile(
                     name: unwrapIconImage.fileName,
                     data: unwrapIconImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
                 )
             } else {
                 iconImage = nil
             }
+
             let previewImages = $0.previewImages.map {
-                InputProjectInfoObject.ImageFile(
+                return InputProjectInfoObject.ImageFile(
                     name: $0.fileName,
                     data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
                 )
             }
+
             let relatedLinks = $0.relatedLinks
-                .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
                 .filter { $0.name.isNotEmpty && $0.url.isNotEmpty }
+                .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
+
             return InputProjectInfoObject(
                 name: $0.name,
                 iconImage: iconImage,
