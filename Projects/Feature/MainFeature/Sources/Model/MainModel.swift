@@ -7,11 +7,8 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var page: Int = 1
     @Published var totalSize: Int = 0
     @Published var isLast: Bool = false
-    @Published var isError: Bool = false
     @Published var isRefresh: Bool = false
-    @Published var isPresentedExistActionSheet: Bool = false
-    @Published var isPresentedLogoutDialog: Bool = false
-    @Published var isPresentedWithdrawalDialog: Bool = false
+
     var content: [SingleStudentEntity] {
         get { _content }
         set {
@@ -29,6 +26,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     }
     @Published var _content: [SingleStudentEntity] = []
     @Published var isPresentedFilterPage: Bool = false
+    @Published var isPresentedMyPage: Bool = false
     @Published var selectedUserID: String?
     @Published var currentUserRole: UserRoleType = .guest
     @Published var filterOption: FilterOption?
@@ -36,10 +34,6 @@ final class MainModel: ObservableObject, MainStateProtocol {
 // swiftlint: enable identifier_name
 
 extension MainModel: MainActionProtocol {
-    func updateIsError(isError: Bool) {
-        self.isError = isError
-    }
-
     func updatePage(page: Int) {
         self.page = page
     }
@@ -52,20 +46,12 @@ extension MainModel: MainActionProtocol {
         self.isLast = isLast
     }
 
-    func updateIsPresentedExistActionSheet(isPresented: Bool) {
-        self.isPresentedExistActionSheet = isPresented
-    }
-
-    func updateIsPresentedLogoutDialog(isPresented: Bool) {
-        self.isPresentedLogoutDialog = isPresented
-    }
-
-    func updateIsPresentedWithdrawalDialog(isPresented: Bool) {
-        self.isPresentedWithdrawalDialog = isPresented
-    }
-
     func updateIsPresentedFilterPage(isPresented: Bool) {
         self.isPresentedFilterPage = isPresented
+    }
+
+    func updateIsPresentedMypagePage(isPresented: Bool) {
+        self.isPresentedMyPage = isPresented
     }
 
     func appendContent(content: [SingleStudentEntity]) {

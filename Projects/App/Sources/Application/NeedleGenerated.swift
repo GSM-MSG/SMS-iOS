@@ -35,6 +35,7 @@ import MainFeature
 import MainFeatureInterface
 import MajorDomain
 import MajorDomainInterface
+import MyPageFeature
 import MyPageFeatureInterface
 import NeedleFoundation
 import RootFeature
@@ -106,6 +107,22 @@ private class InputProjectInfoDependencye065c7f60c5c520999a0Provider: InputProje
 private func factory2378736e5949c5e8e9f4f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return InputProjectInfoDependencye065c7f60c5c520999a0Provider(appComponent: parent1(component) as! AppComponent)
 }
+private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
+    var userDomainBuildable: any UserDomainBuildable {
+        return appComponent.userDomainBuildable
+    }
+    var authDomainBuildable: any AuthDomainBuildable {
+        return appComponent.authDomainBuildable
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
+    }
+}
+/// ^->AppComponent->MyPageComponent
+private func factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MyPageDependency48d84b530313b3ee40feProvider(appComponent: parent1(component) as! AppComponent)
+}
 private class InputWorkInfoDependency74441f61366e4e5af9a2Provider: InputWorkInfoDependency {
 
 
@@ -121,11 +138,11 @@ private class MainDependency7c6a5b4738b211b8e155Provider: MainDependency {
     var studentDomainBuildable: any StudentDomainBuildable {
         return appComponent.studentDomainBuildable
     }
-    var authDomainBuildable: any AuthDomainBuildable {
-        return appComponent.authDomainBuildable
-    }
     var filterBuildable: any FilterBuildable {
         return appComponent.filterBuildable
+    }
+    var myPageBuildable: any MyPageBuildable {
+        return appComponent.myPageBuildable
     }
     var studentDetailBuildable: any StudentDetailBuildable {
         return appComponent.studentDetailBuildable
@@ -445,6 +462,12 @@ extension InputProjectInfoComponent: Registration {
         keyPathToName[\InputProjectInfoDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
     }
 }
+extension MyPageComponent: Registration {
+    public func registerItems() {
+        keyPathToName[\MyPageDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
+        keyPathToName[\MyPageDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+    }
+}
 extension InputWorkInfoComponent: Registration {
     public func registerItems() {
 
@@ -453,8 +476,8 @@ extension InputWorkInfoComponent: Registration {
 extension MainComponent: Registration {
     public func registerItems() {
         keyPathToName[\MainDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
-        keyPathToName[\MainDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
         keyPathToName[\MainDependency.filterBuildable] = "filterBuildable-any FilterBuildable"
+        keyPathToName[\MainDependency.myPageBuildable] = "myPageBuildable-any MyPageBuildable"
         keyPathToName[\MainDependency.studentDetailBuildable] = "studentDetailBuildable-any StudentDetailBuildable"
         keyPathToName[\MainDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
     }
@@ -587,6 +610,7 @@ private func register1() {
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->SplashComponent", factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputProjectInfoComponent", factory2378736e5949c5e8e9f4f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->MyPageComponent", factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputWorkInfoComponent", factoryfff86bd7854b30412216e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainComponent", factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->InputSchoolLifeInfoComponent", factorydc1feebed8f042db375fe3b0c44298fc1c149afb)
