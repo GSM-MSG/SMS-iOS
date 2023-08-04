@@ -4,10 +4,6 @@ import SwiftUI
 struct StudentDetailTitleWrapper: ViewModifier {
     let title: String
 
-    init(title: String) {
-        self.title = title
-    }
-
     func body(content: Content) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)

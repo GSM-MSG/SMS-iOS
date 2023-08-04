@@ -4,6 +4,7 @@ import DesignSystem
 
 struct MyPageView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.safeAreaInsets) var safeAreaInsets
     @StateObject var container: MVIContainer<MyPageIntentProtocol, MyPageStateProtocol>
     var intent: any MyPageIntentProtocol { container.intent }
     var state: any MyPageStateProtocol { container.model }
@@ -93,12 +94,25 @@ struct MyPageView: View {
                         }
                     }
                 }
+
+                CTAButton(text: "저장") {
+                    #warning("저장 로직 추가")
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, safeAreaInsets.bottom + 16)
+                .background {
+                    Color.sms(.system(.white))
+                }
+                .ignoresSafeArea()
             }
         }
-        .smsBottomSheet(isShowing: Binding(
-            get: { state.isPresentedExistActionSheet },
-            set: { _ in intent.existActionSheetDismissed() }
-        )) {
+        .edgesIgnoringSafeArea([.bottom])
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedExistActionSheet },
+                set: { _ in intent.existActionSheetDismissed() }
+            )
+        ) {
             VStack(alignment: .leading, spacing: 32) {
                 Button {
                     intent.logoutDialogIsRequired()

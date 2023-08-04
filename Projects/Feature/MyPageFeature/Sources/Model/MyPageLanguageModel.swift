@@ -3,11 +3,6 @@ import StudentDomainInterface
 struct LanguageModel: Equatable {
     var name: String
     var score: String
-
-    init(name: String, score: String) {
-        self.name = name
-        self.score = score
-    }
 }
 
 protocol MyPageLanguageInfoStateProtocol {
