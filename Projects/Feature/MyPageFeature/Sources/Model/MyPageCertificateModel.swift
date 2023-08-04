@@ -15,11 +15,11 @@ extension MyPageModel: MyPageCertificateActionProtocol {
         guard certificates[safe: index] != nil else { return }
         certificates[index] = certificate
     }
-    
+
     func deleteCertificateColumn(at index: Int) {
         certificates.remove(at: index)
     }
-    
+
     func appendCertificate() {
         certificates.append("")
     }

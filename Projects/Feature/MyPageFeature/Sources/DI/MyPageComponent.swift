@@ -1,3 +1,4 @@
+import AuthDomainInterface
 import BaseFeature
 import MyPageFeatureInterface
 import NeedleFoundation
@@ -5,15 +6,19 @@ import SwiftUI
 import UserDomainInterface
 
 public protocol MyPageDependency: Dependency {
-    var fetchMyProfileUseCase: any FetchMyProfileUseCase { get }
+    var userDomainBuildable: any UserDomainBuildable { get }
+    var authDomainBuildable: any AuthDomainBuildable { get }
 }
 
 public final class MyPageComponent: Component<MyPageDependency>, MyPageBuildable {
-    public func makeView() -> some View {
+    public func makeView(delegate: any MyPageDelegate) -> some View {
         let model = MyPageModel()
         let intent = MyPageIntent(
             model: model,
-            fetchMyProfileUseCase: dependency.fetchMyProfileUseCase
+            myPageDelegate: delegate,
+            fetchMyProfileUseCase: dependency.userDomainBuildable.fetchMyProfileUseCase,
+            logoutUseCase: dependency.authDomainBuildable.logoutUseCase,
+            withdrawalUseCase: dependency.authDomainBuildable.withdrawalUseCase
         )
         let container = MVIContainer(
             intent: intent as MyPageIntentProtocol,

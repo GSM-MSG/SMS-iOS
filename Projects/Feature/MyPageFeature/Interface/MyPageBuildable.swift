@@ -2,5 +2,5 @@ import SwiftUI
 
 public protocol MyPageBuildable {
     associatedtype ViewType: View
-    func makeView() -> ViewType
+    func makeView(delegate: any MyPageDelegate) -> ViewType
 }

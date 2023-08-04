@@ -7,4 +7,14 @@ protocol MyPageIntentProtocol:
     MyPageMilitaryIntentProtocol,
     MyPageCertificateIntentProtocol,
     MyPageLanguageIntentProtocol,
-    MyPageProjectIntentProtocol {}
+    MyPageProjectIntentProtocol,
+    MyPagePrizeIntentProtocol {
+    func existActionSheetIsRequired()
+    func existActionSheetDismissed()
+    func logoutDialogIsRequired()
+    func logoutDialogDismissed()
+    func logoutDialogIsComplete()
+    func withdrawalDialogIsRequired()
+    func withdrawalDialogDismissed()
+    func withdrawalDialogIsComplete()
+}

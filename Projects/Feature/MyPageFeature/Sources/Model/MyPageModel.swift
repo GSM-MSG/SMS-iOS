@@ -2,6 +2,12 @@ import Foundation
 import StudentDomainInterface
 
 final class MyPageModel: ObservableObject, MyPageStateProtocol {
+    // MARK: MyPage
+    @Published var isError: Bool = false
+    @Published var isPresentedExistActionSheet: Bool = false
+    @Published var isPresentedLogoutDialog: Bool = false
+    @Published var isPresentedWithdrawalDialog: Bool = false
+
     // MARK: Profile
     @Published var profileURL: String = ""
     @Published var introduce: String = ""
@@ -46,6 +52,28 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var isPresentedProjectStartAtDatePicker: Bool = false
     @Published var isPresentedProjectEndAtDatePicker: Bool = false
     @Published var isPresentedProjectTechStackAppend: Bool = false
+
+    // MARK: Prize
+    @Published var prizeList: [PrizeModel] = []
+    @Published var collapsedPrize: [Bool] = []
+    @Published var isPresentedPrizeAtDatePicker: Bool = false
+    @Published var focusedPrizeIndex: Int = 0
 }
 
-extension MyPageModel: MyPageActionProtocol {}
+extension MyPageModel: MyPageActionProtocol {
+    func updateIsError(isError: Bool) {
+        self.isError = isError
+    }
+
+    func updateIsPresentedExistActionSheet(isPresented: Bool) {
+        self.isPresentedExistActionSheet = isPresented
+    }
+
+    func updateIsPresentedLogoutDialog(isPresented: Bool) {
+        self.isPresentedLogoutDialog = isPresented
+    }
+
+    func updateIsPresentedWithdrawalDialog(isPresented: Bool) {
+        self.isPresentedWithdrawalDialog = isPresented
+    }
+}

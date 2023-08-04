@@ -10,5 +10,6 @@ let project = Project.makeModule(
         .Feature.BaseFeature,
         .Domain.UserDomainInterface,
         .Domain.StudentDomainInterface,
+        .Domain.AuthDomainInterface
     ]
 )

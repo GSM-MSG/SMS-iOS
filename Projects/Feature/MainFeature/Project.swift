@@ -12,7 +12,6 @@ let project = Project.makeModule(
         .Feature.FilterFeatureInterface,
         .Feature.MyPageFeatureInterface,
         .Domain.StudentDomainInterface,
-        .Domain.AuthDomainInterface,
         .Domain.UserDomainInterface
     ]
 )
