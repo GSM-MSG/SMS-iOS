@@ -14,43 +14,41 @@ struct MyPageWorkInfoView: View {
 
     var body: some View {
         Section {
-            VStack(spacing: 32) {
-                VStack(spacing: 24) {
-                    SMSTextField(
-                        "정규직",
-                        text: Binding(
-                            get: { state.formOfEmployment.display() },
-                            set: { _ in }
-                        ),
-                        isOnClear: false
-                    )
-                    .disabled(true)
-                    .overlay(alignment: .trailing) {
-                        SMSIcon(.downChevron)
-                            .padding(.trailing, 12)
-                    }
-                    .titleWrapper("희망 고용 형태")
-                    .onTapGesture {
-                        intent.formOfEmployeementSheetIsRequired()
-                    }
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        SMSTextField(
-                            "희망 연봉 (10,000원 단위)",
-                            text: Binding(
-                                get: { state.salary },
-                                set: intent.updateSalary(salary:)
-                            )
-                        )
-                        .keyboardType(.numberPad)
-
-                        Text(state.salaryDisplay)
-                            .smsFont(.caption1, color: .neutral(.n30))
-                    }
-                    .titleWrapper("희망 연봉")
-
-                    workRegionList()
+            VStack(spacing: 24) {
+                SMSTextField(
+                    "정규직",
+                    text: Binding(
+                        get: { state.formOfEmployment.display() },
+                        set: { _ in }
+                    ),
+                    isOnClear: false
+                )
+                .disabled(true)
+                .overlay(alignment: .trailing) {
+                    SMSIcon(.downChevron)
+                        .padding(.trailing, 12)
                 }
+                .titleWrapper("희망 고용 형태")
+                .onTapGesture {
+                    intent.formOfEmployeementSheetIsRequired()
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    SMSTextField(
+                        "희망 연봉 (10,000원 단위)",
+                        text: Binding(
+                            get: { state.salary },
+                            set: intent.updateSalary(salary:)
+                        )
+                    )
+                    .keyboardType(.numberPad)
+
+                    Text(state.salaryDisplay)
+                        .smsFont(.caption1, color: .neutral(.n30))
+                }
+                .titleWrapper("희망 연봉")
+
+                workRegionList()
             }
         } header: {
             SMSText("근무 조건", font: .title1)

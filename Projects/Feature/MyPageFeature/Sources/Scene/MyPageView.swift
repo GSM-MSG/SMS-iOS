@@ -37,6 +37,11 @@ struct MyPageView: View {
                                     modelChangePublisher: container.objectWillChange
                                 )
                             )
+
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPageMilitaryView(intent: intent, state: state)
                         }
                     }
                 }
