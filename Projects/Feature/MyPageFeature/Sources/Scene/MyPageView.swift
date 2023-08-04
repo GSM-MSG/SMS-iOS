@@ -67,6 +67,18 @@ struct MyPageView: View {
                                 ),
                                 geometry: geometry
                             )
+
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPageProjectView(
+                                container: .init(
+                                    intent: intent,
+                                    model: state,
+                                    modelChangePublisher: container.objectWillChange
+                                ),
+                                geometry: geometry
+                            )
                         }
                     }
                 }

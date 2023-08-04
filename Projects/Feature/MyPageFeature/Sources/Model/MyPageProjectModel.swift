@@ -167,11 +167,13 @@ extension MyPageModel: MyPageProjectActionProtocol {
                 relatedLinks: []
             )
         )
+        collapsedProject.append(false)
     }
 
     func removeProject(index: Int) {
-        guard projectList[safe: index] != nil else { return }
+        guard projectList[safe: index] != nil, collapsedProject[safe: index] != nil else { return }
         projectList.remove(at: index)
+        collapsedProject.remove(at: index)
     }
 
     func updateFocusedProjectIndex(index: Int) {
