@@ -10,6 +10,7 @@ public enum ModulePaths {
 
 public extension ModulePaths {
     enum Feature: String {
+        case InputPrizeInfoFeature
         case MyPageFeature
         case InputProjectInfoFeature
         case SplashFeature
@@ -65,6 +66,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String {
+        case ConcurrencyUtil
         case Validator
         case FoundationUtil
         case ViewUtil

@@ -41,6 +41,7 @@ let targets: [Target] = [
             .Feature.SigninFeature,
             .Feature.InputInformationFeature,
             .Feature.InputProfileInfoFeature,
+            .Feature.InputPrizeInfoFeature,
             .Feature.InputSchoolLifeInfoFeature,
             .Feature.InputWorkInfoFeature,
             .Feature.InputMilitaryInfoFeature,
