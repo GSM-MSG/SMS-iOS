@@ -26,7 +26,6 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     @Published var _studentDetailEntity: StudentDetailEntity?
     @Published var isLoading: Bool = false
     @Published var isDownloading: Bool = false
-    @Published var isPresentedDreamBookExporter: Bool = false
     @Published var hwpDocument: HWPDocument?
     var hwpFilename: String {
         guard let studentDetailEntity, let info = studentDetailEntity.detailInfoByTeacher else { return "" }
@@ -51,10 +50,6 @@ extension StudentDetailModel: StudentDetailActionProtocol {
 
     func updateIsDownloading(isDownloading: Bool) {
         self.isDownloading = isDownloading
-    }
-
-    func updateIsPresentedDreamBookExporter(isPresented: Bool) {
-        self.isPresentedDreamBookExporter = isPresented
     }
 
     func updateHWPDocument(hwpDocument: HWPDocument) {

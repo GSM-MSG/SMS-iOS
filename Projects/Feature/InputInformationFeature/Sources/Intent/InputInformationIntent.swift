@@ -16,20 +16,17 @@ import DateUtil
 final class InputInformationIntent: InputInformationIntentProtocol {
     private weak var model: (any InputInformationActionProtocol)?
     private weak var inputInformationDelegate: (any InputInformationDelegate)?
-    private let dreamBookUploadUseCase: any DreamBookUploadUseCase
     private let imageUploadUseCase: any ImageUploadUseCase
     private let inputInformationUseCase: any InputInformationUseCase
 
     init(
         model: any InputInformationActionProtocol,
         inputInformationDelegate: any InputInformationDelegate,
-        dreamBookUploadUseCase: any DreamBookUploadUseCase,
         imageUploadUseCase: any ImageUploadUseCase,
         inputInformationUseCase: any InputInformationUseCase
     ) {
         self.model = model
         self.inputInformationDelegate = inputInformationDelegate
-        self.dreamBookUploadUseCase = dreamBookUploadUseCase
         self.imageUploadUseCase = imageUploadUseCase
         self.inputInformationUseCase = inputInformationUseCase
     }
@@ -52,15 +49,10 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                     image: inputProfileInfo.profileImageData,
                     fileName: inputProfileInfo.profileImageFilename
                 )
-                async let dreamBookURL = dreamBookUploadUseCase.execute(
-                    file: inputSchoolLifeInfo.hwpData,
-                    fileName: inputSchoolLifeInfo.hwpFilename
-                )
 
                 let inputInformationRequest = try await InputStudentInformationRequestDTO(
                     certificate: state.certificates,
                     contactEmail: inputProfileInfo.contactEmail,
-                    dreamBookFileURL: dreamBookURL,
                     formOfEmployment: FormOfEmployment(rawValue: inputWorkInfo.formOfEmployment) ?? .fullTime,
                     gsmAuthenticationScore: inputSchoolLifeInfo.gsmAuthenticationScore,
                     introduce: inputProfileInfo.introduce,
