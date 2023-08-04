@@ -155,6 +155,6 @@ struct MyPageProfileView: View {
                     Color.sms(.system(.white))
                 }
         }
-        .padding([.horizontal], 20)
+        .padding(.horizontal, 20)
     }
 }

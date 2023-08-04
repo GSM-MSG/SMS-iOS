@@ -26,6 +26,17 @@ struct MyPageView: View {
                                 .padding(.vertical, 16)
 
                             MyPageSchoolLifeView(intent: intent, state: state)
+
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPageWorkInfoView(
+                                container: .init(
+                                    intent: intent,
+                                    model: state,
+                                    modelChangePublisher: container.objectWillChange
+                                )
+                            )
                         }
                     }
                 }
