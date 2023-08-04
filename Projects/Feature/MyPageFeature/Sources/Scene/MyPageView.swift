@@ -9,7 +9,17 @@ struct MyPageView: View {
     var state: any MyPageStateProtocol { container.model }
 
     var body: some View {
-        ScrollView {
+        GeometryReader { geometry in
+            VStack {
+                Spacer()
+                    .frame(height: 1)
+
+                ScrollView {
+                    LazyVStack(pinnedViews: [.sectionHeaders]) {
+                        MyPageProfileView(intent: intent, state: state, geometry: geometry)
+                    }
+                }
+            }
         }
         .smsBottomSheet(isShowing: Binding(
             get: { state.isPresentedExistActionSheet },
@@ -36,14 +46,13 @@ struct MyPageView: View {
                 } label: {
                     HStack(spacing: 12) {
                         SMSIcon(.redPerson)
-                        
+
                         SMSText("회원탈퇴", font: .body1)
                             .foregroundStyle(Color.sms(.system(.error)))
-                        
+
                         Spacer()
                     }
                 }
-//                .conditional(state.currentUserRole != .guest)
             }
             .padding(.top, 12)
             .padding(.horizontal, 20)
@@ -52,8 +61,7 @@ struct MyPageView: View {
         .smsAlert(
             title: "로그아웃",
             description: "정말로 로그아웃 하시겠습니까?",
-            isShowing:
-                Binding(
+            isShowing: Binding(
                     get: { state.isPresentedLogoutDialog },
                     set: { _ in intent.logoutDialogDismissed() }
                 ),
@@ -69,8 +77,7 @@ struct MyPageView: View {
         .smsAlert(
             title: "회원탈퇴",
             description: "정말로 회원탈퇴 하시겠습니까?",
-            isShowing:
-                Binding(
+            isShowing: Binding(
                     get: { state.isPresentedWithdrawalDialog },
                     set: { _ in intent.withdrawalDialogDismissed() }
                 ),

@@ -1,19 +1,34 @@
-import UIKit
+import MyPageFeatureInterface
+import SwiftUI
+@testable import AuthDomainTesting
+@testable import MyPageFeature
+@testable import UserDomainTesting
 
+final class DummyMyPageDelegate: MyPageDelegate {
+    func logout() {}
+}
 @main
-final class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
-
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
-    ) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .yellow
-        window?.rootViewController = viewController
-        window?.makeKeyAndVisible()
-
-        return true
+struct MyPageDemoApp: App {
+    var body: some Scene {
+        WindowGroup {
+            let model = MyPageModel()
+            let fetchMyProfileUseCase = FetchMyProfileUseCaseSpy()
+            let logoutUseCase = LogoutUseCaseSpy()
+            let withdrawalUseCase = WithdrawalUseCaseSpy()
+            let intent = MyPageIntent(
+                model: model,
+                myPageDelegate: DummyMyPageDelegate(),
+                fetchMyProfileUseCase: fetchMyProfileUseCase,
+                logoutUseCase: logoutUseCase,
+                withdrawalUseCase: withdrawalUseCase
+            )
+            MyPageView(
+                container: .init(
+                    intent: intent as MyPageIntentProtocol,
+                    model: model as MyPageStateProtocol,
+                    modelChangePublisher: model.objectWillChange
+                )
+            )
+        }
     }
 }

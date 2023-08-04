@@ -11,5 +11,10 @@ let project = Project.makeModule(
         .Domain.UserDomainInterface,
         .Domain.StudentDomainInterface,
         .Domain.AuthDomainInterface
+    ],
+    demoDependencies: [
+        .Domain.UserDomainTesting,
+        .Domain.AuthDomainTesting,
+        .Domain.StudentDomainTesting
     ]
 )
