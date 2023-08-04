@@ -79,6 +79,17 @@ struct MyPageView: View {
                                 ),
                                 geometry: geometry
                             )
+
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPagePrizeView(
+                                container: .init(
+                                    intent: intent,
+                                    model: state,
+                                    modelChangePublisher: container.objectWillChange
+                                )
+                            )
                         }
                     }
                 }
