@@ -51,12 +51,7 @@ struct MyPageWorkInfoView: View {
                 workRegionList()
             }
         } header: {
-            SMSText("근무 조건", font: .title1)
-                .aligned(.leading)
-                .padding(.vertical)
-                .background {
-                    Color.sms(.system(.white))
-                }
+            SectionHeaderView(title: "근무 조건")
         }
         .padding(.horizontal, 20)
     }

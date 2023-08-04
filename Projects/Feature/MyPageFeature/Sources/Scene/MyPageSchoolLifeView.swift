@@ -20,12 +20,7 @@ struct MyPageSchoolLifeView: View {
                 .titleWrapper("인증제 점수")
             }
         } header: {
-            SMSText("학교 생활", font: .title1)
-                .aligned(.leading)
-                .padding(.vertical)
-                .background {
-                    Color.sms(.system(.white))
-                }
+            SectionHeaderView(title: "학교 생활")
         }
         .padding(.horizontal, 20)
     }

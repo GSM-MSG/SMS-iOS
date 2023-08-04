@@ -146,12 +146,7 @@ struct MyPageProfileView: View {
                 .titleWrapper("세부스택 (최대 5개)")
             }
         } header: {
-            SMSText("프로필", font: .title1)
-                .aligned(.leading)
-                .padding(.vertical)
-                .background {
-                    Color.sms(.system(.white))
-                }
+            SectionHeaderView(title: "프로필")
         }
         .padding(.horizontal, 20)
     }

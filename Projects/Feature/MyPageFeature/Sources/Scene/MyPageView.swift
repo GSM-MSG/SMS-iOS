@@ -43,6 +43,19 @@ struct MyPageView: View {
 
                             MyPageMilitaryView(intent: intent, state: state)
                         }
+
+                        Group {
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPageCertificateView(
+                                container: .init(
+                                    intent: intent,
+                                    model: state,
+                                    modelChangePublisher: container.objectWillChange
+                                )
+                            )
+                        }
                     }
                 }
             }
