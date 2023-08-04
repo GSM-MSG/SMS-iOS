@@ -16,7 +16,17 @@ struct MyPageView: View {
 
                 ScrollView {
                     LazyVStack(pinnedViews: [.sectionHeaders]) {
-                        MyPageProfileView(intent: intent, state: state, geometry: geometry)
+                        Group {
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPageProfileView(intent: intent, state: state, geometry: geometry)
+
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPageSchoolLifeView(intent: intent, state: state)
+                        }
                     }
                 }
             }
