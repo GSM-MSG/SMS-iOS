@@ -55,6 +55,18 @@ struct MyPageView: View {
                                     modelChangePublisher: container.objectWillChange
                                 )
                             )
+
+                            SMSSeparator()
+                                .padding(.vertical, 16)
+
+                            MyPageLanguageView(
+                                container: .init(
+                                    intent: intent,
+                                    model: state,
+                                    modelChangePublisher: container.objectWillChange
+                                ),
+                                geometry: geometry
+                            )
                         }
                     }
                 }

@@ -6,7 +6,7 @@ protocol MyPageIntentProtocol:
     MyPageWorkInfoIntentProtocol,
     MyPageMilitaryIntentProtocol,
     MyPageCertificateIntentProtocol,
-    MyPageLanguageIntentProtocol,
+    MyPageLanguageInfoIntentProtocol,
     MyPageProjectIntentProtocol,
     MyPagePrizeIntentProtocol {
     func existActionSheetIsRequired()

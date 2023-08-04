@@ -1,11 +1,11 @@
-protocol MyPageLanguageIntentProtocol {
+protocol MyPageLanguageInfoIntentProtocol {
     func updateLanguageName(name: String, at index: Int)
     func updateLanguageScore(score: String, at index: Int)
     func deleteLanguage(at index: Int)
     func languageAppendButtonDidTap()
 }
 
-extension MyPageIntent: MyPageLanguageIntentProtocol {
+extension MyPageIntent: MyPageLanguageInfoIntentProtocol {
     func updateLanguageName(name: String, at index: Int) {
         model?.updateLanguageName(name: name, at: index)
     }
