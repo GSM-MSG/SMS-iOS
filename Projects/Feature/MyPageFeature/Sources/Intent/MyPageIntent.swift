@@ -24,6 +24,32 @@ final class MyPageIntent: MyPageIntentProtocol {
         self.withdrawalUseCase = withdrawalUseCase
     }
 
+    func onAppear() {
+        Task {
+            do {
+                let profile = try await fetchMyProfileUseCase.execute()
+                model?.updateProfileURL(url: profile.profileImageURL)
+                model?.updateIntroduce(introduce: profile.introduce)
+                model?.updateMajor(major: profile.major)
+                model?.updateEmail(email: profile.contactEmail)
+                model?.updateGSMScore(gsmScore: "\(profile.gsmAuthenticationScore)")
+                model?.updateFormOfEmployment(form: profile.formOfEmployment)
+                model?.updateWorkRegions(regions: profile.regions)
+                model?.updateMilitaryServiceType(type: profile.militaryService)
+                model?.updateSalary(salary: "\(profile.salary)")
+                model?.updateLanguageScores(
+                    languages: profile.languageCertificates.map {
+                        LanguageModel(name: $0.name, score: $0.score)
+                    }
+                )
+                model?.updateCertificates(certificates: profile.certificates)
+                model?.updateTechStacks(techStacks: profile.techStacks)
+            } catch {
+                model?.updateIsError(isError: true)
+            }
+        }
+    }
+
     func existActionSheetIsRequired() {
         model?.updateIsPresentedExistActionSheet(isPresented: true)
     }

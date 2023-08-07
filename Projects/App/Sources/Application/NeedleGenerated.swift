@@ -1,3 +1,5 @@
+
+
 import AuthDomain
 import AuthDomainInterface
 import BaseDomain
@@ -54,7 +56,7 @@ import UserDomain
 import UserDomainInterface
 
 // swiftlint:disable unused_declaration
-private let needleDependenciesHash: String? = nil
+private let needleDependenciesHash : String? = nil
 
 // MARK: - Traversal Helpers
 
@@ -123,6 +125,7 @@ private func factory0f6f456ebf157d02dfb3f47b58f8f304c97af4d5(_ component: Needle
 }
 private class InputWorkInfoDependency74441f61366e4e5af9a2Provider: InputWorkInfoDependency {
 
+
     init() {
 
     }
@@ -157,6 +160,7 @@ private func factoryc9274e46e78e70f29c54f47b58f8f304c97af4d5(_ component: Needle
     return MainDependency7c6a5b4738b211b8e155Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputSchoolLifeInfoDependency30edf0903f9bdb7a60fbProvider: InputSchoolLifeInfoDependency {
+
 
     init() {
 
@@ -225,6 +229,7 @@ private func factory2882a056d84a613debccf47b58f8f304c97af4d5(_ component: Needle
 }
 private class InputMilitaryInfoDependency0cd58f3f7088aec361b6Provider: InputMilitaryInfoDependency {
 
+
     init() {
 
     }
@@ -234,6 +239,7 @@ private func factory6e35522c47cca1190471e3b0c44298fc1c149afb(_ component: Needle
     return InputMilitaryInfoDependency0cd58f3f7088aec361b6Provider()
 }
 private class InputLanguageInfoDependencye83ef16d0fe38d31cb64Provider: InputLanguageInfoDependency {
+
 
     init() {
 
@@ -298,6 +304,7 @@ private func factory0b9613d8c923fa9ae897f47b58f8f304c97af4d5(_ component: Needle
 }
 private class InputCertificateInfoDependencyd369771b4dc3e8540791Provider: InputCertificateInfoDependency {
 
+
     init() {
 
     }
@@ -339,6 +346,7 @@ private func factoryb3d74d9bff60efbc0282f47b58f8f304c97af4d5(_ component: Needle
     return InputProfileInfoDependencydedc6189ad35e7ff3001Provider(appComponent: parent1(component) as! AppComponent)
 }
 private class InputPrizeInfoDependencyff32e2191f3500ff4774Provider: InputPrizeInfoDependency {
+
 
     init() {
 
@@ -435,6 +443,7 @@ extension JwtStoreComponent: Registration {
 }
 extension AppComponent: Registration {
     public func registerItems() {
+
 
     }
 }
@@ -581,6 +590,7 @@ extension UserDomainComponent: Registration {
     }
 }
 
+
 #endif
 
 private func factoryEmptyDependencyProvider(_ component: NeedleFoundation.Scope) -> AnyObject {
@@ -594,7 +604,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-private func register1() {
+@inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)

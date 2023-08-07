@@ -6,6 +6,7 @@ protocol MyPageCertificateStateProtocol {
 
 protocol MyPageCertificateActionProtocol: AnyObject {
     func updateCertificate(certificate: String, at index: Int)
+    func updateCertificates(certificates: [String])
     func deleteCertificateColumn(at index: Int)
     func appendCertificate()
 }
@@ -14,6 +15,10 @@ extension MyPageModel: MyPageCertificateActionProtocol {
     func updateCertificate(certificate: String, at index: Int) {
         guard certificates[safe: index] != nil else { return }
         certificates[index] = certificate
+    }
+
+    func updateCertificates(certificates: [String]) {
+        self.certificates = certificates
     }
 
     func deleteCertificateColumn(at index: Int) {

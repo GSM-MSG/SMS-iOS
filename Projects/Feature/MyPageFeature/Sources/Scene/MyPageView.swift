@@ -106,6 +106,9 @@ struct MyPageView: View {
                 .ignoresSafeArea()
             }
         }
+        .onAppear {
+            intent.onAppear()
+        }
         .edgesIgnoringSafeArea([.bottom])
         .smsBottomSheet(
             isShowing: Binding(
