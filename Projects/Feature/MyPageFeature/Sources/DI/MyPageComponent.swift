@@ -4,10 +4,12 @@ import MyPageFeatureInterface
 import NeedleFoundation
 import SwiftUI
 import UserDomainInterface
+import TechStackAppendFeatureInterface
 
 public protocol MyPageDependency: Dependency {
     var userDomainBuildable: any UserDomainBuildable { get }
     var authDomainBuildable: any AuthDomainBuildable { get }
+    var techStackAppendBuildable: any TechStackAppendBuildable { get }
 }
 
 public final class MyPageComponent: Component<MyPageDependency>, MyPageBuildable {
@@ -25,6 +27,9 @@ public final class MyPageComponent: Component<MyPageDependency>, MyPageBuildable
             model: model as MyPageStateProtocol,
             modelChangePublisher: model.objectWillChange
         )
-        return MyPageView(container: container)
+        return MyPageView(
+            container: container,
+            techStackAppendBuildable: dependency.techStackAppendBuildable
+        )
     }
 }

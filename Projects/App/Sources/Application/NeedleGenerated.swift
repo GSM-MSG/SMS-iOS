@@ -114,6 +114,9 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
     var authDomainBuildable: any AuthDomainBuildable {
         return appComponent.authDomainBuildable
     }
+    var techStackAppendBuildable: any TechStackAppendBuildable {
+        return appComponent.techStackAppendBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -466,6 +469,7 @@ extension MyPageComponent: Registration {
     public func registerItems() {
         keyPathToName[\MyPageDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
         keyPathToName[\MyPageDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
+        keyPathToName[\MyPageDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
     }
 }
 extension InputWorkInfoComponent: Registration {

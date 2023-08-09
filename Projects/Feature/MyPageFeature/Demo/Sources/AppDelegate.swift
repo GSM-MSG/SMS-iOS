@@ -1,5 +1,6 @@
 import MyPageFeatureInterface
 import SwiftUI
+import TechStackAppendFeatureInterface
 @testable import AuthDomainTesting
 @testable import MyPageFeature
 @testable import UserDomainTesting
@@ -7,6 +8,13 @@ import SwiftUI
 final class DummyMyPageDelegate: MyPageDelegate {
     func logout() {}
 }
+
+struct DummyTechStackAppendBuildable: TechStackAppendBuildable {
+    func makeView(initial techStacks: [String], completion: @escaping ([String]) -> Void) -> some View {
+        EmptyView()
+    }
+}
+
 @main
 struct MyPageDemoApp: App {
     var body: some Scene {
@@ -27,7 +35,7 @@ struct MyPageDemoApp: App {
                     intent: intent as MyPageIntentProtocol,
                     model: model as MyPageStateProtocol,
                     modelChangePublisher: model.objectWillChange
-                )
+                ), techStackAppendBuildable: DummyTechStackAppendBuildable()
             )
         }
     }
