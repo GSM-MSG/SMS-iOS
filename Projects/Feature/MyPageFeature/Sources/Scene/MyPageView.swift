@@ -1,12 +1,24 @@
 import BaseFeature
 import SwiftUI
 import DesignSystem
+import ViewUtil
+import TechStackAppendFeatureInterface
 
 struct MyPageView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.safeAreaInsets) var safeAreaInsets
     @StateObject var container: MVIContainer<MyPageIntentProtocol, MyPageStateProtocol>
     var intent: any MyPageIntentProtocol { container.intent }
     var state: any MyPageStateProtocol { container.model }
+    private let techStackAppendBuildable: any TechStackAppendBuildable
+
+    init(
+        container: MVIContainer<MyPageIntentProtocol, MyPageStateProtocol>,
+        techStackAppendBuildable: any TechStackAppendBuildable
+    ) {
+        self.techStackAppendBuildable = techStackAppendBuildable
+        self._container = StateObject(wrappedValue: container)
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -93,12 +105,25 @@ struct MyPageView: View {
                         }
                     }
                 }
+
+                CTAButton(text: "저장") {
+                    #warning("저장 로직 추가")
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, safeAreaInsets.bottom + 16)
+                .background {
+                    Color.sms(.system(.white))
+                }
+                .ignoresSafeArea()
             }
         }
-        .smsBottomSheet(isShowing: Binding(
-            get: { state.isPresentedExistActionSheet },
-            set: { _ in intent.existActionSheetDismissed() }
-        )) {
+        .edgesIgnoringSafeArea([.bottom])
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedExistActionSheet },
+                set: { _ in intent.existActionSheetDismissed() }
+            )
+        ) {
             VStack(alignment: .leading, spacing: 32) {
                 Button {
                     intent.logoutDialogIsRequired()
@@ -170,6 +195,58 @@ struct MyPageView: View {
                     .onTapGesture {
                         intent.existActionSheetIsRequired()
                     }
+            }
+        }
+        .datePicker(
+            isShowing: Binding(
+                get: { state.isPresentedPrizeAtDatePicker },
+                set: { _ in intent.prizeAtDismissed() }
+            )
+        ) { date in
+            intent.prizePrizeAtDidSelect(index: state.focusedPrizeIndex, prizeAt: date)
+        }
+        .imagePicker(
+            isShow: Binding(
+                get: { state.isPresentedPreviewImagePicker },
+                set: { _ in intent.projectPreviewImagePickerDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { .none },
+                set: {
+                    guard let image = $0 else { return }
+                    intent.appendPreviewImage(index: state.focusedProjectIndex, image: image)
+                }
+            )
+        )
+        .datePicker(
+            isShowing: Binding(
+                get: { state.isPresentedProjectStartAtDatePicker },
+                set: { _ in intent.projectStartAtDatePickerDismissed() }
+            )
+        ) { date in
+            intent.projectStartAtDidSelect(index: state.focusedProjectIndex, startAt: date)
+        }
+        .datePicker(
+            isShowing: Binding(
+                get: { state.isPresentedProjectEndAtDatePicker },
+                set: { _ in intent.projectEndAtDatePickerDismissed() }
+            )
+        ) { date in
+            intent.projectEndAtDidSelect(index: state.focusedProjectIndex, endAt: date)
+        }
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { state.isPresentedProjectTechStackAppend },
+                set: { _ in intent.projectTechStackAppendDismissed() }
+            )
+        ) {
+            DeferView {
+                techStackAppendBuildable.makeView(
+                    initial: Array(state.projectList[safe: state.focusedProjectIndex]?.techStacks ?? [])
+                ) {
+                    intent.techStacksDidSelect(index: state.focusedProjectIndex, techStacks: $0)
+                }
+                .eraseToAnyView()
             }
         }
         .hideKeyboardWhenTap()
