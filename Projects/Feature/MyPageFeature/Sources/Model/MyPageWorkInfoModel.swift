@@ -12,6 +12,7 @@ protocol MyPageWorkInfoStateProtocol {
 protocol MyPageWorkInfoActionProtocol: AnyObject {
     func appendWorkRegion()
     func updateWorkRegion(region: String, at index: Int)
+    func updateWorkRegions(regions: [String])
     func deleteWorkRegion(at index: Int)
     func updateSalary(salary: String)
     func updateFormOfEmployment(form: FormOfEmployment)
@@ -26,6 +27,10 @@ extension MyPageModel: MyPageWorkInfoActionProtocol {
     func updateWorkRegion(region: String, at index: Int) {
         guard workRegionList[safe: index] != nil else { return }
         self.workRegionList[index] = region
+    }
+
+    func updateWorkRegions(regions: [String]) {
+        self.workRegionList = regions
     }
 
     func deleteWorkRegion(at index: Int) {

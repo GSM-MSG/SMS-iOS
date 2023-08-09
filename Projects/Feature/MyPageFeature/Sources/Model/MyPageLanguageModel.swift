@@ -12,6 +12,7 @@ protocol MyPageLanguageInfoStateProtocol {
 protocol MyPageLanguageInfoActionProtocol: AnyObject {
     func updateLanguageName(name: String, at index: Int)
     func updateLanguageScore(score: String, at index: Int)
+    func updateLanguageScores(languages: [LanguageModel])
     func deleteLanguage(at index: Int)
     func appendLanguage()
 }
@@ -25,6 +26,10 @@ extension MyPageModel: MyPageLanguageInfoActionProtocol {
     func updateLanguageScore(score: String, at index: Int) {
         guard languageList[safe: index] != nil else { return }
         languageList[index].score = score
+    }
+
+    func updateLanguageScores(languages: [LanguageModel]) {
+        self.languageList = languages
     }
 
     func deleteLanguage(at index: Int) {
