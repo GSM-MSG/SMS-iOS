@@ -81,7 +81,15 @@ extension MyPageIntent: MyPageProfileIntentProtocol {
 
     func imageDidSelected(imageResult: PickedImageResult?) {
         guard let imageResult else { return }
-        #warning("이미지 업로드 후 model에서 profile URL 변경")
+        Task {
+            do {
+                async let profileImageURL = imageUploadUseCase.execute(
+                    image: imageResult.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
+                    fileName: imageResult.fileName
+                )
+                try await model?.updateProfileURL(url: profileImageURL)
+            }
+        }
     }
 
     func cameraIsRequired() {

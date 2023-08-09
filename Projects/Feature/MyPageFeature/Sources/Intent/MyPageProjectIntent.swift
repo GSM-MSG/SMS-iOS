@@ -42,7 +42,15 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
     }
 
     func updateIconImage(index: Int, image: PickedImageResult) {
-        #warning("이미지 업로드 후 model에서 iconURL 변경")
+        Task {
+            do {
+                async let iconImageURL = imageUploadUseCase.execute(
+                    image: image.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
+                    fileName: image.fileName
+                )
+                try await model?.updateIconImage(index: index, imageURL: iconImageURL)
+            }
+        }
     }
 
     func appendPreviewImageButtonDidTap(index: Int) {
@@ -51,7 +59,15 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
     }
 
     func appendPreviewImage(index: Int, image: PickedImageResult) {
-        #warning("이미지 업로드 후 model에서 preview 이미지 추가")
+        Task {
+            do {
+                async let previewImageURL = imageUploadUseCase.execute(
+                    image: image.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
+                    fileName: image.fileName
+                )
+                try await model?.appendPreviewImage(index: index, imageURL: previewImageURL)
+            }
+        }
     }
 
     func removePreviewImageDidTap(index: Int, previewIndex: Int) {

@@ -1,6 +1,7 @@
 import Foundation
 import UserDomainInterface
 import AuthDomainInterface
+import FileDomainInterface
 import MyPageFeatureInterface
 
 final class MyPageIntent: MyPageIntentProtocol {
@@ -9,19 +10,22 @@ final class MyPageIntent: MyPageIntentProtocol {
     private let fetchMyProfileUseCase: any FetchMyProfileUseCase
     private let logoutUseCase: any LogoutUseCase
     private let withdrawalUseCase: any WithdrawalUseCase
+    let imageUploadUseCase: any ImageUploadUseCase
 
     init(
         model: any MyPageActionProtocol,
         myPageDelegate: any MyPageDelegate,
         fetchMyProfileUseCase: any FetchMyProfileUseCase,
         logoutUseCase: any LogoutUseCase,
-        withdrawalUseCase: any WithdrawalUseCase
+        withdrawalUseCase: any WithdrawalUseCase,
+        imageUploadUseCase: any ImageUploadUseCase
     ) {
         self.model = model
         self.myPageDelegate = myPageDelegate
         self.fetchMyProfileUseCase = fetchMyProfileUseCase
         self.logoutUseCase = logoutUseCase
         self.withdrawalUseCase = withdrawalUseCase
+        self.imageUploadUseCase = imageUploadUseCase
     }
 
     func onAppear() {

@@ -4,6 +4,7 @@ import TechStackAppendFeatureInterface
 @testable import AuthDomainTesting
 @testable import MyPageFeature
 @testable import UserDomainTesting
+@testable import FileDomainTesting
 
 final class DummyMyPageDelegate: MyPageDelegate {
     func logout() {}
@@ -23,12 +24,14 @@ struct MyPageDemoApp: App {
             let fetchMyProfileUseCase = FetchMyProfileUseCaseSpy()
             let logoutUseCase = LogoutUseCaseSpy()
             let withdrawalUseCase = WithdrawalUseCaseSpy()
+            let imageUploadUseCase = ImageUploadUseCaseSpy()
             let intent = MyPageIntent(
                 model: model,
                 myPageDelegate: DummyMyPageDelegate(),
                 fetchMyProfileUseCase: fetchMyProfileUseCase,
                 logoutUseCase: logoutUseCase,
-                withdrawalUseCase: withdrawalUseCase
+                withdrawalUseCase: withdrawalUseCase,
+                imageUploadUseCase: imageUploadUseCase
             )
             MyPageView(
                 container: .init(
