@@ -10,9 +10,6 @@ public final class FileDomainComponent: Component<FileDomainDependency>, FileDom
     public var imageUploadUseCase: any ImageUploadUseCase {
         ImageUploadUseCaseImpl(fileRepository: fileRepository)
     }
-    public var dreamBookUploadUseCase: any DreamBookUploadUseCase {
-        DreamBookUploadUseCaseImpl(fileRepository: fileRepository)
-    }
     public var fileRepository: any FileRepository {
         FileRepositoryImpl(remoteFileDataSource: remoteFileDataSource)
     }

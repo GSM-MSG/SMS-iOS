@@ -4,7 +4,6 @@ import Foundation
 public struct FetchStudentDetailByTeacherResponseDTO: Decodable {
     public let name: String
     public let introduce: String
-    public let dreamBookFileUrl: String?
     public let portfolioUrl: String?
     public let grade: Int
     public let classNum: Int
@@ -54,7 +53,6 @@ public extension FetchStudentDetailByTeacherResponseDTO {
             projects: projects.map { $0.toDomain() },
             prizes: prizes.map { $0.toDomain() },
             detailInfoByTeacher: .init(
-                dreamBookFileURL: dreamBookFileUrl,
                 portfolioURL: portfolioUrl,
                 grade: grade,
                 class: classNum,

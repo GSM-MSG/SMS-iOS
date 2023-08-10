@@ -26,13 +26,6 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     @Published var _studentDetailEntity: StudentDetailEntity?
     @Published var isLoading: Bool = false
     @Published var isDownloading: Bool = false
-    @Published var isPresentedDreamBookExporter: Bool = false
-    @Published var hwpDocument: HWPDocument?
-    var hwpFilename: String {
-        guard let studentDetailEntity, let info = studentDetailEntity.detailInfoByTeacher else { return "" }
-        let number = info.number >= 10 ? "\(info.number)" : "0\(info.number)"
-        return "\(info.grade)\(info.class)\(number)\(studentDetailEntity.name)-드림북.hwp"
-    }
 }
 // swiftlint: enable identifier_name
 
@@ -51,13 +44,5 @@ extension StudentDetailModel: StudentDetailActionProtocol {
 
     func updateIsDownloading(isDownloading: Bool) {
         self.isDownloading = isDownloading
-    }
-
-    func updateIsPresentedDreamBookExporter(isPresented: Bool) {
-        self.isPresentedDreamBookExporter = isPresented
-    }
-
-    func updateHWPDocument(hwpDocument: HWPDocument) {
-        self.hwpDocument = hwpDocument
     }
 }

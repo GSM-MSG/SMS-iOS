@@ -104,17 +104,6 @@ struct StudentDetailView: View {
                 .frame(width: 24, height: 24)
         }
         .navigationBarHidden(true)
-        .fileExporter(
-            isPresented: Binding(
-                get: { state.isPresentedDreamBookExporter },
-                set: { _ in intent.dreamBookFileExporterDismissed() }
-            ),
-            document: state.hwpDocument,
-            contentType: UTType(filenameExtension: "hwp") ?? .pdf,
-            defaultFilename: state.hwpFilename
-        ) { result in
-            print(result)
-        }
     }
 
     // swiftlint: disable function_body_length
@@ -130,13 +119,6 @@ struct StudentDetailView: View {
 
                     Spacer()
 
-                    SMSIcon(.book)
-                        .buttonWrapper {
-                            guard
-                                let dreamBookURLString = studentDetail?.detailInfoByTeacher?.dreamBookFileURL
-                            else { return }
-                            intent.dreamBookDownloadButtonDidTap(dreamBookFileURL: dreamBookURLString)
-                        }
                 }
             } else {
                 SMSText(studentDetail?.major ?? "전공", font: .body1)
