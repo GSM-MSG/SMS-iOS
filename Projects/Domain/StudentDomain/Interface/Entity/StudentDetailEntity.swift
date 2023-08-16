@@ -50,7 +50,6 @@ extension StudentDetailEntity {
     }
 
     public struct DetailInfoByTeacher: Equatable {
-        public let dreamBookFileURL: String?
         public let portfolioURL: String?
         public let grade: Int
         public let `class`: Int
@@ -66,7 +65,6 @@ extension StudentDetailEntity {
         public let certificate: [String]
 
         public init(
-            dreamBookFileURL: String?,
             portfolioURL: String?,
             grade: Int,
             class: Int,
@@ -81,7 +79,6 @@ extension StudentDetailEntity {
             languageCertificate: [LanguageCertificateEntity],
             certificate: [String]
         ) {
-            self.dreamBookFileURL = dreamBookFileURL
             self.portfolioURL = portfolioURL
             self.grade = grade
             self.class = `class`
