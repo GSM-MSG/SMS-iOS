@@ -38,9 +38,17 @@ struct MyPagePrizeView: View {
     @ViewBuilder
     func prizeListRowView(index: Int) -> some View {
         let collapsed = state.collapsedPrize[safe: index] ?? false
-        VStack(alignment: .leading, spacing: 24) {
+        Section {
+            ConditionView(!collapsed) {
+                prizeName(index: index)
+
+                prizePrize(index: index)
+
+                prizePrizeAt(index: index)
+            }
+        } header: {
             HStack(spacing: 16) {
-                SMSText("수상", font: .title1)
+                SMSText(state.prizeList[safe: index]?.name ?? "", font: .title1)
                     .foregroundColor(.sms(.system(.black)))
 
                 Spacer()
@@ -57,14 +65,6 @@ struct MyPagePrizeView: View {
                     }
             }
             .padding(.bottom, 8)
-
-            ConditionView(!collapsed) {
-                prizeName(index: index)
-
-                prizePrize(index: index)
-
-                prizePrizeAt(index: index)
-            }
         }
     }
 
