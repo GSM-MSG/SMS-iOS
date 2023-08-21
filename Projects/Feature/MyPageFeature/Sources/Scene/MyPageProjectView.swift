@@ -46,9 +46,25 @@ struct MyPageProjectView: View {
     @ViewBuilder
     func projectListRowView(index: Int, geometry: GeometryProxy) -> some View {
         let collapsed = state.collapsedProject[safe: index] ?? false
-        VStack(alignment: .leading, spacing: 24) {
+        Section {
+            ConditionView(!collapsed) {
+                projectName(index: index)
+
+                projectIcon(index: index)
+
+                projectPreviewImageList(index: index)
+
+                projectContentTextEditor(index: index)
+
+                projectTechStack(geometry: geometry, index: index)
+
+                projectDuration(index: index)
+
+                projectRelatedLink(index: index, geometry: geometry)
+            }
+        } header: {
             HStack(spacing: 16) {
-                SMSText("프로젝트", font: .title1)
+                SMSText(state.projectList[safe: index]?.name ?? "", font: .title1)
                     .foregroundColor(.sms(.system(.black)))
 
                 Spacer()
@@ -65,22 +81,6 @@ struct MyPageProjectView: View {
                     }
             }
             .padding(.bottom, 8)
-
-            ConditionView(!collapsed) {
-                projectName(index: index)
-
-                projectIcon(index: index)
-
-                projectPreviewImageList(index: index)
-
-                projectContentTextEditor(index: index)
-
-                projectTechStack(geometry: geometry, index: index)
-
-                projectDuration(index: index)
-
-                projectRelatedLink(index: index, geometry: geometry)
-            }
         }
     }
 }

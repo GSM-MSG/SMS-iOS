@@ -15,6 +15,7 @@ let project = Project.makeModule(
     demoDependencies: [
         .Domain.UserDomainTesting,
         .Domain.AuthDomainTesting,
+        .Domain.FileDomainTesting,
         .Domain.StudentDomainTesting
     ]
 )
