@@ -54,7 +54,7 @@ struct MainView: View {
                                     profileImageUrl: item.profileImageURL,
                                     name: item.name,
                                     major: item.major,
-                                    techStack: item.techStack
+                                    techStacks: item.techStacks
                                 )
                                 .foregroundColor(.sms(.system(.black)))
                                 .buttonWrapper {
@@ -229,7 +229,7 @@ struct MainView: View {
         profileImageUrl: String,
         name: String,
         major: String,
-        techStack: [String]
+        techStacks: [String]
     ) -> some View {
         HStack(spacing: 12) {
             Group {
@@ -255,7 +255,7 @@ struct MainView: View {
                 SMSText(major, font: .body2)
                     .padding(.bottom, 16)
 
-                techStackListView(techStack: techStack)
+                techStackListView(techStack: techStacks)
             }
         }
     }

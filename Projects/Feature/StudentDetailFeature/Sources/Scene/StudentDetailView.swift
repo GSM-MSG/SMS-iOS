@@ -198,19 +198,19 @@ struct StudentDetailView: View {
                     studentInfoForTeacher(geometry: geometry, detailInfo: detailInfoByTeacher)
                 }
 
-                VStack(spacing: 8) {
-                    ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
-                        PrizeRowView(prize: prize)
-                    }
-                }
-                .studentDetailTitleWrapper(title: "수상")
-
                 VStack(spacing: 32) {
                     ForEach(studentDetail?.projects ?? [], id: \.self) { project in
                         ProjectRowView(project: project)
                     }
                 }
                 .studentDetailTitleWrapper(title: "프로젝트")
+
+                VStack(spacing: 8) {
+                    ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
+                        PrizeRowView(prize: prize)
+                    }
+                }
+                .studentDetailTitleWrapper(title: "수상")
             }
 
             Color.sms(.system(.white))

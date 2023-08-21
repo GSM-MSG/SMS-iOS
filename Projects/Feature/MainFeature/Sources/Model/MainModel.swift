@@ -22,7 +22,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
                         profileImageURL: $0.profileImageURL,
                         name: $0.name.replacingOccurrences(of: "**", with: "소금"),
                         major: $0.major,
-                        techStack: $0.techStack
+                        techStacks: $0.techStacks
                     )
                 }
         }

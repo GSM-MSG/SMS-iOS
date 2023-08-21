@@ -5,13 +5,13 @@ public struct SingleStudentEntity: Equatable {
     public let profileImageURL: String
     public let name: String
     public let major: String
-    public let techStack: [String]
+    public let techStacks: [String]
 
-    public init(id: String, profileImageURL: String, name: String, major: String, techStack: [String]) {
+    public init(id: String, profileImageURL: String, name: String, major: String, techStacks: [String]) {
         self.id = id
         self.profileImageURL = profileImageURL
         self.name = name
         self.major = major
-        self.techStack = techStack
+        self.techStacks = techStacks
     }
 }
