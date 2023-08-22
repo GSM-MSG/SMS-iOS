@@ -61,7 +61,7 @@ public struct SMSIconTextField<Content: View>: View {
             ConditionView(isError && !errorText.isEmpty) {
                 Text(errorText)
                     .padding(.leading, 8)
-                    .smsFont(.caption1, color: .system(.error))
+                    .smsFont(.caption1, color: .error(.e2))
             }
         }
     }
