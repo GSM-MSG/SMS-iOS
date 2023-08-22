@@ -58,7 +58,7 @@ struct MainView: View {
                                     profileImageUrl: item.profileImageURL,
                                     name: item.name,
                                     major: item.major,
-                                    techStack: item.techStack
+                                    techStack: item.techStacks
                                 )
                                 .foregroundColor(.sms(.system(.black)))
                                 .buttonWrapper {
