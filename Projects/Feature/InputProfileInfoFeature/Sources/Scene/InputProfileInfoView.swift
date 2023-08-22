@@ -65,7 +65,7 @@ struct InputProfileInfoView: View {
 
                                 if state.inputProfileErrorFieldSet.contains(.profile) {
                                     SMSText("이미지를 선택해주세요", font: .caption1)
-                                        .foregroundColor(.sms(.system(.error)))
+                                        .foregroundColor(.sms(.error(.e2)))
                                 }
                             }
 
