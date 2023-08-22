@@ -22,13 +22,22 @@ struct MyPagePrizeView: View {
                 }
             }
 
-            SMSChip("추가") {
-                withAnimation {
-                    intent.prizeAppendButtonDidTap()
-                }
+            Spacer().frame(height: 16)
+
+            HStack(spacing: 4) {
+                SMSIcon(.plus, width: 12, height: 12)
+                    .foregroundColor(.sms(.system(.black)))
+
+                SMSText("추가")
+                    .foregroundColor(.sms(.system(.black)))
+                    .font(.sms(.title2))
             }
-            .foregroundColor(.sms(.system(.black)))
             .aligned(.trailing)
+            .buttonWrapper {
+                intent.prizeAppendButtonDidTap()
+            }
+
+            Spacer().frame(height: 32)
         } header: {
             SectionHeaderView(title: "수상")
         }

@@ -22,21 +22,28 @@ struct MyPageProjectView: View {
 
     var body: some View {
         Section {
-            VStack(spacing: 24) {
-                ForEach(state.projectList.indices, id: \.self) { index in
-                    projectListRowView(index: index, geometry: geometry)
+            VStack(spacing: 16) {
+                VStack(spacing: 24) {
+                    ForEach(state.projectList.indices, id: \.self) { index in
+                        projectListRowView(index: index, geometry: geometry)
 
-                    SMSSeparator(height: 1)
+                        SMSSeparator(height: 1)
+                    }
                 }
-            }
 
-            SMSChip("추가") {
-                withAnimation {
+                HStack(spacing: 4) {
+                    SMSIcon(.plus, width: 12, height: 12)
+                        .foregroundColor(.sms(.system(.black)))
+
+                    SMSText("추가")
+                        .foregroundColor(.sms(.system(.black)))
+                        .font(.sms(.title2))
+                }
+                .aligned(.trailing)
+                .buttonWrapper {
                     intent.projectAppendButtonDidTap()
                 }
             }
-            .foregroundColor(.sms(.system(.black)))
-            .aligned(.trailing)
         } header: {
             SectionHeaderView(title: "프로젝트")
         }
@@ -47,20 +54,22 @@ struct MyPageProjectView: View {
     func projectListRowView(index: Int, geometry: GeometryProxy) -> some View {
         let collapsed = state.collapsedProject[safe: index] ?? false
         Section {
-            ConditionView(!collapsed) {
-                projectName(index: index)
+            VStack(alignment: .leading, spacing: 24) {
+                ConditionView(!collapsed) {
+                    projectName(index: index)
 
-                projectIcon(index: index)
+                    projectIcon(index: index)
 
-                projectPreviewImageList(index: index)
+                    projectPreviewImageList(index: index)
 
-                projectContentTextEditor(index: index)
+                    projectContentTextEditor(index: index)
 
-                projectTechStack(geometry: geometry, index: index)
+                    projectTechStack(geometry: geometry, index: index)
 
-                projectDuration(index: index)
+                    projectDuration(index: index)
 
-                projectRelatedLink(index: index, geometry: geometry)
+                    projectRelatedLink(index: index, geometry: geometry)
+                }
             }
         } header: {
             HStack(spacing: 16) {
@@ -145,43 +154,44 @@ private extension MyPageProjectView {
 
     @ViewBuilder
     func projectPreviewImageList(index: Int) -> some View {
-        LazyHStack(spacing: 8) {
-            let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
-            ConditionView(projectPreviewImages.count < 4) {
-                imagePlaceholder(size: 132)
-                    .overlay {
-                        VStack(spacing: 4) {
-                            SMSIcon(.photo)
-
-                            SMSText(
-                                "\(projectPreviewImages.count)/4",
-                                font: .body2
-                            )
-                            .foregroundColor(.sms(.system(.black)))
-                        }
-                    }
-                    .buttonWrapper {
-                        intent.appendPreviewImageButtonDidTap(index: index)
-                    }
-            }
-
-            ForEach(projectPreviewImages.indices, id: \.self) { previewIndex in
-                let url = URL(string: projectPreviewImages[previewIndex])
-                LazyImage(url: url) { image in
-                    if let image = image.image {
-                        image
-                            .resizable()
-                            .frame(width: 132, height: 132)
-                            .cornerRadius(8)
-                            .overlay(alignment: .topTrailing) {
-                                SMSIcon(.xmark)
-                                    .padding(4)
-                                    .buttonWrapper {
-                                        intent.removePreviewImageDidTap(index: index, previewIndex: previewIndex)
-                                    }
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 8) {
+                let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
+                ConditionView(projectPreviewImages.count < 4) {
+                    imagePlaceholder(size: 132)
+                        .overlay {
+                            VStack(spacing: 4) {
+                                SMSIcon(.photo)
+                                SMSText(
+                                    "\(projectPreviewImages.count)/4",
+                                    font: .body2
+                                )
+                                .foregroundColor(.sms(.system(.black)))
                             }
-                    } else {
-                        imagePlaceholder(size: 132)
+                        }
+                        .buttonWrapper {
+                            intent.appendPreviewImageButtonDidTap(index: index)
+                        }
+                }
+
+                ForEach(projectPreviewImages.indices, id: \.self) { previewIndex in
+                    let url = URL(string: projectPreviewImages[previewIndex])
+                    LazyImage(url: url) { image in
+                            if let image = image.image {
+                            image
+                                .resizable()
+                                .frame(width: 132, height: 132)
+                                .cornerRadius(8)
+                                .overlay(alignment: .topTrailing) {
+                                    SMSIcon(.xmark)
+                                        .padding(4)
+                                        .buttonWrapper {
+                                            intent.removePreviewImageDidTap(index: index, previewIndex: previewIndex)
+                                        }
+                                }
+                        } else {
+                            imagePlaceholder(size: 132)
+                        }
                     }
                 }
             }

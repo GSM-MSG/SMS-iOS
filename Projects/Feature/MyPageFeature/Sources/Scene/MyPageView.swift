@@ -3,6 +3,7 @@ import SwiftUI
 import DesignSystem
 import ViewUtil
 import TechStackAppendFeatureInterface
+import StudentDomainInterface
 
 struct MyPageView: View {
     @Environment(\.dismiss) var dismiss
@@ -53,7 +54,13 @@ struct MyPageView: View {
                             SMSSeparator()
                                 .padding(.vertical, 16)
 
-                            MyPageMilitaryView(intent: intent, state: state)
+                            MyPageMilitaryView(
+                                container: .init(
+                                intent: intent,
+                                model: state,
+                                modelChangePublisher: container.objectWillChange
+                                )
+                            )
                         }
 
                         Group {
@@ -107,7 +114,7 @@ struct MyPageView: View {
                 }
 
                 CTAButton(text: "저장") {
-                    #warning("저장 로직 추가")
+                    intent.modifyToInputAllInfo(state: state)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, safeAreaInsets.bottom + 16)
@@ -133,14 +140,14 @@ struct MyPageView: View {
                     intent.existActionSheetDismissed()
                 } label: {
                     HStack(spacing: 12) {
-                        SMSIcon(.redLogout)
+                        SMSIcon(.logout)
 
-                        SMSText("로그아웃", font: .body1)
-                            .foregroundStyle(Color.sms(.system(.error)))
+                        SMSText("로그아웃", font: .title2)
+                            .foregroundStyle(Color.sms(.neutral(.n50)))
 
                         Spacer()
                     }
-                }
+            }
 
                 Button {
                     intent.withdrawalDialogIsRequired()
@@ -149,7 +156,7 @@ struct MyPageView: View {
                     HStack(spacing: 12) {
                         SMSIcon(.redPerson)
 
-                        SMSText("회원탈퇴", font: .body1)
+                        SMSText("회원탈퇴", font: .title2)
                             .foregroundStyle(Color.sms(.system(.error)))
 
                         Spacer()
@@ -160,6 +167,26 @@ struct MyPageView: View {
             .padding(.horizontal, 20)
         }
         .animation(.default, value: state.isPresentedExistActionSheet)
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedMilitarySheet },
+                set: { _ in intent.militarySheetDismissed() }
+            )
+        ) {
+            militaryListView()
+        }
+        .animation(.default, value: state.isPresentedMilitarySheet)
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedFormOfEmployeementSheet },
+                set: { _ in intent.formOfEmployeementSheetDismissed() }
+            )
+        ) {
+            DeferView {
+                formOfEmployeementList()
+            }
+        }
+        .animation(.default, value: state.isPresentedFormOfEmployeementSheet)
         .smsAlert(
             title: "로그아웃",
             description: "정말로 로그아웃 하시겠습니까?",
@@ -252,11 +279,148 @@ struct MyPageView: View {
                 .eraseToAnyView()
             }
         }
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedImageMethodPicker },
+                set: { _ in intent.imageMethodPickerDismissed() }
+            )
+        ) {
+            ImageMethodPickerView {
+                intent.imagePickerIsRequired()
+                intent.imageMethodPickerDismissed()
+            } cameraAction: {
+                intent.cameraIsRequired()
+                intent.imageMethodPickerDismissed()
+            }
+        }
+        .imagePicker(
+            isShow: Binding(
+                get: { state.isPresentedProfileImage },
+                set: { _ in intent.imagePickerDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { .none },
+                set: { intent.imageDidSelected(imageResult: $0) }
+            )
+        )
+        .cameraPicker(
+            isShow: Binding(
+                get: { state.isPresentedProfileCamera },
+                set: { _ in intent.cameraDismissed() }
+            ),
+            pickedImageResult: Binding(
+                get: { .none },
+                set: { intent.imageDidSelected(imageResult: $0) }
+            )
+        )
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedMajorSheet },
+                set: { _ in intent.majorSheetDismissed() }
+            ),
+            topPadding: 150
+        ) {
+            majorListView()
+        }
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { state.isPresentedTechStackAppend },
+                set: { _ in intent.techStackAppendDismissed() }
+            )
+        ) {
+            DeferView {
+                techStackAppendBuildable.makeView(initial: state.techStacks) { techStacks in
+                    intent.techStackAppendDidComplete(techStacks: techStacks)
+                }
+                .eraseToAnyView()
+            }
+        }
+        .animation(.default, value: state.isPresentedImageMethodPicker)
         .hideKeyboardWhenTap()
         .navigationTitle("마이페이지")
         .smsBackButton(
             dismiss: dismiss
         )
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    @ViewBuilder
+    func majorListView() -> some View {
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(state.majorList, id: \.self) { major in
+                    MajorRowView(
+                        text: major,
+                        isSeleted: Binding(
+                            get: { state.major == major },
+                            set: {
+                                $0 ? intent.updateMajor(major: major) : ()
+                                $0 ? intent.majorSheetDismissed() : ()
+                            }
+                        )
+                    )
+                }
+
+                MajorRowView(
+                    text: "직접입력",
+                    isSeleted: Binding(
+                        get: { state.isSelfEntering },
+                        set: {
+                            $0 ? intent.updateMajor(major: "") : ()
+                            $0 ? intent.activeSelfEntering() : ()
+                            $0 ? intent.majorSheetDismissed() : ()
+                        }
+                    )
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    func formOfEmployeementList() -> some View {
+        VStack(spacing: 16) {
+            ForEach(FormOfEmployment.allCases, id: \.self) { formOfEmployment in
+                HStack {
+                    Text(formOfEmployment.display())
+                        .smsFont(.body1, color: .neutral(.n50))
+
+                    Spacer()
+
+                    SMSRadioButton(
+                        isSelected: Binding(
+                            get: { state.formOfEmployment == formOfEmployment },
+                            set: { $0 ? intent.updateFormOfEmployment(form: formOfEmployment) : () }
+                        )
+                    )
+                    .buttonWrapper {}
+                }
+                .animation(.default, value: state.formOfEmployment)
+                .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func militaryListView() -> some View {
+        VStack(spacing: 16) {
+            ForEach(MilitaryServiceType.allCases, id: \.self) { militaryServiceType in
+                HStack {
+                    Text(militaryServiceType.display())
+                        .smsFont(.body1, color: .neutral(.n50))
+
+                    Spacer()
+
+                    SMSRadioButton(
+                        isSelected: Binding(
+                            get: { state.selectedMilitaryServiceType == militaryServiceType },
+                            set: { $0 ? intent.militaryServiceTypeDidSelected(type: militaryServiceType) : () }
+                        )
+                    )
+                    .buttonWrapper {}
+                }
+                .animation(.default, value: state.selectedMilitaryServiceType)
+                .padding(.horizontal, 20)
+            }
+        }
     }
 }

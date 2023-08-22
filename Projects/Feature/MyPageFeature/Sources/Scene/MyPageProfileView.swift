@@ -29,6 +29,7 @@ struct MyPageProfileView: View {
                                 if let image = image.image {
                                     image.resizable()
                                         .frame(width: 100, height: 100)
+                                        .cornerRadius(8)
                                 } else {
                                     Color.sms(.neutral(.n30))
                                         .frame(width: 100, height: 100)

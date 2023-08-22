@@ -33,19 +33,14 @@ struct MyPageWorkInfoView: View {
                     intent.formOfEmployeementSheetIsRequired()
                 }
 
-                VStack(alignment: .leading, spacing: 4) {
-                    SMSTextField(
-                        "희망 연봉 (10,000원 단위)",
-                        text: Binding(
-                            get: { state.salary },
-                            set: intent.updateSalary(salary:)
-                        )
+                SMSTextField(
+                    "희망 연봉 (10,000원 단위)",
+                    text: Binding(
+                        get: { state.salary },
+                        set: intent.updateSalary(salary:)
                     )
-                    .keyboardType(.numberPad)
-
-                    Text(state.salaryDisplay)
-                        .smsFont(.caption1, color: .neutral(.n30))
-                }
+                )
+                .keyboardType(.numberPad)
                 .titleWrapper("희망 연봉")
 
                 workRegionList()
