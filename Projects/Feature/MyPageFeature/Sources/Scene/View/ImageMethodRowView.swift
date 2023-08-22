@@ -1,9 +1,32 @@
-//
-//  ImageMethodRowView.swift
-//  MyPageFeature
-//
-//  Created by sunghun on 8/16/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import DesignSystem
+import SwiftUI
 
-import Foundation
+struct ImageMethodRowView: View {
+    private var title: String
+    private var icon: SMSIcon.Icon
+    private var action: () -> Void
+
+    init(
+        title: String,
+        icon: SMSIcon.Icon,
+        action: @escaping () -> Void
+    ) {
+        self.title = title
+        self.icon = icon
+        self.action = action
+    }
+
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Label {
+                SMSText(title, font: .body1)
+            } icon: {
+                SMSIcon(icon)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.sms(.system(.white)))
+        }
+    }
+}
