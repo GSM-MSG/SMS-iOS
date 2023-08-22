@@ -147,7 +147,7 @@ struct MyPageView: View {
 
                         Spacer()
                     }
-            }
+                }
 
                 Button {
                     intent.withdrawalDialogIsRequired()
@@ -157,7 +157,7 @@ struct MyPageView: View {
                         SMSIcon(.redPerson)
 
                         SMSText("회원탈퇴", font: .title2)
-                            .foregroundStyle(Color.sms(.system(.error)))
+                            .foregroundStyle(Color.sms(.error(.e2)))
 
                         Spacer()
                     }
@@ -195,11 +195,11 @@ struct MyPageView: View {
                     set: { _ in intent.logoutDialogDismissed() }
                 ),
             alertActions: [
-                .init(text: "확인", style: .outline) {
-                    intent.logoutDialogIsComplete()
-                },
-                .init(text: "취소") {
+                .init(text: "취소", style: .outline) {
                     intent.logoutDialogDismissed()
+                },
+                .init(text: "확인", style: .error) {
+                    intent.logoutDialogIsComplete()
                 }
             ]
         )
@@ -211,11 +211,11 @@ struct MyPageView: View {
                     set: { _ in intent.withdrawalDialogDismissed() }
                 ),
             alertActions: [
-                .init(text: "확인", style: .outline) {
-                    intent.withdrawalDialogIsComplete()
-                },
-                .init(text: "취소") {
+                .init(text: "취소", style: .outline) {
                     intent.withdrawalDialogDismissed()
+                },
+                .init(text: "확인", style: .error) {
+                    intent.withdrawalDialogIsComplete()
                 }
             ]
         )
