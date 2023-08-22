@@ -6,15 +6,12 @@ public struct DemoView: View {
 
     public var body: some View {
         VStack {
-            Button {
-                withAnimation {
-                    self.isLoading = true
-                }
-            } label: {
-                Text("A")
-            }
+            CTAButton(text: "테스트", style: .error)
+            CTAButton(text: "테스트", style: .error)
+            CTAButton(text: "테스트", style: .error)
+                .disabled(true)
         }
-        .smsLoading(isLoading: isLoading)
+        .padding(.horizontal, 20)
     }
 }
 
