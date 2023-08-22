@@ -44,10 +44,7 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
     func updateIconImage(index: Int, image: PickedImageResult) {
         Task {
             do {
-                async let iconImageURL = imageUploadUseCase.execute(
-                    image: image.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
-                    fileName: image.fileName
-                )
+                async let iconImageURL = imageUpload(imageResult: image)
                 try await model?.updateIconImage(index: index, imageURL: iconImageURL)
             }
         }
@@ -61,10 +58,7 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
     func appendPreviewImage(index: Int, image: PickedImageResult) {
         Task {
             do {
-                async let previewImageURL = imageUploadUseCase.execute(
-                    image: image.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
-                    fileName: image.fileName
-                )
+                async let previewImageURL = imageUpload(imageResult: image)
                 try await model?.appendPreviewImage(index: index, imageURL: previewImageURL)
             }
         }

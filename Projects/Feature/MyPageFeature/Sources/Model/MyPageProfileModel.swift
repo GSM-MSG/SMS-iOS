@@ -21,6 +21,7 @@ protocol MyPageProfileActionProtocol: AnyObject {
     func updateIntroduce(introduce: String)
     func updateEmail(email: String)
     func updateMajor(major: String)
+    func updateMajorList(majorList: [String])
     func updatePortfolioURL(portfolioURL: String)
     func updateTechStacks(techStacks: [String])
     func removeTechStack(techStack: String)
@@ -47,6 +48,10 @@ extension MyPageModel: MyPageProfileActionProtocol {
 
     func updateMajor(major: String) {
         self.major = major
+    }
+
+    func updateMajorList(majorList: [String]) {
+        self.majorList = majorList
     }
 
     func updatePortfolioURL(portfolioURL: String) {

@@ -83,11 +83,9 @@ extension MyPageIntent: MyPageProfileIntentProtocol {
         guard let imageResult else { return }
         Task {
             do {
-                async let profileImageURL = imageUploadUseCase.execute(
-                    image: imageResult.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
-                    fileName: imageResult.fileName
-                )
-                try await model?.updateProfileURL(url: profileImageURL)
+                async let profileURL = imageUpload(imageResult: imageResult)
+
+                try await model?.updateProfileURL(url: profileURL)
             }
         }
     }

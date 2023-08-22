@@ -18,4 +18,5 @@ protocol MyPageIntentProtocol:
     func withdrawalDialogIsRequired()
     func withdrawalDialogDismissed()
     func withdrawalDialogIsComplete()
+    func modifyToInputAllInfo(state: MyPageStateProtocol)
 }

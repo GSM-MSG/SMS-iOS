@@ -1,8 +1,13 @@
 import Foundation
+import DesignSystem
 import UserDomainInterface
 import AuthDomainInterface
 import FileDomainInterface
 import MyPageFeatureInterface
+import StudentDomainInterface
+import MajorDomainInterface
+import ConcurrencyUtil
+import DateUtil
 
 final class MyPageIntent: MyPageIntentProtocol {
     weak var model: (any MyPageActionProtocol)?
@@ -10,7 +15,9 @@ final class MyPageIntent: MyPageIntentProtocol {
     private let fetchMyProfileUseCase: any FetchMyProfileUseCase
     private let logoutUseCase: any LogoutUseCase
     private let withdrawalUseCase: any WithdrawalUseCase
-    let imageUploadUseCase: any ImageUploadUseCase
+    private let imageUploadUseCase: any ImageUploadUseCase
+    private let modifyInformationUseCase: any ModifyInformationUseCase
+    private let fetchMajorListUseCase: any FetchMajorListUseCase
 
     init(
         model: any MyPageActionProtocol,
@@ -18,7 +25,9 @@ final class MyPageIntent: MyPageIntentProtocol {
         fetchMyProfileUseCase: any FetchMyProfileUseCase,
         logoutUseCase: any LogoutUseCase,
         withdrawalUseCase: any WithdrawalUseCase,
-        imageUploadUseCase: any ImageUploadUseCase
+        imageUploadUseCase: any ImageUploadUseCase,
+        modifyInformationUseCase: any ModifyInformationUseCase,
+        fetchMajorListUseCase: any FetchMajorListUseCase
     ) {
         self.model = model
         self.myPageDelegate = myPageDelegate
@@ -26,14 +35,19 @@ final class MyPageIntent: MyPageIntentProtocol {
         self.logoutUseCase = logoutUseCase
         self.withdrawalUseCase = withdrawalUseCase
         self.imageUploadUseCase = imageUploadUseCase
+        self.modifyInformationUseCase = modifyInformationUseCase
+        self.fetchMajorListUseCase = fetchMajorListUseCase
     }
 
     func onAppear() {
         Task {
             do {
+                let majorList = try await fetchMajorListUseCase.execute()
+                model?.updateMajorList(majorList: majorList)
                 let profile = try await fetchMyProfileUseCase.execute()
                 model?.updateProfileURL(url: profile.profileImageURL)
                 model?.updateIntroduce(introduce: profile.introduce)
+                model?.updatePortfolioURL(portfolioURL: profile.portfolioURL)
                 model?.updateMajor(major: profile.major)
                 model?.updateEmail(email: profile.contactEmail)
                 model?.updateGSMScore(gsmScore: "\(profile.gsmAuthenticationScore)")
@@ -102,4 +116,101 @@ final class MyPageIntent: MyPageIntentProtocol {
         model?.updateIsPresentedWithdrawalDialog(isPresented: false)
     }
 
+    func modifyToInputAllInfo(state: any MyPageStateProtocol) {
+        Task {
+            do {
+                let modifyInformationRequest = ModifyStudentInformationRequestDTO(
+                    certificate: state.certificates,
+                    contactEmail: state.email,
+                    formOfEmployment: FormOfEmployment(rawValue: state.formOfEmployment.rawValue) ?? .fullTime,
+                    gsmAuthenticationScore: Int(state.gsmScore) ?? 0,
+                    introduce: state.introduce,
+                    languageCertificate: state.languageList.map { $0.toDTO() },
+                    major: state.major,
+                    militaryService: state.selectedMilitaryServiceType,
+                    portfolioURL: state.portfolioURL,
+                    profileImgURL: state.profileURL,
+                    region: state.workRegionList,
+                    salary: Int(state.salary) ?? 0,
+                    techStacks: state.techStacks,
+                    projects: state.projectList.map {
+                        let startAtString = $0.startAt.toStringCustomFormat(format: "yyyy.MM")
+                        let endAtString = $0.endAt?.toStringCustomFormat(format: "yyyy.MM") ?? ""
+
+                        return $0.toDTO(
+                            iconURL: $0.iconImage,
+                            previewImageURLS: $0.previewImages,
+                            startAt: startAtString,
+                            endAt: endAtString
+                        )
+                    },
+                    prizes: state.prizeList.map { $0.toDTO() }
+                )
+
+                try await modifyInformationUseCase.execute(req: modifyInformationRequest)
+            } catch {
+            }
+        }
+    }
+
+    func imageUpload(imageResult: PickedImageResult) async throws -> String {
+        try await Task {
+            try await imageUploadUseCase.execute(
+                image: imageResult.uiImage.jpegData(compressionQuality: 0.2) ?? .init(),
+                fileName: imageResult.fileName
+            )
+        }
+        .value
+    }
+}
+
+extension LanguageModel {
+    func toDTO() -> ModifyStudentInformationRequestDTO.LanguageCertificate {
+        ModifyStudentInformationRequestDTO.LanguageCertificate(
+            languageCertificateName: name,
+            score: score
+        )
+    }
+}
+
+extension ProjectModel {
+    func toDTO(
+        iconURL: String,
+        previewImageURLS: [String],
+        startAt: String,
+        endAt: String
+    ) -> ModifyStudentInformationRequestDTO.Project {
+        ModifyStudentInformationRequestDTO.Project(
+            name: name,
+            iconImageURL: iconURL,
+            previewImageURLs: previewImageURLS,
+            description: content,
+            links: relatedLinks.map { $0.toDTO() },
+            techStacks: Array(techStacks),
+            myActivity: mainTask,
+            inProgress: .init(
+                start: startAt,
+                end: endAt
+            )
+        )
+    }
+}
+
+extension ProjectModel.RelatedLink {
+    func toDTO() -> ModifyStudentInformationRequestDTO.Project.Link {
+        ModifyStudentInformationRequestDTO.Project.Link(
+            name: name,
+            url: url
+        )
+    }
+}
+
+extension PrizeModel {
+    func toDTO() -> ModifyStudentInformationRequestDTO.Prize {
+        ModifyStudentInformationRequestDTO.Prize(
+            name: name,
+            type: prize,
+            date: prizeAtString
+        )
+    }
 }

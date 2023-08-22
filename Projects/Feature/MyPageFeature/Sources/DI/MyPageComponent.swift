@@ -2,6 +2,8 @@ import AuthDomainInterface
 import BaseFeature
 import MyPageFeatureInterface
 import FileDomainInterface
+import StudentDomainInterface
+import MajorDomainInterface
 import NeedleFoundation
 import SwiftUI
 import UserDomainInterface
@@ -12,6 +14,8 @@ public protocol MyPageDependency: Dependency {
     var authDomainBuildable: any AuthDomainBuildable { get }
     var techStackAppendBuildable: any TechStackAppendBuildable { get }
     var fileDomainBuildable: any FileDomainBuildable { get }
+    var studentDomainBuildable: any StudentDomainBuildable { get }
+    var majorDomainBuildable: any MajorDomainBuildable { get }
 }
 
 public final class MyPageComponent: Component<MyPageDependency>, MyPageBuildable {
@@ -23,7 +27,9 @@ public final class MyPageComponent: Component<MyPageDependency>, MyPageBuildable
             fetchMyProfileUseCase: dependency.userDomainBuildable.fetchMyProfileUseCase,
             logoutUseCase: dependency.authDomainBuildable.logoutUseCase,
             withdrawalUseCase: dependency.authDomainBuildable.withdrawalUseCase,
-            imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase
+            imageUploadUseCase: dependency.fileDomainBuildable.imageUploadUseCase,
+            modifyInformationUseCase: dependency.studentDomainBuildable.modifyInformationUseCase,
+            fetchMajorListUseCase: dependency.majorDomainBuildable.fetchMajorListUseCase
         )
         let container = MVIContainer(
             intent: intent as MyPageIntentProtocol,
