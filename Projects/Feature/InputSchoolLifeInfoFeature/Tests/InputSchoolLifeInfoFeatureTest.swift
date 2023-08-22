@@ -41,26 +41,4 @@ final class InputSchoolLifeInfoFeatureTests: XCTestCase {
         sut.intent.updateAuthenticationScore(score: "\(randomScore)")
         XCTAssertEqual(sut.model.authenticationScore, "\(randomScore)")
     }
-
-    func test_file_importer_sheet() {
-        sut.intent.hwpFileImporterIsRequred()
-        XCTAssertTrue(sut.model.isPresentedHWPFileImporter)
-
-        sut.intent.hwpFileImporterDismissed()
-        XCTAssertFalse(sut.model.isPresentedHWPFileImporter)
-    }
-
-    func test_hwp_file_select() {
-        guard let url = URL(string: "localhost:8080/index.html") else {
-            XCTFail("failed to load url")
-            return
-        }
-        sut.intent.hwpFileDidSelect(url: url)
-        XCTAssertEqual(sut.model.hwpFileURL, url)
-    }
-
-    func test_failed_to_import_hwp() {
-        sut.intent.failedToImportHWPFile()
-        XCTAssertEqual(sut.model.errorField, [.hwp])
-    }
 }

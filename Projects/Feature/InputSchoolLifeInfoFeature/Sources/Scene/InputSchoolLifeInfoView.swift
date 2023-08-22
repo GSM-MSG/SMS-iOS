@@ -29,21 +29,6 @@ struct InputSchoolLifeInfoView: View {
                         )
                         .keyboardType(.numberPad)
                         .titleWrapper("인증제 점수")
-
-                        SMSTextField(
-                            "+ hwp 파일 추가",
-                            text: Binding(
-                                get: { state.hwpFilename },
-                                set: { _ in }
-                            ),
-                            errorText: "hwp, hwpx 확장자인 파일만 가능해요",
-                            isError: state.errorField.contains(.hwp)
-                        )
-                        .disabled(true)
-                        .titleWrapper("드림북")
-                        .onTapGesture {
-                            intent.hwpFileImporterIsRequred()
-                        }
                     }
 
                     Spacer()
@@ -66,23 +51,5 @@ struct InputSchoolLifeInfoView: View {
             }
         }
         .hideKeyboardWhenTap()
-        .fileImporter(
-            isPresented: Binding(
-                get: { state.isPresentedHWPFileImporter },
-                set: { _ in intent.hwpFileImporterDismissed() }
-            ),
-            allowedContentTypes: [
-                UTType(filenameExtension: "hwp") ?? .pdf,
-                UTType(filenameExtension: "hwpx") ?? .pdf
-            ]
-        ) { result in
-            switch result {
-            case let .success(url):
-                intent.hwpFileDidSelect(url: url)
-
-            case .failure:
-                intent.failedToImportHWPFile()
-            }
-        }
     }
 }
