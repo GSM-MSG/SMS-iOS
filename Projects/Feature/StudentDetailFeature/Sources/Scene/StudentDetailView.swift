@@ -198,12 +198,7 @@ struct StudentDetailView: View {
                     studentInfoForTeacher(geometry: geometry, detailInfo: detailInfoByTeacher)
                 }
 
-                VStack(spacing: 32) {
-                    ForEach(studentDetail?.projects ?? [], id: \.self) { project in
-                        ProjectRowView(project: project)
-                    }
-                }
-                .studentDetailTitleWrapper(title: "프로젝트")
+                Spacer().frame(height: 40)
 
                 VStack(spacing: 8) {
                     ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
@@ -211,6 +206,17 @@ struct StudentDetailView: View {
                     }
                 }
                 .studentDetailTitleWrapper(title: "수상")
+
+                Spacer().frame(height: 40)
+
+                VStack(spacing: 32) {
+                    ForEach(studentDetail?.projects ?? [], id: \.self) { project in
+                        ProjectRowView(project: project)
+                    }
+                }
+                .studentDetailTitleWrapper(title: "프로젝트")
+
+                Spacer().frame(height: 120)
             }
 
             Color.sms(.system(.white))
@@ -289,10 +295,8 @@ struct StudentDetailView: View {
                 geometry: geometry
             )
             .conditional(!detailInfo.certificate.isEmpty)
-
-            Spacer().frame(height: 120)
         }
-        .studentDetailTitleWrapper(title: "수상")
+        .studentDetailTitleWrapper(title: "세부정보")
     }
 
     @ViewBuilder

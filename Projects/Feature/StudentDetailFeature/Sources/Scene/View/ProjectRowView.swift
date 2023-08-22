@@ -17,6 +17,7 @@ struct ProjectRowView: View {
             projectHeaderSection()
             projectPreviewsSection()
             projectTechStacksSection()
+            proejctDescriptionSection()
             projectMyActivitySection()
             projectRelatedLinksSection()
         }
@@ -86,14 +87,26 @@ struct ProjectRowView: View {
                         }
                 }
             }
+            .studentDetailSubTitleWrapper(title: "사용기술")
         }
     }
 
     @ViewBuilder
     func projectMyActivitySection() -> some View {
         SMSText(project.myActivity, font: .body2)
+            .foregroundColor(.sms(.neutral(.n40)))
             .lineLimit(nil)
             .aligned(.leading)
+            .studentDetailSubTitleWrapper(title: "주요 작업 서술")
+    }
+
+    @ViewBuilder
+    func proejctDescriptionSection() -> some View {
+        SMSText(project.description, font: .body2)
+            .foregroundColor(.sms(.neutral(.n40)))
+            .lineLimit(nil)
+            .aligned(.leading)
+            .studentDetailSubTitleWrapper(title: "프로젝트 설명")
     }
 
     @ViewBuilder
@@ -128,5 +141,6 @@ struct ProjectRowView: View {
                 }
             }
         }
+        .studentDetailSubTitleWrapper(title: "관련 링크")
     }
 }

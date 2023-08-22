@@ -62,6 +62,7 @@ struct InputProjectInfoView: View {
                     }
                     .padding([.top, .horizontal], 20)
                 }
+                .frame(minHeight: UIScreen.main.bounds.size.height)
             }
         }
         .imagePicker(
