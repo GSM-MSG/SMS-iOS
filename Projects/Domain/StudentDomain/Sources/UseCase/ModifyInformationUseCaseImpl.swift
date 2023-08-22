@@ -1,9 +1,13 @@
-//
-//  ModifyInformationUseCase.swift
-//  StudentDomain
-//
-//  Created by sunghun on 8/17/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import StudentDomainInterface
 
-import Foundation
+struct ModifyInformationUseCaseImpl: ModifyInformationUseCase {
+    private let studentRepository: any StudentRepository
+
+    init(studentRepository: any StudentRepository) {
+        self.studentRepository = studentRepository
+    }
+
+    func execute(req: ModifyStudentInformationRequestDTO) async throws {
+        try await studentRepository.modifyInformation(req: req)
+    }
+}

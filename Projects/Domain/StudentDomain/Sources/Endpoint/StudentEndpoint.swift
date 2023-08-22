@@ -8,6 +8,7 @@ enum StudentEndpoint {
     case fetchStudentDetailByStudent(userID: String)
     case fetchStudentDetailByGuest(userID: String)
     case fetchStudentDetailByTeacher(userID: String)
+    case modifyInformation(ModifyStudentInformationRequestDTO)
 }
 
 extension StudentEndpoint: SMSEndpoint {
@@ -33,6 +34,9 @@ extension StudentEndpoint: SMSEndpoint {
 
         case let .fetchStudentDetailByTeacher(userID):
             return .get("/teacher/\(userID)")
+
+        case .modifyInformation:
+            return .put("")
         }
     }
 
@@ -105,6 +109,11 @@ extension StudentEndpoint: SMSEndpoint {
 
         case .fetchStudentDetailByTeacher:
             return [:]
+
+        case .modifyInformation:
+            return [
+                400: .invalidRequest
+            ]
         }
     }
 }

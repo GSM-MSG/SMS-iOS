@@ -1,9 +1,8 @@
-//
-//  ModifyInformationUseCaseSPY.swift
-//  StudentDomainTesting
-//
-//  Created by sunghun on 8/21/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import StudentDomainInterface
 
-import Foundation
+final class ModifyInformationUseCaseSpy: ModifyInformationUseCase {
+    var executeCallCount = 0
+    func execute(req: ModifyStudentInformationRequestDTO) async throws {
+        executeCallCount += 1
+    }
+}
