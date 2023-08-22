@@ -31,12 +31,12 @@ public struct SMSIcon: View {
         case plus
         case profile
         case profileSmallPlus
-        case redLogout
         case redPerson
         case search
         case smsLogo
         case trash
         case leftArrow
+        case logout
         case logoutLine
         case smallPlus
         case upArrow
@@ -104,11 +104,11 @@ public struct SMSIcon: View {
         case .leftArrow:
             return DesignSystemAsset.Icons.leftArrow.swiftUIImage
 
+        case .logout:
+            return DesignSystemAsset.Icons.logout.swiftUIImage
+
         case .logoutLine:
             return DesignSystemAsset.Icons.logoutLine.swiftUIImage
-
-        case .redLogout:
-            return DesignSystemAsset.Icons.redLogout.swiftUIImage
 
         case .redPerson:
             return DesignSystemAsset.Icons.redPerson.swiftUIImage
