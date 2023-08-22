@@ -1,10 +1,18 @@
 import DesignSystem
 import SwiftUI
 import ViewUtil
+import BaseFeature
 
 struct MyPageMilitaryView: View {
-    let intent: MyPageMilitaryIntentProtocol
-    let state: MyPageMilitaryStateProtocol
+    @StateObject var container: MVIContainer<MyPageMilitaryIntentProtocol, MyPageMilitaryStateProtocol>
+    var intent: MyPageMilitaryIntentProtocol { container.intent }
+    var state: MyPageMilitaryStateProtocol { container.model }
+
+    init(
+        container: MVIContainer<MyPageMilitaryIntentProtocol, MyPageMilitaryStateProtocol>
+    ) {
+        self._container = StateObject(wrappedValue: container)
+    }
 
     var body: some View {
         Section {
@@ -28,7 +36,7 @@ struct MyPageMilitaryView: View {
                 }
             }
         } header: {
-            SectionHeaderView(title: "학교 생활")
+            SectionHeaderView(title: "병역")
         }
         .padding(.horizontal, 20)
     }
