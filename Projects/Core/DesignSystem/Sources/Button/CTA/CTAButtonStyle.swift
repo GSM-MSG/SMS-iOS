@@ -88,11 +88,9 @@ extension CTAButtonStyle {
     struct ErrorButton: View {
         let configuration: ButtonStyle.Configuration
         @Environment(\.isEnabled) var isEnabled
-        var foregroundColor: Color {
-            isEnabled ? .sms(.system(.white)) : .sms(.neutral(.n30))
-        }
+        var foregroundColor = Color.sms(.system(.white))
         var backgroundColor: Color {
-            isEnabled ? enabledBackgroundColor : .sms(.neutral(.n20))
+            isEnabled ? enabledBackgroundColor : .sms(.error(.e1))
         }
         var enabledBackgroundColor: Color {
             configuration.isPressed ? .sms(.error(.e3)) : .sms(.error(.e2))
