@@ -16,6 +16,7 @@ let project = Project.makeModule(
         .Domain.UserDomainTesting,
         .Domain.AuthDomainTesting,
         .Domain.FileDomainTesting,
-        .Domain.StudentDomainTesting
+        .Domain.StudentDomainTesting,
+        .Domain.MajorDomainTesting
     ]
 )

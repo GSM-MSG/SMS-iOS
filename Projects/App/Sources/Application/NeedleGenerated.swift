@@ -117,6 +117,15 @@ private class MyPageDependency48d84b530313b3ee40feProvider: MyPageDependency {
     var techStackAppendBuildable: any TechStackAppendBuildable {
         return appComponent.techStackAppendBuildable
     }
+    var fileDomainBuildable: any FileDomainBuildable {
+        return appComponent.fileDomainBuildable
+    }
+    var studentDomainBuildable: any StudentDomainBuildable {
+        return appComponent.studentDomainBuildable
+    }
+    var majorDomainBuildable: any MajorDomainBuildable {
+        return appComponent.majorDomainBuildable
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -470,6 +479,9 @@ extension MyPageComponent: Registration {
         keyPathToName[\MyPageDependency.userDomainBuildable] = "userDomainBuildable-any UserDomainBuildable"
         keyPathToName[\MyPageDependency.authDomainBuildable] = "authDomainBuildable-any AuthDomainBuildable"
         keyPathToName[\MyPageDependency.techStackAppendBuildable] = "techStackAppendBuildable-any TechStackAppendBuildable"
+        keyPathToName[\MyPageDependency.fileDomainBuildable] = "fileDomainBuildable-any FileDomainBuildable"
+        keyPathToName[\MyPageDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
+        keyPathToName[\MyPageDependency.majorDomainBuildable] = "majorDomainBuildable-any MajorDomainBuildable"
     }
 }
 extension InputWorkInfoComponent: Registration {
@@ -608,7 +620,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-@inline(never) private func register1() {
+private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)
