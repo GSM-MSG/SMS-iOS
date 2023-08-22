@@ -1,9 +1,8 @@
-//
-//  InputInformationUseCaseSpy.swift
-//  StudentDomainTesting
-//
-//  Created by sunghun on 8/17/23.
-//  Copyright © 2023 com.msg. All rights reserved.
-//
+import StudentDomainInterface
 
-import Foundation
+final class InputInformationUseCaseSpy: InputInformationUseCase {
+    var executeCallCount = 0
+    func execute(req: InputStudentInformationRequestDTO) async throws {
+        executeCallCount += 1
+    }
+}

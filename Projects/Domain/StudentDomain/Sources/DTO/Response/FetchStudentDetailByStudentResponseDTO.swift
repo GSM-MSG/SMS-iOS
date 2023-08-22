@@ -10,7 +10,7 @@ public struct FetchStudentDetailByStudentResponseDTO: Decodable {
     public let department: DepartmentType
     public let major: String
     public let profileImg: String
-    public let techStack: [String]
+    public let techStacks: [String]
     public let projects: [ProjectResponseDTO]
     public let prizes: [PrizeResponseDTO]
 }
@@ -22,7 +22,7 @@ public extension FetchStudentDetailByStudentResponseDTO {
             introduce: introduce,
             major: major,
             profileImageURL: profileImg,
-            techStacks: techStack,
+            techStacks: techStacks,
             projects: projects.map { $0.toDomain() },
             prizes: prizes.map { $0.toDomain() },
             detailInfoByStudent: .init(

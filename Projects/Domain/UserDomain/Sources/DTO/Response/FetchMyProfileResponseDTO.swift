@@ -21,6 +21,27 @@ struct FetchMyProfileResponseDTO: Decodable {
     let languageCertificates: [LanguageCertificateResponseDTO]
     let certificates: [String]
     let techStacks: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case introduce
+        case portfolioURL = "portfolioUrl"
+        case grade
+        case classNum
+        case number
+        case department
+        case major
+        case profileImageURL = "profileImg"
+        case contactEmail
+        case gsmAuthenticationScore
+        case formOfEmployment
+        case regions
+        case militaryService
+        case salary
+        case languageCertificates
+        case certificates
+        case techStacks
+    }
 }
 
 extension FetchMyProfileResponseDTO {
