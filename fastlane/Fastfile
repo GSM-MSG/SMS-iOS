@@ -24,14 +24,13 @@ platform :ios do
     set_info_plist_value(path: "./Projects/App/Support/Info.plist", key: "CFBundleVersion", value: "#{build_number.to_i + 1}")
     set_info_plist_value(path: "./Projects/App/Support/Info.plist", key: "CFBundleShortVersionString", value: version)
 
-    get_certificates
-    get_provisioning_profile
     build_app(
         scheme: "SMS-PROD",
         export_method: "app-store",
         export_options: {
             "com.msg.SMS-iOS": "SMS_CD",
-        }
+        },
+        export_team_id: ENV["TEAM_ID"]
     )
 
     upload_to_app_store(
