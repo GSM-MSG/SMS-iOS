@@ -212,23 +212,21 @@ private extension InputProjectInfoView {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 8) {
                 let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
-//                ConditionView(projectPreviewImages.count < 4) {
-                    imagePlaceholder(size: 132)
-                        .overlay {
-                            VStack(spacing: 4) {
-                                SMSIcon(.photo)
+                imagePlaceholder(size: 132)
+                    .overlay {
+                        VStack(spacing: 4) {
+                            SMSIcon(.photo)
 
-                                SMSText(
-                                    "\(projectPreviewImages.count)/4",
-                                    font: .body2
-                                )
-                                .foregroundColor(.sms(.system(.black)))
-                            }
+                            SMSText(
+                                "\(projectPreviewImages.count)/4",
+                                font: .body2
+                            )
+                            .foregroundColor(.sms(.system(.black)))
                         }
-                        .buttonWrapper {
-                            intent.appendPreviewImageButtonDidTap(index: index, previewsCount: projectPreviewImages.count)
-                        }
-//                }
+                    }
+                    .buttonWrapper {
+                        intent.appendPreviewImageButtonDidTap(index: index, previewsCount: projectPreviewImages.count)
+                    }
 
                 ForEach(projectPreviewImages.indices, id: \.self) { previewIndex in
                     Image(uiImage: projectPreviewImages[previewIndex].uiImage)
