@@ -31,11 +31,9 @@ struct InputProfileInfoView: View {
         SMSNavigationTitleView(title: "정보입력") {
             GeometryReader { geometry in
                 ScrollView(showsIndicators: false) {
-                    SMSSeparator()
+                    InputInformationPageTitleView(title: "프로필", pageCount: 8, selectedPage: 0)
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "프로필", pageCount: 8, selectedPage: 0)
-
                         VStack(alignment: .leading, spacing: 24) {
                             VStack(alignment: .leading, spacing: 8) {
                                 ZStack(alignment: .bottomTrailing) {

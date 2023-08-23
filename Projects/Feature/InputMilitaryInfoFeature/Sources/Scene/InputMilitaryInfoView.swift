@@ -12,11 +12,9 @@ struct InputMilitaryInfoView: View {
     var body: some View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
-                SMSSeparator()
+                InputInformationPageTitleView(title: "병역", pageCount: 8, selectedPage: 3)
 
                 VStack(spacing: 32) {
-                    InputInformationPageTitleView(title: "병역", pageCount: 8, selectedPage: 3)
-
                     VStack(spacing: 24) {
                         SMSTextField(
                             "병특 희망",

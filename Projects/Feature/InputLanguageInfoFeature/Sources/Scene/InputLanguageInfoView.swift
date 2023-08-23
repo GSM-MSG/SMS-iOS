@@ -14,16 +14,14 @@ struct InputLanguageInfoView: View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
                 ScrollView(showsIndicators: false) {
-                    SMSSeparator()
+                    InputInformationPageTitleView(
+                        title: "외국어",
+                        isRequired: false,
+                        pageCount: 8,
+                        selectedPage: 5
+                    )
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(
-                            title: "외국어",
-                            isRequired: false,
-                            pageCount: 8,
-                            selectedPage: 5
-                        )
-
                         languageListView(proxy: proxy)
                     }
                     .padding([.top, .horizontal], 20)

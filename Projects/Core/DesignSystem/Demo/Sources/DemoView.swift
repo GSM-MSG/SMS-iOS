@@ -6,10 +6,7 @@ public struct DemoView: View {
 
     public var body: some View {
         VStack {
-            CTAButton(text: "테스트", style: .error)
-            CTAButton(text: "테스트", style: .error)
-            CTAButton(text: "테스트", style: .error)
-                .disabled(true)
+            SMSPageControl(pageCount: 8, selectedPage: 2)
         }
         .padding(.horizontal, 20)
     }
