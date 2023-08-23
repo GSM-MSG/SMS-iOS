@@ -67,11 +67,11 @@ final class MainIntent: MainIntentProtocol {
     }
 
     func myPageIsRequired() {
-        model?.updateIsPresentedMypagePage(isPresented: true)
+        model?.updateIsPresentedMypage(isPresented: true)
     }
 
     func myPageDismissed() {
-        model?.updateIsPresentedMypagePage(isPresented: false)
+        model?.updateIsPresentedMypage(isPresented: false)
     }
 
     func studentDidSelect(userID: String) {
@@ -86,12 +86,12 @@ final class MainIntent: MainIntentProtocol {
         mainDelegate?.logout()
     }
 
-    func existIsRequired() {
-        model?.updateIsPresentedExistDialog(isPresented: true)
+    func exitIsRequired() {
+        model?.updateIsPresentedExitDialog(isPresented: true)
     }
 
-    func existIsDismissed() {
-        model?.updateIsPresentedExistDialog(isPresented: false)
+    func exitIsDismissed() {
+        model?.updateIsPresentedExitDialog(isPresented: false)
     }
 }
 

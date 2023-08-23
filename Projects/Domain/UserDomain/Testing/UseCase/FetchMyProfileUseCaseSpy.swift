@@ -29,6 +29,30 @@ final class FetchMyProfileUseCaseSpy: FetchMyProfileUseCase {
                 "Swift",
                 "Tuist",
                 "MicroFeatures"
+            ],
+            projects: [
+                .init(
+                    name: "asdf",
+                    iconImageURL: "https://avatars.githubusercontent.com/u/74440939?v=4",
+                    previewImageURLs: [
+                        "https://avatars.githubusercontent.com/u/74440939?v=4"
+                    ],
+                    description: "최형우다",
+                    links: [
+                        .init(
+                            name: "와우",
+                            url: "https://www.github.com"
+                        )
+                    ],
+                    techStacks: [
+                        "iOS"
+                    ],
+                    myActivity: "나는 짱이다",
+                    inProgress: .init(start: "", end: "")
+                )
+            ],
+            prizes: [
+                .init(name: "1234", type: "와우", date: "2023.12.11")
             ]
         )
     }

@@ -4,7 +4,7 @@ import StudentDomainInterface
 final class MyPageModel: ObservableObject, MyPageStateProtocol {
     // MARK: MyPage
     @Published var isError: Bool = false
-    @Published var isPresentedExistActionSheet: Bool = false
+    @Published var isPresentedExitBottomSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
 
@@ -66,8 +66,8 @@ extension MyPageModel: MyPageActionProtocol {
         self.isError = isError
     }
 
-    func updateIsPresentedExistActionSheet(isPresented: Bool) {
-        self.isPresentedExistActionSheet = isPresented
+    func updateIsPresentedExitBottomSheet(isPresented: Bool) {
+        self.isPresentedExitBottomSheet = isPresented
     }
 
     func updateIsPresentedLogoutDialog(isPresented: Bool) {

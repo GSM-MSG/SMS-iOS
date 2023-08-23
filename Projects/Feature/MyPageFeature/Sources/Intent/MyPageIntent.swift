@@ -61,19 +61,36 @@ final class MyPageIntent: MyPageIntentProtocol {
                     }
                 )
                 model?.updateCertificates(certificates: profile.certificates)
-                model?.updateTechStacks(techStacks: profile.techStacks)
+                model?.updateTechStacks(techStacks: profile.techStacks) 
+                model?.updateProjectList(projectList: profile.proejcts.map {
+                    ProjectModel(
+                        name: $0.name,
+                        iconImage: $0.iconImageURL,
+                        previewImages: $0.previewImageURLs,
+                        content: $0.description,
+                        techStacks: $0.techStacks,
+                        mainTask: $0.myActivity,
+                        startAt: $0.inProgress.start,
+                        endAt: $0.inProgress.end,
+                        isInProgress: $0.inProgress,
+                        relatedLinks: $0.links
+                    )
+                })
+                model?.updatePrizeList(prizeList: profile.prizes.map {
+                    PrizeModel(name: $0.name, prize: $0.type, prizeAt: $0.date.)
+                })
             } catch {
                 model?.updateIsError(isError: true)
             }
         }
     }
 
-    func existActionSheetIsRequired() {
-        model?.updateIsPresentedExistActionSheet(isPresented: true)
+    func exitActionSheetIsRequired() {
+        model?.updateIsPresentedExitBottomSheet(isPresented: true)
     }
 
-    func existActionSheetDismissed() {
-        model?.updateIsPresentedExistActionSheet(isPresented: false)
+    func exitActionSheetDismissed() {
+        model?.updateIsPresentedExitBottomSheet(isPresented: false)
     }
 
     func logoutDialogIsRequired() {
@@ -135,7 +152,7 @@ final class MyPageIntent: MyPageIntentProtocol {
                     techStacks: state.techStacks,
                     projects: state.projectList.map {
                         let startAtString = $0.startAt.toStringCustomFormat(format: "yyyy.MM")
-                        let endAtString = $0.endAt?.toStringCustomFormat(format: "yyyy.MM") ?? ""
+                        let endAtString = $0.endAt?.toStringCustomFormat(format: "yyyy.MM") ?? "개발중"
 
                         return $0.toDTO(
                             iconURL: $0.iconImage,
@@ -149,6 +166,7 @@ final class MyPageIntent: MyPageIntentProtocol {
 
                 try await modifyInformationUseCase.execute(req: modifyInformationRequest)
             } catch {
+                model?.updateIsError(isError: true)
             }
         }
     }

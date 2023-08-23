@@ -8,7 +8,7 @@ protocol MainStateProtocol {
     var isRefresh: Bool { get }
     var isPresentedFilterPage: Bool { get }
     var isPresentedMyPage: Bool { get }
-    var isPresntedExist: Bool { get }
+    var isPresntedExit: Bool { get }
     var content: [SingleStudentEntity] { get }
     var selectedUserID: String? { get }
     var currentUserRole: UserRoleType { get }
@@ -20,8 +20,8 @@ protocol MainActionProtocol: AnyObject {
     func updateTotalSize(totalSize: Int)
     func updateIsLast(isLast: Bool)
     func updateIsPresentedFilterPage(isPresented: Bool)
-    func updateIsPresentedMypagePage(isPresented: Bool)
-    func updateIsPresentedExistDialog(isPresented: Bool)
+    func updateIsPresentedMypage(isPresented: Bool)
+    func updateIsPresentedExitDialog(isPresented: Bool)
     func appendContent(content: [SingleStudentEntity])
     func updateContent(content: [SingleStudentEntity])
     func updateIsRefresh(isRefresh: Bool)

@@ -27,7 +27,7 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var _content: [SingleStudentEntity] = []
     @Published var isPresentedFilterPage: Bool = false
     @Published var isPresentedMyPage: Bool = false
-    @Published var isPresntedExist: Bool = false
+    @Published var isPresntedExit: Bool = false
     @Published var selectedUserID: String?
     @Published var currentUserRole: UserRoleType = .guest
     @Published var filterOption: FilterOption?
@@ -51,12 +51,12 @@ extension MainModel: MainActionProtocol {
         self.isPresentedFilterPage = isPresented
     }
 
-    func updateIsPresentedMypagePage(isPresented: Bool) {
+    func updateIsPresentedMypage(isPresented: Bool) {
         self.isPresentedMyPage = isPresented
     }
 
-    func updateIsPresentedExistDialog(isPresented: Bool) {
-        self.isPresntedExist = isPresented
+    func updateIsPresentedExitDialog(isPresented: Bool) {
+        self.isPresntedExit = isPresented
     }
 
     func appendContent(content: [SingleStudentEntity]) {

@@ -43,6 +43,7 @@ protocol MyPageProjectStateProtocol {
 
 protocol MyPageProjectActionProtocol: AnyObject {
     func toggleCollapsedProject(index: Int)
+    func updateProjectList(projectList: [ProjectModel])
     func updateProjectName(index: Int, name: String)
     func updateIconImage(index: Int, imageURL: String)
     func appendPreviewImage(index: Int, imageURL: String)
@@ -73,6 +74,10 @@ extension MyPageModel: MyPageProjectActionProtocol {
     func toggleCollapsedProject(index: Int) {
         guard collapsedProject[safe: index] != nil else { return }
         collapsedProject[index].toggle()
+    }
+
+    func updateProjectList(projectList: [ProjectModel]) {
+        self.projectList = projectList
     }
 
     func updateProjectName(index: Int, name: String) {

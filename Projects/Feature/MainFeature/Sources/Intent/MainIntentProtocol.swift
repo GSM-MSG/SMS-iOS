@@ -12,6 +12,6 @@ protocol MainIntentProtocol: FilterDelegate, MyPageDelegate {
     func myPageDismissed()
     func studentDidSelect(userID: String)
     func studentDetailDismissed()
-    func existIsRequired()
-    func existIsDismissed()
+    func exitIsRequired()
+    func exitIsDismissed()
 }

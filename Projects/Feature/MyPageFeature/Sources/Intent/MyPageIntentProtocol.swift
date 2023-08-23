@@ -10,8 +10,8 @@ protocol MyPageIntentProtocol:
     MyPageProjectIntentProtocol,
     MyPagePrizeIntentProtocol {
     func onAppear()
-    func existActionSheetIsRequired()
-    func existActionSheetDismissed()
+    func exitActionSheetIsRequired()
+    func exitActionSheetDismissed()
     func logoutDialogIsRequired()
     func logoutDialogDismissed()
     func logoutDialogIsComplete()
