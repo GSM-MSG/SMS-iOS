@@ -134,7 +134,7 @@ struct MainView: View {
                     SMSIcon(.profile, width: 32, height: 32)
                         .clipShape(Circle())
                         .onTapGesture {
-                            intent.myPageIsRequired()
+                            state.currentUserRole == .student ? intent.myPageIsRequired() : intent.existIsRequired()
                         }
                 }
             }
@@ -143,6 +143,23 @@ struct MainView: View {
                     SMSIcon(.smsLogo, width: 80, height: 29)
                 }
             }
+            .smsAlert(
+                title: "게스트 종료",
+                description: "게스트 이용을 종료하시겠습니까?",
+                isShowing: Binding(
+                    get: { state.isPresntedExist },
+                    set: { _ in intent.existIsDismissed() }
+                ),
+                alertActions: [
+                    .init(text: "취소", style: .outline) {
+                        intent.existIsDismissed()
+                    },
+                    .init(text: "확인", style: .default) {
+                        intent.existIsDismissed()
+                        intent.logout()
+                    }
+                ]
+            )
         }
         .navigationViewStyle(.stack)
     }

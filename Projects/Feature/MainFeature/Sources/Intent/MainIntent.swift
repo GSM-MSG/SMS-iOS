@@ -85,6 +85,14 @@ final class MainIntent: MainIntentProtocol {
     func logout() {
         mainDelegate?.logout()
     }
+
+    func existIsRequired() {
+        model?.updateIsPresentedExistDialog(isPresented: true)
+    }
+
+    func existIsDismissed() {
+        model?.updateIsPresentedExistDialog(isPresented: false)
+    }
 }
 
 extension MainIntent: FilterDelegate {
