@@ -27,91 +27,7 @@ struct MyPageView: View {
                 Spacer()
                     .frame(height: 1)
 
-                ScrollView {
-                    LazyVStack(pinnedViews: [.sectionHeaders]) {
-                        Group {
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPageProfileView(intent: intent, state: state, geometry: geometry)
-
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPageSchoolLifeView(intent: intent, state: state)
-
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPageWorkInfoView(
-                                container: .init(
-                                    intent: intent,
-                                    model: state,
-                                    modelChangePublisher: container.objectWillChange
-                                )
-                            )
-
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPageMilitaryView(
-                                container: .init(
-                                intent: intent,
-                                model: state,
-                                modelChangePublisher: container.objectWillChange
-                                )
-                            )
-                        }
-
-                        Group {
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPageCertificateView(
-                                container: .init(
-                                    intent: intent,
-                                    model: state,
-                                    modelChangePublisher: container.objectWillChange
-                                )
-                            )
-
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPageLanguageView(
-                                container: .init(
-                                    intent: intent,
-                                    model: state,
-                                    modelChangePublisher: container.objectWillChange
-                                ),
-                                geometry: geometry
-                            )
-
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPageProjectView(
-                                container: .init(
-                                    intent: intent,
-                                    model: state,
-                                    modelChangePublisher: container.objectWillChange
-                                ),
-                                geometry: geometry
-                            )
-
-                            SMSSeparator()
-                                .padding(.vertical, 16)
-
-                            MyPagePrizeView(
-                                container: .init(
-                                    intent: intent,
-                                    model: state,
-                                    modelChangePublisher: container.objectWillChange
-                                )
-                            )
-                        }
-                    }
-                }
+                myPageView(geometry: geometry)
 
                 CTAButton(text: "저장") {
                     intent.modifyToInputAllInfo(state: state)
@@ -427,6 +343,95 @@ struct MyPageView: View {
                 }
                 .animation(.default, value: state.selectedMilitaryServiceType)
                 .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func myPageView(geometry: GeometryProxy) -> some View {
+        ScrollView {
+            LazyVStack(pinnedViews: [.sectionHeaders]) {
+                Group {
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPageProfileView(intent: intent, state: state, geometry: geometry)
+
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPageSchoolLifeView(intent: intent, state: state)
+
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPageWorkInfoView(
+                        container: .init(
+                            intent: intent,
+                            model: state,
+                            modelChangePublisher: container.objectWillChange
+                        )
+                    )
+
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPageMilitaryView(
+                        container: .init(
+                        intent: intent,
+                        model: state,
+                        modelChangePublisher: container.objectWillChange
+                        )
+                    )
+                }
+
+                Group {
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPageCertificateView(
+                        container: .init(
+                            intent: intent,
+                            model: state,
+                            modelChangePublisher: container.objectWillChange
+                        )
+                    )
+
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPageLanguageView(
+                        container: .init(
+                            intent: intent,
+                            model: state,
+                            modelChangePublisher: container.objectWillChange
+                        ),
+                        geometry: geometry
+                    )
+
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPageProjectView(
+                        container: .init(
+                            intent: intent,
+                            model: state,
+                            modelChangePublisher: container.objectWillChange
+                        ),
+                        geometry: geometry
+                    )
+
+                    SMSSeparator()
+                        .padding(.vertical, 16)
+
+                    MyPagePrizeView(
+                        container: .init(
+                            intent: intent,
+                            model: state,
+                            modelChangePublisher: container.objectWillChange
+                        )
+                    )
+                }
             }
         }
     }
