@@ -187,6 +187,13 @@ struct MyPageView: View {
             }
         }
         .animation(.default, value: state.isPresentedFormOfEmployeementSheet)
+        .smsToast(
+            text: "이미지는 최대 4개까지만 추가 할 수 있어요.",
+            isShowing: Binding(
+                get: { state.isPresentedProjectToast },
+                set: { _ in intent.projectToastDismissed() }
+            )
+        )
         .smsAlert(
             title: "로그아웃",
             description: "정말로 로그아웃 하시겠습니까?",

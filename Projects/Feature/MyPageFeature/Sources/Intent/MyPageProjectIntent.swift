@@ -5,7 +5,7 @@ protocol MyPageProjectIntentProtocol {
     func projectToggleButtonDidTap(index: Int)
     func updateProjectName(index: Int, name: String)
     func updateIconImage(index: Int, image: PickedImageResult)
-    func appendPreviewImageButtonDidTap(index: Int)
+    func appendPreviewImageButtonDidTap(index: Int, previewsCount: Int)
     func appendPreviewImage(index: Int, image: PickedImageResult)
     func removePreviewImageDidTap(index: Int, previewIndex: Int)
     func updateProjectContent(index: Int, content: String)
@@ -30,6 +30,7 @@ protocol MyPageProjectIntentProtocol {
     func projectEndAtDatePickerDismissed()
     func projectTechStackAppendButtonDidTap(index: Int)
     func projectTechStackAppendDismissed()
+    func projectToastDismissed()
 }
 
 extension MyPageIntent: MyPageProjectIntentProtocol {
@@ -50,9 +51,13 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
         }
     }
 
-    func appendPreviewImageButtonDidTap(index: Int) {
-        model?.updateFocusedProjectIndex(index: index)
-        model?.updateIsPresentedPreviewImagePicker(isPresented: true)
+    func appendPreviewImageButtonDidTap(index: Int, previewsCount: Int) {
+        if previewsCount == 4 {
+            model?.updateIsPresentedProjectToast(isPresented: true)
+        } else {
+            model?.updateFocusedProjectIndex(index: index)
+            model?.updateIsPresentedPreviewImagePicker(isPresented: true)
+        }
     }
 
     func appendPreviewImage(index: Int, image: PickedImageResult) {
@@ -158,5 +163,9 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
 
     func projectTechStackAppendDismissed() {
         model?.updateIsPresentedProjectTechStackAppend(isPresented: false)
+    }
+
+    func projectToastDismissed() {
+        model?.updateIsPresentedProjectToast(isPresented: false)
     }
 }

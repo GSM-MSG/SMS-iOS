@@ -157,38 +157,36 @@ private extension MyPageProjectView {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 8) {
                 let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
-                ConditionView(projectPreviewImages.count < 4) {
-                    imagePlaceholder(size: 132)
-                        .overlay {
-                            VStack(spacing: 4) {
-                                SMSIcon(.photo)
-                                SMSText(
-                                    "\(projectPreviewImages.count)/4",
-                                    font: .body2
-                                )
-                                .foregroundColor(.sms(.system(.black)))
-                            }
+                imagePlaceholder(size: 132)
+                    .overlay {
+                        VStack(spacing: 4) {
+                            SMSIcon(.photo)
+                            SMSText(
+                                "\(projectPreviewImages.count)/4",
+                                font: .body2
+                            )
+                            .foregroundColor(.sms(.system(.black)))
                         }
-                        .buttonWrapper {
-                            intent.appendPreviewImageButtonDidTap(index: index)
-                        }
-                }
+                    }
+                    .buttonWrapper {
+                        intent.appendPreviewImageButtonDidTap(index: index, previewsCount: projectPreviewImages.count)
+                    }
 
                 ForEach(projectPreviewImages.indices, id: \.self) { previewIndex in
                     let url = URL(string: projectPreviewImages[previewIndex])
                     LazyImage(url: url) { image in
-                            if let image = image.image {
-                            image
-                                .resizable()
-                                .frame(width: 132, height: 132)
-                                .cornerRadius(8)
-                                .overlay(alignment: .topTrailing) {
-                                    SMSIcon(.xmark)
-                                        .padding(4)
-                                        .buttonWrapper {
-                                            intent.removePreviewImageDidTap(index: index, previewIndex: previewIndex)
-                                        }
-                                }
+                        if let image = image.image {
+                        image
+                            .resizable()
+                            .frame(width: 132, height: 132)
+                            .cornerRadius(8)
+                            .overlay(alignment: .topTrailing) {
+                                SMSIcon(.xmark)
+                                    .padding(4)
+                                    .buttonWrapper {
+                                        intent.removePreviewImageDidTap(index: index, previewIndex: previewIndex)
+                                    }
+                            }
                         } else {
                             imagePlaceholder(size: 132)
                         }

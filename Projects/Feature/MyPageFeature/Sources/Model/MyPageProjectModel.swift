@@ -38,6 +38,7 @@ protocol MyPageProjectStateProtocol {
     var isPresentedProjectStartAtDatePicker: Bool { get }
     var isPresentedProjectEndAtDatePicker: Bool { get }
     var isPresentedProjectTechStackAppend: Bool { get }
+    var isPresentedProjectToast: Bool { get }
 }
 
 protocol MyPageProjectActionProtocol: AnyObject {
@@ -65,6 +66,7 @@ protocol MyPageProjectActionProtocol: AnyObject {
     func updateIsPresentedProjectStartAtDatePicker(isPresented: Bool)
     func updateIsPresentedProjectEndAtDatePicker(isPresented: Bool)
     func updateIsPresentedProjectTechStackAppend(isPresented: Bool)
+    func updateIsPresentedProjectToast(isPresented: Bool)
 }
 
 extension MyPageModel: MyPageProjectActionProtocol {
@@ -198,5 +200,9 @@ extension MyPageModel: MyPageProjectActionProtocol {
 
     func updateIsPresentedProjectTechStackAppend(isPresented: Bool) {
         isPresentedProjectTechStackAppend = isPresented
+    }
+
+    func updateIsPresentedProjectToast(isPresented: Bool) {
+        isPresentedProjectToast = isPresented
     }
 }
