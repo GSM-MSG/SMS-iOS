@@ -58,7 +58,7 @@ jobs:
           rm -rf "$DECRYPTED_XCCONFIG_PATH"
           
           # decrypt provisioning file
-          gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode loopback --passphrase "$PROVISION_KEY" "$ENCRYPTED_PROVISION_FILE_PATH"
+          gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode loopback --passphrase "213956097123" "$ENCRYPTED_PROVISION_FILE_PATH"
           # decrypt fastlane env file
           gpg -d -o "$DECRYPTED_FASTLANE_ENV_SECRET_FILE_PATH" --pinentry-mode loopback --passphrase "$FASTLANE_ENV_SECRET_KEY" "$ENCRYPTED_FASTLANE_ENV_SECRET_FILE_PATH"
           # decrypt app store api key
