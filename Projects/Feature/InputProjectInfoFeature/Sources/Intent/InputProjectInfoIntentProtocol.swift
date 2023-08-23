@@ -7,7 +7,7 @@ protocol InputProjectInfoIntentProtocol {
     func projectToggleButtonDidTap(index: Int)
     func updateProjectName(index: Int, name: String)
     func updateIconImage(index: Int, image: PickedImageResult)
-    func appendPreviewImageButtonDidTap(index: Int)
+    func appendPreviewImageButtonDidTap(index: Int, previewsCount: Int)
     func appendPreviewImage(index: Int, image: PickedImageResult)
     func removePreviewImageDidTap(index: Int, previewIndex: Int)
     func updateProjectContent(index: Int, content: String)
@@ -32,4 +32,5 @@ protocol InputProjectInfoIntentProtocol {
     func endAtDatePickerDismissed()
     func techStackAppendButtonDidTap(index: Int)
     func techStackAppendDismissed()
+    func toastDismissed()
 }

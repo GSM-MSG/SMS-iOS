@@ -77,6 +77,13 @@ struct InputProjectInfoView: View {
                 }
             )
         )
+        .smsToast(
+            text: "이미지는 최대 4개까지만 추가 할 수 있어요.",
+            isShowing: Binding(
+                get: { state.isPresentedToast },
+                set: { _ in intent.toastDismissed() }
+            )
+        )
         .datePicker(
             isShowing: Binding(
                 get: { state.isPresentedStartAtDatePicker },
@@ -202,38 +209,40 @@ private extension InputProjectInfoView {
 
     @ViewBuilder
     func projectPreviewImageList(index: Int) -> some View {
-        LazyHStack(spacing: 8) {
-            let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
-            ConditionView(projectPreviewImages.count < 4) {
-                imagePlaceholder(size: 132)
-                    .overlay {
-                        VStack(spacing: 4) {
-                            SMSIcon(.photo)
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: 8) {
+                let projectPreviewImages = state.projectList[safe: index]?.previewImages ?? []
+//                ConditionView(projectPreviewImages.count < 4) {
+                    imagePlaceholder(size: 132)
+                        .overlay {
+                            VStack(spacing: 4) {
+                                SMSIcon(.photo)
 
-                            SMSText(
-                                "\(projectPreviewImages.count)/4",
-                                font: .body2
-                            )
-                            .foregroundColor(.sms(.system(.black)))
-                        }
-                    }
-                    .buttonWrapper {
-                        intent.appendPreviewImageButtonDidTap(index: index)
-                    }
-            }
-
-            ForEach(projectPreviewImages.indices, id: \.self) { previewIndex in
-                Image(uiImage: projectPreviewImages[previewIndex].uiImage)
-                    .resizable()
-                    .frame(width: 132, height: 132)
-                    .cornerRadius(8)
-                    .overlay(alignment: .topTrailing) {
-                        SMSIcon(.xmark)
-                            .padding(4)
-                            .buttonWrapper {
-                                intent.removePreviewImageDidTap(index: index, previewIndex: previewIndex)
+                                SMSText(
+                                    "\(projectPreviewImages.count)/4",
+                                    font: .body2
+                                )
+                                .foregroundColor(.sms(.system(.black)))
                             }
-                    }
+                        }
+                        .buttonWrapper {
+                            intent.appendPreviewImageButtonDidTap(index: index, previewsCount: projectPreviewImages.count)
+                        }
+//                }
+
+                ForEach(projectPreviewImages.indices, id: \.self) { previewIndex in
+                    Image(uiImage: projectPreviewImages[previewIndex].uiImage)
+                        .resizable()
+                        .frame(width: 132, height: 132)
+                        .cornerRadius(8)
+                        .overlay(alignment: .topTrailing) {
+                            SMSIcon(.xmark)
+                                .padding(4)
+                                .buttonWrapper {
+                                    intent.removePreviewImageDidTap(index: index, previewIndex: previewIndex)
+                                }
+                        }
+                }
             }
         }
         .titleWrapper("미리보기 사진")

@@ -71,9 +71,13 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
         model?.updateIconImage(index: index, image: image)
     }
 
-    func appendPreviewImageButtonDidTap(index: Int) {
-        model?.updateFocusedProjectIndex(index: index)
-        model?.updateIsPresentedPreviewImagePicker(isPresented: true)
+    func appendPreviewImageButtonDidTap(index: Int, previewsCount: Int) {
+        if previewsCount == 4 {
+            model?.updateIsPresentedToast(isPresented: true)
+        } else {
+            model?.updateFocusedProjectIndex(index: index)
+            model?.updateIsPresentedPreviewImagePicker(isPresented: true)
+        }
     }
 
     func appendPreviewImage(index: Int, image: PickedImageResult) {
@@ -174,5 +178,9 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
 
     func techStackAppendDismissed() {
         model?.updateIsPresentedTechStackAppend(isPresented: false)
+    }
+
+    func toastDismissed() {
+        model?.updateIsPresentedToast(isPresented: false)
     }
 }

@@ -38,7 +38,7 @@ extension MyPageModel: MyPageWorkInfoActionProtocol {
 
     func updateSalary(salary: String) {
         guard let salaryInt = Int(salary).map({ String(min($0, 9999)) }) else { return }
-        self.salary = salaryInt
+        self.salary = salaryInt == "0" ? "상관없음" : "\(salaryInt)만원"
     }
 
     func updateFormOfEmployment(form: FormOfEmployment) {
