@@ -20,9 +20,19 @@ public struct SMSPageControl: View {
                 .frame(height: 12)
             }
 
-            RoundedRectangle(cornerRadius: 100, style: .circular)
-                .fill(Color.sms(.primary(.p2)))
-                .frame(width: CGFloat(12 + 48 * selectedPage), height: 12)
+            HStack(spacing: 0) {
+                ForEach(0..<selectedPage, id: \.self) { page in
+                    let isInitial = page == 0
+                    let endCorner: Corners = page == selectedPage ? [.topRight, .bottomRight] : []
+                    let corners: Corners = isInitial ? [.topLeft, .bottomLeft] : endCorners
+
+                    Rectacgle()
+                        .fill(page <= selectedPage ? Color.sms(.primary(.p2)) : Color.sms(. neutral(.n20)))
+                        .frame(height: 12)
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(6, corners: corners)
+                }
+            }
         }
         .padding(2)
         .background(Color.sms(.neutral(.n10)))
