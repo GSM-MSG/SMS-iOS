@@ -49,6 +49,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: decrypt
         run: |
           # decrypt xcconfig
           gpg -d -o "$DECRYPTED_XCCONFIG_PATH" --pinentry-mode loopback --passphrase "$XCCONFIG_KEY" "$ENCRYPTED_XCCONFIG_PATH"
@@ -66,7 +68,6 @@ jobs:
           gpg -d -o "$DECRYPTED_MASTER_KEY_FILE_PATH" --pinentry-mode loopback --passphrase "$MASTER_KEY_KEY" "$ENCRYPTED_MASTER_KEY_FILE_PATH"
 
 
-      - name: decrypt
       - name: configure keychain
         run: |
           security create-keychain -p "" "$KEYCHAIN"
