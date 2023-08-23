@@ -23,14 +23,12 @@ struct InputProjectInfoView: View {
     }
 
     var body: some View {
-        SMSNavigationTitleView(title: "프로젝트") {
+        SMSNavigationTitleView(title: "정보입력") {
             GeometryReader { geometry in
                 ScrollView(showsIndicators: true) {
-                    SMSSeparator()
+                    InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 8, selectedPage: 6)
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "프로젝트", isRequired: false, pageCount: 8, selectedPage: 6)
-
                         VStack(spacing: 24) {
                             ForEach(state.projectList.indices, id: \.self) { index in
                                 projectListRowView(index: index, geometry: geometry)

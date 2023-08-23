@@ -20,18 +20,24 @@ public struct InputInformationPageTitleView: View {
     }
 
     public var body: some View {
-        HStack(spacing: 4) {
-            Text(title)
-                .foregroundColor(.sms(.system(.black)))
-
-            Text("*")
-                .foregroundColor(.sms(.sub(.s2)))
-                .conditional(isRequired)
-
-            Spacer()
-
+        VStack(spacing: 16) {
             SMSPageControl(pageCount: pageCount, selectedPage: selectedPage)
+
+            SMSSeparator()
+
+            HStack(spacing: 4) {
+
+                Text(title)
+                    .foregroundColor(.sms(.system(.black)))
+
+                Text("*")
+                    .foregroundColor(.sms(.sub(.s2)))
+                    .conditional(isRequired)
+
+                Spacer()
+            }
+            .smsFont(.title1)
+            .padding(.horizontal, 20)
         }
-        .smsFont(.title1)
     }
 }

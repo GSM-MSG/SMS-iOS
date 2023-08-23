@@ -15,11 +15,9 @@ struct InputWorkInfoView: View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
                 ScrollView(showsIndicators: false) {
-                    SMSSeparator()
+                    InputInformationPageTitleView(title: "근무 조건", pageCount: 8, selectedPage: 2)
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "근무 조건", pageCount: 8, selectedPage: 2)
-
                         VStack(spacing: 24) {
                             SMSTextField(
                                 "정규직",
