@@ -72,6 +72,9 @@ extension StudentEndpoint: SMSEndpoint {
             let requestDictionary = Dictionary(uniqueKeysWithValues: requestQuery)
             return .requestParameters(query: requestDictionary)
 
+        case let .modifyInformation(req):
+            return .requestJSONEncodable(req)
+
         default:
             return .requestPlain
         }

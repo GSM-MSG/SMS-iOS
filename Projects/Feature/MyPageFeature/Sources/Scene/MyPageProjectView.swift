@@ -73,7 +73,8 @@ struct MyPageProjectView: View {
             }
         } header: {
             HStack(spacing: 16) {
-                SMSText(state.projectList[safe: index]?.name ?? "", font: .title1)
+                let projectName = state.projectList[safe: index]?.name ?? ""
+                SMSText(projectName.isEmpty ? "프로젝트" : projectName, font: .title1)
                     .foregroundColor(.sms(.system(.black)))
 
                 Spacer()

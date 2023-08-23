@@ -122,7 +122,9 @@ struct InputProjectInfoView: View {
         let collapsed = state.collapsedProject[safe: index] ?? false
         VStack(alignment: .leading, spacing: 24) {
             HStack(spacing: 16) {
-                SMSText("프로젝트", font: .title1)
+                let projectName = state.projectList[safe: index]?.name ?? ""
+
+                SMSText(projectName.isEmpty ? "프로젝트" : projectName, font: .title1)
                     .foregroundColor(.sms(.system(.black)))
 
                 Spacer()

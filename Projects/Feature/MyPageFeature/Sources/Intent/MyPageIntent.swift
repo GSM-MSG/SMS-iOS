@@ -120,17 +120,17 @@ final class MyPageIntent: MyPageIntentProtocol {
         Task {
             do {
                 let modifyInformationRequest = ModifyStudentInformationRequestDTO(
-                    certificate: state.certificates,
+                    certificates: state.certificates,
                     contactEmail: state.email,
                     formOfEmployment: FormOfEmployment(rawValue: state.formOfEmployment.rawValue) ?? .fullTime,
                     gsmAuthenticationScore: Int(state.gsmScore) ?? 0,
                     introduce: state.introduce,
-                    languageCertificate: state.languageList.map { $0.toDTO() },
+                    languageCertificates: state.languageList.map { $0.toDTO() },
                     major: state.major,
                     militaryService: state.selectedMilitaryServiceType,
                     portfolioURL: state.portfolioURL,
                     profileImgURL: state.profileURL,
-                    region: state.workRegionList,
+                    regions: state.workRegionList,
                     salary: Int(state.salary) ?? 0,
                     techStacks: state.techStacks,
                     projects: state.projectList.map {
