@@ -5,7 +5,7 @@ import InputSchoolLifeInfoFeatureInterface
 
 final class DummyInputSchoolLifeDelegate: InputSchoolLifeDelegate {
     func schoolLifePrevButtonDidTap() {}
-    func completeToInputSchoolLife(input: InputSchoolLifeInfoFeatureInterface.InputSchoolLifeInformationObject) {}
+    func completeToInputSchoolLife(gsmAuthenticationScore: Int) {}
 }
 
 final class InputSchoolLifeInfoFeatureTests: XCTestCase {
