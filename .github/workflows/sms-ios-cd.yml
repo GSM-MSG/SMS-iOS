@@ -16,7 +16,7 @@ on:
 
 
 env:
-  KEYCHAIN: ${{ sms-ios.keychain }}
+  KEYCHAIN: ${{ 'sms-ios.keychain' }}
 
   CERTS_EXPORT_PWD: ${{ secrets.CERT_EXPORT_SECRET }}
 
