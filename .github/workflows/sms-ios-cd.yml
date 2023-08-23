@@ -52,8 +52,10 @@ jobs:
 
       - name: decrypt
         run: |
+          gpg --version
           # decrypt fastlane env file
           gpg -d -o "$DECRYPTED_FASTLANE_ENV_SECRET_FILE_PATH" --pinentry-mode=loopback --passphrase "$FASTLANE_ENV_SECRET_KEY" "$ENCRYPTED_FASTLANE_ENV_SECRET_FILE_PATH"
+          
           
           # decrypt provisioning file
           gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase "$PROVISION_KEY" "$ENCRYPTED_PROVISION_FILE_PATH"
