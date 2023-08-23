@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 public struct SMSPageControl: View {
     var pageCount: Int
@@ -10,32 +11,26 @@ public struct SMSPageControl: View {
     }
 
     public var body: some View {
-        ZStack(alignment: .leading) {
-            HStack(spacing: 40) {
-                ForEach(0..<pageCount, id: \.self) { _ in
-                    Circle()
-                        .fill(Color.sms(.neutral(.n20)))
-                        .frame(width: 8, height: 8)
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                let spacing = CGFloat((Int(geometry.size.width) - (pageCount * 8)) / (pageCount - 1))
+                HStack(spacing: spacing) {
+                    ForEach(0..<pageCount, id: \.self) { _ in
+                        Circle()
+                            .fill(Color.sms(.neutral(.n20)))
+                            .frame(width: 8, height: 8)
+                    }
+                    .frame(height: 12)
                 }
-                .frame(height: 12)
-            }
 
-            HStack(spacing: 0) {
-                ForEach(0..<selectedPage, id: \.self) { page in
-                    let isInitial = page == 0
-                    let endCorner: Corners = page == selectedPage ? [.topRight, .bottomRight] : []
-                    let corners: Corners = isInitial ? [.topLeft, .bottomLeft] : endCorners
-
-                    Rectacgle()
-                        .fill(page <= selectedPage ? Color.sms(.primary(.p2)) : Color.sms(. neutral(.n20)))
-                        .frame(height: 12)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(6, corners: corners)
-                }
+                Capsule()
+                    .fill(Color.sms(.primary(.p2)))
+                    .frame(width: CGFloat(12 + Int(geometry.size.width) / (pageCount - 1) * selectedPage), height: 12)
             }
+            .padding(2)
+            .background(Color.sms(.neutral(.n10)))
+            .cornerRadius(20)
         }
-        .padding(2)
-        .background(Color.sms(.neutral(.n10)))
-        .cornerRadius(20)
+        .frame(height: 12)
     }
 }
