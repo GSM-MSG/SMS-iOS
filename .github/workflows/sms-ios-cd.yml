@@ -68,7 +68,7 @@ jobs:
           rm -rf "$DECRYPTED_XCCONFIG_PATH"
           
           # decrypt tuist master key
-          #gpg -d -o "$DECRYPTED_MASTER_KEY_FILE_PATH" --pinentry-mode=loopback --passphrase "$MASTER_KEY_KEY" "$ENCRYPTED_MASTER_KEY_FILE_PATH"
+          gpg -d -o "$DECRYPTED_MASTER_KEY_FILE_PATH" --pinentry-mode=loopback --passphrase "$MASTER_KEY_KEY" "$ENCRYPTED_MASTER_KEY_FILE_PATH"
 
 
       - name: configure keychain
@@ -78,6 +78,9 @@ jobs:
           security default-keychain -s "$KEYCHAIN"
           security unlock-keychain -p "" "$KEYCHAIN"
           security set-keychain-settings
+
+      - name: install tuist
+        run: curl -Ls https://install.tuist.io | bash
 
       - name: configure keychain
         run : |
@@ -95,9 +98,6 @@ jobs:
             UUID=`/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin <<< $(security cms -D -i ./$PROVISION)`
             cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
           done
-
-      - name: install tuist
-        run: curl -Ls https://install.tuist.io | bash
 
       - name: install fastlane
         run: brew install fastlane
