@@ -9,6 +9,11 @@ on:
       changed:
         description: 'Changes in this version'
         required: true
+  push:
+    branches:
+      - 245-iOS-cd
+
+
 
 env:
   KEYCHAIN: ${{ sms-ios.keychain }}
