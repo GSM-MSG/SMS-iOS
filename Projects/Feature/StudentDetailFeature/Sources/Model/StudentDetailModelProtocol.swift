@@ -6,12 +6,10 @@ protocol StudentDetailStateProtocol {
     var userRole: UserRoleType { get }
     var studentDetailEntity: StudentDetailEntity? { get }
     var isLoading: Bool { get }
-    var isDownloading: Bool { get }
 }
 
 protocol StudentDetailActionProtocol: AnyObject {
     func updateUserRole(role: UserRoleType)
     func updateStudentDetailEntity(entity: StudentDetailEntity)
     func updateIsLoading(isLoading: Bool)
-    func updateIsDownloading(isDownloading: Bool)
 }
