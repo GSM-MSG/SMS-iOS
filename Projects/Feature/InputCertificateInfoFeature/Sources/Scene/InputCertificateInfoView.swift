@@ -14,16 +14,14 @@ struct InputCertificateInfoView: View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
                 ScrollView(showsIndicators: false) {
-                    SMSSeparator()
+                    InputInformationPageTitleView(
+                        title: "자격증",
+                        isRequired: false,
+                        pageCount: 8,
+                        selectedPage: 4
+                    )
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(
-                            title: "자격증",
-                            isRequired: false,
-                            pageCount: 8,
-                            selectedPage: 4
-                        )
-
                         VStack(spacing: 8) {
                             certificateListView()
                                 .titleWrapper("자격증")

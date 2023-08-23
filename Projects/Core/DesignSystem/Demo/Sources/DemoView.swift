@@ -6,15 +6,9 @@ public struct DemoView: View {
 
     public var body: some View {
         VStack {
-            Button {
-                withAnimation {
-                    self.isLoading = true
-                }
-            } label: {
-                Text("A")
-            }
+            SMSPageControl(pageCount: 8, selectedPage: 2)
         }
-        .smsLoading(isLoading: isLoading)
+        .padding(.horizontal, 20)
     }
 }
 

@@ -145,7 +145,7 @@ struct MainView: View {
                             SMSIcon(.redLogout)
 
                             SMSText("로그아웃", font: .body1)
-                                .foregroundStyle(Color.sms(.system(.error)))
+                                .foregroundStyle(Color.sms(.error(.e2)))
 
                             Spacer()
                         }
@@ -159,7 +159,7 @@ struct MainView: View {
                             SMSIcon(.redPerson)
 
                             SMSText("회원탈퇴", font: .body1)
-                                .foregroundStyle(Color.sms(.system(.error)))
+                                .foregroundStyle(Color.sms(.error(.e2)))
 
                             Spacer()
                         }
