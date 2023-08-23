@@ -50,6 +50,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Select latest Xcode
+        run: "sudo xcode-select -s /Applications/Xcode.app"
+
       - name: decrypt
         run: |
           # decrypt fastlane env file
