@@ -4,6 +4,8 @@ import UIKit
 public struct SMSPageControl: View {
     var pageCount: Int
     var selectedPage: Int
+    var circleWidth: Int = 8
+    var circleSize: CGFloat = 8
 
     public init(pageCount: Int, selectedPage: Int) {
         self.pageCount = pageCount
@@ -13,12 +15,12 @@ public struct SMSPageControl: View {
     public var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                let spacing = CGFloat((Int(geometry.size.width) - (pageCount * 8)) / (pageCount - 1))
+                let spacing = CGFloat((Int(geometry.size.width) - (pageCount * circleWidth)) / (pageCount - 1))
                 HStack(spacing: spacing) {
                     ForEach(0..<pageCount, id: \.self) { _ in
                         Circle()
                             .fill(Color.sms(.neutral(.n20)))
-                            .frame(width: 8, height: 8)
+                            .frame(width: circleSize, height: circleSize)
                     }
                     .frame(height: 12)
                 }
