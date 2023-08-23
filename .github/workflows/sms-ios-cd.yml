@@ -77,7 +77,7 @@ jobs:
           security list-keychains -s "$KEYCHAIN"
           security default-keychain -s "$KEYCHAIN"
           security unlock-keychain -p "" "$KEYCHAIN"
-          security set-keychain-settings
+          security set-keychain-settings -lut 3600
 
       - name: install tuist
         run: curl -Ls https://install.tuist.io | bash
