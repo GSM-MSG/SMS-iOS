@@ -30,15 +30,15 @@ env:
 
   ENCRYPTED_FASTLANE_ENV_SECRET_FILE_PATH: ${{ 'fastlane/.env.secret.gpg' }}
   DECRYPTED_FASTLANE_ENV_SECRET_FILE_PATH: ${{ 'fastlane/.env.secret' }}
-  FASTLANE_ENV_SECRET_KEY: ${{ .secret.FASTLANE_ENV_SECRET }}
+  FASTLANE_ENV_SECRET_KEY: ${{ secrets.FASTLANE_ENV_SECRET }}
 
   ENCRYPTED_APPSTORE_API_KEY_FILE_PATH: ${{ 'fastlane/SMS-AppStoreKey.json.gpg' }}
   DECRYPTED_APPSTORE_API_KEY_FILE_PATH: ${{ 'fastlane/SMS-AppStoreKey.json' }}
-  APPSTORE_API_KEY_KEY: ${{ .secret.APPSTORE_CONNECT_SECRET }}
+  APPSTORE_API_KEY_KEY: ${{ secrets.APPSTORE_CONNECT_SECRET }}
 
   ENCRYPTED_MASTER_KEY_FILE_PATH: ${{ 'Tuist/master.key.gpg' }}
   DECRYPTED_MASTER_KEY_FILE_PATH: ${{ 'Tuist/master.key' }}
-  MASTER_KEY_KEY: ${{ .secret.MASTER_KEY_SECRET }}
+  MASTER_KEY_KEY: ${{ secrets.MASTER_KEY_SECRET }}
 
 
 jobs:
