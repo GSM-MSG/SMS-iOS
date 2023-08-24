@@ -10,6 +10,7 @@ import ViewUtil
 struct InputProjectInfoView: View {
     @FocusState var projectContentIsFocused: Bool
     @StateObject var container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
+    @Environment(\.screenSize) var screenSize
     var intent: any InputProjectInfoIntentProtocol { container.intent }
     var state: any InputProjectInfoStateProtocol { container.model }
     private let techStackAppendBuildable: any TechStackAppendBuildable
@@ -60,7 +61,7 @@ struct InputProjectInfoView: View {
                     }
                     .padding([.top, .horizontal], 20)
                 }
-                .frame(minHeight: UIScreen.main.bounds.size.height)
+                .frame(minHeight: screenSize.height)
             }
         }
         .imagePicker(
