@@ -18,7 +18,7 @@ on:
 env:
   KEYCHAIN: ${{ 'sms-ios.keychain' }}
 
-  CERTS_EXPORT_PWD: ${{ secrets.D_CERT_EXPORT_SECRET }}
+  CERTS_EXPORT_PWD: ${{ secrets.CERT_EXPORT_SECRET }}
 
   ENCRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip.gpg' }}
   DECRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip' }}
