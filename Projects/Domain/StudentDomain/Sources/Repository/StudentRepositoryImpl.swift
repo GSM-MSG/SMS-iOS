@@ -27,4 +27,8 @@ struct StudentRepositoryImpl: StudentRepository {
     func fetchStudentDetailByTeacher(userID: String) async throws -> StudentDetailEntity {
         try await remoteStudentDataSource.fetchStudentDetailByTeacher(userID: userID)
     }
+
+    func modifyInformation(req: ModifyStudentInformationRequestDTO) async throws {
+        try await remoteStudentDataSource.modifyInformation(req: req)
+    }
 }

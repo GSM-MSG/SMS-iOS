@@ -3,10 +3,6 @@ import SwiftUI
 internal struct PressedSelectionButtonStyle: ButtonStyle {
     var isSelected: Bool
 
-    init(isSelected: Bool) {
-        self.isSelected = isSelected
-    }
-
     @ViewBuilder
     func makeBody(configuration: Configuration) -> some View {
         Circle()

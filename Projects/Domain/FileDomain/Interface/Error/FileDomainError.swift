@@ -1,7 +1,6 @@
 import Foundation
 
 public enum FileDomainError: Error {
-    case notHwpFile
     case notImageType
     case internalServerError
 }
@@ -9,9 +8,6 @@ public enum FileDomainError: Error {
 extension FileDomainError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .notHwpFile:
-            return "파일 형식이 hwp 혹은 hwpx인 파일이 아닙니다."
-
         case .notImageType:
             return "이미지 형식이 jpg, jpeg, png, heic인 이미지가 아닙니다."
 

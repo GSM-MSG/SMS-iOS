@@ -1,76 +1,76 @@
 import Foundation
 
-public struct InputStudentInformationRequestDTO: Encodable {
-    public let certificate: [String]
+public struct ModifyStudentInformationRequestDTO: Encodable {
+    public let certificates: [String]
     public let contactEmail: String
     public let formOfEmployment: FormOfEmployment
     public let gsmAuthenticationScore: Int
     public let introduce: String
-    public let languageCertificate: [LanguageCertificate]
+    public let languageCertificates: [LanguageCertificate]
     public let major: String
     public let militaryService: MilitaryServiceType
     public let portfolioURL: String
     public let profileImgURL: String
-    public let region: [String]
+    public let regions: [String]
     public let salary: Int
-    public let techStack: [String]
+    public let techStacks: [String]
     public let projects: [Project]
     public let prizes: [Prize]
 
     public init(
-        certificate: [String],
+        certificates: [String],
         contactEmail: String,
         formOfEmployment: FormOfEmployment,
         gsmAuthenticationScore: Int,
         introduce: String,
-        languageCertificate: [LanguageCertificate],
+        languageCertificates: [LanguageCertificate],
         major: String,
         militaryService: MilitaryServiceType,
         portfolioURL: String,
         profileImgURL: String,
-        region: [String],
+        regions: [String],
         salary: Int,
-        techStack: [String],
+        techStacks: [String],
         projects: [Project] = [],
         prizes: [Prize] = []
     ) {
-        self.certificate = certificate
+        self.certificates = certificates
         self.contactEmail = contactEmail
         self.formOfEmployment = formOfEmployment
         self.gsmAuthenticationScore = gsmAuthenticationScore
         self.introduce = introduce
-        self.languageCertificate = languageCertificate
+        self.languageCertificates = languageCertificates
         self.major = major
         self.militaryService = militaryService
         self.portfolioURL = portfolioURL
         self.profileImgURL = profileImgURL
-        self.region = region
+        self.regions = regions
         self.salary = salary
-        self.techStack = techStack
+        self.techStacks = techStacks
         self.projects = projects
         self.prizes = prizes
     }
 
     enum CodingKeys: String, CodingKey {
-        case certificate
+        case certificates
         case contactEmail
         case formOfEmployment
         case gsmAuthenticationScore
         case introduce
-        case languageCertificate
+        case languageCertificates
         case major
         case militaryService
         case portfolioURL = "portfolioUrl"
         case profileImgURL = "profileImgUrl"
-        case region
+        case regions
         case salary
-        case techStack
+        case techStacks
         case projects
         case prizes
     }
 }
 
-public extension InputStudentInformationRequestDTO {
+public extension ModifyStudentInformationRequestDTO {
     struct LanguageCertificate: Encodable {
         public let languageCertificateName: String
         public let score: String
@@ -140,7 +140,7 @@ public extension InputStudentInformationRequestDTO {
     }
 }
 
-public extension InputStudentInformationRequestDTO.Project {
+public extension ModifyStudentInformationRequestDTO.Project {
     struct Link: Encodable {
         public let name: String
         public let url: String

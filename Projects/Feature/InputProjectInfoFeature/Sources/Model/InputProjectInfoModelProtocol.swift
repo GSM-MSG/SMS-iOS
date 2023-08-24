@@ -49,6 +49,7 @@ protocol InputProjectInfoStateProtocol {
     var isPresentedStartAtDatePicker: Bool { get }
     var isPresentedEndAtDatePicker: Bool { get }
     var isPresentedTechStackAppend: Bool { get }
+    var isPresentedToast: Bool { get }
 }
 
 protocol InputProjectInfoActionProtocol: AnyObject {
@@ -76,4 +77,5 @@ protocol InputProjectInfoActionProtocol: AnyObject {
     func updateIsPresentedStartAtDatePicker(isPresented: Bool)
     func updateIsPresentedEndAtDatePicker(isPresented: Bool)
     func updateIsPresentedTechStackAppend(isPresented: Bool)
+    func updateIsPresentedToast(isPresented: Bool)
 }

@@ -25,7 +25,6 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     }
     @Published var _studentDetailEntity: StudentDetailEntity?
     @Published var isLoading: Bool = false
-    @Published var isDownloading: Bool = false
 }
 // swiftlint: enable identifier_name
 
@@ -40,9 +39,5 @@ extension StudentDetailModel: StudentDetailActionProtocol {
 
     func updateIsLoading(isLoading: Bool) {
         self.isLoading = isLoading
-    }
-
-    func updateIsDownloading(isDownloading: Bool) {
-        self.isDownloading = isDownloading
     }
 }

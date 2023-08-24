@@ -7,6 +7,6 @@ final class RemoteTechStackDataSourceImpl:
     RemoteTechStackDataSource {
     func fetchTechStackList(keyword: String) async throws -> [String] {
         try await request(.fetchTechStackList(keyword: keyword), dto: FetchTechStackListResponseDTO.self)
-            .techStack
+            .techStacks
     }
 }

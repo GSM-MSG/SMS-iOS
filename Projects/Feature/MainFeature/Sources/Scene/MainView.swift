@@ -7,6 +7,7 @@ import UIKit
 import UserDomainInterface
 import ViewUtil
 import FilterFeatureInterface
+import MyPageFeatureInterface
 
 enum MainStudentIDProperty {
     static let studentScrollToTopID = "STUDENT_SCROLL_TO_TOP"
@@ -19,15 +20,18 @@ struct MainView: View {
     var state: any MainStateProtocol { container.model }
     private let studentDetailBuildable: any StudentDetailBuildable
     private let filterBuildable: any FilterBuildable
+    private let myPageBuildable: any MyPageBuildable
 
     init(
         container: MVIContainer<MainIntentProtocol, MainStateProtocol>,
         studentDetailBuildable: any StudentDetailBuildable,
-        filterBuildable: any FilterBuildable
+        filterBuildable: any FilterBuildable,
+        myPageBuildable: any MyPageBuildable
     ) {
         self._container = StateObject(wrappedValue: container)
         self.studentDetailBuildable = studentDetailBuildable
         self.filterBuildable = filterBuildable
+        self.myPageBuildable = myPageBuildable
     }
 
     var body: some View {
@@ -111,6 +115,13 @@ struct MainView: View {
                     set: { _ in intent.filterDismissed() }
                 )
             )
+            .navigate(
+                to: myPageBuildable.makeView(delegate: intent).eraseToAnyView(),
+                when: Binding(
+                    get: { state.isPresentedMyPage },
+                    set: { _ in intent.myPageDismissed() }
+                )
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -123,7 +134,7 @@ struct MainView: View {
                     SMSIcon(.profile, width: 32, height: 32)
                         .clipShape(Circle())
                         .onTapGesture {
-                            intent.existActionSheetIsRequired()
+                            state.currentUserRole == .student ? intent.myPageIsRequired() : intent.exitIsRequired()
                         }
                 }
             }
@@ -132,77 +143,23 @@ struct MainView: View {
                     SMSIcon(.smsLogo, width: 80, height: 29)
                 }
             }
-            .smsBottomSheet(isShowing: Binding(
-                get: { state.isPresentedExistActionSheet },
-                set: { _ in intent.existActionSheetDismissed() }
-            )) {
-                VStack(alignment: .leading, spacing: 32) {
-                    Button {
-                        intent.logoutDialogIsRequired()
-                        intent.existActionSheetDismissed()
-                    } label: {
-                        HStack(spacing: 12) {
-                            SMSIcon(.redLogout)
-
-                            SMSText("로그아웃", font: .body1)
-                                .foregroundStyle(Color.sms(.error(.e2)))
-
-                            Spacer()
-                        }
-                    }
-
-                    Button {
-                        intent.withdrawalDialogIsRequired()
-                        intent.existActionSheetDismissed()
-                    } label: {
-                        HStack(spacing: 12) {
-                            SMSIcon(.redPerson)
-
-                            SMSText("회원탈퇴", font: .body1)
-                                .foregroundStyle(Color.sms(.error(.e2)))
-
-                            Spacer()
-                        }
-                    }
-                    .conditional(state.currentUserRole != .guest)
-                }
-                .padding(.top, 12)
-                .padding(.horizontal, 20)
-            }
-            .animation(.default, value: state.isPresentedExistActionSheet)
             .smsAlert(
-                title: "로그아웃",
-                description: "정말로 로그아웃 하시겠습니까?",
-                isShowing:
-                    Binding(
-                        get: { state.isPresentedLogoutDialog },
-                        set: { _ in intent.logoutDialogDismissed() }
-                    ),
+                title: "게스트 종료",
+                description: "게스트 이용을 종료하시겠습니까?",
+                isShowing: Binding(
+                    get: { state.isPresntedExit },
+                    set: { _ in intent.exitIsDismissed() }
+                ),
                 alertActions: [
-                    .init(text: "확인", style: .outline) {
-                        intent.logoutDialogIsComplete()
+                    .init(text: "취소", style: .outline) {
+                        intent.exitIsDismissed()
                     },
-                    .init(text: "취소") {
-                        intent.logoutDialogDismissed()
+                    .init(text: "확인", style: .default) {
+                        intent.exitIsDismissed()
+                        intent.logout()
                     }
                 ]
             )
-            .smsAlert(
-                title: "회원탈퇴",
-                description: "정말로 회원탈퇴 하시겠습니까?",
-                isShowing:
-                    Binding(
-                        get: { state.isPresentedWithdrawalDialog },
-                        set: { _ in intent.withdrawalDialogDismissed() }
-                    ),
-                alertActions: [
-                    .init(text: "확인", style: .outline) {
-                        intent.withdrawalDialogIsComplete()
-                    },
-                    .init(text: "취소") {
-                        intent.withdrawalDialogDismissed()
-                    }
-                ])
         }
         .navigationViewStyle(.stack)
     }

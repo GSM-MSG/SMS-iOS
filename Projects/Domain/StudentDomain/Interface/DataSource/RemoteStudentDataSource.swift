@@ -6,4 +6,5 @@ public protocol RemoteStudentDataSource {
     func fetchStudentDetailByStudent(userID: String) async throws -> StudentDetailEntity
     func fetchStudentDetailByGuest(userID: String) async throws -> StudentDetailEntity
     func fetchStudentDetailByTeacher(userID: String) async throws -> StudentDetailEntity
+    func modifyInformation(req: ModifyStudentInformationRequestDTO) async throws
 }

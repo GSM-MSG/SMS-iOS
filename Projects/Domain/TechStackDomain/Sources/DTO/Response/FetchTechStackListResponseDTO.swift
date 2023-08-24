@@ -1,9 +1,9 @@
 import Foundation
 
 public struct FetchTechStackListResponseDTO: Decodable {
-    public let techStack: [String]
+    public let techStacks: [String]
 
-    public init(techStack: [String]) {
-        self.techStack = techStack
+    public init(techStacks: [String]) {
+        self.techStacks = techStacks
     }
 }
