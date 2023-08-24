@@ -2,6 +2,7 @@ import DesignSystem
 import NukeUI
 import StudentDomainInterface
 import SwiftUI
+import ViewUtil
 
 @MainActor
 struct ProjectRowView: View {
@@ -15,11 +16,21 @@ struct ProjectRowView: View {
     var body: some View {
         VStack(spacing: 24) {
             projectHeaderSection()
-            projectPreviewsSection()
-            projectTechStacksSection()
-            proejctDescriptionSection()
-            projectMyActivitySection()
-            projectRelatedLinksSection()
+            ConditionView(!project.previewImageURLs.isEmpty) {
+                projectPreviewsSection()
+            }
+            ConditionView(!project.techStacks.isEmpty) {
+                projectTechStacksSection()
+            }
+            ConditionView(!project.description.isEmpty) {
+                proejctDescriptionSection()
+            }
+            ConditionView(!project.myActivity.isEmpty) {
+                projectMyActivitySection()
+            }
+            ConditionView(!project.links.isEmpty) {
+                projectRelatedLinksSection()
+            }
         }
     }
 

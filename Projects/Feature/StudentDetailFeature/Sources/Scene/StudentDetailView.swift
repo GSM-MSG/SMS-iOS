@@ -198,30 +198,32 @@ struct StudentDetailView: View {
                     studentInfoForTeacher(geometry: geometry, detailInfo: detailInfoByTeacher)
                 }
 
-                Spacer().frame(height: 40)
-
-                VStack(spacing: 8) {
-                    ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
-                        PrizeRowView(prize: prize)
-                    }
+                ConditionView(state.userRole == .teacher) {
+                    Spacer().frame(height: 40)
                 }
-                .studentDetailTitleWrapper(title: "수상")
 
-                Spacer().frame(height: 40)
-
-                VStack(spacing: 32) {
-                    ForEach(studentDetail?.projects ?? [], id: \.self) { project in
-                        ProjectRowView(project: project)
+                ConditionView(!(studentDetail?.prizes.isEmpty ?? false)) {
+                    VStack(spacing: 8) {
+                        ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
+                            PrizeRowView(prize: prize)
+                        }
                     }
+                    .studentDetailTitleWrapper(title: "수상")
+
+                    Spacer().frame(height: 40)
                 }
-                .studentDetailTitleWrapper(title: "프로젝트")
+
+                ConditionView(!(studentDetail?.projects.isEmpty ?? false)) {
+                    VStack(spacing: 32) {
+                        ForEach(studentDetail?.projects ?? [], id: \.self) { project in
+                            ProjectRowView(project: project)
+                        }
+                    }
+                    .studentDetailTitleWrapper(title: "프로젝트")
+                }
 
                 Spacer().frame(height: 120)
             }
-
-            Color.sms(.system(.white))
-                .frame(height: 300)
-                .conditional(state.userRole != .teacher)
         }
         .padding(.horizontal, 20)
         .background {
