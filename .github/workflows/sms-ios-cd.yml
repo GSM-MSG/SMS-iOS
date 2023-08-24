@@ -9,9 +9,6 @@ on:
       changed:
         description: 'Changes in this version'
         required: true
-  push:
-    branches:
-      - 245-iOS-cd
 
 
 
@@ -108,7 +105,7 @@ jobs:
           echo "${{ github.event.inputs.changed }}" > fastlane/metadata/ko/release_notes.txt
 
       - name: Distribute
-        run: fastlane release version:1.0.0 # version:$VERSION
+        run: fastlane release version:$VERSION
         shell: bash
         env:
           VERSION: ${{ github.event.inputs.version }}
