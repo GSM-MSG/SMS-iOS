@@ -34,7 +34,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {
         guard
             let inputProfileInfo = state.inputProfileInformationObject,
-            let inputSchoolLifeInfo = state.inputSchoolLifeInformationObject,
             let inputWorkInfo = state.inputWorkInfomationObject,
             let militaryServiceType = state.militaryServiceType
         else {
@@ -51,19 +50,19 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 )
 
                 let inputInformationRequest = try await InputStudentInformationRequestDTO(
-                    certificate: state.certificates,
+                    certificates: state.certificates,
                     contactEmail: inputProfileInfo.contactEmail,
                     formOfEmployment: FormOfEmployment(rawValue: inputWorkInfo.formOfEmployment) ?? .fullTime,
-                    gsmAuthenticationScore: inputSchoolLifeInfo.gsmAuthenticationScore,
+                    gsmAuthenticationScore: state.gsmAuthenticationScore,
                     introduce: inputProfileInfo.introduce,
-                    languageCertificate: state.languages,
+                    languageCertificates: state.languages,
                     major: inputProfileInfo.major,
                     militaryService: militaryServiceType,
                     portfolioURL: inputProfileInfo.portfoiloURL,
                     profileImgURL: profileImageURL,
-                    region: inputWorkInfo.workRegion,
+                    regions: inputWorkInfo.workRegion,
                     salary: inputWorkInfo.salary,
-                    techStack: inputProfileInfo.techStack,
+                    techStacks: inputProfileInfo.techStacks,
                     projects: state.projects.concurrentMap {
                         async let imageURL = self.imageUploadUseCase.execute(
                             image: $0.iconImage?.data ?? .init(),
@@ -117,8 +116,8 @@ extension InputInformationIntent: InputSchoolLifeDelegate {
         model?.prevButtonDidTap()
     }
 
-    func completeToInputSchoolLife(input: InputSchoolLifeInformationObject) {
-        model?.updateInputSchoolLifeInformationObject(object: input)
+    func completeToInputSchoolLife(gsmAuthenticationScore: Int) {
+        model?.updateInputSchoolLifeInformationObject(gsmAuthenticationScore: gsmAuthenticationScore)
         model?.nextButtonDidTap()
     }
 }

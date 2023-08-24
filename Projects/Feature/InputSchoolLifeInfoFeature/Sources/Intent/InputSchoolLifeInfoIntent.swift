@@ -18,22 +18,6 @@ final class InputSchoolLifeInfoIntent: InputSchoolLifeInfoIntentProtocol {
         model?.updateAuthenticationScore(score: score)
     }
 
-    func hwpFileImporterIsRequred() {
-        model?.updateIsPresentedHWPFileImporter(isPresented: true)
-    }
-
-    func hwpFileImporterDismissed() {
-        model?.updateIsPresentedHWPFileImporter(isPresented: false)
-    }
-
-    func hwpFileDidSelect(url: URL) {
-        model?.updateHWPFileURL(url: url)
-    }
-
-    func failedToImportHWPFile() {
-        model?.updateErrorField(field: [.hwp])
-    }
-
     func prevButtonDidTap() {
         inputSchoolLifeDelegate?.schoolLifePrevButtonDidTap()
     }
@@ -45,29 +29,14 @@ final class InputSchoolLifeInfoIntent: InputSchoolLifeInfoIntentProtocol {
             errorSet.insert(.gsmAuthentication)
         }
 
-        if state.hwpFileURL == nil {
-            errorSet.insert(.hwp)
-        }
-
         model?.updateErrorField(field: errorSet)
         guard
             let gsmScore = Int(state.authenticationScore),
-            let hwpURL = state.hwpFileURL,
-            hwpURL.startAccessingSecurityScopedResource(),
-            let hwpData = try? Data(contentsOf: hwpURL),
             errorSet.isEmpty
         else {
-            state.hwpFileURL?.stopAccessingSecurityScopedResource()
             return
         }
-        hwpURL.stopAccessingSecurityScopedResource()
 
-        let input = InputSchoolLifeInformationObject(
-            hwpFilename: state.hwpFilename,
-            gsmAuthenticationScore: gsmScore,
-            hwpData: hwpData
-        )
-
-        inputSchoolLifeDelegate?.completeToInputSchoolLife(input: input)
+        inputSchoolLifeDelegate?.completeToInputSchoolLife(gsmAuthenticationScore: gsmScore)
     }
 }

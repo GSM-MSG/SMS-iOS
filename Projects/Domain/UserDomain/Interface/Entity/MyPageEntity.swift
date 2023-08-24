@@ -20,6 +20,8 @@ public struct MyPageEntity: Equatable {
     public let languageCertificates: [LanguageCertificateEntity]
     public let certificates: [String]
     public let techStacks: [String]
+    public let proejcts: [ProjectEntity]
+    public let prizes: [PrizeEntity]
 
     public init(
         name: String,
@@ -39,7 +41,9 @@ public struct MyPageEntity: Equatable {
         salary: Int,
         languageCertificates: [LanguageCertificateEntity],
         certificates: [String],
-        techStacks: [String]
+        techStacks: [String],
+        projects: [ProjectEntity],
+        prizes: [PrizeEntity]
     ) {
         self.name = name
         self.introduce = introduce
@@ -59,5 +63,7 @@ public struct MyPageEntity: Equatable {
         self.languageCertificates = languageCertificates
         self.certificates = certificates
         self.techStacks = techStacks
+        self.proejcts = projects
+        self.prizes = prizes
     }
 }

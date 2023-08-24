@@ -11,7 +11,7 @@ public struct InputProfileInformationObject {
     public let contactEmail: String
     public let major: String
     public let portfoiloURL: String
-    public let techStack: [String]
+    public let techStacks: [String]
 
     public init(
         profileImageData: Data,
@@ -20,7 +20,7 @@ public struct InputProfileInformationObject {
         contactEmail: String,
         major: String,
         portfoiloURL: String,
-        techStack: [String]
+        techStacks: [String]
     ) {
         self.profileImageData = profileImageData
         self.profileImageFilename = profileImageFilename
@@ -28,6 +28,6 @@ public struct InputProfileInformationObject {
         self.contactEmail = contactEmail
         self.major = major
         self.portfoiloURL = portfoiloURL
-        self.techStack = techStack
+        self.techStacks = techStacks
     }
 }

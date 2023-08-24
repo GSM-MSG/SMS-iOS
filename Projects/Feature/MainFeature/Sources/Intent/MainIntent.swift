@@ -1,4 +1,3 @@
-import AuthDomainInterface
 import FilterFeatureInterface
 import Combine
 import MainFeatureInterface
@@ -9,23 +8,17 @@ final class MainIntent: MainIntentProtocol {
     private weak var model: (any MainActionProtocol)?
     private weak var mainDelegate: (any MainDelegate)?
     private let fetchStudentListUseCase: any FetchStudentListUseCase
-    private let logoutUseCase: any LogoutUseCase
-    private let withdrawalUseCase: any WithdrawalUseCase
     private let loadUserRoleUseCase: any LoadUserRoleUseCase
 
     init(
         model: any MainActionProtocol,
         mainDelegate: any MainDelegate,
         fetchStudentListUseCase: any FetchStudentListUseCase,
-        logoutUseCase: any LogoutUseCase,
-        withdrawalUseCase: any WithdrawalUseCase,
         loadUserRoleUseCase: any LoadUserRoleUseCase
     ) {
         self.mainDelegate = mainDelegate
         self.model = model
         self.fetchStudentListUseCase = fetchStudentListUseCase
-        self.logoutUseCase = logoutUseCase
-        self.withdrawalUseCase = withdrawalUseCase
         self.loadUserRoleUseCase = loadUserRoleUseCase
 
         model.updateUserRole(role: loadUserRoleUseCase.execute())
@@ -65,14 +58,6 @@ final class MainIntent: MainIntentProtocol {
         }
     }
 
-    func existActionSheetIsRequired() {
-        model?.updateIsPresentedExistActionSheet(isPresented: true)
-    }
-
-    func existActionSheetDismissed() {
-        model?.updateIsPresentedExistActionSheet(isPresented: false)
-    }
-
     func filterIsRequired() {
         model?.updateIsPresentedFilterPage(isPresented: true)
     }
@@ -81,44 +66,12 @@ final class MainIntent: MainIntentProtocol {
         model?.updateIsPresentedFilterPage(isPresented: false)
     }
 
-    func logoutDialogIsRequired() {
-        model?.updateIsPresentedLogoutDialog(isPresented: true)
+    func myPageIsRequired() {
+        model?.updateIsPresentedMypage(isPresented: true)
     }
 
-    func logoutDialogDismissed() {
-        model?.updateIsPresentedLogoutDialog(isPresented: false)
-    }
-
-    func logoutDialogIsComplete() {
-        Task {
-            do {
-                try await logoutUseCase.execute()
-                mainDelegate?.logout()
-            } catch {
-                model?.updateIsError(isError: true)
-            }
-        }
-        model?.updateIsPresentedLogoutDialog(isPresented: false)
-    }
-
-    func withdrawalDialogIsRequired() {
-        model?.updateIsPresentedWithdrawalDialog(isPresented: true)
-    }
-
-    func withdrawalDialogDismissed() {
-        model?.updateIsPresentedWithdrawalDialog(isPresented: false)
-    }
-
-    func withdrawalDialogIsComplete() {
-        Task {
-            do {
-                try await withdrawalUseCase.execute()
-                mainDelegate?.logout()
-            } catch {
-                model?.updateIsError(isError: true)
-            }
-        }
-        model?.updateIsPresentedWithdrawalDialog(isPresented: false)
+    func myPageDismissed() {
+        model?.updateIsPresentedMypage(isPresented: false)
     }
 
     func studentDidSelect(userID: String) {
@@ -127,6 +80,18 @@ final class MainIntent: MainIntentProtocol {
 
     func studentDetailDismissed() {
         model?.updateSelectedUserID(userID: nil)
+    }
+
+    func logout() {
+        mainDelegate?.logout()
+    }
+
+    func exitIsRequired() {
+        model?.updateIsPresentedExitDialog(isPresented: true)
+    }
+
+    func exitIsDismissed() {
+        model?.updateIsPresentedExitDialog(isPresented: false)
     }
 }
 

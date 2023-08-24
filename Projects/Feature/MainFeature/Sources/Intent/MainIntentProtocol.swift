@@ -1,20 +1,17 @@
 import Foundation
 import FilterFeatureInterface
+import MyPageFeatureInterface
 import StudentDomainInterface
 
-protocol MainIntentProtocol: FilterDelegate {
+protocol MainIntentProtocol: FilterDelegate, MyPageDelegate {
     func reachedBottom(page: Int, isLast: Bool, filterOption: FilterOption?)
     func refresh(filterOption: FilterOption?)
-    func existActionSheetIsRequired()
-    func existActionSheetDismissed()
     func filterIsRequired()
     func filterDismissed()
-    func logoutDialogIsRequired()
-    func logoutDialogDismissed()
-    func logoutDialogIsComplete()
-    func withdrawalDialogIsRequired()
-    func withdrawalDialogDismissed()
-    func withdrawalDialogIsComplete()
+    func myPageIsRequired()
+    func myPageDismissed()
     func studentDidSelect(userID: String)
     func studentDetailDismissed()
+    func exitIsRequired()
+    func exitIsDismissed()
 }
