@@ -9,6 +9,8 @@ fastlane/screenshots/**/*.png
 fastlane/screenshots/screenshots.html
 fastlane/test_output
 fastlane/FastlaneRunner
+fastlane/.env.default
+fastlane/SMS-AppStoreKey.json
 
 ### Git ###
 *.orig
@@ -114,7 +116,13 @@ xcuserdata
 
 ### Tuist ###
 XCConfig/
+XCConfig.zip
 Tuist/Dependencies
 Derived/
 *.xcworkspace
 *.xcodeproj
+
+### signing ###
+Tuist/master.key
+Tuist/signing/SMS.PROD.mobileprovision
+
