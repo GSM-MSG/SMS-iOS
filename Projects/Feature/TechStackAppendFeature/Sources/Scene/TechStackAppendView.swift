@@ -77,7 +77,7 @@ struct TechStackAppendView: View {
                 SMSChip("\"\(state.searchText)\" 직접 추가하기") {
                     intent.directAppendButtonDidTap(techStack: state.searchText)
                 }
-                .conditional(!state.selectedTechStacks.contains(state.searchText) && !state.searchText.isEmpty)
+                .conditional(!state.selectedTechStacks.contains(state.searchText) && state.searchText.isNotEmpty)
             }
         } else {
             LazyVStack(spacing: 16) {
@@ -88,7 +88,7 @@ struct TechStackAppendView: View {
                 SMSChip("\"\(state.searchText)\" 직접 추가하기") {
                     intent.directAppendButtonDidTap(techStack: state.searchText)
                 }
-                .conditional(!state.selectedTechStacks.contains(state.searchText) && !state.searchText.isEmpty)
+                .conditional(!state.selectedTechStacks.contains(state.searchText) && state.searchText.isNotEmpty)
             }
         }
     }

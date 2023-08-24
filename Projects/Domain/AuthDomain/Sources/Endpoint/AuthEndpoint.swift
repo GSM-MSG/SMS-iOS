@@ -50,7 +50,7 @@ extension AuthEndpoint: SMSEndpoint {
 
     var jwtTokenType: JwtTokenType {
         switch self {
-        case .withdrawal, .verifyIsExistUser:
+        case .withdrawal, .verifyIsExistUser, .logout:
             return .accessToken
 
         case .refresh:

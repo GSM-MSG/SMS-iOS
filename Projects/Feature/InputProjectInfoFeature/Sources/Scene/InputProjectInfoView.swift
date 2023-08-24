@@ -10,6 +10,7 @@ import ViewUtil
 struct InputProjectInfoView: View {
     @FocusState var projectContentIsFocused: Bool
     @StateObject var container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
+    @Environment(\.screenSize) var screenSize
     var intent: any InputProjectInfoIntentProtocol { container.intent }
     var state: any InputProjectInfoStateProtocol { container.model }
     private let techStackAppendBuildable: any TechStackAppendBuildable
@@ -60,6 +61,7 @@ struct InputProjectInfoView: View {
                     }
                     .padding([.top, .horizontal], 20)
                 }
+                .frame(minHeight: screenSize.height)
             }
         }
         .imagePicker(
@@ -148,6 +150,8 @@ struct InputProjectInfoView: View {
                 projectPreviewImageList(index: index)
 
                 projectContentTextEditor(index: index)
+
+                projectMyActivityTextEditor(index: index)
 
                 projectTechStack(geometry: geometry, index: index)
 
@@ -267,7 +271,7 @@ private extension InputProjectInfoView {
         )
         .overlay(alignment: .topLeading) {
             ConditionView(projectContent.isEmpty) {
-                SMSText("프로젝트 내용 입력", font: .body1)
+                SMSText("프로젝트 내용 서술", font: .body1)
                     .foregroundColor(.sms(.neutral(.n30)))
                     .padding([.top, .leading], 12)
                     .onTapGesture {
@@ -275,7 +279,39 @@ private extension InputProjectInfoView {
                     }
             }
         }
-        .titleWrapper("내용")
+        .titleWrapper("프로젝트 설명")
+    }
+
+    @ViewBuilder
+    func projectMyActivityTextEditor(index: Int) -> some View {
+        let projectMyActivity = state.projectList[safe: index]?.mainTask ?? ""
+        TextEditor(
+            text: Binding(
+                get: { projectMyActivity },
+                set: { intent.updateProjectMainTask(index: index, mainTask: $0) }
+            )
+        )
+        .smsFont(.body1, color: .system(.black))
+        .focused($projectContentIsFocused)
+        .colorMultiply(.sms(.neutral(.n10)))
+        .frame(minHeight: 48)
+        .cornerRadius(8)
+        .roundedStroke(
+            cornerRadius: 8,
+            color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
+            lineWidth: projectContentIsFocused ? 1 : 0
+        )
+        .overlay(alignment: .topLeading) {
+            ConditionView(projectMyActivity.isEmpty) {
+                SMSText("주요 작업 내용 서술", font: .body1)
+                    .foregroundColor(.sms(.neutral(.n30)))
+                    .padding([.top, .leading], 12)
+                    .onTapGesture {
+                        projectContentIsFocused = true
+                    }
+            }
+        }
+        .titleWrapper("주요 작업 서술")
     }
 
     @ViewBuilder

@@ -1,6 +1,7 @@
 import DesignSystem
 import SwiftUI
 import StudentDomainInterface
+import ViewUtil
 
 struct PrizeRowView: View {
     let prize: PrizeEntity
@@ -16,17 +17,23 @@ struct PrizeRowView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack(alignment: .top) {
-                    SMSText(prize.name)
-                        .foregroundColor(.sms(.system(.black)))
+                    ConditionView(prize.name.isNotEmpty) {
+                        SMSText(prize.name)
+                            .foregroundColor(.sms(.system(.black)))
+                    }
 
                     Spacer()
 
-                    SMSText(prize.date, font: .caption2)
-                        .foregroundColor(.sms(.system(.black)))
+                    ConditionView(prize.date.isNotEmpty) {
+                        SMSText(prize.date, font: .caption2)
+                            .foregroundColor(.sms(.system(.black)))
+                    }
                 }
 
-                SMSText(prize.type, font: .caption2)
-                    .foregroundColor(.sms(.neutral(.n40)))
+                ConditionView(prize.type.isNotEmpty) {
+                    SMSText(prize.type, font: .caption2)
+                        .foregroundColor(.sms(.neutral(.n40)))
+                }
             }
             .padding(8)
         }

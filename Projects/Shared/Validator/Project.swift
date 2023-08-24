@@ -6,5 +6,7 @@ let project = Project.makeModule(
     name: ModulePaths.Shared.Validator.rawValue,
     product: .staticLibrary,
     targets: [.unitTest],
-    internalDependencies: []
+    internalDependencies: [
+        .Shared.FoundationUtil
+    ]
 )

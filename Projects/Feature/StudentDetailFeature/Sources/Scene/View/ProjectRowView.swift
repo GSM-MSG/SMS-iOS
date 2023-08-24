@@ -2,6 +2,7 @@ import DesignSystem
 import NukeUI
 import StudentDomainInterface
 import SwiftUI
+import ViewUtil
 
 @MainActor
 struct ProjectRowView: View {
@@ -15,10 +16,26 @@ struct ProjectRowView: View {
     var body: some View {
         VStack(spacing: 24) {
             projectHeaderSection()
-            projectPreviewsSection()
-            projectTechStacksSection()
-            projectMyActivitySection()
-            projectRelatedLinksSection()
+
+            ConditionView(project.previewImageURLs.isNotEmpty) {
+                projectPreviewsSection()
+            }
+
+            ConditionView(project.techStacks.isNotEmpty) {
+                projectTechStacksSection()
+            }
+
+            ConditionView(project.description.isNotEmpty) {
+                proejctDescriptionSection()
+            }
+
+            ConditionView(project.myActivity.isNotEmpty) {
+                projectMyActivitySection()
+            }
+
+            ConditionView(project.links.isNotEmpty) {
+                projectRelatedLinksSection()
+            }
         }
     }
 
@@ -86,14 +103,26 @@ struct ProjectRowView: View {
                         }
                 }
             }
+            .studentDetailSubTitleWrapper(title: "사용기술")
         }
     }
 
     @ViewBuilder
     func projectMyActivitySection() -> some View {
         SMSText(project.myActivity, font: .body2)
+            .foregroundColor(.sms(.neutral(.n40)))
             .lineLimit(nil)
             .aligned(.leading)
+            .studentDetailSubTitleWrapper(title: "주요 작업 서술")
+    }
+
+    @ViewBuilder
+    func proejctDescriptionSection() -> some View {
+        SMSText(project.description, font: .body2)
+            .foregroundColor(.sms(.neutral(.n40)))
+            .lineLimit(nil)
+            .aligned(.leading)
+            .studentDetailSubTitleWrapper(title: "프로젝트 설명")
     }
 
     @ViewBuilder
@@ -128,5 +157,6 @@ struct ProjectRowView: View {
                 }
             }
         }
+        .studentDetailSubTitleWrapper(title: "관련 링크")
     }
 }
