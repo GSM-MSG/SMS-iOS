@@ -57,28 +57,21 @@ final class MyPageIntent: MyPageIntentProtocol {
                 model?.updateSalary(salary: "\(profile.salary)")
                 model?.updateLanguageScores(
                     languages: profile.languageCertificates.map {
-                        LanguageModel(name: $0.name, score: $0.score)
+                        $0.toModel()
                     }
                 )
                 model?.updateCertificates(certificates: profile.certificates)
-                model?.updateTechStacks(techStacks: profile.techStacks) 
-                model?.updateProjectList(projectList: profile.proejcts.map {
-                    ProjectModel(
-                        name: $0.name,
-                        iconImage: $0.iconImageURL,
-                        previewImages: $0.previewImageURLs,
-                        content: $0.description,
-                        techStacks: $0.techStacks,
-                        mainTask: $0.myActivity,
-                        startAt: $0.inProgress.start,
-                        endAt: $0.inProgress.end,
-                        isInProgress: $0.inProgress,
-                        relatedLinks: $0.links
-                    )
-                })
-                model?.updatePrizeList(prizeList: profile.prizes.map {
-                    PrizeModel(name: $0.name, prize: $0.type, prizeAt: $0.date.)
-                })
+                model?.updateTechStacks(techStacks: profile.techStacks)
+                model?.updateProjectList(
+                    projectList: profile.proejcts.map {
+                        $0.toModel()
+                    }
+                )
+                model?.updatePrizeList(
+                    prizeList: profile.prizes.map {
+                        $0.toModel()
+                    }
+                )
             } catch {
                 model?.updateIsError(isError: true)
             }
@@ -229,6 +222,57 @@ extension PrizeModel {
             name: name,
             type: prize,
             date: prizeAtString
+        )
+    }
+}
+
+extension ProjectEntity {
+    func toModel() -> ProjectModel {
+        ProjectModel.init(
+            name: name,
+            iconImage: iconImageURL,
+            previewImages: previewImageURLs,
+            content: description,
+            techStacks: Set(techStacks),
+            mainTask: myActivity,
+            startAt: inProgress.start.toISODate(
+                timeZone: .init(identifier: "GMT") ?? .current
+            ),
+            endAt: inProgress.end?.toISODate(
+                timeZone: .init(identifier: "GMT") ?? .current
+            ),
+            isInProgress: ((inProgress.end?.isEmpty) != nil),
+            relatedLinks: links.map { $0.toModel() }
+        )
+    }
+}
+
+extension ProjectEntity.LinkEntity {
+    func toModel() -> ProjectModel.RelatedLink {
+        ProjectModel.RelatedLink.init(
+            name: name,
+            url: url
+        )
+    }
+}
+
+extension PrizeEntity {
+    func toModel() -> PrizeModel {
+        PrizeModel.init(
+            name: name,
+            prize: type,
+            prizeAt: date.toISODate(
+                timeZone: .init(identifier: "GMT") ?? .current
+            )
+        )
+    }
+}
+
+extension LanguageCertificateEntity {
+    func toModel() -> LanguageModel {
+        LanguageModel.init(
+            name: name,
+            score: score
         )
     }
 }
