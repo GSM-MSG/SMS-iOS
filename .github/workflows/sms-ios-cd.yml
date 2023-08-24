@@ -56,9 +56,6 @@ jobs:
       - name: install fastlane
         run: brew install fastlane
 
-      - name: Select latest Xcode
-        run: "sudo xcode-select -s /Applications/Xcode.app"
-
       - name: decrypt
         run: |
           # decrypt fastlane env file
@@ -89,8 +86,8 @@ jobs:
           security set-keychain-settings -lut 3600
 
           # import cert file to keychain
-          echo '111111'
-          security import Tuist/signing/sms-ios.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
+          echo `ls`
+          security import "Tuist/signing/SMS.p12" -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
           echo '2222222'
           security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
           echo '33333333'
