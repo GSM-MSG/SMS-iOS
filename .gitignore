@@ -122,7 +122,7 @@ Derived/
 *.xcworkspace
 *.xcodeproj
 
-### signing ###
+### Signing ###
 Tuist/master.key
 Tuist/signing/SMS.PROD.mobileprovision
 
