@@ -14,7 +14,7 @@ struct MyPageCertificateView: View {
 
     var body: some View {
         Section {
-            VStack(spacing: 8) {`
+            VStack(spacing: 8) {
                 certificateListView()
                     .titleWrapper("자격증")
                     .aligned(.leading)
