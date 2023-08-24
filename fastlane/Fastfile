@@ -39,7 +39,7 @@ platform :ios do
         force: true,
         submit_for_review: true,
         automatic_release: true,
-        api_key_path: "fastlane/SMS-AppStoreAPIKey.json",
+        api_key_path: "fastlane/SMS-AppStoreKey.json",
         precheck_include_in_app_purchases: false,
         submission_information: {
             add_id_info_uses_idfa: false
