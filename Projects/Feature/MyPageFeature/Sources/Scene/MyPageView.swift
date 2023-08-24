@@ -175,21 +175,6 @@ struct MyPageView: View {
         ) { date in
             intent.projectEndAtDidSelect(index: state.focusedProjectIndex, endAt: date)
         }
-        .fullScreenCover(
-            isPresented: Binding(
-                get: { state.isPresentedProjectTechStackAppend },
-                set: { _ in intent.projectTechStackAppendDismissed() }
-            )
-        ) {
-            DeferView {
-                techStackAppendBuildable.makeView(
-                    initial: Array(state.projectList[safe: state.focusedProjectIndex]?.techStacks ?? [])
-                ) {
-                    intent.techStacksDidSelect(index: state.focusedProjectIndex, techStacks: $0)
-                }
-                .eraseToAnyView()
-            }
-        }
         .smsBottomSheet(
             isShowing: Binding(
                 get: { state.isPresentedImageMethodPicker },
@@ -212,19 +197,6 @@ struct MyPageView: View {
             topPadding: 150
         ) {
             majorListView()
-        }
-        .fullScreenCover(
-            isPresented: Binding(
-                get: { state.isPresentedTechStackAppend },
-                set: { _ in intent.techStackAppendDismissed() }
-            )
-        ) {
-            DeferView {
-                techStackAppendBuildable.makeView(initial: state.techStacks) { techStacks in
-                    intent.techStackAppendDidComplete(techStacks: techStacks)
-                }
-                .eraseToAnyView()
-            }
         }
         .animation(.default, value: state.isPresentedImageMethodPicker)
         .navigationTitle("마이페이지")
@@ -434,5 +406,33 @@ struct MyPageView: View {
                 }
             )
         )
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { state.isPresentedTechStackAppend },
+                set: { _ in intent.techStackAppendDismissed() }
+            )
+        ) {
+            DeferView {
+                techStackAppendBuildable.makeView(initial: state.techStacks) { techStacks in
+                    intent.techStackAppendDidComplete(techStacks: techStacks)
+                }
+                .eraseToAnyView()
+            }
+        }
+        .fullScreenCover(
+            isPresented: Binding(
+                get: { state.isPresentedProjectTechStackAppend },
+                set: { _ in intent.projectTechStackAppendDismissed() }
+            )
+        ) {
+            DeferView {
+                techStackAppendBuildable.makeView(
+                    initial: Array(state.projectList[safe: state.focusedProjectIndex]?.techStacks ?? [])
+                ) {
+                    intent.techStacksDidSelect(index: state.focusedProjectIndex, techStacks: $0)
+                }
+                .eraseToAnyView()
+            }
+        }
     }
 }
