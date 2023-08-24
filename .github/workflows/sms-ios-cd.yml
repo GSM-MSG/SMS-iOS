@@ -88,7 +88,7 @@ jobs:
         run : |
           tuist signing decrypt
           # import cert file to keychain
-          security import Tuist/signing/Dotori2.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
+          security import Tuist/signing/sms.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
           security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
 
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
