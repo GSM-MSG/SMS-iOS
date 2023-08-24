@@ -50,6 +50,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: install tuist
+        run: curl -Ls https://install.tuist.io | bash
+
+      - name: install fastlane
+        run: brew install fastlane
+
       - name: Select latest Xcode
         run: "sudo xcode-select -s /Applications/Xcode.app"
 
@@ -81,11 +87,6 @@ jobs:
           security unlock-keychain -p "" "$KEYCHAIN"
           security set-keychain-settings -lut 3600
 
-      - name: install tuist
-        run: curl -Ls https://install.tuist.io | bash
-
-      - name: configure keychain
-        run : |
           tuist signing decrypt
           # import cert file to keychain
           security import Tuist/signing/sms-ios.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
@@ -100,9 +101,6 @@ jobs:
             UUID=`/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin <<< $(security cms -D -i ./$PROVISION)`
             cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
           done
-
-      - name: install fastlane
-        run: brew install fastlane
 
       - name: create .xcodeproj
         run: make ci_generate
