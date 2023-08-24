@@ -22,7 +22,7 @@ struct StudentDetailView: View {
         ZStack(alignment: .topTrailing) {
             VStack {
                 Group {
-                    if let studentDetail, !studentDetail.profileImageURL.isEmpty {
+                    if let studentDetail, studentDetail.profileImageURL.isNotEmpty {
                         LazyImage(url: URL(string: studentDetail.profileImageURL)) { state in
                             if let image = state.image {
                                 image.resizable()
@@ -192,7 +192,7 @@ struct StudentDetailView: View {
                     Spacer().frame(height: 40)
                 }
 
-                ConditionView(!(studentDetail?.prizes.isEmpty ?? false)) {
+                ConditionView(studentDetail?.prizes.isNotEmpty ?? false) {
                     VStack(spacing: 8) {
                         ForEach(studentDetail?.prizes ?? [], id: \.self) { prize in
                             PrizeRowView(prize: prize)
@@ -203,7 +203,7 @@ struct StudentDetailView: View {
                     Spacer().frame(height: 40)
                 }
 
-                ConditionView(!(studentDetail?.projects.isEmpty ?? false)) {
+                ConditionView(studentDetail?.projects.isNotEmpty ?? false) {
                     VStack(spacing: 32) {
                         ForEach(studentDetail?.projects ?? [], id: \.self) { project in
                             ProjectRowView(project: project)
@@ -266,10 +266,10 @@ struct StudentDetailView: View {
                     value: detailInfo.regions.joined(separator: ", "),
                     geometry: geometry
                 )
-                .conditional(!detailInfo.regions.isEmpty)
+                .conditional(detailInfo.regions.isNotEmpty)
 
                 SMSSeparator(.neutral(.n20), height: 1)
-                    .conditional(!detailInfo.languageCertificate.isEmpty)
+                    .conditional(detailInfo.languageCertificate.isNotEmpty)
             }
 
             Group {
@@ -278,7 +278,7 @@ struct StudentDetailView: View {
                 }
 
                 SMSSeparator(.neutral(.n20), height: 1)
-                    .conditional(!detailInfo.certificate.isEmpty)
+                    .conditional(detailInfo.certificate.isNotEmpty)
             }
 
             studentInfoRowView(
@@ -286,7 +286,7 @@ struct StudentDetailView: View {
                 value: detailInfo.certificate.joined(separator: "\n"),
                 geometry: geometry
             )
-            .conditional(!detailInfo.certificate.isEmpty)
+            .conditional(detailInfo.certificate.isNotEmpty)
         }
         .studentDetailTitleWrapper(title: "세부정보")
     }

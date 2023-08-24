@@ -1,4 +1,5 @@
 import Foundation
+import FoundationUtil
 
 public struct RegexValidator: Validator {
     private let regexPattern: String
@@ -16,7 +17,7 @@ public struct RegexValidator: Validator {
     }
 
     public func validate(_ value: String) -> Bool {
-        guard !value.isEmpty, let regex = try? NSRegularExpression(
+        guard value.isNotEmpty, let regex = try? NSRegularExpression(
             pattern: regexPattern,
             options: regexOptions
         ) else { return false }

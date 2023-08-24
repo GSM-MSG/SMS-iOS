@@ -17,20 +17,20 @@ struct PrizeRowView: View {
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack(alignment: .top) {
-                    ConditionView(!prize.name.isEmpty) {
+                    ConditionView(prize.name.isNotEmpty) {
                         SMSText(prize.name)
                             .foregroundColor(.sms(.system(.black)))
                     }
 
                     Spacer()
 
-                    ConditionView(!prize.date.isEmpty) {
+                    ConditionView(prize.date.isNotEmpty) {
                         SMSText(prize.date, font: .caption2)
                             .foregroundColor(.sms(.system(.black)))
                     }
                 }
 
-                ConditionView(!prize.type.isEmpty) {
+                ConditionView(prize.type.isNotEmpty) {
                     SMSText(prize.type, font: .caption2)
                         .foregroundColor(.sms(.neutral(.n40)))
                 }

@@ -38,7 +38,7 @@ public struct SMSTextField: View {
                     .buttonWrapper {
                         text = ""
                     }
-                    .conditional(!text.isEmpty && isOnClear)
+                    .conditional(text.isNotEmpty && isOnClear)
             }
             .padding(.horizontal, 12)
             .frame(height: 48)
@@ -53,7 +53,7 @@ public struct SMSTextField: View {
                 isFocused = true
             }
 
-            ConditionView(isError && !errorText.isEmpty) {
+            ConditionView(isError && errorText.isNotEmpty) {
                 Text(errorText)
                     .padding(.leading, 8)
                     .smsFont(.caption1, color: .error(.e2))

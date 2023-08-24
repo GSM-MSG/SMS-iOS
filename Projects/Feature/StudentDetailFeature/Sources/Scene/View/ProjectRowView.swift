@@ -17,23 +17,23 @@ struct ProjectRowView: View {
         VStack(spacing: 24) {
             projectHeaderSection()
 
-            ConditionView(!project.previewImageURLs.isEmpty) {
+            ConditionView(project.previewImageURLs.isNotEmpty) {
                 projectPreviewsSection()
             }
 
-            ConditionView(!project.techStacks.isEmpty) {
+            ConditionView(project.techStacks.isNotEmpty) {
                 projectTechStacksSection()
             }
 
-            ConditionView(!project.description.isEmpty) {
+            ConditionView(project.description.isNotEmpty) {
                 proejctDescriptionSection()
             }
 
-            ConditionView(!project.myActivity.isEmpty) {
+            ConditionView(project.myActivity.isNotEmpty) {
                 projectMyActivitySection()
             }
 
-            ConditionView(!project.links.isEmpty) {
+            ConditionView(project.links.isNotEmpty) {
                 projectRelatedLinksSection()
             }
         }

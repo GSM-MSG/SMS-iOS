@@ -190,7 +190,7 @@ struct MainView: View {
     ) -> some View {
         HStack(spacing: 12) {
             Group {
-                if !profileImageUrl.isEmpty, let imageURL = URL(string: profileImageUrl) {
+                if profileImageUrl.isNotEmpty, let imageURL = URL(string: profileImageUrl) {
                     LazyImage(url: imageURL) { state in
                         if let image = state.image {
                             image
