@@ -12,11 +12,9 @@ struct InputSchoolLifeInfoView: View {
     var body: some View {
         GeometryReader { proxy in
             SMSNavigationTitleView(title: "정보입력") {
-                SMSSeparator()
+                InputInformationPageTitleView(title: "학교 생활", pageCount: 8, selectedPage: 1)
 
                 VStack(spacing: 32) {
-                    InputInformationPageTitleView(title: "학교 생활", pageCount: 8, selectedPage: 1)
-
                     VStack(spacing: 24) {
                         SMSTextField(
                             "인증제 점수 입력",

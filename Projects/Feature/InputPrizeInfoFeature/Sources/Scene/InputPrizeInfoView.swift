@@ -12,14 +12,12 @@ struct InputPrizeInfoView: View {
     var state: any InputPrizeInfoStateProtocol { container.model }
 
     var body: some View {
-        SMSNavigationTitleView(title: "수상") {
+        SMSNavigationTitleView(title: "정보입력") {
             GeometryReader { geometry in
                 ScrollView(showsIndicators: true) {
-                    SMSSeparator()
+                    InputInformationPageTitleView(title: "수상", isRequired: false, pageCount: 8, selectedPage: 7)
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "수상", isRequired: false, pageCount: 8, selectedPage: 7)
-
                         VStack(spacing: 24) {
                             ForEach(state.prizeList.indices, id: \.self) { index in
                                 prizeListRowView(index: index, geometry: geometry)
