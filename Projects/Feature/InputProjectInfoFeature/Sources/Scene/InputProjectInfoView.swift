@@ -271,7 +271,7 @@ private extension InputProjectInfoView {
         )
         .overlay(alignment: .topLeading) {
             ConditionView(projectContent.isEmpty) {
-                SMSText("프로젝트 내용서술", font: .body1)
+                SMSText("프로젝트 내용 서술", font: .body1)
                     .foregroundColor(.sms(.neutral(.n30)))
                     .padding([.top, .leading], 12)
                     .onTapGesture {
@@ -303,7 +303,7 @@ private extension InputProjectInfoView {
         )
         .overlay(alignment: .topLeading) {
             ConditionView(projectMyActivity.isEmpty) {
-                SMSText("주요 작업 내용서술", font: .body1)
+                SMSText("주요 작업 내용 서술", font: .body1)
                     .foregroundColor(.sms(.neutral(.n30)))
                     .padding([.top, .leading], 12)
                     .onTapGesture {
