@@ -70,7 +70,7 @@ jobs:
           # decrypt xcconfig
           gpg -d -o "$DECRYPTED_XCCONFIG_PATH" --pinentry-mode=loopback --passphrase "$XCCONFIG_KEY" "$ENCRYPTED_XCCONFIG_PATH"
           unzip "$DECRYPTED_XCCONFIG_PATH"
-          rm -rf "$ENCRYPTED_XCCONFIG_PATH"
+          rm -rf "$DECRYPTED_XCCONFIG_PATH"
           
           # decrypt tuist master key
           gpg -d -o "$DECRYPTED_MASTER_KEY_FILE_PATH" --pinentry-mode=loopback --passphrase "$MASTER_KEY_KEY" "$ENCRYPTED_MASTER_KEY_FILE_PATH"
@@ -87,7 +87,8 @@ jobs:
 
           # import cert file to keychain
           echo `ls`
-          security import "Tuist/signing/SMS.p12" -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
+          echo `ls /Tuist/signing
+          # security import Tuist/signing/SMS.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
           echo '2222222'
           security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
           echo '33333333'
