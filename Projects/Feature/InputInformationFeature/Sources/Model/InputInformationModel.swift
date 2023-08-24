@@ -12,7 +12,7 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     @Published var isError: Bool = false
     var errorMessage: String = "알 수 없는 오류가 발생했습니다."
     var inputProfileInformationObject: InputProfileInformationObject?
-    var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject?
+    var gsmAuthenticationScore: Int = 0
     var inputWorkInfomationObject: InputWorkInformationObject?
     var certificates: [String] = []
     var militaryServiceType: MilitaryServiceType?
@@ -41,8 +41,8 @@ extension InputInformationModel: InputInformationActionProtocol {
         self.inputProfileInformationObject = object
     }
 
-    func updateInputSchoolLifeInformationObject(object: InputSchoolLifeInformationObject) {
-        self.inputSchoolLifeInformationObject = object
+    func updateInputSchoolLifeInformationObject(gsmAuthenticationScore: Int) {
+        self.gsmAuthenticationScore = gsmAuthenticationScore
     }
 
     func updateInputWorkInformationObject(object: InputWorkInformationObject) {

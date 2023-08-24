@@ -1,11 +1,10 @@
-import DesignSystem
 import SwiftUI
 
-struct DatePickerField: View {
+public struct DatePickerField: View {
     let dateText: String
     let action: () -> Void
 
-    init(
+    public init(
         dateText: String,
         action: @escaping () -> Void
     ) {
@@ -13,7 +12,7 @@ struct DatePickerField: View {
         self.action = action
     }
 
-    var body: some View {
+    public var body: some View {
         SMSTextField(
             "yyyy.mm",
             text: Binding(

@@ -4,6 +4,7 @@ public extension CTAButton {
     enum CTAStyle {
         case outline
         case `default`
+        case error
     }
 }
 
@@ -17,6 +18,10 @@ public struct CTAButtonStyle: ButtonStyle {
 
         case .`default`:
             DefaultButton(configuration: configuration)
+
+        case .error:
+            ErrorButton(configuration: configuration)
+
         }
     }
 }
@@ -75,6 +80,28 @@ extension CTAButtonStyle {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(strokeColor, lineWidth: 1)
                 }
+        }
+    }
+}
+
+extension CTAButtonStyle {
+    struct ErrorButton: View {
+        let configuration: ButtonStyle.Configuration
+        @Environment(\.isEnabled) var isEnabled
+        var foregroundColor = Color.sms(.system(.white))
+        var backgroundColor: Color {
+            isEnabled ? enabledBackgroundColor : .sms(.error(.e1))
+        }
+        var enabledBackgroundColor: Color {
+            configuration.isPressed ? .sms(.error(.e3)) : .sms(.error(.e2))
+        }
+
+        var body: some View {
+            configuration.label
+                .smsFont(.title2)
+                .foregroundColor(foregroundColor)
+                .background(backgroundColor)
+                .cornerRadius(8)
         }
     }
 }

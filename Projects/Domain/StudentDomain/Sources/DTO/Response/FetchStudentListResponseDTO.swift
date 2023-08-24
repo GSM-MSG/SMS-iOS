@@ -11,7 +11,7 @@ public struct FetchStudentListResponseDTO: Decodable {
         public let profileImg: String
         public let name: String
         public let major: String
-        public let techStack: [String]
+        public let techStacks: [String]
     }
 
     enum CodingKeys: String, CodingKey {
@@ -27,7 +27,7 @@ public extension FetchStudentListResponseDTO.SingleStudentResponseDTO {
             profileImageURL: profileImg,
             name: name,
             major: major,
-            techStack: techStack
+            techStacks: techStacks
         )
     }
 }

@@ -13,6 +13,6 @@ private let template = Template(
         .file(
             path: "Projects/\(layerAttribute)/\(nameAttribute)/Tests/\(nameAttribute)Test.swift",
             templatePath: "Tests.stencil"
-        ),
+        )
     ]
 )

@@ -17,6 +17,14 @@ public extension TargetDependency.Feature {
         target: ModulePaths.Feature.InputPrizeInfoFeature.targetName(type: .sources),
         path: .relativeToFeature(ModulePaths.Feature.InputPrizeInfoFeature.rawValue)
     )
+    static let MyPageFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.MyPageFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.MyPageFeature.rawValue)
+    )
+    static let MyPageFeature = TargetDependency.project(
+        target: ModulePaths.Feature.MyPageFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.MyPageFeature.rawValue)
+    )
     static let InputProjectInfoFeatureInterface = TargetDependency.project(
         target: ModulePaths.Feature.InputProjectInfoFeature.targetName(type: .interface),
         path: .relativeToFeature(ModulePaths.Feature.InputProjectInfoFeature.rawValue)

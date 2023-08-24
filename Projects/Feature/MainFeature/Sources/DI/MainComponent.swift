@@ -1,4 +1,3 @@
-import AuthDomainInterface
 import SwiftUI
 import BaseFeature
 import MainFeatureInterface
@@ -7,11 +6,12 @@ import StudentDetailFeatureInterface
 import StudentDomainInterface
 import FilterFeatureInterface
 import UserDomainInterface
+import MyPageFeatureInterface
 
 public protocol MainDependency: Dependency {
     var studentDomainBuildable: any StudentDomainBuildable { get }
-    var authDomainBuildable: any AuthDomainBuildable { get }
     var filterBuildable: any FilterBuildable { get }
+    var myPageBuildable: any MyPageBuildable { get }
     var studentDetailBuildable: any StudentDetailBuildable { get }
     var userDomainBuildable: any UserDomainBuildable { get }
 }
@@ -23,8 +23,6 @@ public final class MainComponent: Component<MainDependency>, MainBuildable {
             model: model,
             mainDelegate: delegate,
             fetchStudentListUseCase: dependency.studentDomainBuildable.fetchStudentListUseCase,
-            logoutUseCase: dependency.authDomainBuildable.logoutUseCase,
-            withdrawalUseCase: dependency.authDomainBuildable.withdrawalUseCase,
             loadUserRoleUseCase: dependency.userDomainBuildable.loadUserRoleUseCase
         )
         let container = MVIContainer(
@@ -35,7 +33,8 @@ public final class MainComponent: Component<MainDependency>, MainBuildable {
         return MainView(
             container: container,
             studentDetailBuildable: dependency.studentDetailBuildable,
-            filterBuildable: dependency.filterBuildable
+            filterBuildable: dependency.filterBuildable,
+            myPageBuildable: dependency.myPageBuildable
         )
     }
 }

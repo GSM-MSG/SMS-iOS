@@ -23,7 +23,7 @@ protocol InputInformationStateProtocol {
     var isError: Bool { get }
     var errorMessage: String { get }
     var inputProfileInformationObject: InputProfileInformationObject? { get }
-    var inputSchoolLifeInformationObject: InputSchoolLifeInformationObject? { get }
+    var gsmAuthenticationScore: Int { get }
     var inputWorkInfomationObject: InputWorkInformationObject? { get }
     var certificates: [String] { get }
     var militaryServiceType: MilitaryServiceType? { get }
@@ -37,7 +37,7 @@ protocol InputInformationActionProtocol: AnyObject {
     func prevButtonDidTap()
     func nextButtonDidTap()
     func updateInputProfileInformationObject(object: InputProfileInformationObject)
-    func updateInputSchoolLifeInformationObject(object: InputSchoolLifeInformationObject)
+    func updateInputSchoolLifeInformationObject(gsmAuthenticationScore: Int)
     func updateInputWorkInformationObject(object: InputWorkInformationObject)
     func updateCertificates(certificates: [String])
     func updateMilitaryServiceType(type: MilitaryServiceType)

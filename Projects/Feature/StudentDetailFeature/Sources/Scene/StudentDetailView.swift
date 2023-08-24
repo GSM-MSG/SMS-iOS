@@ -93,16 +93,6 @@ struct StudentDetailView: View {
         .onAppear {
             intent.onAppear()
         }
-        .smsToast(
-            text: "드림북을 다운로드 중입니다...",
-            isShowing: Binding(
-                get: { state.isDownloading },
-                set: { _ in }
-            )
-        ) {
-            LottieView(asset: .smsLoading)
-                .frame(width: 24, height: 24)
-        }
         .navigationBarHidden(true)
     }
 

@@ -29,6 +29,8 @@ import KeychainModule
 import KeychainModuleInterface
 import MainFeature
 import MainFeatureInterface
+import MyPageFeature
+import MyPageFeatureInterface
 import MajorDomain
 import MajorDomainInterface
 import NeedleFoundation
@@ -100,6 +102,10 @@ final class AppComponent: BootstrapComponent {
 
     var mainBuildable: any MainBuildable {
         MainComponent(parent: self)
+    }
+
+    var myPageBuildable: any MyPageBuildable {
+        MyPageComponent(parent: self)
     }
 
     var techStackAppendBuildable: any TechStackAppendBuildable {

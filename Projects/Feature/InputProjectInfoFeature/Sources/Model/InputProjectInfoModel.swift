@@ -11,6 +11,7 @@ final class InputProjectInfoModel: ObservableObject, InputProjectInfoStateProtoc
     @Published var isPresentedStartAtDatePicker: Bool = false
     @Published var isPresentedEndAtDatePicker: Bool = false
     @Published var isPresentedTechStackAppend: Bool = false
+    @Published var isPresentedToast: Bool = false
     var focusedProjectIndex: Int = 0
 }
 
@@ -151,5 +152,9 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
 
     func updateIsPresentedTechStackAppend(isPresented: Bool) {
         self.isPresentedTechStackAppend = isPresented
+    }
+
+    func updateIsPresentedToast(isPresented: Bool) {
+        self.isPresentedToast = isPresented
     }
 }

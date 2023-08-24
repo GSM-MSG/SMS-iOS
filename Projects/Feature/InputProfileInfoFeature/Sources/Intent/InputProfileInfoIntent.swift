@@ -120,7 +120,7 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
             contactEmail: state.email,
             major: state.major,
             portfoiloURL: state.portfolioURL,
-            techStack: state.techStacks
+            techStacks: state.techStacks
         )
         inputProfileDelegate?.completeToInputProfile(input: input)
     }

@@ -12,14 +12,12 @@ struct InputPrizeInfoView: View {
     var state: any InputPrizeInfoStateProtocol { container.model }
 
     var body: some View {
-        SMSNavigationTitleView(title: "수상") {
+        SMSNavigationTitleView(title: "정보입력") {
             GeometryReader { geometry in
                 ScrollView(showsIndicators: true) {
-                    SMSSeparator()
+                    InputInformationPageTitleView(title: "수상", isRequired: false, pageCount: 8, selectedPage: 7)
 
                     VStack(spacing: 32) {
-                        InputInformationPageTitleView(title: "수상", isRequired: false, pageCount: 8, selectedPage: 7)
-
                         VStack(spacing: 24) {
                             ForEach(state.prizeList.indices, id: \.self) { index in
                                 prizeListRowView(index: index, geometry: geometry)
@@ -69,9 +67,9 @@ struct InputPrizeInfoView: View {
         let collapsed = state.collapsedPrize[safe: index] ?? false
         VStack(alignment: .leading, spacing: 24) {
             HStack(spacing: 16) {
-                SMSText("수상", font: .title1)
+                let prizeName = state.prizeList[safe: index]?.name ?? ""
+                SMSText(prizeName.isEmpty ? "수상" : prizeName, font: .title1)
                     .foregroundColor(.sms(.system(.black)))
-
                 Spacer()
 
                 SMSIcon(.downChevron)

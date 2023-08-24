@@ -34,4 +34,8 @@ final class RemoteStudentDataSourceImpl: BaseRemoteDataSource<StudentEndpoint>, 
         )
         .toDomain()
     }
+
+    func modifyInformation(req: ModifyStudentInformationRequestDTO) async throws {
+        try await request(.modifyInformation(req))
+    }
 }

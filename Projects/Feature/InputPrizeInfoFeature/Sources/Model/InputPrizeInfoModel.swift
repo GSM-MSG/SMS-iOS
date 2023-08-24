@@ -52,5 +52,4 @@ extension InputPrizeInfoModel: InputPrizeInfoActionProtocol {
     func updateIsPresentedPrizeAtDatePicker(isPresented: Bool) {
         self.isPresentedPrizeAtDatePicker = isPresented
     }
-
 }
