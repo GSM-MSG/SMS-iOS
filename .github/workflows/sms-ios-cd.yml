@@ -59,6 +59,7 @@ jobs:
 
       - name: configure keychain
         run: sh .github/workflows/cd/keychain.sh
+        shell: bash
 
       - name: create .xcodeproj
         run: make ci_generate
