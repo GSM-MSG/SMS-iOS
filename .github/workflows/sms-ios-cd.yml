@@ -87,13 +87,8 @@ jobs:
           security list-keychains
 
           # import cert file to keychain
-          echo `ls`
-          echo `ls Tuist/signing`
-          echo `ls Tuist`
           security import Tuist/signing/SMS.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
-          echo '2222222'
           security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
-          echo '33333333'
 
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
           # for debugging
@@ -113,7 +108,7 @@ jobs:
           echo "${{ github.event.inputs.changed }}" > fastlane/metadata/ko/release_notes.txt
 
       - name: Distribute
-        run: fastlane release version:$VERSION
+        run: fastlane release 1.0.0 # version:$VERSION
         shell: bash
         env:
           VERSION: ${{ github.event.inputs.version }}
