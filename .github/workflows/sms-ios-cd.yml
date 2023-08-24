@@ -87,7 +87,7 @@ jobs:
 
           # import cert file to keychain
           echo `ls`
-          echo `ls /Tuist/signing
+          echo `ls Tuist/signing
           # security import Tuist/signing/SMS.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
           echo '2222222'
           security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
