@@ -123,9 +123,10 @@ struct MyPageView: View {
                 }
                 .ignoresSafeArea()
             }
-        }
-        .onAppear {
-            intent.onAppear()
+            .onAppear {
+                intent.onAppear()
+            }
+            .hideKeyboardWhenTap()
         }
         .edgesIgnoringSafeArea([.bottom])
         .smsBottomSheet(
@@ -343,7 +344,6 @@ struct MyPageView: View {
             }
         }
         .animation(.default, value: state.isPresentedImageMethodPicker)
-        .hideKeyboardWhenTap()
         .navigationTitle("마이페이지")
         .smsBackButton(
             dismiss: dismiss
