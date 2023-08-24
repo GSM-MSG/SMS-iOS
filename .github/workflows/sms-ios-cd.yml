@@ -90,7 +90,7 @@ jobs:
           echo `ls Tuist/signing`
           # security import Tuist/signing/SMS.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
           echo '2222222'
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
+          # security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
           echo '33333333'
 
           mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
