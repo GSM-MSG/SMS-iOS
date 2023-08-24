@@ -54,48 +54,11 @@ jobs:
         run: brew install fastlane
 
       - name: decrypt
-        run: |
-          # decrypt fastlane env file
-          gpg -d -o "$DECRYPTED_FASTLANE_ENV_SECRET_FILE_PATH" --pinentry-mode=loopback --passphrase "$FASTLANE_ENV_SECRET_KEY" "$ENCRYPTED_FASTLANE_ENV_SECRET_FILE_PATH"
-          
-          # decrypt provisioning file
-          gpg -d -o "$DECRYPTED_PROVISION_FILE_PATH" --pinentry-mode=loopback --passphrase "$PROVISION_KEY" "$ENCRYPTED_PROVISION_FILE_PATH"
-          
-          # decrypt app store api key
-          gpg -d -o "$DECRYPTED_APPSTORE_API_KEY_FILE_PATH" --pinentry-mode=loopback --passphrase "$APPSTORE_API_KEY_KEY" "$ENCRYPTED_APPSTORE_API_KEY_FILE_PATH"
-          
-          # decrypt xcconfig
-          gpg -d -o "$DECRYPTED_XCCONFIG_PATH" --pinentry-mode=loopback --passphrase "$XCCONFIG_KEY" "$ENCRYPTED_XCCONFIG_PATH"
-          unzip "$DECRYPTED_XCCONFIG_PATH"
-          rm -rf "$DECRYPTED_XCCONFIG_PATH"
-          
-          # decrypt tuist master key
-          gpg -d -o "$DECRYPTED_MASTER_KEY_FILE_PATH" --pinentry-mode=loopback --passphrase "$MASTER_KEY_KEY" "$ENCRYPTED_MASTER_KEY_FILE_PATH"
-          tuist signing decrypt
-
+        run: sh .github/workflows/cd/decrypt.sh
+        shell: bash
 
       - name: configure keychain
-        run: |
-          security create-keychain -p "" "$KEYCHAIN" 
-          security list-keychains -s "$KEYCHAIN" 
-          security default-keychain -s "$KEYCHAIN" 
-          security unlock-keychain -p "" "$KEYCHAIN"
-          security set-keychain-settings -lut 3600
-          security list-keychains
-
-          # import cert file to keychain
-          security import Tuist/signing/SMS.p12 -k "$KEYCHAIN" -P "$CERTS_EXPORT_PWD" -A
-          security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
-
-          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
-          # for debugging
-          echo `ls Tuist/signing/*.mobileprovision`
-          # 모든 프로비저닝 프로파일을 rename 하고 위에서 만든 디렉토리로 복사하는 과정
-          for PROVISION in `ls Tuist/signing/*.mobileprovision`
-          do
-            UUID=`/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin <<< $(security cms -D -i ./$PROVISION)`
-            cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
-          done
+        run: sh .github/workflows/cd/keychain.sh
 
       - name: create .xcodeproj
         run: make ci_generate
