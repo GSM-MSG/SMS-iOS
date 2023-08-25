@@ -124,5 +124,5 @@ Derived/
 
 ### Signing ###
 Tuist/master.key
-Tuist/signing/SMS.PROD.mobileprovision
+Tuist/Signing/SMS.PROD.mobileprovision
 
