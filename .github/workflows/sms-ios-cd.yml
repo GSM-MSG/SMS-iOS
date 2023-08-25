@@ -19,8 +19,8 @@ env:
   DECRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip' }}
   XCCONFIG_KEY: ${{ secrets.XCCONFIG_SECRET }}
 
-  ENCRYPTED_PROVISION_FILE_PATH: ${{ 'Tuist/signing/SMS.PROD.mobileprovision.gpg' }}
-  DECRYPTED_PROVISION_FILE_PATH: ${{ 'Tuist/signing/SMS.PROD.mobileprovision' }}
+  ENCRYPTED_PROVISION_FILE_PATH: ${{ 'Tuist/Signing/SMS.PROD.mobileprovision.gpg' }}
+  DECRYPTED_PROVISION_FILE_PATH: ${{ 'Tuist/Signing/SMS.PROD.mobileprovision' }}
   PROVISION_KEY: ${{ secrets.PROVISION_SECRET }}
 
   ENCRYPTED_FASTLANE_ENV_SECRET_FILE_PATH: ${{ 'fastlane/.env.default.gpg' }}
