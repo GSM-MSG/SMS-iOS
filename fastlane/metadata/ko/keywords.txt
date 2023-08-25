@@ -1,0 +1,1 @@
+Student, 학생, GSM, 점수
