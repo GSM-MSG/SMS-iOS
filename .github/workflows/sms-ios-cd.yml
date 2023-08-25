@@ -10,8 +10,6 @@ on:
         description: 'Changes in this version'
         required: true
 
-
-
 env:
   KEYCHAIN: ${{ 'sms-ios.keychain' }}
 
