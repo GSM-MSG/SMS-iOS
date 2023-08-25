@@ -11,7 +11,7 @@ security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
 
 mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
 # for debugging
-echo `ls Tuist/signing/*.mobileprovision`
+echo `ls Tuist/Signing/*.mobileprovision`
 # 모든 프로비저닝 프로파일을 rename 하고 위에서 만든 디렉토리로 복사하는 과정
 for PROVISION in `ls Tuist/signing/*.mobileprovision`
 do
