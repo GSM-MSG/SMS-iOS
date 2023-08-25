@@ -54,11 +54,11 @@ jobs:
         run: brew install fastlane
 
       - name: decrypt
-        run: sh .github/workflows/cd/decrypt.sh
+        run: sh .github/workflows/CD/Decrypt.sh
         shell: bash
 
       - name: configure keychain
-        run: sh .github/workflows/cd/keychain.sh
+        run: sh .github/workflows/CD/Keychain.sh
         shell: bash
 
       - name: create .xcodeproj

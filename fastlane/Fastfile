@@ -49,7 +49,7 @@ platform :ios do
     discord_notifier(
       webhook_url: ENV["WEBHOOK_URL"],
       title: "🚀 SMS iOS 배포 자동화 성공",
-      thumbnail_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/1566px-Test-Logo.svg.png?20150906031702",
+      thumbnail_url: "https://media.discordapp.net/attachments/831669183288180746/1143790234102939738/petpet.gif",
       description: "SMS iOS #{version}을 앱스토어에 성공적으로 배포하였습니다 !"
     )
     # add actions here: https://docs.fastlane.tools/actions
@@ -61,7 +61,7 @@ platform :ios do
     discord_notifier(
       webhook_url: ENV["WEBHOOK_URL"],
       title: "👾 SMS iOS 배포 자동화 실패..",
-      thumbnail_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Test-Logo.svg/1566px-Test-Logo.svg.png?20150906031702",
+      thumbnail_url: "https://media.discordapp.net/attachments/831669183288180746/1143790234102939738/petpet.gif",
       success: false,
       color: "#BB3639",
       description: "#{exception}\n #{log}"
