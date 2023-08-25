@@ -13,7 +13,7 @@ mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
 # for debugging
 echo `ls Tuist/Signing/*.mobileprovision`
 # 모든 프로비저닝 프로파일을 rename 하고 위에서 만든 디렉토리로 복사하는 과정
-for PROVISION in `ls Tuist/signing/*.mobileprovision`
+for PROVISION in `ls Tuist/Signing/*.mobileprovision`
 do
   UUID=`/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin <<< $(security cms -D -i ./$PROVISION)`
   cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
