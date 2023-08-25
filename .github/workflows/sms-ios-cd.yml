@@ -60,7 +60,7 @@ jobs:
         shell: bash
 
       - name: create .xcodeproj
-        run: make ci_generate
+        run: make cd_generate
 
       - name: Update Release Note
         run: |
