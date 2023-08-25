@@ -56,14 +56,12 @@ platform :ios do
   end
 
   error do |lane, exception, options|
-    log = sh("cat /Users/runner/Library/Logs/gym/SMS-SMS-PROD.log")
-
     discord_notifier(
       webhook_url: ENV["WEBHOOK_URL"],
       title: "👾 SMS iOS 배포 자동화 실패..",
       thumbnail_url: "https://media.discordapp.net/attachments/831669183288180746/1143790234102939738/petpet.gif",
       color: "#BB3639",
-      description: "#{exception}\n #{log}"
+      description: "#{exception}"
     )
   end
 end
