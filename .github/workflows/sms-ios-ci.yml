@@ -61,5 +61,10 @@ jobs:
       if: steps.cache_dependencies.outputs.cache-hit != 'true'
       run: tuist fetch
 
+    - name: decrypt master key
+      run: gpg -d -o Tuist/master.key --pinentry-mode=loopback --passphrase "$MASTER_KEY_KEY" Tuist/master.key.gpg
+      env:
+        MASTER_KEY_KEY: ${{ secrets.MASTER_KEY_SECRET }}
+
     - name: Test with tuist
       run: TUIST_CI=1 tuist test
