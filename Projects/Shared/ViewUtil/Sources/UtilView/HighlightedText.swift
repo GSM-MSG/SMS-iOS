@@ -1,4 +1,5 @@
 import SwiftUI
+import FoundationUtil
 
 public struct HighlightedText: View {
     let text: String
@@ -20,7 +21,7 @@ public struct HighlightedText: View {
 
     // swiftlint: disable shorthand_operator
     public var body: some View {
-        guard !text.isEmpty && !highlightText.isEmpty else { return defaultModifier(Text(text)) }
+        guard text.isNotEmpty && highlightText.isNotEmpty else { return defaultModifier(Text(text)) }
 
         var result: Text?
         let parts = text.components(separatedBy: highlightText)

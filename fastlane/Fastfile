@@ -62,7 +62,6 @@ platform :ios do
       description: (File.read("metadata/ko/release_notes.txt") rescue ""),
       is_generate_release_notes: true
     )
-
   end
 
   error do |lane, exception, options|

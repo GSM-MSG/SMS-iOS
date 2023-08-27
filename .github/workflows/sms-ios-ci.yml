@@ -67,4 +67,4 @@ jobs:
         MASTER_KEY_KEY: ${{ secrets.MASTER_KEY_SECRET }}
 
     - name: Test with tuist
-      run: TUIST_CI=1 tuist test
+      run: TUIST_ENV=CI tuist test

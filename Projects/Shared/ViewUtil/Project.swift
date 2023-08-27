@@ -5,5 +5,8 @@ import DependencyPlugin
 let project = Project.makeModule(
     name: ModulePaths.Shared.ViewUtil.rawValue,
     product: .staticLibrary,
-    targets: []
+    targets: [],
+    internalDependencies: [
+        .Shared.FoundationUtil
+    ]
 )

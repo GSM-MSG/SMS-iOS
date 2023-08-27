@@ -115,8 +115,10 @@ xcuserdata
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 ### Tuist ###
-XCConfig/
+XCConfig/*
 XCConfig.zip
+!XCConfig/Shared.xcconfig
+
 Tuist/Dependencies
 Derived/
 *.xcworkspace

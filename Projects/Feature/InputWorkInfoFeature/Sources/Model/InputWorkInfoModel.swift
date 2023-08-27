@@ -13,7 +13,7 @@ final class InputWorkInfoModel: ObservableObject, InputWorkInfoStateProtocol {
     @Published var formOfEmployment: FormOfEmployment = .fullTime
     @Published var isPresentedFormOfEmployeementSheet: Bool = false
     var salaryDisplay: String {
-        guard !salary.isEmpty else { return "상관없음" }
+        guard salary.isNotEmpty else { return "상관없음" }
         return "\(numberFormatter.string(for: Int(salary)) ?? "0") 만원"
     }
 }

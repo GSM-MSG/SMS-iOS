@@ -5,7 +5,7 @@ struct StudentDetailTitleWrapper: ViewModifier {
     let title: String
 
     func body(content: Content) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 16) {
             Text(title)
                 .smsFont(.title2, color: .system(.black))
 

@@ -58,7 +58,7 @@ struct MainView: View {
                                     profileImageUrl: item.profileImageURL,
                                     name: item.name,
                                     major: item.major,
-                                    techStack: item.techStacks
+                                    techStacks: item.techStacks
                                 )
                                 .foregroundColor(.sms(.system(.black)))
                                 .buttonWrapper {
@@ -186,11 +186,11 @@ struct MainView: View {
         profileImageUrl: String,
         name: String,
         major: String,
-        techStack: [String]
+        techStacks: [String]
     ) -> some View {
         HStack(spacing: 12) {
             Group {
-                if !profileImageUrl.isEmpty, let imageURL = URL(string: profileImageUrl) {
+                if profileImageUrl.isNotEmpty, let imageURL = URL(string: profileImageUrl) {
                     LazyImage(url: imageURL) { state in
                         if let image = state.image {
                             image
@@ -212,7 +212,7 @@ struct MainView: View {
                 SMSText(major, font: .body2)
                     .padding(.bottom, 16)
 
-                techStackListView(techStack: techStack)
+                techStackListView(techStack: techStacks)
             }
         }
     }

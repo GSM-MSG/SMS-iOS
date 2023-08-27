@@ -1,5 +1,6 @@
 import SwiftUI
 import ViewUtil
+import FoundationUtil
 
 public struct SMSIconTextField<Content: View>: View {
     @Binding var text: String
@@ -43,7 +44,7 @@ public struct SMSIconTextField<Content: View>: View {
                     .buttonWrapper {
                         text = ""
                     }
-                    .conditional(!text.isEmpty && isOnClear)
+                    .conditional(text.isNotEmpty && isOnClear)
             }
             .padding(.horizontal, 12)
             .frame(height: 48)
@@ -58,7 +59,7 @@ public struct SMSIconTextField<Content: View>: View {
                 isFocused = true
             }
 
-            ConditionView(isError && !errorText.isEmpty) {
+            ConditionView(isError && errorText.isNotEmpty) {
                 Text(errorText)
                     .padding(.leading, 8)
                     .smsFont(.caption1, color: .error(.e2))
