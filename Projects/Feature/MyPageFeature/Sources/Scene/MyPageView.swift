@@ -5,6 +5,7 @@ import ViewUtil
 import TechStackAppendFeatureInterface
 import StudentDomainInterface
 
+// swiftlint: disable type_body_length
 struct MyPageView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.safeAreaInsets) var safeAreaInsets
@@ -286,6 +287,7 @@ struct MyPageView: View {
         }
     }
 
+    // swiftlint: disable function_body_length
     @ViewBuilder
     func myPageView(geometry: GeometryProxy) -> some View {
         ScrollView {
