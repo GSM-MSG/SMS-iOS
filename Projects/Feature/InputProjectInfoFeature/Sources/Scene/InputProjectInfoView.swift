@@ -171,7 +171,8 @@ private extension InputProjectInfoView {
                 get: { state.projectList[safe: index]?.name ?? "" },
                 set: { intent.updateProjectName(index: index, name: $0) }
             ),
-            errorText: "프로젝트 이름을 입력해 주세요."
+            errorText: "프로젝트 이름을 입력해 주세요.",
+            isError: state.projectErrorSetList[safe: index]?.contains(.name) ?? false
         )
         .titleWrapper("이름")
     }
