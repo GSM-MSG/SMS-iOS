@@ -85,7 +85,9 @@ struct MyPagePrizeView: View {
             text: Binding(
                 get: { state.prizeList[safe: index]?.name ?? "" },
                 set: { intent.updatePrizeName(index: index, name: $0) }
-            )
+            ),
+            errorText: "수상 이름을 입력해 주세요.",
+            isError: state.prizeErrorSetList[safe: index]?.contains(.name) ?? false
         )
         .titleWrapper("이름")
     }
@@ -97,7 +99,9 @@ struct MyPagePrizeView: View {
             text: Binding(
                 get: { state.prizeList[safe: index]?.prize ?? "" },
                 set: { intent.updatePrizePrize(index: index, prize: $0)}
-            )
+            ),
+            errorText: "수상 종류를 입력해 주세요.",
+            isError: state.prizeErrorSetList[safe: index]?.contains(.type) ?? false
         )
         .titleWrapper("종류")
     }
@@ -109,5 +113,10 @@ struct MyPagePrizeView: View {
             intent.prizeAtButtonDidTap(index: index)
         }
         .titleWrapper("수상 일자")
+
+        if state.prizeErrorSetList[safe: index]?.contains(.date) ?? false {
+            SMSText("수상 일자를 입력해 주세요.", font: .caption1)
+                .foregroundColor(.sms(.error(.e2)))
+        }
     }
 }

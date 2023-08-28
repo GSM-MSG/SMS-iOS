@@ -31,6 +31,7 @@ protocol MyPageProjectIntentProtocol {
     func projectTechStackAppendButtonDidTap(index: Int)
     func projectTechStackAppendDismissed()
     func projectToastDismissed()
+    func validateProject(projects: [ProjectModel]) -> Bool
 }
 
 extension MyPageIntent: MyPageProjectIntentProtocol {
@@ -167,5 +168,54 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
 
     func projectToastDismissed() {
         model?.updateIsPresentedProjectToast(isPresented: false)
+    }
+
+    func validateProject(projects: [ProjectModel]) -> Bool {
+        var errorSet = [Set<MyPageProjectInfoErrorField>]()
+
+        let projectInfoObjects = projects
+            .enumerated()
+            .map { index, project in
+                errorSet.append([])
+                if project.iconImage.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.icon)
+                }
+
+                if project.name.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.name)
+                }
+
+                if project.content.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.content)
+                }
+
+                if project.techStacks.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.techstaks)
+                }
+
+                if project.endAt == nil && !project.isInProgress, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.date)
+                }
+
+                return ProjectModel(
+                    name: project.name,
+                    iconImage: project.iconImage,
+                    previewImages: project.previewImages,
+                    content: project.content,
+                    techStacks: project.techStacks,
+                    mainTask: project.mainTask,
+                    startAt: project.startAt,
+                    endAt: project.endAt,
+                    isInProgress: project.isInProgress,
+                    relatedLinks: project.relatedLinks
+                )
+            }
+
+        model?.updateProjectErrorFieldSet(set: errorSet)
+        guard !errorSet.contains(where: { set in
+            set.isNotEmpty
+        }) else { return true }
+
+        return false
     }
 }

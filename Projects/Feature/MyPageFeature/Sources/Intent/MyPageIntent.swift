@@ -128,6 +128,25 @@ final class MyPageIntent: MyPageIntentProtocol {
 
     func modifyToInputAllInfo(state: any MyPageStateProtocol) {
         model?.updateIsLoading(isLoading: true)
+
+        if self.validateProfile(
+            profileImageURL: state.profileURL,
+            introduce: state.introduce,
+            email: state.email,
+            major: state.major,
+            portfolioURL: state.profileURL
+        ) {
+            return
+        }
+
+        if self.validateProject(projects: state.projectList) {
+            return
+        }
+
+        if self.validatePrize(prizes: state.prizeList) {
+            return
+        }
+
         Task {
             do {
                 let modifyInformationRequest = ModifyStudentInformationRequestDTO(

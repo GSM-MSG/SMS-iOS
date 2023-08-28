@@ -29,6 +29,14 @@ extension ProjectModel {
     }
 }
 
+enum MyPageProjectInfoErrorField: Hashable {
+    case icon
+    case name
+    case content
+    case techstaks
+    case date
+}
+
 protocol MyPageProjectStateProtocol {
     var projectList: [ProjectModel] { get }
     var collapsedProject: [Bool] { get }
@@ -39,6 +47,7 @@ protocol MyPageProjectStateProtocol {
     var isPresentedProjectEndAtDatePicker: Bool { get }
     var isPresentedProjectTechStackAppend: Bool { get }
     var isPresentedProjectToast: Bool { get }
+    var projectErrorSetList: [Set<MyPageProjectInfoErrorField>] { get }
 }
 
 protocol MyPageProjectActionProtocol: AnyObject {
@@ -68,6 +77,7 @@ protocol MyPageProjectActionProtocol: AnyObject {
     func updateIsPresentedProjectEndAtDatePicker(isPresented: Bool)
     func updateIsPresentedProjectTechStackAppend(isPresented: Bool)
     func updateIsPresentedProjectToast(isPresented: Bool)
+    func updateProjectErrorFieldSet(set: [Set<MyPageProjectInfoErrorField>])
 }
 
 extension MyPageModel: MyPageProjectActionProtocol {
@@ -209,5 +219,9 @@ extension MyPageModel: MyPageProjectActionProtocol {
 
     func updateIsPresentedProjectToast(isPresented: Bool) {
         isPresentedProjectToast = isPresented
+    }
+
+    func updateProjectErrorFieldSet(set: [Set<MyPageProjectInfoErrorField>]) {
+        projectErrorSetList = set
     }
 }
