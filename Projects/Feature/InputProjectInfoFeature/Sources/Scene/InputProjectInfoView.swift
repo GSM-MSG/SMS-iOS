@@ -113,6 +113,7 @@ struct InputProjectInfoView: View {
                 .eraseToAnyView()
             }
         }
+        .animation(.default, value: state.projectErrorSetList)
     }
 
     @ViewBuilder

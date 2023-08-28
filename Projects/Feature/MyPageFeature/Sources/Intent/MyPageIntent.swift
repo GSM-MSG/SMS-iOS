@@ -135,15 +135,11 @@ final class MyPageIntent: MyPageIntentProtocol {
             email: state.email,
             major: state.major,
             portfolioURL: state.profileURL
-        ) {
-            return
-        }
-
-        if self.validateProject(projects: state.projectList) {
-            return
-        }
-
-        if self.validatePrize(prizes: state.prizeList) {
+        )
+            && self.validateProject(projects: state.projectList)
+            && self.validatePrize(prizes: state.prizeList) {
+            model?.updateIsError(isError: true)
+            model?.updateIsLoading(isLoading: false)
             return
         }
 

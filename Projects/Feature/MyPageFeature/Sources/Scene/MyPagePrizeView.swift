@@ -42,6 +42,7 @@ struct MyPagePrizeView: View {
             SectionHeaderView(title: "수상")
         }
         .padding(.horizontal, 20)
+        .animation(.default, value: state.prizeErrorSetList)
     }
 
     @ViewBuilder

@@ -88,7 +88,7 @@ struct MyPageProfileView: View {
                     intent.majorSheetIsRequired()
                 }
                 .keyboardType(.emailAddress)
-                focused($focusField, equals: .email)
+                .focused($focusField, equals: .email)
                 .titleWrapper("이메일")
 
                 SMSTextField(

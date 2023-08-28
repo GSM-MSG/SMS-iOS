@@ -48,6 +48,7 @@ struct MyPageProjectView: View {
             SectionHeaderView(title: "프로젝트")
         }
         .padding(.horizontal, 20)
+        .animation(.default, value: state.projectErrorSetList)
     }
 
     @ViewBuilder
