@@ -127,6 +127,7 @@ final class MyPageIntent: MyPageIntentProtocol {
     }
 
     func modifyToInputAllInfo(state: any MyPageStateProtocol) {
+        model?.updateIsLoading(isLoading: true)
         Task {
             do {
                 let modifyInformationRequest = ModifyStudentInformationRequestDTO(
@@ -158,8 +159,10 @@ final class MyPageIntent: MyPageIntentProtocol {
                 )
 
                 try await modifyInformationUseCase.execute(req: modifyInformationRequest)
+                model?.updateIsLoading(isLoading: false)
             } catch {
                 model?.updateIsError(isError: true)
+                model?.updateIsLoading(isLoading: false)
             }
         }
     }
@@ -235,13 +238,9 @@ extension ProjectEntity {
             content: description,
             techStacks: Set(techStacks),
             mainTask: myActivity,
-            startAt: inProgress.start.toISODate(
-                timeZone: .init(identifier: "GMT") ?? .current
-            ),
-            endAt: inProgress.end?.toISODate(
-                timeZone: .init(identifier: "GMT") ?? .current
-            ),
-            isInProgress: ((inProgress.end?.isEmpty) != nil),
+            startAt: inProgress.start.toDateCustomFormat(format: "yyyy.MM"),
+            endAt: inProgress.end?.toDateCustomFormat(format: "yyyy.MM"),
+            isInProgress: inProgress.end == nil,
             relatedLinks: links.map { $0.toModel() }
         )
     }
@@ -261,9 +260,7 @@ extension PrizeEntity {
         PrizeModel.init(
             name: name,
             prize: type,
-            prizeAt: date.toISODate(
-                timeZone: .init(identifier: "GMT") ?? .current
-            )
+            prizeAt: date.toDateCustomFormat(format: "yyyy.MM")
         )
     }
 }

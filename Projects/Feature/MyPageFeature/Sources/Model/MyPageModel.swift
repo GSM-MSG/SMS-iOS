@@ -4,6 +4,7 @@ import StudentDomainInterface
 final class MyPageModel: ObservableObject, MyPageStateProtocol {
     // MARK: MyPage
     @Published var isError: Bool = false
+    @Published var isLoading: Bool = false
     @Published var isPresentedExitBottomSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
@@ -64,6 +65,10 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
 extension MyPageModel: MyPageActionProtocol {
     func updateIsError(isError: Bool) {
         self.isError = isError
+    }
+
+    func updateIsLoading(isLoading: Bool) {
+        self.isLoading = isLoading
     }
 
     func updateIsPresentedExitBottomSheet(isPresented: Bool) {

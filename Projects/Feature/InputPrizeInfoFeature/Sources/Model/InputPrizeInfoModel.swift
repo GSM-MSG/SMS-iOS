@@ -4,6 +4,7 @@ import FoundationUtil
 final class InputPrizeInfoModel: ObservableObject, InputPrizeInfoStateProtocol {
     @Published var prizeList: [PrizeInfo] = []
     @Published var collapsedPrize: [Bool] = []
+    @Published var prizeErrorSetList: [Set<InputPrizeInfoErrorField>] = []
     @Published var isPresentedPrizeAtDatePicker: Bool = false
     var focusedPrizeIndex: Int = 0
 }
@@ -51,5 +52,9 @@ extension InputPrizeInfoModel: InputPrizeInfoActionProtocol {
 
     func updateIsPresentedPrizeAtDatePicker(isPresented: Bool) {
         self.isPresentedPrizeAtDatePicker = isPresented
+    }
+
+    func updateErrorSetList(set: [Set<InputPrizeInfoErrorField>]) {
+        self.prizeErrorSetList = set
     }
 }

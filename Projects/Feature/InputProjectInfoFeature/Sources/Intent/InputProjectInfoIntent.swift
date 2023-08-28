@@ -21,41 +21,72 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
     }
 
     func nextButtonDidTap(projects: [ProjectInfo]) {
-        let projectInfoObjects = projects.map {
-            var iconImage: InputProjectInfoObject.ImageFile?
+        var errorSet = [Set<InputProjectInfoErrorField>]()
 
-            if let unwrapIconImage = $0.iconImage {
-                iconImage = InputProjectInfoObject.ImageFile(
-                    name: unwrapIconImage.fileName,
-                    data: unwrapIconImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+        let projectInfoObjects = projects
+            .enumerated()
+            .map { index, project in
+                errorSet.append([])
+                var iconImage: InputProjectInfoObject.ImageFile?
+
+                if let unwrapIconImage = project.iconImage {
+                    iconImage = InputProjectInfoObject.ImageFile(
+                        name: unwrapIconImage.fileName,
+                        data: unwrapIconImage.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+                    )
+                } else {
+                    iconImage = nil
+                }
+
+                if iconImage == nil, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.icon)
+                }
+
+                if project.name.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.name)
+                }
+
+                if project.content.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.content)
+                }
+
+                if project.techStacks.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.techstaks)
+                }
+
+                if project.endAt == nil && !project.isInProgress, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.date)
+                }
+
+                let previewImages = project.previewImages.map {
+                    return InputProjectInfoObject.ImageFile(
+                        name: $0.fileName,
+                        data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
+                    )
+                }
+
+                let relatedLinks = project.relatedLinks
+                    .filter { $0.name.isNotEmpty && $0.url.isNotEmpty }
+                    .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
+
+                return InputProjectInfoObject(
+                    name: project.name,
+                    iconImage: iconImage,
+                    previewImages: previewImages,
+                    content: project.content,
+                    techStacks: Array(project.techStacks),
+                    mainTask: project.mainTask,
+                    startAt: project.startAt,
+                    endAt: project.isInProgress ? nil : project.endAt,
+                    relatedLinks: relatedLinks
                 )
-            } else {
-                iconImage = nil
             }
 
-            let previewImages = $0.previewImages.map {
-                return InputProjectInfoObject.ImageFile(
-                    name: $0.fileName,
-                    data: $0.uiImage.jpegData(compressionQuality: 0.2) ?? .init()
-                )
-            }
+        model?.updateErrorFieldSet(set: errorSet)
+        guard !errorSet.contains(where: { set in
+            set.isNotEmpty
+        }) else { return }
 
-            let relatedLinks = $0.relatedLinks
-                .filter { $0.name.isNotEmpty && $0.url.isNotEmpty }
-                .map { InputProjectInfoObject.RelatedLink(name: $0.name, url: $0.url) }
-
-            return InputProjectInfoObject(
-                name: $0.name,
-                iconImage: iconImage,
-                previewImages: previewImages,
-                content: $0.content,
-                techStacks: Array($0.techStacks),
-                mainTask: $0.mainTask,
-                startAt: $0.startAt,
-                endAt: $0.isInProgress ? nil : $0.endAt,
-                relatedLinks: relatedLinks
-            )
-        }
         delegate?.completeToInputProjectInfo(input: projectInfoObjects)
     }
 

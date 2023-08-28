@@ -104,7 +104,8 @@ private extension InputPrizeInfoView {
             text: Binding(
                 get: { state.prizeList[safe: index]?.name ?? "" },
                 set: { intent.updatePrizeName(index: index, name: $0) }
-            )
+            ),
+            errorText: "수상 이름을 입력해 주세요."
         )
         .titleWrapper("이름")
     }
@@ -116,18 +117,26 @@ private extension InputPrizeInfoView {
             text: Binding(
                 get: { state.prizeList[safe: index]?.prize ?? "" },
                 set: { intent.updatePrizePrize(index: index, prize: $0)}
-            )
+            ),
+            errorText: "수상 종류를 입력해 주세요."
         )
         .titleWrapper("종류")
     }
 
     @ViewBuilder
     func prizePrizeAt(index: Int) -> some View {
-        let prize = state.prizeList[safe: index]
-        DatePickerField(dateText: prize?.prizeAtString ?? "") {
-            intent.prizeAtButtonDidTap(index: index)
+        VStack(alignment: .leading, spacing: 8) {
+            let prize = state.prizeList[safe: index]
+            DatePickerField(dateText: prize?.prizeAtString ?? "") {
+                intent.prizeAtButtonDidTap(index: index)
+            }
+            .frame(maxWidth: .infinity)
+            .titleWrapper("수상 일자")
+
+            if state.prizeErrorSetList[safe: index]?.contains(.date) ?? false {
+                SMSText("수상 일자를 입력해 주세요.", font: .caption1)
+                    .foregroundColor(.sms(.error(.e2)))
+            }
         }
-        .frame(maxWidth: .infinity)
-        .titleWrapper("수상 일자")
     }
 }

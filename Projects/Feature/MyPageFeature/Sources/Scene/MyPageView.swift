@@ -204,6 +204,7 @@ struct MyPageView: View {
             dismiss: dismiss
         )
         .navigationBarTitleDisplayMode(.inline)
+        .smsLoading(isLoading: state.isLoading)
     }
 
     @ViewBuilder

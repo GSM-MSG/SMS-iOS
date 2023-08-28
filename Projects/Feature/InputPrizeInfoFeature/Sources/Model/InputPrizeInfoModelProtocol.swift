@@ -11,9 +11,16 @@ struct PrizeInfo: Equatable {
     }
 }
 
+enum InputPrizeInfoErrorField: Hashable {
+    case name
+    case type
+    case date
+}
+
 protocol InputPrizeInfoStateProtocol {
     var prizeList: [PrizeInfo] { get }
     var collapsedPrize: [Bool] { get }
+    var prizeErrorSetList: [Set<InputPrizeInfoErrorField>] { get }
     var isPresentedPrizeAtDatePicker: Bool { get }
     var focusedPrizeIndex: Int { get }
 }
@@ -27,4 +34,5 @@ protocol InputPrizeInfoActionProtocol: AnyObject {
     func removePrize(index: Int)
     func updateFocusedPrizeIndex(index: Int)
     func updateIsPresentedPrizeAtDatePicker(isPresented: Bool)
+    func updateErrorSetList(set: [Set<InputPrizeInfoErrorField>])
 }

@@ -120,28 +120,30 @@ struct MyPageProfileView: View {
                         intent.techStackAppendIsRequired()
                     }
 
-                    TagLayoutView(
-                        state.techStacks,
-                        tagFont: UIFont(
-                            font: DesignSystemFontFamily.Pretendard.regular,
-                            size: 24
-                        ) ?? .init(),
-                        padding: 20,
-                        parentWidth: geometry.size.width
-                    ) { techStack in
-                        HStack {
-                            SMSText(techStack, font: .body2)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        TagLayoutView(
+                            state.techStacks,
+                            tagFont: UIFont(
+                                font: DesignSystemFontFamily.Pretendard.regular,
+                                size: 24
+                            ) ?? .init(),
+                            padding: 20,
+                            parentWidth: geometry.size.width
+                        ) { techStack in
+                            HStack {
+                                SMSText(techStack, font: .body2)
 
-                            SMSIcon(.xmarkOutline, width: 20, height: 20)
-                                .buttonWrapper {
-                                    intent.removeTechStack(techStack: techStack)
-                                }
+                                SMSIcon(.xmarkOutline, width: 20, height: 20)
+                                    .buttonWrapper {
+                                        intent.removeTechStack(techStack: techStack)
+                                    }
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 10)
+                            .background(Color.sms(.neutral(.n10)))
+                            .fixedSize()
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 10)
-                        .background(Color.sms(.neutral(.n10)))
-                        .fixedSize()
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
                     }
                 }
                 .titleWrapper("세부스택 (최대 5개)")
