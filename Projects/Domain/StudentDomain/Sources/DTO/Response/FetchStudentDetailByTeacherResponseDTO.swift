@@ -25,7 +25,7 @@ public struct FetchStudentDetailByTeacherResponseDTO: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case name, introduce, portfolioUrl, grade, classNum, number, department, contactEmail, gsmAuthenticationScore
-        case formOfEmployment, regions,, militaryService, salary, languageCertificates, certificates
+        case formOfEmployment, regions, militaryService, salary, languageCertificates, certificates
         case major, techStacks, projects, prizes
         case profileImg = "profileImgUrl"
     }
