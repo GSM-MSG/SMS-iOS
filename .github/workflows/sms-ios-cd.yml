@@ -62,12 +62,26 @@ jobs:
       - name: create .xcodeproj
         run: make cd_generate
 
+      - name: Release Branch Create
+        run: |
+            git config --global user.email 'MSG-Github'
+            git config --global user.email 'matsougeum@gmail.com'
+            git config pull.rebase false
+            git checkout -b release/${{ github.event.inputs.version }}
+
       - name: Update Release Note
         run: |
           echo "${{ github.event.inputs.changed }}" > fastlane/metadata/ko/release_notes.txt
 
       - name: Distribute
         run: fastlane release version:$VERSION
+        shell: bash
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Commit and PR
+        run: sh .github/workflows/AppStore/ReleasePR.sh
         shell: bash
         env:
           VERSION: ${{ github.event.inputs.version }}
