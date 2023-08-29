@@ -4,7 +4,17 @@ import DependencyPlugin
 import EnvironmentPlugin
 import Foundation
 
-let configurations: [Configuration] = .default
+let configurations: [Configuration] = generateEnvironment == .ci ?
+[
+  .debug(name: .dev),
+  .debug(name: .stage),
+  .release(name: .prod)
+] :
+[
+  .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: "App")),
+  .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: "App")),
+  .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: "App"))
+]
 
 let settings: Settings =
     .settings(base: env.baseSetting,
