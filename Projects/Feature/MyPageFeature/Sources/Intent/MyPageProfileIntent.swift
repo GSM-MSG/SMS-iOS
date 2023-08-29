@@ -149,9 +149,9 @@ extension MyPageIntent: MyPageProfileIntentProtocol {
         guard
             errorSet.isEmpty
         else {
-            return true
+            return false
         }
 
-        return false
+        return true
     }
 }

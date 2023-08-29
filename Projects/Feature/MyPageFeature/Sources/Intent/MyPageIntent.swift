@@ -129,7 +129,7 @@ final class MyPageIntent: MyPageIntentProtocol {
     func modifyToInputAllInfo(state: any MyPageStateProtocol) {
         model?.updateIsLoading(isLoading: true)
 
-        if self.validateProfile(
+        guard self.validateProfile(
             profileImageURL: state.profileURL,
             introduce: state.introduce,
             email: state.email,
@@ -137,7 +137,7 @@ final class MyPageIntent: MyPageIntentProtocol {
             portfolioURL: state.profileURL
         )
             && self.validateProject(projects: state.projectList)
-            && self.validatePrize(prizes: state.prizeList) {
+                && self.validatePrize(prizes: state.prizeList) else {
             model?.updateIsError(isError: true)
             model?.updateIsLoading(isLoading: false)
             return

@@ -88,10 +88,8 @@ extension MyPageIntent: MyPagePrizeIntentProtocol {
                 )
             }
         model?.updatePrizeErrorSetList(set: errorSet)
-        guard !errorSet.contains(where: { set in
-            set.isNotEmpty
-        }) else { return true }
+        guard !errorSet.contains(where: { $0.isNotEmpty }) else { return false }
 
-        return false
+        return true
     }
 }
