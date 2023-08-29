@@ -157,4 +157,8 @@ extension InputProjectInfoModel: InputProjectInfoActionProtocol {
     func updateIsPresentedToast(isPresented: Bool) {
         self.isPresentedToast = isPresented
     }
+
+    func updateErrorFieldSet(set: [Set<InputProjectInfoErrorField>]) {
+        self.projectErrorSetList = set
+    }
 }

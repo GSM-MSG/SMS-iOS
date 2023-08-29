@@ -11,11 +11,18 @@ struct PrizeModel: Equatable {
     }
 }
 
+enum MyPagePrizeInfoErrorField: Hashable {
+    case name
+    case type
+    case date
+}
+
 protocol MyPagePrizeStateProtocol {
     var prizeList: [PrizeModel] { get }
     var collapsedPrize: [Bool] { get }
     var isPresentedPrizeAtDatePicker: Bool { get }
     var focusedPrizeIndex: Int { get }
+    var prizeErrorSetList: [Set<MyPagePrizeInfoErrorField>] { get }
 }
 
 protocol MyPagePrizeActionProtocol: AnyObject {
@@ -28,6 +35,7 @@ protocol MyPagePrizeActionProtocol: AnyObject {
     func removePrize(index: Int)
     func updateFocusedPrizeIndex(index: Int)
     func updateIsPresentedPrizeAtDatePicker(isPresented: Bool)
+    func updatePrizeErrorSetList(set: [Set<MyPagePrizeInfoErrorField>])
 }
 
 extension MyPageModel: MyPagePrizeActionProtocol {
@@ -79,4 +87,7 @@ extension MyPageModel: MyPagePrizeActionProtocol {
         self.isPresentedPrizeAtDatePicker = isPresented
     }
 
+    func updatePrizeErrorSetList(set: [Set<MyPagePrizeInfoErrorField>]) {
+        self.prizeErrorSetList = set
+    }
 }

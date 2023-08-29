@@ -12,6 +12,7 @@ protocol MyPagePrizeIntentProtocol {
     func prizeAtButtonDidTap(index: Int)
     func prizeAtDismissed()
     func prizeAppendButtonDidTap()
+    func validatePrize(prizes: [PrizeModel]) -> Bool
 }
 
 extension MyPageIntent: MyPagePrizeIntentProtocol {
@@ -58,5 +59,37 @@ extension MyPageIntent: MyPagePrizeIntentProtocol {
 
     func prizeAppendButtonDidTap() {
         model?.appendEmptyPrize()
+    }
+
+    func validatePrize(prizes: [PrizeModel]) -> Bool {
+        var errorSet: [Set<MyPagePrizeInfoErrorField>] = []
+
+        let prizeInfoObjects = prizes
+            .enumerated()
+            .map { index, prize in
+                errorSet.append([])
+
+                if prize.name.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.name)
+                }
+
+                if prize.prize.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.type)
+                }
+
+                if prize.prizeAt.description.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.date)
+                }
+
+                return PrizeModel(
+                    name: prize.name,
+                    prize: prize.prize,
+                    prizeAt: prize.prizeAt
+                )
+            }
+        model?.updatePrizeErrorSetList(set: errorSet)
+        guard !errorSet.contains(where: { $0.isNotEmpty }) else { return false }
+
+        return true
     }
 }

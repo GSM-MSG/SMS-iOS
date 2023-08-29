@@ -4,6 +4,7 @@ import StudentDomainInterface
 final class MyPageModel: ObservableObject, MyPageStateProtocol {
     // MARK: MyPage
     @Published var isError: Bool = false
+    @Published var isLoading: Bool = false
     @Published var isPresentedExitBottomSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
@@ -22,6 +23,7 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var isPresentedProfileCamera: Bool = false
     @Published var isPresentedProfileImage: Bool = false
     @Published var isPresentedTechStackAppend: Bool = false
+    @Published var profileErrorFieldSet: Set<MyPageProfileErrorField> = []
 
     // MARK: SchoolLife
     @Published var gsmScore: String = ""
@@ -53,17 +55,23 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var isPresentedProjectEndAtDatePicker: Bool = false
     @Published var isPresentedProjectTechStackAppend: Bool = false
     @Published var isPresentedProjectToast: Bool = false
+    @Published var projectErrorSetList: [Set<MyPageProjectInfoErrorField>] = []
 
     // MARK: Prize
     @Published var prizeList: [PrizeModel] = []
     @Published var collapsedPrize: [Bool] = []
     @Published var isPresentedPrizeAtDatePicker: Bool = false
     @Published var focusedPrizeIndex: Int = 0
+    @Published var prizeErrorSetList: [Set<MyPagePrizeInfoErrorField>] = []
 }
 
 extension MyPageModel: MyPageActionProtocol {
     func updateIsError(isError: Bool) {
         self.isError = isError
+    }
+
+    func updateIsLoading(isLoading: Bool) {
+        self.isLoading = isLoading
     }
 
     func updateIsPresentedExitBottomSheet(isPresented: Bool) {

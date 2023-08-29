@@ -1,5 +1,13 @@
 import Foundation
 
+enum MyPageProfileErrorField: Hashable {
+    case profile
+    case introduce
+    case email
+    case major
+    case portfoilo
+}
+
 protocol MyPageProfileStateProtocol {
     var profileURL: String { get }
     var introduce: String { get }
@@ -14,6 +22,7 @@ protocol MyPageProfileStateProtocol {
     var isPresentedProfileCamera: Bool { get }
     var isPresentedProfileImage: Bool { get }
     var isPresentedTechStackAppend: Bool { get }
+    var profileErrorFieldSet: Set<MyPageProfileErrorField> { get }
 }
 
 protocol MyPageProfileActionProtocol: AnyObject {
@@ -31,6 +40,7 @@ protocol MyPageProfileActionProtocol: AnyObject {
     func updateIsPresentedProfileCamera(isPresented: Bool)
     func updateIsPresentedProfileImage(isPresented: Bool)
     func updateIsPresentedTechStackAppend(isPresented: Bool)
+    func updateProfileErrorFieldSet(set: Set<MyPageProfileErrorField>)
 }
 
 extension MyPageModel: MyPageProfileActionProtocol {
@@ -88,5 +98,9 @@ extension MyPageModel: MyPageProfileActionProtocol {
 
     func updateIsPresentedTechStackAppend(isPresented: Bool) {
         self.isPresentedTechStackAppend = isPresented
+    }
+
+    func updateProfileErrorFieldSet(set: Set<MyPageProfileErrorField>) {
+        self.profileErrorFieldSet = set
     }
 }

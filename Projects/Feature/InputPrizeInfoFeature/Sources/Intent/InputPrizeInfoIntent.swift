@@ -1,5 +1,6 @@
 import Foundation
 import InputPrizeInfoFeatureInterface
+import FoundationUtil
 
 final class InputPrizeInfoIntent: InputPrizeInfoIntentProtocol {
     private weak var model: (any InputPrizeInfoActionProtocol)?
@@ -18,13 +19,34 @@ final class InputPrizeInfoIntent: InputPrizeInfoIntentProtocol {
     }
 
     func completeButtonDidTap(prizes: [PrizeInfo]) {
-        let prizeInfoObjects = prizes.map {
-            return InputPrizeInfoObject(
-                name: $0.name,
-                prize: $0.prize,
-                prizeAt: $0.prizeAt
-            )
-        }
+        var errorSet: [Set<InputPrizeInfoErrorField>] = []
+
+        let prizeInfoObjects = prizes
+            .enumerated()
+            .map { index, prize in
+                errorSet.append([])
+
+                if prize.name.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.name)
+                }
+
+                if prize.prize.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.type)
+                }
+
+                if prize.prizeAt.description.isEmpty, errorSet[safe: index] != nil {
+                    errorSet[index].insert(.date)
+                }
+
+                return InputPrizeInfoObject(
+                    name: prize.name,
+                    prize: prize.prize,
+                    prizeAt: prize.prizeAt
+                )
+            }
+        model?.updateErrorSetList(set: errorSet)
+        guard !errorSet.contains(where: { $0.isNotEmpty }) else { return }
+
         delegate?.completeToInputPrizeInfo(input: prizeInfoObjects)
     }
 

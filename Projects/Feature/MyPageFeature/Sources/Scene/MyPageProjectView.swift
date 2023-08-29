@@ -48,6 +48,7 @@ struct MyPageProjectView: View {
             SectionHeaderView(title: "프로젝트")
         }
         .padding(.horizontal, 20)
+        .animation(.default, value: state.projectErrorSetList)
     }
 
     @ViewBuilder
@@ -106,7 +107,9 @@ private extension MyPageProjectView {
             text: Binding(
                 get: { state.projectList[safe: index]?.name ?? "" },
                 set: { intent.updateProjectName(index: index, name: $0) }
-            )
+            ),
+            errorText: "프로젝트 이름을 입력해 주세요.",
+            isError: state.projectErrorSetList[safe: index]?.contains(.name) ?? false
         )
         .titleWrapper("이름")
     }
@@ -153,6 +156,11 @@ private extension MyPageProjectView {
                 }
             )
         )
+
+        if state.projectErrorSetList[safe: index]?.contains(.icon) ?? false {
+            SMSText("프로젝트 아이콘을 선택해 주세요.", font: .caption1)
+                .foregroundColor(.sms(.error(.e2)))
+        }
     }
 
     @ViewBuilder
@@ -230,6 +238,11 @@ private extension MyPageProjectView {
             }
         }
         .titleWrapper("프로젝트 설명")
+
+        if state.projectErrorSetList[safe: index]?.contains(.content) ?? false {
+            SMSText("프로젝트 내용을 입력해 주세요.", font: .caption1)
+                .foregroundColor(.sms(.error(.e2)))
+        }
     }
 
     @ViewBuilder
@@ -284,28 +297,35 @@ private extension MyPageProjectView {
                 intent.projectTechStackAppendButtonDidTap(index: index)
             }
 
-            TagLayoutView(
-                Array(state.projectList[safe: index]?.techStacks ?? []),
-                tagFont: UIFont(
-                    font: DesignSystemFontFamily.Pretendard.regular,
-                    size: 24
-                ) ?? .init(),
-                padding: 20,
-                parentWidth: geometry.size.width
-            ) { techStack in
-                HStack {
-                    SMSText(techStack, font: .body2)
+            ScrollView(.horizontal, showsIndicators: false) {
+                TagLayoutView(
+                    Array(state.projectList[safe: index]?.techStacks ?? []),
+                    tagFont: UIFont(
+                        font: DesignSystemFontFamily.Pretendard.regular,
+                        size: 24
+                    ) ?? .init(),
+                    padding: 20,
+                    parentWidth: geometry.size.width
+                ) { techStack in
+                    HStack {
+                        SMSText(techStack, font: .body2)
 
-                    SMSIcon(.xmarkOutline, width: 20, height: 20)
-                        .buttonWrapper {
-                            intent.removeProjectTechStackButtonDidTap(index: index, techStack: techStack)
-                        }
+                        SMSIcon(.xmarkOutline, width: 20, height: 20)
+                            .buttonWrapper {
+                                intent.removeProjectTechStackButtonDidTap(index: index, techStack: techStack)
+                            }
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 10)
+                    .background(Color.sms(.neutral(.n10)))
+                    .fixedSize()
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-                .background(Color.sms(.neutral(.n10)))
-                .fixedSize()
-                .clipShape(RoundedRectangle(cornerRadius: 4))
+            }
+
+            if state.projectErrorSetList[safe: index]?.contains(.techstaks) ?? false {
+                SMSText("사용 기술을 추가해 주세요.", font: .caption1)
+                    .foregroundColor(.sms(.error(.e2)))
             }
         }
         .titleWrapper("사용 기술 (최대 20개)")
@@ -331,6 +351,11 @@ private extension MyPageProjectView {
                 }
             }
             .animation(.spring(blendDuration: 0.3), value: state.projectList.map(\.isInProgress))
+
+            if state.projectErrorSetList[safe: index]?.contains(.date) ?? false {
+                SMSText("프로젝트 진행 기간을 입력해 주세요.", font: .caption1)
+                    .foregroundColor(.sms(.error(.e2)))
+            }
 
             HStack(spacing: 8) {
                 SMSCheckbox(
