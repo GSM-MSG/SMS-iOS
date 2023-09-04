@@ -195,6 +195,7 @@ struct MainView: View {
                         if let image = state.image {
                             image
                                 .resizable()
+                                .aspectRatio(contentMode: .fill)
                         } else {
                             SMSIcon(.profile, width: 101, height: 101)
                         }

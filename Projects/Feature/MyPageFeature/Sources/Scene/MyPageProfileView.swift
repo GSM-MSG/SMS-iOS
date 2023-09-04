@@ -35,15 +35,16 @@ struct MyPageProfileView: View {
                             LazyImage(url: profileImageURL) { image in
                                 if let image = image.image {
                                     image.resizable()
-                                        .frame(width: 100, height: 100)
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 168, height: 168)
                                         .cornerRadius(8)
                                 } else {
                                     Color.sms(.neutral(.n30))
-                                        .frame(width: 100, height: 100)
+                                        .frame(width: 168, height: 168)
                                 }
                             }
                         } else {
-                            SMSIcon(.profile, width: 100, height: 100)
+                            SMSIcon(.profile, width: 168, height: 168)
                         }
 
                         SMSIcon(.profileSmallPlus)
