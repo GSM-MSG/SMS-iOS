@@ -40,10 +40,6 @@ final class StudentDetailIntent: StudentDetailIntentProtocol {
             }
         }
     }
-
-    deinit {
-        print("DEIIN")
-    }
 }
 
 private extension UserRoleType {

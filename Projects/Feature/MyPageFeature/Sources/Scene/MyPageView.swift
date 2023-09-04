@@ -45,6 +45,16 @@ struct MyPageView: View {
             }
             .hideKeyboardWhenTap()
         }
+        .smsToast(
+            text: "정보수정이 완료되었습니다.",
+            isShowing: Binding<Bool>(
+                get: {
+                    state.isCompleteModify
+                }, set: { _ in
+                    intent.modifyCompleteToastDismissed()
+                }
+            )
+        )
         .edgesIgnoringSafeArea([.bottom])
         .smsBottomSheet(
             isShowing: Binding(
@@ -233,6 +243,7 @@ struct MyPageView: View {
                             $0 ? intent.updateMajor(major: "") : ()
                             $0 ? intent.activeSelfEntering() : ()
                             $0 ? intent.majorSheetDismissed() : ()
+                            intent.updateIsSelfEntering(isSelfEntering: $0)
                         }
                     )
                 )

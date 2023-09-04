@@ -100,7 +100,11 @@ struct MyPageProfileView: View {
                 ) {
                     focusField = .portfoilo
                 }
+                .onChange(of: state.isSelfEntering) { newValue in
+                    isFocuesedMajorTextField = newValue
+                }
                 .focused($isFocuesedMajorTextField)
+                .disabled(!state.isSelfEntering)
                 .overlay(alignment: .topTrailing) {
                     SMSIcon(.downChevron)
                         .padding([.top, .trailing], 12)
