@@ -176,6 +176,7 @@ final class MyPageIntent: MyPageIntentProtocol {
                 try await modifyInformationUseCase.execute(req: modifyInformationRequest)
                 model?.updateIsLoading(isLoading: false)
                 model?.updateIsCompleteModify(isComplete: true)
+                myPageDelegate?.completeModify()
             } catch {
                 model?.updateIsError(isError: true)
                 model?.updateIsLoading(isLoading: false)

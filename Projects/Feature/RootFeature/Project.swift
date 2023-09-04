@@ -11,6 +11,7 @@ let project = Project.makeModule(
         .Feature.InputInformationFeatureInterface,
         .Feature.MainFeatureInterface,
         .Feature.SplashFeatureInterface,
-        .Feature.BaseFeature
+        .Feature.BaseFeature,
+        .Feature.MyPageFeatureInterface
     ]
 )
