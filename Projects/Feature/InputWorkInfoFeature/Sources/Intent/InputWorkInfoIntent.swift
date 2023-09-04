@@ -21,8 +21,12 @@ final class InputWorkInfoIntent: InputWorkInfoIntentProtocol {
     }
 
     func updateWorkRegion(region: String, at index: Int) {
-        let regexValidator = RegexValidator(pattern: "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]$")
-        guard regexValidator.validate(region), region.count <= 10 else { return }
+        guard region.isNotEmpty else {
+            model?.updateWorkRegion(region: "", at: index)
+            return
+        }
+        let regexValidator = RegexValidator(pattern: "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9\\W]{0,10}$")
+        guard regexValidator.validate(region) else { return }
         model?.updateWorkRegion(region: region, at: index)
     }
 
