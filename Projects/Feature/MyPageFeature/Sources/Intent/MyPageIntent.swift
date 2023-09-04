@@ -72,6 +72,7 @@ final class MyPageIntent: MyPageIntentProtocol {
                         $0.toModel()
                     }
                 )
+                model?.setCollapsedProject(size: profile.proejcts.count)
             } catch {
                 model?.updateIsError(isError: true)
             }

@@ -219,8 +219,10 @@ private extension MyPageProjectView {
             )
         )
         .smsFont(.body1, color: .system(.black))
+        .padding([.top, .leading], 6)
         .focused($projectContentIsFocused)
         .colorMultiply(.sms(.neutral(.n10)))
+        .background(Color.sms(.neutral(.n10)))
         .frame(minHeight: 48)
         .cornerRadius(8)
         .roundedStroke(
@@ -236,6 +238,7 @@ private extension MyPageProjectView {
                     .onTapGesture {
                         projectContentIsFocused = true
                     }
+                    .padding(.top, 4)
             }
         }
         .titleWrapper("프로젝트 설명")
@@ -256,7 +259,9 @@ private extension MyPageProjectView {
             )
         )
         .focused($projectMyActivityIsFocused)
+        .padding([.top, .leading], 6)
         .colorMultiply(.sms(.neutral(.n10)))
+        .background(Color.sms(.neutral(.n10)))
         .frame(minHeight: 48)
         .cornerRadius(8)
         .roundedStroke(
@@ -272,6 +277,7 @@ private extension MyPageProjectView {
                     .onTapGesture {
                         projectMyActivityIsFocused = true
                     }
+                    .padding(.top, 4)
             }
         }
         .titleWrapper("주요 작업 서술")

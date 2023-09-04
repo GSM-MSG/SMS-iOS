@@ -66,6 +66,7 @@ protocol MyPageProjectActionProtocol: AnyObject {
     func updateIsInProgress(index: Int, isInProgress: Bool)
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String)
     func updateProjectLinkURL(index: Int, linkIndex: Int, url: String)
+    func setCollapsedProject(size: Int)
     func appendEmptyRelatedLink(index: Int)
     func removeProjectRelatedLink(index: Int, linkIndex: Int)
     func appendEmptyProject()
@@ -156,6 +157,10 @@ extension MyPageModel: MyPageProjectActionProtocol {
         guard projectList[safe: index] != nil else { return }
         guard projectList[index].relatedLinks[safe: linkIndex] != nil else { return }
         projectList[index].relatedLinks[linkIndex].url = url
+    }
+
+    func setCollapsedProject(size: Int) {
+        self.collapsedProject = Array(repeating: false, count: size)
     }
 
     func appendEmptyRelatedLink(index: Int) {
