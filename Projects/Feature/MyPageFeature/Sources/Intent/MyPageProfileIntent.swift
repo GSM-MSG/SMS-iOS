@@ -10,6 +10,7 @@ protocol MyPageProfileIntentProtocol {
     func techStackAppendDismissed()
     func techStackAppendDidComplete(techStacks: [String])
     func removeTechStack(techStack: String)
+    func updateIsSelfEntering(isSelfEntering: Bool)
     func majorSheetIsRequired()
     func majorSheetDismissed()
     func imagePickerIsRequired()
@@ -61,6 +62,10 @@ extension MyPageIntent: MyPageProfileIntentProtocol {
 
     func removeTechStack(techStack: String) {
         model?.removeTechStack(techStack: techStack)
+    }
+
+    func updateIsSelfEntering(isSelfEntering: Bool) {
+        model?.updateIsSelfEntering(isSelfEntering: isSelfEntering)
     }
 
     func majorSheetIsRequired() {

@@ -12,6 +12,7 @@ protocol MyPageStateProtocol:
     var isPresentedExitBottomSheet: Bool { get }
     var isPresentedLogoutDialog: Bool { get }
     var isPresentedWithdrawalDialog: Bool { get }
+    var isCompleteModify: Bool { get }
 }
 
 protocol MyPageActionProtocol:
@@ -29,4 +30,5 @@ protocol MyPageActionProtocol:
     func updateIsPresentedExitBottomSheet(isPresented: Bool)
     func updateIsPresentedLogoutDialog(isPresented: Bool)
     func updateIsPresentedWithdrawalDialog(isPresented: Bool)
+    func updateIsCompleteModify(isComplete: Bool)
 }
