@@ -40,9 +40,3 @@ extension RootIntent: SplashDelegate {
         model?.updateSceneType(type: isLoggedIn ? .main : .signin)
     }
 }
-
-extension RootIntent: MyPageDelegate {
-    func completeModify() {
-        model?.updateSceneType(type: .main)
-    }
-}

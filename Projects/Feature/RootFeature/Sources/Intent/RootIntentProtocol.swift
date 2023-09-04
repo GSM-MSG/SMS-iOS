@@ -3,6 +3,5 @@ import InputInformationFeatureInterface
 import MainFeatureInterface
 import SigninFeatureInterface
 import SplashFeatureInterface
-import MyPageFeatureInterface
 
-protocol RootIntentProtocol: InputInformationDelegate, SigninDelegate, MainDelegate, SplashDelegate, MyPageDelegate {}
+protocol RootIntentProtocol: InputInformationDelegate, SigninDelegate, MainDelegate, SplashDelegate {}

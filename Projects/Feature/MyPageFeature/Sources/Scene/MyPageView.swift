@@ -32,6 +32,7 @@ struct MyPageView: View {
 
                 CTAButton(text: "저장") {
                     intent.modifyToInputAllInfo(state: state)
+                    dismiss()
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, safeAreaInsets.bottom + 16)
