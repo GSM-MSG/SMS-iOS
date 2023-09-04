@@ -34,14 +34,14 @@ final class InputPrizeInfoIntent: InputPrizeInfoIntentProtocol {
                     errorSet[index].insert(.type)
                 }
 
-                if prize.prizeAt.description.isEmpty, errorSet[safe: index] != nil {
+                if prize.prizeAt?.description.isEmpty == nil, errorSet[safe: index] != nil {
                     errorSet[index].insert(.date)
                 }
 
                 return InputPrizeInfoObject(
                     name: prize.name,
                     prize: prize.prize,
-                    prizeAt: prize.prizeAt
+                    prizeAt: prize.prizeAt ?? Date()
                 )
             }
         model?.updateErrorSetList(set: errorSet)
