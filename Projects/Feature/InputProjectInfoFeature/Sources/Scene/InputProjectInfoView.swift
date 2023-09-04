@@ -9,6 +9,7 @@ import ViewUtil
 
 struct InputProjectInfoView: View {
     @FocusState var projectContentIsFocused: Bool
+    @FocusState var projectMyActivityIsFocused: Bool
     @StateObject var container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
     var intent: any InputProjectInfoIntentProtocol { container.intent }
     var state: any InputProjectInfoStateProtocol { container.model }
@@ -307,14 +308,14 @@ private extension InputProjectInfoView {
             )
         )
         .smsFont(.body1, color: .system(.black))
-        .focused($projectContentIsFocused)
+        .focused($projectMyActivityIsFocused)
         .colorMultiply(.sms(.neutral(.n10)))
         .frame(minHeight: 48)
         .cornerRadius(8)
         .roundedStroke(
             cornerRadius: 8,
-            color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
-            lineWidth: projectContentIsFocused ? 1 : 0
+            color: projectMyActivityIsFocused ? .sms(.primary(.p1)) : .clear,
+            lineWidth: projectMyActivityIsFocused ? 1 : 0
         )
         .overlay(alignment: .topLeading) {
             ConditionView(projectMyActivity.isEmpty) {
@@ -322,7 +323,7 @@ private extension InputProjectInfoView {
                     .foregroundColor(.sms(.neutral(.n30)))
                     .padding([.top, .leading], 12)
                     .onTapGesture {
-                        projectContentIsFocused = true
+                        projectMyActivityIsFocused = true
                     }
             }
         }
