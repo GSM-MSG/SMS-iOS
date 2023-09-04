@@ -269,9 +269,11 @@ private extension InputProjectInfoView {
                     set: { intent.updateProjectContent(index: index, content: $0) }
                 )
             )
+            .padding(6)
             .smsFont(.body1, color: .system(.black))
             .focused($projectContentIsFocused)
             .colorMultiply(.sms(.neutral(.n10)))
+            .background(Color.sms(.neutral(.n10)))
             .frame(minHeight: 48)
             .cornerRadius(8)
             .roundedStroke(
@@ -287,6 +289,7 @@ private extension InputProjectInfoView {
                         .onTapGesture {
                             projectContentIsFocused = true
                         }
+                        .padding(.top, 4)
                 }
             }
             .titleWrapper("프로젝트 설명")
@@ -308,8 +311,10 @@ private extension InputProjectInfoView {
             )
         )
         .smsFont(.body1, color: .system(.black))
+        .padding(6)
         .focused($projectMyActivityIsFocused)
         .colorMultiply(.sms(.neutral(.n10)))
+        .background(Color.sms(.neutral(.n10)))
         .frame(minHeight: 48)
         .cornerRadius(8)
         .roundedStroke(
@@ -325,6 +330,7 @@ private extension InputProjectInfoView {
                     .onTapGesture {
                         projectMyActivityIsFocused = true
                     }
+                    .padding(.top, 4)
             }
         }
         .titleWrapper("주요 작업 서술")

@@ -73,6 +73,7 @@ final class MyPageIntent: MyPageIntentProtocol {
                     }
                 )
                 model?.setCollapsedPrize(size: profile.prizes.count)
+                model?.setCollapsedProject(size: profile.proejcts.count)
             } catch {
                 model?.updateIsError(isError: true)
             }
