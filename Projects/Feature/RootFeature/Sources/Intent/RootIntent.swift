@@ -3,6 +3,7 @@ import InputInformationFeatureInterface
 import MainFeatureInterface
 import SigninFeatureInterface
 import SplashFeatureInterface
+import MyPageFeatureInterface
 
 final class RootIntent: RootIntentProtocol {
     private weak var model: (any RootActionProtocol)?
@@ -37,5 +38,11 @@ extension RootIntent: MainDelegate {
 extension RootIntent: SplashDelegate {
     func isLoggedIn(isLoggedIn: Bool) {
         model?.updateSceneType(type: isLoggedIn ? .main : .signin)
+    }
+}
+
+extension RootIntent: MyPageDelegate {
+    func completeModify() {
+        model?.updateSceneType(type: .main)
     }
 }
