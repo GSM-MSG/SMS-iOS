@@ -269,7 +269,7 @@ private extension InputProjectInfoView {
                     set: { intent.updateProjectContent(index: index, content: $0) }
                 )
             )
-            .padding([.top, .leading], 6)
+            .padding(6)
             .smsFont(.body1, color: .system(.black))
             .focused($projectContentIsFocused)
             .colorMultiply(.sms(.neutral(.n10)))
