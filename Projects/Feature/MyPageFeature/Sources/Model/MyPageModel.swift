@@ -8,6 +8,7 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var isPresentedExitBottomSheet: Bool = false
     @Published var isPresentedLogoutDialog: Bool = false
     @Published var isPresentedWithdrawalDialog: Bool = false
+    @Published var isCompleteModify: Bool = false
 
     // MARK: Profile
     @Published var profileURL: String = ""
@@ -84,5 +85,9 @@ extension MyPageModel: MyPageActionProtocol {
 
     func updateIsPresentedWithdrawalDialog(isPresented: Bool) {
         self.isPresentedWithdrawalDialog = isPresented
+    }
+
+    func updateIsCompleteModify(isComplete: Bool) {
+        self.isCompleteModify = isComplete
     }
 }
