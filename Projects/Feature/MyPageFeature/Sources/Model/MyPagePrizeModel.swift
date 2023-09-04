@@ -27,6 +27,7 @@ protocol MyPagePrizeStateProtocol {
 
 protocol MyPagePrizeActionProtocol: AnyObject {
     func toggleCollapsedPrize(index: Int)
+    func setCollapsedPrize(size: Int)
     func updatePrizeList(prizeList: [PrizeModel])
     func updatePrizeName(index: Int, name: String)
     func updatePrizePrize(index: Int, prize: String)
@@ -42,6 +43,10 @@ extension MyPageModel: MyPagePrizeActionProtocol {
     func toggleCollapsedPrize(index: Int) {
         guard collapsedPrize[safe: index] != nil else { return }
         self.collapsedPrize[index].toggle()
+    }
+
+    func setCollapsedPrize(size: Int) {
+        self.collapsedPrize = Array(repeating: false, count: size)
     }
 
     func updatePrizeList(prizeList: [PrizeModel]) {
