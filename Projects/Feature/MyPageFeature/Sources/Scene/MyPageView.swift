@@ -288,7 +288,10 @@ struct MyPageView: View {
                     SMSRadioButton(
                         isSelected: Binding(
                             get: { state.selectedMilitaryServiceType == militaryServiceType },
-                            set: { $0 ? intent.militaryServiceTypeDidSelected(type: militaryServiceType) : () }
+                            set: {
+                                $0 ? intent.militaryServiceTypeDidSelected(type: militaryServiceType) : ()
+                                $0 ? intent.militarySheetDismissed() : ()
+                            }
                         )
                     )
                     .buttonWrapper {}
