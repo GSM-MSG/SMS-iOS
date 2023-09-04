@@ -40,6 +40,7 @@ struct InputProfileInfoView: View {
                                     if let profileImage = state.profileImage {
                                         Image(uiImage: profileImage.uiImage)
                                             .resizable()
+                                            .aspectRatio(contentMode: .fill)
                                             .frame(width: 100, height: 100)
                                             .cornerRadius(4)
                                     } else {
