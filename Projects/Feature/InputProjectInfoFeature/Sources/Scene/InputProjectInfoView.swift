@@ -311,7 +311,7 @@ private extension InputProjectInfoView {
             )
         )
         .smsFont(.body1, color: .system(.black))
-        .padding([.top, .leading], 6)
+        .padding(6)
         .focused($projectMyActivityIsFocused)
         .colorMultiply(.sms(.neutral(.n10)))
         .background(Color.sms(.neutral(.n10)))
