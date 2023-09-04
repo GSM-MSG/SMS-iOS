@@ -21,7 +21,7 @@ struct ImageMethodRowView: View {
             action()
         } label: {
             Label {
-                SMSText(title, font: .body1)
+                SMSText(title, font: .title2)
             } icon: {
                 SMSIcon(icon)
             }

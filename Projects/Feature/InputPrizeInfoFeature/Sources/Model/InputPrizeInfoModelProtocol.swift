@@ -4,10 +4,10 @@ import DateUtil
 struct PrizeInfo: Equatable {
     var name: String
     var prize: String
-    var prizeAt: Date
+    var prizeAt: Date?
 
     var prizeAtString: String {
-        prizeAt.toStringCustomFormat(format: "yyyy.MM")
+        prizeAt?.toStringCustomFormat(format: "yyyy.MM") ?? ""
     }
 }
 

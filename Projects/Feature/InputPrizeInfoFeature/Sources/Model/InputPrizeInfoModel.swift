@@ -34,7 +34,7 @@ extension InputPrizeInfoModel: InputPrizeInfoActionProtocol {
         let newPrize = PrizeInfo(
             name: "",
             prize: "",
-            prizeAt: Date()
+            prizeAt: nil
         )
         self.prizeList.append(newPrize)
         self.collapsedPrize.append(false)
