@@ -78,7 +78,7 @@ struct ProjectRowView: View {
                     if let image = phase.image {
                         image
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
+                            .scaledToFit()
                             .cornerRadius(8)
                     } else {
                         Color.sms(.neutral(.n30))
