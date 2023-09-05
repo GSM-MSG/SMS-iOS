@@ -26,7 +26,7 @@ struct StudentDetailView: View {
                         LazyImage(url: URL(string: studentDetail.profileImageURL)) { state in
                             if let image = state.image {
                                 image.resizable()
-                                    .aspectRatio(contentMode: .fill)
+                                    .aspectRatio(1, contentMode: .fit)
                             } else {
                                 SMSIcon(.profile, width: nil, height: nil)
                             }
