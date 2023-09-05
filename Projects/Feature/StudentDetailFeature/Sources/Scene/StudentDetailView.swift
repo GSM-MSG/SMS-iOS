@@ -303,7 +303,7 @@ struct StudentDetailView: View {
             Spacer()
 
             SMSText(value, font: .body2)
-                .lineLimit(nil)
+                .lineLimit(1)
                 .foregroundColor(.sms(.neutral(.n40)))
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

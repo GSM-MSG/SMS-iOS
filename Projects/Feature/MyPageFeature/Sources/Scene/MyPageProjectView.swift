@@ -190,6 +190,7 @@ private extension MyPageProjectView {
                         if let image = image.image {
                         image
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 132, height: 132)
                             .cornerRadius(8)
                             .overlay(alignment: .topTrailing) {
@@ -285,7 +286,7 @@ private extension MyPageProjectView {
 
     @ViewBuilder
     func projectTechStack(geometry: GeometryProxy, index: Int) -> some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 SMSIcon(.magnifyingglass)
 
@@ -339,7 +340,7 @@ private extension MyPageProjectView {
 
     @ViewBuilder
     func projectDuration(index: Int) -> some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 let project = state.projectList[safe: index]
                 DatePickerField(dateText: project?.startAtString ?? "") {

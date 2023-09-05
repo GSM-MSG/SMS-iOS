@@ -1,9 +1,15 @@
 import DesignSystem
 import SwiftUI
+import BaseFeature
 
 struct MyPageSchoolLifeView: View {
-    let intent: MyPageSchoolLifeIntentProtocol
-    let state: MyPageSchoolLifeStateProtocol
+    @StateObject var container: MVIContainer<MyPageSchoolLifeIntentProtocol, MyPageSchoolLifeStateProtocol>
+    var intent: MyPageSchoolLifeIntentProtocol { container.intent }
+    var state: MyPageSchoolLifeStateProtocol { container.model }
+
+    init(container: MVIContainer<MyPageSchoolLifeIntentProtocol, MyPageSchoolLifeStateProtocol>) {
+        self._container = StateObject(wrappedValue: container)
+    }
 
     var body: some View {
         Section {

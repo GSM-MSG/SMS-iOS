@@ -78,7 +78,7 @@ struct ProjectRowView: View {
                     if let image = phase.image {
                         image
                             .resizable()
-                            .aspectRatio(1, contentMode: .fit)
+                            .aspectRatio(contentMode: .fill)
                             .cornerRadius(8)
                     } else {
                         Color.sms(.neutral(.n30))
@@ -136,6 +136,7 @@ struct ProjectRowView: View {
 
                         SMSText(link.url, font: .caption2)
                             .foregroundColor(.sms(.neutral(.n40)))
+                            .lineLimit(1)
                     }
 
                     Spacer()
