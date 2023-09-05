@@ -31,8 +31,11 @@ struct MyPageView: View {
                 myPageView(geometry: geometry)
 
                 CTAButton(text: "저장") {
-                    intent.modifyToInputAllInfo(state: state)
-                    dismiss()
+                    intent.modifyToInputAllInfo(state: state) {
+                        DispatchQueue.main.async {
+                            dismiss()
+                        }
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, safeAreaInsets.bottom + 16)
@@ -317,7 +320,13 @@ struct MyPageView: View {
                     SMSSeparator()
                         .padding(.vertical, 16)
 
-                    MyPageSchoolLifeView(intent: intent, state: state)
+                    MyPageSchoolLifeView(
+                        container: .init(
+                            intent: intent,
+                            model: state,
+                            modelChangePublisher: container.objectWillChange
+                        )
+                    )
 
                     SMSSeparator()
                         .padding(.vertical, 16)

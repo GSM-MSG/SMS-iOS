@@ -1,5 +1,6 @@
 import Foundation
 import StudentDomainInterface
+import FoundationUtil
 
 final class MyPageModel: ObservableObject, MyPageStateProtocol {
     // MARK: MyPage
@@ -30,11 +31,19 @@ final class MyPageModel: ObservableObject, MyPageStateProtocol {
     @Published var gsmScore: String = ""
 
     // MARK: WorkInfo
+    private let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
     @Published var workRegionList: [String] = []
     @Published var salary: String = ""
-    @Published var salaryDisplay: String = ""
     @Published var formOfEmployment: FormOfEmployment = .fullTime
     @Published var isPresentedFormOfEmployeementSheet: Bool = false
+    var salaryDisplay: String {
+        guard salary.isNotEmpty else { return "상관없음" }
+        return "\(numberFormatter.string(for: Int(salary)) ?? "0") 만원"
+    }
 
     // MARK: Military
     @Published var selectedMilitaryServiceType: MilitaryServiceType = .hope
