@@ -1,6 +1,7 @@
 import EventLimiter
 import Foundation
 import TechStackDomainInterface
+import Validator
 
 final class TechStackAppendIntent: TechStackAppendIntentProtocol {
     private let model: (any TechStackAppendActionProtocol)?
@@ -19,6 +20,8 @@ final class TechStackAppendIntent: TechStackAppendIntentProtocol {
     }
 
     func updateSearchText(text: String) {
+        let stringSizeValidator = StringSizeValidator(min: 0, max: 30)
+        guard stringSizeValidator.validate(text) else { return }
         model?.updateSearchText(text: text)
         debouncer { [weak self] in
             guard let self else { return }
