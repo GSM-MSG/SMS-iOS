@@ -144,8 +144,8 @@ struct MainView: View {
                 }
             }
             .smsAlert(
-                title: "게스트 종료",
-                description: "게스트 이용을 종료하시겠습니까?",
+                title: "로그아웃",
+                description: "정말로 로그아웃하시겠습니까?",
                 isShowing: Binding(
                     get: { state.isPresntedExit },
                     set: { _ in intent.exitIsDismissed() }
@@ -154,7 +154,7 @@ struct MainView: View {
                     .init(text: "취소", style: .outline) {
                         intent.exitIsDismissed()
                     },
-                    .init(text: "확인", style: .default) {
+                    .init(text: "확인", style: .error) {
                         intent.exitIsDismissed()
                         intent.logout()
                     }
