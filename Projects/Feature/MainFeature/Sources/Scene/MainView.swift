@@ -145,7 +145,7 @@ struct MainView: View {
             }
             .smsAlert(
                 title: "로그아웃",
-                description: "정말로 로그아웃 하시겠습니까?",
+                description: "정말로 로그아웃하시겠습니까?",
                 isShowing: Binding(
                     get: { state.isPresntedExit },
                     set: { _ in intent.exitIsDismissed() }
