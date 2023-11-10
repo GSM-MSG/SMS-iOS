@@ -45,7 +45,7 @@ final class InputPrizeInfoIntent: InputPrizeInfoIntentProtocol {
                 )
             }
         model?.updateErrorSetList(set: errorSet)
-        guard !errorSet.contains(where: { $0.isNotEmpty }) else { return }
+        guard errorSet.notContains(where: { $0.isNotEmpty }) else { return }
 
         delegate?.completeToInputPrizeInfo(input: prizeInfoObjects)
     }

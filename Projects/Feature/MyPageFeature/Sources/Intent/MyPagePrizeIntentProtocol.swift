@@ -1,4 +1,5 @@
 import Foundation
+import FoundationUtil
 
 protocol MyPagePrizeIntentProtocol {
     func prizeToggleButtonDidTap(index: Int)
@@ -88,7 +89,7 @@ extension MyPageIntent: MyPagePrizeIntentProtocol {
                 )
             }
         model?.updatePrizeErrorSetList(set: errorSet)
-        guard !errorSet.contains(where: { $0.isNotEmpty }) else { return false }
+        guard errorSet.notContains(where: { $0.isNotEmpty }) else { return false }
 
         return true
     }
