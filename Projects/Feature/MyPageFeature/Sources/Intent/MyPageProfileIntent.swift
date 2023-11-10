@@ -1,4 +1,5 @@
 import DesignSystem
+import Validator
 
 protocol MyPageProfileIntentProtocol {
     func updateIntroduce(introduce: String)
@@ -9,6 +10,7 @@ protocol MyPageProfileIntentProtocol {
     func techStackAppendDismissed()
     func techStackAppendDidComplete(techStacks: [String])
     func removeTechStack(techStack: String)
+    func updateIsSelfEntering(isSelfEntering: Bool)
     func majorSheetIsRequired()
     func majorSheetDismissed()
     func imagePickerIsRequired()
@@ -20,6 +22,13 @@ protocol MyPageProfileIntentProtocol {
     func cameraDismissed()
     func activeSelfEntering()
     func deActiveSelfEntering()
+    func validateProfile(
+        profileImageURL: String,
+        introduce: String,
+        email: String,
+        major: String,
+        portfolioURL: String
+    ) -> Bool
 }
 
 extension MyPageIntent: MyPageProfileIntentProtocol {
@@ -53,6 +62,10 @@ extension MyPageIntent: MyPageProfileIntentProtocol {
 
     func removeTechStack(techStack: String) {
         model?.removeTechStack(techStack: techStack)
+    }
+
+    func updateIsSelfEntering(isSelfEntering: Bool) {
+        model?.updateIsSelfEntering(isSelfEntering: isSelfEntering)
     }
 
     func majorSheetIsRequired() {
@@ -104,5 +117,46 @@ extension MyPageIntent: MyPageProfileIntentProtocol {
 
     func deActiveSelfEntering() {
         model?.updateIsSelfEntering(isSelfEntering: false)
+    }
+
+    func validateProfile(
+        profileImageURL: String,
+        introduce: String,
+        email: String,
+        major: String,
+        portfolioURL: String
+    ) -> Bool {
+        var errorSet = Set<MyPageProfileErrorField>()
+        if profileImageURL.isEmpty {
+            errorSet.insert(.profile)
+        }
+
+        let stringSizeValidator = StringSizeValidator(min: 1, max: 50)
+        if !stringSizeValidator.validate(introduce) {
+            errorSet.insert(.introduce)
+        }
+
+        let emailValidator = EmailValidator()
+        if !emailValidator.validate(email) {
+            errorSet.insert(.email)
+        }
+
+        if major.isEmpty {
+            errorSet.insert(.major)
+        }
+
+        let urlValidator = URLValidator()
+        if !urlValidator.validate(portfolioURL) {
+            errorSet.insert(.portfoilo)
+        }
+
+        model?.updateProfileErrorFieldSet(set: errorSet)
+        guard
+            errorSet.isEmpty
+        else {
+            return false
+        }
+
+        return true
     }
 }

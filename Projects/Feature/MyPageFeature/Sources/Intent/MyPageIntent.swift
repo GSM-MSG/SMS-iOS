@@ -72,6 +72,8 @@ final class MyPageIntent: MyPageIntentProtocol {
                         $0.toModel()
                     }
                 )
+                model?.setCollapsedPrize(size: profile.prizes.count)
+                model?.setCollapsedProject(size: profile.proejcts.count)
             } catch {
                 model?.updateIsError(isError: true)
             }
@@ -126,7 +128,26 @@ final class MyPageIntent: MyPageIntentProtocol {
         model?.updateIsPresentedWithdrawalDialog(isPresented: false)
     }
 
-    func modifyToInputAllInfo(state: any MyPageStateProtocol) {
+    func modifyToInputAllInfo(
+        state: any MyPageStateProtocol,
+        completion: @escaping () -> Void
+    ) {
+        model?.updateIsLoading(isLoading: true)
+
+        guard self.validateProfile(
+            profileImageURL: state.profileURL,
+            introduce: state.introduce,
+            email: state.email,
+            major: state.major,
+            portfolioURL: state.profileURL
+        )
+            && self.validateProject(projects: state.projectList)
+                && self.validatePrize(prizes: state.prizeList) else {
+            model?.updateIsError(isError: true)
+            model?.updateIsLoading(isLoading: false)
+            return
+        }
+
         Task {
             do {
                 let modifyInformationRequest = ModifyStudentInformationRequestDTO(
@@ -145,23 +166,32 @@ final class MyPageIntent: MyPageIntentProtocol {
                     techStacks: state.techStacks,
                     projects: state.projectList.map {
                         let startAtString = $0.startAt.toStringCustomFormat(format: "yyyy.MM")
-                        let endAtString = $0.endAt?.toStringCustomFormat(format: "yyyy.MM") ?? "개발중"
+                        let endAtString = $0.endAt?.toStringCustomFormat(format: "yyyy.MM")
 
                         return $0.toDTO(
                             iconURL: $0.iconImage,
                             previewImageURLS: $0.previewImages,
                             startAt: startAtString,
-                            endAt: endAtString
+                            endAt: $0.isInProgress ? nil : endAtString
                         )
                     },
                     prizes: state.prizeList.map { $0.toDTO() }
                 )
 
                 try await modifyInformationUseCase.execute(req: modifyInformationRequest)
+                model?.updateIsLoading(isLoading: false)
+                model?.updateIsCompleteModify(isComplete: true)
+                completion()
+                myPageDelegate?.completeModify()
             } catch {
                 model?.updateIsError(isError: true)
+                model?.updateIsLoading(isLoading: false)
             }
         }
+    }
+
+    func modifyCompleteToastDismissed() {
+        model?.updateIsCompleteModify(isComplete: false)
     }
 
     func imageUpload(imageResult: PickedImageResult) async throws -> String {
@@ -189,7 +219,7 @@ extension ProjectModel {
         iconURL: String,
         previewImageURLS: [String],
         startAt: String,
-        endAt: String
+        endAt: String?
     ) -> ModifyStudentInformationRequestDTO.Project {
         ModifyStudentInformationRequestDTO.Project(
             name: name,
@@ -235,13 +265,9 @@ extension ProjectEntity {
             content: description,
             techStacks: Set(techStacks),
             mainTask: myActivity,
-            startAt: inProgress.start.toISODate(
-                timeZone: .init(identifier: "GMT") ?? .current
-            ),
-            endAt: inProgress.end?.toISODate(
-                timeZone: .init(identifier: "GMT") ?? .current
-            ),
-            isInProgress: ((inProgress.end?.isEmpty) != nil),
+            startAt: inProgress.start.toDateCustomFormat(format: "yyyy.MM"),
+            endAt: inProgress.end?.toDateCustomFormat(format: "yyyy.MM"),
+            isInProgress: inProgress.end == nil,
             relatedLinks: links.map { $0.toModel() }
         )
     }
@@ -261,9 +287,7 @@ extension PrizeEntity {
         PrizeModel.init(
             name: name,
             prize: type,
-            prizeAt: date.toISODate(
-                timeZone: .init(identifier: "GMT") ?? .current
-            )
+            prizeAt: date.toDateCustomFormat(format: "yyyy.MM")
         )
     }
 }

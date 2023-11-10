@@ -33,6 +33,10 @@ extension InputWorkInfoModel: InputWorkInfoActionProtocol {
     }
 
     func updateSalary(salary: String) {
+        guard salary.isNotEmpty else {
+            self.salary = ""
+            return
+        }
         guard let salaryInt = Int(salary).map({ String(min($0, 9999)) }) else { return }
         self.salary = salaryInt
     }

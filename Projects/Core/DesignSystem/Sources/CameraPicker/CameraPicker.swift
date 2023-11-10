@@ -7,9 +7,47 @@ public extension View {
         isShow: Binding<Bool>,
         pickedImageResult: Binding<PickedImageResult?>
     ) -> some View {
-        self.fullScreenCover(isPresented: isShow) {
-            CameraPicker(pickedImageResult: pickedImageResult, isPresented: isShow)
-                .ignoresSafeArea()
+        self.modifier(CameraPickerViewModifier(isShow: isShow, pickedImageResult: pickedImageResult))
+    }
+}
+
+struct CameraPickerViewModifier: ViewModifier {
+    @Environment(\.openURL) var openURL
+    @Environment(\.dismiss) var dismiss
+    @Binding var isShow: Bool
+    @Binding var pickedImageResult: PickedImageResult?
+    @State var isShowPermissionAlert = false
+
+    func body(content: Content) -> some View {
+        content
+            .fullScreenCover(isPresented: $isShow) {
+                CameraPicker(pickedImageResult: $pickedImageResult, isPresented: $isShow)
+                    .ignoresSafeArea()
+                    .alert("카메라 접근 권한 필요", isPresented: $isShowPermissionAlert) {
+                        Button("확인", role: .cancel) {
+                            dismiss()
+                        }
+
+                        Button("설정으로 이동") {
+                            guard
+                                let settingURL = URL(string: UIApplication.openSettingsURLString),
+                                UIApplication.shared.canOpenURL(settingURL)
+                            else { return }
+                            openURL(settingURL)
+                        }
+                    }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            checkPermission()
+                        }
+                    }
+            }
+    }
+
+    func checkPermission() {
+        AVCaptureDevice.requestAccess(for: .video) { isGranted in
+            if isGranted { return }
+            isShowPermissionAlert = true
         }
     }
 }

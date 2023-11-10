@@ -4,9 +4,7 @@ import DependencyPlugin
 import EnvironmentPlugin
 import Foundation
 
-let isCI = (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? true : false
-
-let configurations: [Configuration] = isCI ?
+let configurations: [Configuration] = generateEnvironment == .ci ?
 [
   .debug(name: .dev),
   .debug(name: .stage),
@@ -23,7 +21,7 @@ let settings: Settings =
               configurations: configurations,
               defaultSettings: .recommended)
 
-let scripts: [TargetScript] = isCI ? [] : [.swiftLint, .needle]
+let scripts: [TargetScript] = generateEnvironment == .dev ? [.needle, .swiftLint] : []
 
 let targets: [Target] = [
     .init(

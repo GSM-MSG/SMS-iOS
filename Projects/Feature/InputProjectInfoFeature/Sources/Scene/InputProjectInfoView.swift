@@ -9,8 +9,8 @@ import ViewUtil
 
 struct InputProjectInfoView: View {
     @FocusState var projectContentIsFocused: Bool
+    @FocusState var projectMyActivityIsFocused: Bool
     @StateObject var container: MVIContainer<InputProjectInfoIntentProtocol, InputProjectInfoStateProtocol>
-    @Environment(\.screenSize) var screenSize
     var intent: any InputProjectInfoIntentProtocol { container.intent }
     var state: any InputProjectInfoStateProtocol { container.model }
     private let techStackAppendBuildable: any TechStackAppendBuildable
@@ -61,7 +61,6 @@ struct InputProjectInfoView: View {
                     }
                     .padding([.top, .horizontal], 20)
                 }
-                .frame(minHeight: screenSize.height)
             }
         }
         .imagePicker(
@@ -115,6 +114,7 @@ struct InputProjectInfoView: View {
                 .eraseToAnyView()
             }
         }
+        .animation(.default, value: state.projectErrorSetList)
     }
 
     @ViewBuilder
@@ -172,43 +172,52 @@ private extension InputProjectInfoView {
             text: Binding(
                 get: { state.projectList[safe: index]?.name ?? "" },
                 set: { intent.updateProjectName(index: index, name: $0) }
-            )
+            ),
+            errorText: "프로젝트 이름을 입력해 주세요.",
+            isError: state.projectErrorSetList[safe: index]?.contains(.name) ?? false
         )
         .titleWrapper("이름")
     }
 
     @ViewBuilder
     func projectIcon(index: Int) -> some View {
-        Group {
-            if let iconData = state.projectList[safe: index]?.iconImage {
-                Image(uiImage: iconData.uiImage)
-                    .resizable()
-                    .frame(width: 108, height: 108)
-                    .cornerRadius(8)
-            } else {
-                imagePlaceholder(size: 108)
-                    .overlay {
-                        SMSIcon(.photo)
+        VStack(alignment: .leading, spacing: 8) {
+            Group {
+                if let iconData = state.projectList[safe: index]?.iconImage {
+                    Image(uiImage: iconData.uiImage)
+                        .resizable()
+                        .frame(width: 108, height: 108)
+                        .cornerRadius(8)
+                } else {
+                    imagePlaceholder(size: 108)
+                        .overlay {
+                            SMSIcon(.photo)
+                        }
+                }
+            }
+            .buttonWrapper {
+                intent.iconImageButtonDidTap(index: index)
+            }
+            .titleWrapper("아이콘")
+            .imagePicker(
+                isShow: Binding(
+                    get: { state.isPresentedImagePicker && state.focusedProjectIndex == index },
+                    set: { _ in intent.iconImagePickerDismissed() }
+                ),
+                pickedImageResult: Binding(
+                    get: { state.projectList[safe: index]?.iconImage },
+                    set: {
+                        guard let image = $0 else { return }
+                        intent.updateIconImage(index: index, image: image)
                     }
+                )
+            )
+
+            if state.projectErrorSetList[safe: index]?.contains(.icon) ?? false {
+                SMSText("프로젝트 아이콘을 선택해 주세요.", font: .caption1)
+                    .foregroundColor(.sms(.error(.e2)))
             }
         }
-        .buttonWrapper {
-            intent.iconImageButtonDidTap(index: index)
-        }
-        .titleWrapper("아이콘")
-        .imagePicker(
-            isShow: Binding(
-                get: { state.isPresentedImagePicker && state.focusedProjectIndex == index },
-                set: { _ in intent.iconImagePickerDismissed() }
-            ),
-            pickedImageResult: Binding(
-                get: { state.projectList[safe: index]?.iconImage },
-                set: {
-                    guard let image = $0 else { return }
-                    intent.updateIconImage(index: index, image: image)
-                }
-            )
-        )
     }
 
     @ViewBuilder
@@ -252,34 +261,44 @@ private extension InputProjectInfoView {
 
     @ViewBuilder
     func projectContentTextEditor(index: Int) -> some View {
-        let projectContent = state.projectList[safe: index]?.content ?? ""
-        TextEditor(
-            text: Binding(
-                get: { projectContent },
-                set: { intent.updateProjectContent(index: index, content: $0) }
+        VStack(alignment: .leading, spacing: 8) {
+            let projectContent = state.projectList[safe: index]?.content ?? ""
+            TextEditor(
+                text: Binding(
+                    get: { projectContent },
+                    set: { intent.updateProjectContent(index: index, content: $0) }
+                )
             )
-        )
-        .smsFont(.body1, color: .system(.black))
-        .focused($projectContentIsFocused)
-        .colorMultiply(.sms(.neutral(.n10)))
-        .frame(minHeight: 48)
-        .cornerRadius(8)
-        .roundedStroke(
-            cornerRadius: 8,
-            color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
-            lineWidth: projectContentIsFocused ? 1 : 0
-        )
-        .overlay(alignment: .topLeading) {
-            ConditionView(projectContent.isEmpty) {
-                SMSText("프로젝트 내용 서술", font: .body1)
-                    .foregroundColor(.sms(.neutral(.n30)))
-                    .padding([.top, .leading], 12)
-                    .onTapGesture {
-                        projectContentIsFocused = true
-                    }
+            .padding(6)
+            .smsFont(.body1, color: .system(.black))
+            .focused($projectContentIsFocused)
+            .colorMultiply(.sms(.neutral(.n10)))
+            .background(Color.sms(.neutral(.n10)))
+            .frame(minHeight: 48)
+            .cornerRadius(8)
+            .roundedStroke(
+                cornerRadius: 8,
+                color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
+                lineWidth: projectContentIsFocused ? 1 : 0
+            )
+            .overlay(alignment: .topLeading) {
+                ConditionView(projectContent.isEmpty) {
+                    SMSText("프로젝트 내용 서술", font: .body1)
+                        .foregroundColor(.sms(.neutral(.n30)))
+                        .padding([.top, .leading], 12)
+                        .onTapGesture {
+                            projectContentIsFocused = true
+                        }
+                        .padding(.top, 4)
+                }
+            }
+            .titleWrapper("프로젝트 설명")
+
+            if state.projectErrorSetList[safe: index]?.contains(.content) ?? false {
+                SMSText("프로젝트 내용을 입력해 주세요.", font: .caption1)
+                    .foregroundColor(.sms(.error(.e2)))
             }
         }
-        .titleWrapper("프로젝트 설명")
     }
 
     @ViewBuilder
@@ -292,14 +311,16 @@ private extension InputProjectInfoView {
             )
         )
         .smsFont(.body1, color: .system(.black))
-        .focused($projectContentIsFocused)
+        .padding(6)
+        .focused($projectMyActivityIsFocused)
         .colorMultiply(.sms(.neutral(.n10)))
+        .background(Color.sms(.neutral(.n10)))
         .frame(minHeight: 48)
         .cornerRadius(8)
         .roundedStroke(
             cornerRadius: 8,
-            color: projectContentIsFocused ? .sms(.primary(.p1)) : .clear,
-            lineWidth: projectContentIsFocused ? 1 : 0
+            color: projectMyActivityIsFocused ? .sms(.primary(.p1)) : .clear,
+            lineWidth: projectMyActivityIsFocused ? 1 : 0
         )
         .overlay(alignment: .topLeading) {
             ConditionView(projectMyActivity.isEmpty) {
@@ -307,8 +328,9 @@ private extension InputProjectInfoView {
                     .foregroundColor(.sms(.neutral(.n30)))
                     .padding([.top, .leading], 12)
                     .onTapGesture {
-                        projectContentIsFocused = true
+                        projectMyActivityIsFocused = true
                     }
+                    .padding(.top, 4)
             }
         }
         .titleWrapper("주요 작업 서술")
@@ -316,7 +338,7 @@ private extension InputProjectInfoView {
 
     @ViewBuilder
     func projectTechStack(geometry: GeometryProxy, index: Int) -> some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 SMSIcon(.magnifyingglass)
 
@@ -334,28 +356,35 @@ private extension InputProjectInfoView {
                 intent.techStackAppendButtonDidTap(index: index)
             }
 
-            TagLayoutView(
-                Array(state.projectList[safe: index]?.techStacks ?? []),
-                tagFont: UIFont(
-                    font: DesignSystemFontFamily.Pretendard.regular,
-                    size: 24
-                ) ?? .init(),
-                padding: 20,
-                parentWidth: geometry.size.width
-            ) { techStack in
-                HStack {
-                    SMSText(techStack, font: .body2)
+            ScrollView(.horizontal, showsIndicators: false) {
+                TagLayoutView(
+                    Array(state.projectList[safe: index]?.techStacks ?? []),
+                    tagFont: UIFont(
+                        font: DesignSystemFontFamily.Pretendard.regular,
+                        size: 24
+                    ) ?? .init(),
+                    padding: 20,
+                    parentWidth: geometry.size.width
+                ) { techStack in
+                    HStack {
+                        SMSText(techStack, font: .body2)
 
-                    SMSIcon(.xmarkOutline, width: 20, height: 20)
-                        .buttonWrapper {
-                            intent.removeProjectTechStackButtonDidTap(index: index, techStack: techStack)
-                        }
+                        SMSIcon(.xmarkOutline, width: 20, height: 20)
+                            .buttonWrapper {
+                                intent.removeProjectTechStackButtonDidTap(index: index, techStack: techStack)
+                            }
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 10)
+                    .background(Color.sms(.neutral(.n10)))
+                    .fixedSize()
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-                .background(Color.sms(.neutral(.n10)))
-                .fixedSize()
-                .clipShape(RoundedRectangle(cornerRadius: 4))
+            }
+
+            if state.projectErrorSetList[safe: index]?.contains(.techstaks) ?? false {
+                SMSText("사용 기술을 추가해 주세요.", font: .caption1)
+                    .foregroundColor(.sms(.error(.e2)))
             }
         }
         .titleWrapper("사용 기술 (최대 20개)")
@@ -363,7 +392,7 @@ private extension InputProjectInfoView {
 
     @ViewBuilder
     func projectDuration(index: Int) -> some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 let project = state.projectList[safe: index]
                 DatePickerField(dateText: project?.startAtString ?? "") {
@@ -381,6 +410,11 @@ private extension InputProjectInfoView {
                 }
             }
             .animation(.spring(blendDuration: 0.3), value: state.projectList.map(\.isInProgress))
+
+            if state.projectErrorSetList[safe: index]?.contains(.date) ?? false {
+                SMSText("프로젝트 진행 기간을 입력해 주세요.", font: .caption1)
+                    .foregroundColor(.sms(.error(.e2)))
+            }
 
             HStack(spacing: 8) {
                 SMSCheckbox(

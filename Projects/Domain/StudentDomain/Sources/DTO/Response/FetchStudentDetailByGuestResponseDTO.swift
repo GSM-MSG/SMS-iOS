@@ -27,6 +27,11 @@ public struct FetchStudentDetailByGuestResponseDTO: Decodable {
         self.projects = projects
         self.prizes = prizes
     }
+
+    enum CodingKeys: String, CodingKey {
+        case name, introduce, major, techStacks, projects, prizes
+        case profileImg = "profileImgUrl"
+    }
 }
 
 public extension FetchStudentDetailByGuestResponseDTO {

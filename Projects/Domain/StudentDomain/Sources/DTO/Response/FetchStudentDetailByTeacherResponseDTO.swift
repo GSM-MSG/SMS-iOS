@@ -23,6 +23,13 @@ public struct FetchStudentDetailByTeacherResponseDTO: Decodable {
     public let projects: [ProjectResponseDTO]
     public let prizes: [PrizeResponseDTO]
 
+    enum CodingKeys: String, CodingKey {
+        case name, introduce, portfolioUrl, grade, classNum, number, department, contactEmail, gsmAuthenticationScore
+        case formOfEmployment, regions, militaryService, salary, languageCertificates, certificates
+        case major, techStacks, projects, prizes
+        case profileImg = "profileImgUrl"
+    }
+
     public struct LanguageCertificateResponseDTO: Decodable {
         public let name: String
         public let score: String

@@ -1,0 +1,87 @@
+name: iOS CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+      changed:
+        description: 'Changes in this version'
+        required: true
+
+env:
+  KEYCHAIN: ${{ 'sms-ios.keychain' }}
+
+  CERTS_EXPORT_PWD: ${{ secrets.CERT_EXPORT_SECRET }}
+
+  ENCRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip.gpg' }}
+  DECRYPTED_XCCONFIG_PATH: ${{ 'XCConfig.zip' }}
+  XCCONFIG_KEY: ${{ secrets.XCCONFIG_SECRET }}
+
+  ENCRYPTED_PROVISION_FILE_PATH: ${{ 'Tuist/Signing/SMS.PROD.mobileprovision.gpg' }}
+  DECRYPTED_PROVISION_FILE_PATH: ${{ 'Tuist/Signing/SMS.PROD.mobileprovision' }}
+  PROVISION_KEY: ${{ secrets.PROVISION_SECRET }}
+
+  ENCRYPTED_FASTLANE_ENV_SECRET_FILE_PATH: ${{ 'fastlane/.env.default.gpg' }}
+  DECRYPTED_FASTLANE_ENV_SECRET_FILE_PATH: ${{ 'fastlane/.env.default' }}
+  FASTLANE_ENV_SECRET_KEY: ${{ secrets.FASTLANE_ENV_SECRET }}
+
+  ENCRYPTED_APPSTORE_API_KEY_FILE_PATH: ${{ 'fastlane/SMS-AppStoreKey.json.gpg' }}
+  DECRYPTED_APPSTORE_API_KEY_FILE_PATH: ${{ 'fastlane/SMS-AppStoreKey.json' }}
+  APPSTORE_API_KEY_KEY: ${{ secrets.APPSTORE_CONNECT_SECRET }}
+
+  ENCRYPTED_MASTER_KEY_FILE_PATH: ${{ 'Tuist/master.key.gpg' }}
+  DECRYPTED_MASTER_KEY_FILE_PATH: ${{ 'Tuist/master.key' }}
+  MASTER_KEY_KEY: ${{ secrets.MASTER_KEY_SECRET }}
+
+
+jobs:
+  build:
+    name: deploy
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: install tuist
+        run: curl -Ls https://install.tuist.io | bash
+
+      - name: install fastlane
+        run: brew install fastlane
+
+      - name: decrypt
+        run: sh .github/workflows/CD/Decrypt.sh
+        shell: bash
+
+      - name: configure keychain
+        run: sh .github/workflows/CD/Keychain.sh
+        shell: bash
+
+      - name: create .xcodeproj
+        run: make cd_generate
+
+      - name: Release Branch Create
+        run: |
+            git config --global user.email 'MSG-Github'
+            git config --global user.email 'matsougeum@gmail.com'
+            git config pull.rebase false
+            git checkout -b release/${{ github.event.inputs.version }}
+
+      - name: Update Release Note
+        run: |
+          echo "${{ github.event.inputs.changed }}" > fastlane/metadata/ko/release_notes.txt
+
+      - name: Distribute
+        run: fastlane release version:$VERSION
+        shell: bash
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Commit and PR
+        run: sh .github/workflows/AppStore/ReleasePR.sh
+        shell: bash
+        env:
+          VERSION: ${{ github.event.inputs.version }}

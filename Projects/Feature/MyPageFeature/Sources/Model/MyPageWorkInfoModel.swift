@@ -4,6 +4,7 @@ import StudentDomainInterface
 protocol MyPageWorkInfoStateProtocol {
     var workRegionList: [String] { get }
     var salary: String { get }
+    var salaryDisplay: String { get }
     var formOfEmployment: FormOfEmployment { get }
     var isPresentedFormOfEmployeementSheet: Bool { get }
 }
@@ -37,8 +38,12 @@ extension MyPageModel: MyPageWorkInfoActionProtocol {
     }
 
     func updateSalary(salary: String) {
+        guard salary.isNotEmpty else {
+            self.salary = ""
+            return
+        }
         guard let salaryInt = Int(salary).map({ String(min($0, 9999)) }) else { return }
-        self.salary = salaryInt == "0" ? "상관없음" : "\(salaryInt)만원"
+        self.salary = salaryInt
     }
 
     func updateFormOfEmployment(form: FormOfEmployment) {

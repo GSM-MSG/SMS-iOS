@@ -33,7 +33,7 @@ struct FetchMyProfileResponseDTO: Decodable {
         case number
         case department
         case major
-        case profileImageURL = "profileImg"
+        case profileImageURL = "profileImgUrl"
         case contactEmail
         case gsmAuthenticationScore
         case formOfEmployment

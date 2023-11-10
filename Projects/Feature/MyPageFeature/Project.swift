@@ -11,7 +11,9 @@ let project = Project.makeModule(
         .Feature.TechStackAppendFeatureInterface,
         .Domain.UserDomainInterface,
         .Domain.StudentDomainInterface,
-        .Domain.AuthDomainInterface
+        .Domain.AuthDomainInterface,
+        .Domain.FileDomainInterface,
+        .Domain.MajorDomainInterface
     ],
     demoDependencies: [
         .Domain.UserDomainTesting,

@@ -9,6 +9,8 @@ import TechStackAppendFeatureInterface
 @testable import MajorDomainTesting
 
 final class DummyMyPageDelegate: MyPageDelegate {
+    func completeModify() {}
+
     func logout() {}
 }
 

@@ -34,9 +34,11 @@ extension ProjectInfo {
 }
 
 enum InputProjectInfoErrorField: Hashable {
+    case icon
     case name
     case content
-    case mainTask
+    case techstaks
+    case date
 }
 
 protocol InputProjectInfoStateProtocol {
@@ -78,4 +80,5 @@ protocol InputProjectInfoActionProtocol: AnyObject {
     func updateIsPresentedEndAtDatePicker(isPresented: Bool)
     func updateIsPresentedTechStackAppend(isPresented: Bool)
     func updateIsPresentedToast(isPresented: Bool)
+    func updateErrorFieldSet(set: [Set<InputProjectInfoErrorField>])
 }

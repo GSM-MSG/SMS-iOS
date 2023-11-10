@@ -1,4 +1,5 @@
 import FilterFeatureInterface
+import MyPageFeatureInterface
 import Combine
 import MainFeatureInterface
 import StudentDomainInterface
@@ -99,5 +100,12 @@ extension MainIntent: FilterDelegate {
     func filterDidCompleted(filterOption: FilterOptionDTO?) {
         model?.updateFilterOption(filterOpion: .init(dto: filterOption ?? .init()))
         model?.updatePage(page: 1)
+        self.refresh(filterOption: .init(dto: filterOption ?? .init()))
+    }
+}
+
+extension MainIntent: MyPageDelegate {
+    func completeModify() {
+        self.refresh(filterOption: .init(dto: .init()))
     }
 }

@@ -11,15 +11,23 @@ struct PrizeModel: Equatable {
     }
 }
 
+enum MyPagePrizeInfoErrorField: Hashable {
+    case name
+    case type
+    case date
+}
+
 protocol MyPagePrizeStateProtocol {
     var prizeList: [PrizeModel] { get }
     var collapsedPrize: [Bool] { get }
     var isPresentedPrizeAtDatePicker: Bool { get }
     var focusedPrizeIndex: Int { get }
+    var prizeErrorSetList: [Set<MyPagePrizeInfoErrorField>] { get }
 }
 
 protocol MyPagePrizeActionProtocol: AnyObject {
     func toggleCollapsedPrize(index: Int)
+    func setCollapsedPrize(size: Int)
     func updatePrizeList(prizeList: [PrizeModel])
     func updatePrizeName(index: Int, name: String)
     func updatePrizePrize(index: Int, prize: String)
@@ -28,12 +36,17 @@ protocol MyPagePrizeActionProtocol: AnyObject {
     func removePrize(index: Int)
     func updateFocusedPrizeIndex(index: Int)
     func updateIsPresentedPrizeAtDatePicker(isPresented: Bool)
+    func updatePrizeErrorSetList(set: [Set<MyPagePrizeInfoErrorField>])
 }
 
 extension MyPageModel: MyPagePrizeActionProtocol {
     func toggleCollapsedPrize(index: Int) {
         guard collapsedPrize[safe: index] != nil else { return }
         self.collapsedPrize[index].toggle()
+    }
+
+    func setCollapsedPrize(size: Int) {
+        self.collapsedPrize = Array(repeating: false, count: size)
     }
 
     func updatePrizeList(prizeList: [PrizeModel]) {
@@ -79,4 +92,7 @@ extension MyPageModel: MyPagePrizeActionProtocol {
         self.isPresentedPrizeAtDatePicker = isPresented
     }
 
+    func updatePrizeErrorSetList(set: [Set<MyPagePrizeInfoErrorField>]) {
+        self.prizeErrorSetList = set
+    }
 }

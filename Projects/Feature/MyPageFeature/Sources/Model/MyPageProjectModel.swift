@@ -29,6 +29,14 @@ extension ProjectModel {
     }
 }
 
+enum MyPageProjectInfoErrorField: Hashable {
+    case icon
+    case name
+    case content
+    case techstaks
+    case date
+}
+
 protocol MyPageProjectStateProtocol {
     var projectList: [ProjectModel] { get }
     var collapsedProject: [Bool] { get }
@@ -39,6 +47,7 @@ protocol MyPageProjectStateProtocol {
     var isPresentedProjectEndAtDatePicker: Bool { get }
     var isPresentedProjectTechStackAppend: Bool { get }
     var isPresentedProjectToast: Bool { get }
+    var projectErrorSetList: [Set<MyPageProjectInfoErrorField>] { get }
 }
 
 protocol MyPageProjectActionProtocol: AnyObject {
@@ -57,6 +66,7 @@ protocol MyPageProjectActionProtocol: AnyObject {
     func updateIsInProgress(index: Int, isInProgress: Bool)
     func updateProjectLinkName(index: Int, linkIndex: Int, name: String)
     func updateProjectLinkURL(index: Int, linkIndex: Int, url: String)
+    func setCollapsedProject(size: Int)
     func appendEmptyRelatedLink(index: Int)
     func removeProjectRelatedLink(index: Int, linkIndex: Int)
     func appendEmptyProject()
@@ -68,6 +78,7 @@ protocol MyPageProjectActionProtocol: AnyObject {
     func updateIsPresentedProjectEndAtDatePicker(isPresented: Bool)
     func updateIsPresentedProjectTechStackAppend(isPresented: Bool)
     func updateIsPresentedProjectToast(isPresented: Bool)
+    func updateProjectErrorFieldSet(set: [Set<MyPageProjectInfoErrorField>])
 }
 
 extension MyPageModel: MyPageProjectActionProtocol {
@@ -148,6 +159,10 @@ extension MyPageModel: MyPageProjectActionProtocol {
         projectList[index].relatedLinks[linkIndex].url = url
     }
 
+    func setCollapsedProject(size: Int) {
+        self.collapsedProject = Array(repeating: false, count: size)
+    }
+
     func appendEmptyRelatedLink(index: Int) {
         guard projectList[safe: index] != nil else { return }
         projectList[index].relatedLinks.append(.init(name: "", url: ""))
@@ -209,5 +224,9 @@ extension MyPageModel: MyPageProjectActionProtocol {
 
     func updateIsPresentedProjectToast(isPresented: Bool) {
         isPresentedProjectToast = isPresented
+    }
+
+    func updateProjectErrorFieldSet(set: [Set<MyPageProjectInfoErrorField>]) {
+        projectErrorSetList = set
     }
 }

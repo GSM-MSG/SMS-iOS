@@ -3,6 +3,7 @@ import InputInformationFeatureInterface
 import MainFeatureInterface
 import SigninFeatureInterface
 import SplashFeatureInterface
+import MyPageFeatureInterface
 
 final class RootIntent: RootIntentProtocol {
     private weak var model: (any RootActionProtocol)?

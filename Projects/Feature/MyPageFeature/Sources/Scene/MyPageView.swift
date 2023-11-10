@@ -5,6 +5,7 @@ import ViewUtil
 import TechStackAppendFeatureInterface
 import StudentDomainInterface
 
+// swiftlint: disable type_body_length
 struct MyPageView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.safeAreaInsets) var safeAreaInsets
@@ -30,7 +31,11 @@ struct MyPageView: View {
                 myPageView(geometry: geometry)
 
                 CTAButton(text: "저장") {
-                    intent.modifyToInputAllInfo(state: state)
+                    intent.modifyToInputAllInfo(state: state) {
+                        DispatchQueue.main.async {
+                            dismiss()
+                        }
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, safeAreaInsets.bottom + 16)
@@ -44,6 +49,16 @@ struct MyPageView: View {
             }
             .hideKeyboardWhenTap()
         }
+        .smsToast(
+            text: "정보수정이 완료되었습니다.",
+            isShowing: Binding<Bool>(
+                get: {
+                    state.isCompleteModify
+                }, set: { _ in
+                    intent.modifyCompleteToastDismissed()
+                }
+            )
+        )
         .edgesIgnoringSafeArea([.bottom])
         .smsBottomSheet(
             isShowing: Binding(
@@ -204,6 +219,7 @@ struct MyPageView: View {
             dismiss: dismiss
         )
         .navigationBarTitleDisplayMode(.inline)
+        .smsLoading(isLoading: state.isLoading)
     }
 
     @ViewBuilder
@@ -231,6 +247,7 @@ struct MyPageView: View {
                             $0 ? intent.updateMajor(major: "") : ()
                             $0 ? intent.activeSelfEntering() : ()
                             $0 ? intent.majorSheetDismissed() : ()
+                            intent.updateIsSelfEntering(isSelfEntering: $0)
                         }
                     )
                 )
@@ -275,7 +292,10 @@ struct MyPageView: View {
                     SMSRadioButton(
                         isSelected: Binding(
                             get: { state.selectedMilitaryServiceType == militaryServiceType },
-                            set: { $0 ? intent.militaryServiceTypeDidSelected(type: militaryServiceType) : () }
+                            set: {
+                                $0 ? intent.militaryServiceTypeDidSelected(type: militaryServiceType) : ()
+                                $0 ? intent.militarySheetDismissed() : ()
+                            }
                         )
                     )
                     .buttonWrapper {}
@@ -286,6 +306,7 @@ struct MyPageView: View {
         }
     }
 
+    // swiftlint: disable function_body_length
     @ViewBuilder
     func myPageView(geometry: GeometryProxy) -> some View {
         ScrollView {
@@ -299,7 +320,13 @@ struct MyPageView: View {
                     SMSSeparator()
                         .padding(.vertical, 16)
 
-                    MyPageSchoolLifeView(intent: intent, state: state)
+                    MyPageSchoolLifeView(
+                        container: .init(
+                            intent: intent,
+                            model: state,
+                            modelChangePublisher: container.objectWillChange
+                        )
+                    )
 
                     SMSSeparator()
                         .padding(.vertical, 16)

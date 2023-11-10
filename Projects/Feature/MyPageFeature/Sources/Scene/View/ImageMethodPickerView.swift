@@ -16,11 +16,11 @@ struct ImageMethodPickerView: View {
     var body: some View {
         VStack(spacing: 28) {
             Group {
-                ImageMethodRowView(title: "앨범에서 가져오기", icon: .photo) {
+                ImageMethodRowView(title: "앨범", icon: .photo) {
                     albumAction()
                 }
 
-                ImageMethodRowView(title: "카메라에서 촬영하기", icon: .camera) {
+                ImageMethodRowView(title: "카메라", icon: .camera) {
                     cameraAction()
                 }
             }

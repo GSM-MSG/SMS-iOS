@@ -26,6 +26,7 @@ struct StudentDetailView: View {
                         LazyImage(url: URL(string: studentDetail.profileImageURL)) { state in
                             if let image = state.image {
                                 image.resizable()
+                                    .aspectRatio(1, contentMode: .fit)
                             } else {
                                 SMSIcon(.profile, width: nil, height: nil)
                             }
@@ -302,7 +303,7 @@ struct StudentDetailView: View {
             Spacer()
 
             SMSText(value, font: .body2)
-                .lineLimit(nil)
+                .lineLimit(1)
                 .foregroundColor(.sms(.neutral(.n40)))
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
