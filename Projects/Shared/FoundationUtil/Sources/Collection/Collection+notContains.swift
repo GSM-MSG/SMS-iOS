@@ -1,5 +1,7 @@
 import Foundation
 
-public extension Collection where Element: Equatable {
-    func notContains(_ element: Element) -> Bool { !contains(element) }
+public extension Collection {
+    func notContains(where predicate: (Element) -> Bool) -> Bool {
+        return !self.contains { predicate($0) }
+    }
 }
