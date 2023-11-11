@@ -83,7 +83,7 @@ final class InputProjectInfoIntent: InputProjectInfoIntentProtocol {
             }
 
         model?.updateErrorFieldSet(set: errorSet)
-        guard !errorSet.contains(where: { $0.isNotEmpty }) else { return }
+        guard errorSet.notContains(where: { $0.isNotEmpty }) else { return }
 
         delegate?.completeToInputProjectInfo(input: projectInfoObjects)
     }

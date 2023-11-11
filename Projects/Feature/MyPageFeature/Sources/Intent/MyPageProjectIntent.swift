@@ -1,5 +1,6 @@
 import DesignSystem
 import Foundation
+import FoundationUtil
 
 protocol MyPageProjectIntentProtocol {
     func projectToggleButtonDidTap(index: Int)
@@ -212,7 +213,7 @@ extension MyPageIntent: MyPageProjectIntentProtocol {
             }
 
         model?.updateProjectErrorFieldSet(set: errorSet)
-        guard !errorSet.contains(where: { $0.isNotEmpty }) else { return false }
+        guard errorSet.notContains(where: { $0.isNotEmpty }) else { return false }
 
         return true
     }
