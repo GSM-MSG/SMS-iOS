@@ -6,7 +6,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let major: String
     public let profileImgURL: String
     public let techStacks: [String]
-    public let projects: [Project]
     public let prizes: [Prize]
 
     public init(
@@ -15,7 +14,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         major: String,
         profileImgURL: String,
         techStacks: [String],
-        projects: [Project] = [],
         prizes: [Prize] = []
     ) {
         self.contactEmail = contactEmail
@@ -23,7 +21,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         self.major = major
         self.profileImgURL = profileImgURL
         self.techStacks = techStacks
-        self.projects = projects
         self.prizes = prizes
     }
 
@@ -33,50 +30,11 @@ public struct InputStudentInformationRequestDTO: Encodable {
         case major
         case profileImgURL = "profileImgUrl"
         case techStacks
-        case projects
         case prizes
     }
 }
 
 public extension InputStudentInformationRequestDTO {
-    struct Project: Encodable {
-        public let name: String
-        public let iconImageURL: String
-        public let description: String
-        public let links: [Link]
-        public let techStacks: [String]
-        public let myActivity: String
-        public let inProgress: InProgress
-
-        public init(
-            name: String,
-            iconImageURL: String,
-            description: String,
-            links: [Link],
-            techStacks: [String],
-            myActivity: String,
-            inProgress: InProgress
-        ) {
-            self.name = name
-            self.iconImageURL = iconImageURL
-            self.description = description
-            self.links = links
-            self.techStacks = techStacks
-            self.myActivity = myActivity
-            self.inProgress = inProgress
-        }
-
-        enum CodingKeys: String, CodingKey {
-            case name
-            case iconImageURL = "icon"
-            case description
-            case links
-            case techStacks
-            case myActivity
-            case inProgress
-        }
-    }
-
     struct Prize: Encodable {
         public let name: String
         public let type: String
@@ -90,28 +48,6 @@ public extension InputStudentInformationRequestDTO {
             self.name = name
             self.type = type
             self.date = date
-        }
-    }
-}
-
-public extension InputStudentInformationRequestDTO.Project {
-    struct Link: Encodable {
-        public let name: String
-        public let url: String
-
-        public init(name: String, url: String) {
-            self.name = name
-            self.url = url
-        }
-    }
-
-    struct InProgress: Encodable {
-        public let start: String
-        public let end: String?
-
-        public init(start: String, end: String?) {
-            self.start = start
-            self.end = end
         }
     }
 }
