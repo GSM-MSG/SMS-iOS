@@ -58,7 +58,6 @@ public extension InputStudentInformationRequestDTO {
     struct Project: Encodable {
         public let name: String
         public let iconImageURL: String
-        public let previewImageURLs: [String]
         public let description: String
         public let links: [Link]
         public let techStacks: [String]
@@ -68,7 +67,6 @@ public extension InputStudentInformationRequestDTO {
         public init(
             name: String,
             iconImageURL: String,
-            previewImageURLs: [String],
             description: String,
             links: [Link],
             techStacks: [String],
@@ -77,7 +75,6 @@ public extension InputStudentInformationRequestDTO {
         ) {
             self.name = name
             self.iconImageURL = iconImageURL
-            self.previewImageURLs = previewImageURLs
             self.description = description
             self.links = links
             self.techStacks = techStacks
@@ -88,7 +85,6 @@ public extension InputStudentInformationRequestDTO {
         enum CodingKeys: String, CodingKey {
             case name
             case iconImageURL = "icon"
-            case previewImageURLs = "previewImages"
             case description
             case links
             case techStacks
