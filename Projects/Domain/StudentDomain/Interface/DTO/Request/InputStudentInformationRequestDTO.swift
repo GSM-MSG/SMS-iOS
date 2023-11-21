@@ -5,7 +5,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let introduce: String
     public let major: String
     public let profileImgURL: String
-    public let salary: Int
     public let techStacks: [String]
     public let projects: [Project]
     public let prizes: [Prize]
@@ -15,7 +14,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         introduce: String,
         major: String,
         profileImgURL: String,
-        salary: Int,
         techStacks: [String],
         projects: [Project] = [],
         prizes: [Prize] = []
@@ -24,7 +22,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         self.introduce = introduce
         self.major = major
         self.profileImgURL = profileImgURL
-        self.salary = salary
         self.techStacks = techStacks
         self.projects = projects
         self.prizes = prizes
@@ -35,7 +32,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         case introduce
         case major
         case profileImgURL = "profileImgUrl"
-        case salary
         case techStacks
         case projects
         case prizes
