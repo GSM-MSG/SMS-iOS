@@ -3,7 +3,6 @@ import Foundation
 public struct InputStudentInformationRequestDTO: Encodable {
     public let contactEmail: String
     public let introduce: String
-    public let languageCertificates: [LanguageCertificate]
     public let major: String
     public let militaryService: MilitaryServiceType
     public let portfolioURL: String
@@ -17,7 +16,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public init(
         contactEmail: String,
         introduce: String,
-        languageCertificates: [LanguageCertificate],
         major: String,
         militaryService: MilitaryServiceType,
         portfolioURL: String,
@@ -30,7 +28,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     ) {
         self.contactEmail = contactEmail
         self.introduce = introduce
-        self.languageCertificates = languageCertificates
         self.major = major
         self.militaryService = militaryService
         self.portfolioURL = portfolioURL
@@ -45,7 +42,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     enum CodingKeys: String, CodingKey {
         case contactEmail
         case introduce
-        case languageCertificates
         case major
         case militaryService
         case portfolioURL = "portfolioUrl"
@@ -59,16 +55,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
 }
 
 public extension InputStudentInformationRequestDTO {
-    struct LanguageCertificate: Encodable {
-        public let languageCertificateName: String
-        public let score: String
-
-        public init(languageCertificateName: String, score: String) {
-            self.languageCertificateName = languageCertificateName
-            self.score = score
-        }
-    }
-
     struct Project: Encodable {
         public let name: String
         public let iconImageURL: String
