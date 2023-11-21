@@ -4,7 +4,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let contactEmail: String
     public let introduce: String
     public let major: String
-    public let militaryService: MilitaryServiceType
     public let portfolioURL: String
     public let profileImgURL: String
     public let regions: [String]
@@ -17,7 +16,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         contactEmail: String,
         introduce: String,
         major: String,
-        militaryService: MilitaryServiceType,
         portfolioURL: String,
         profileImgURL: String,
         regions: [String],
@@ -29,7 +27,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         self.contactEmail = contactEmail
         self.introduce = introduce
         self.major = major
-        self.militaryService = militaryService
         self.portfolioURL = portfolioURL
         self.profileImgURL = profileImgURL
         self.regions = regions
@@ -43,7 +40,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         case contactEmail
         case introduce
         case major
-        case militaryService
         case portfolioURL = "portfolioUrl"
         case profileImgURL = "profileImgUrl"
         case regions
