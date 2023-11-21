@@ -1,7 +1,6 @@
 import Foundation
 
 public struct InputStudentInformationRequestDTO: Encodable {
-    public let certificates: [String]
     public let contactEmail: String
     public let formOfEmployment: FormOfEmployment
     public let gsmAuthenticationScore: Int
@@ -18,7 +17,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let prizes: [Prize]
 
     public init(
-        certificates: [String],
         contactEmail: String,
         formOfEmployment: FormOfEmployment,
         gsmAuthenticationScore: Int,
@@ -34,7 +32,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         projects: [Project] = [],
         prizes: [Prize] = []
     ) {
-        self.certificates = certificates
         self.contactEmail = contactEmail
         self.formOfEmployment = formOfEmployment
         self.gsmAuthenticationScore = gsmAuthenticationScore
@@ -52,7 +49,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case certificates
         case contactEmail
         case formOfEmployment
         case gsmAuthenticationScore
