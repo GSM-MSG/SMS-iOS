@@ -2,7 +2,6 @@ import Foundation
 
 public struct InputStudentInformationRequestDTO: Encodable {
     public let contactEmail: String
-    public let gsmAuthenticationScore: Int
     public let introduce: String
     public let languageCertificates: [LanguageCertificate]
     public let major: String
@@ -17,7 +16,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
 
     public init(
         contactEmail: String,
-        gsmAuthenticationScore: Int,
         introduce: String,
         languageCertificates: [LanguageCertificate],
         major: String,
@@ -31,7 +29,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         prizes: [Prize] = []
     ) {
         self.contactEmail = contactEmail
-        self.gsmAuthenticationScore = gsmAuthenticationScore
         self.introduce = introduce
         self.languageCertificates = languageCertificates
         self.major = major
@@ -47,7 +44,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
 
     enum CodingKeys: String, CodingKey {
         case contactEmail
-        case gsmAuthenticationScore
         case introduce
         case languageCertificates
         case major
