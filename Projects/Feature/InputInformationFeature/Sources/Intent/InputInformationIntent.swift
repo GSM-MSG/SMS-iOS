@@ -1,7 +1,6 @@
 import FileDomainInterface
 import Foundation
 import InputInformationFeatureInterface
-import InputLanguageInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
@@ -48,7 +47,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                     contactEmail: inputProfileInfo.contactEmail,
                     gsmAuthenticationScore: state.gsmAuthenticationScore,
                     introduce: inputProfileInfo.introduce,
-                    languageCertificates: state.languages,
                     major: inputProfileInfo.major,
                     militaryService: militaryServiceType,
                     portfolioURL: inputProfileInfo.portfoiloURL,
@@ -112,19 +110,6 @@ extension InputInformationIntent: InputMilitaryDelegate {
     func completeToInputMilitary(militaryServiceType: String) {
         let militaryServiceTypeEnum = MilitaryServiceType(rawValue: militaryServiceType) ?? .hope
         model?.updateMilitaryServiceType(type: militaryServiceTypeEnum)
-        model?.nextButtonDidTap()
-    }
-}
-
-extension InputInformationIntent: InputLanguageDelegate {
-    func languagePrevButtonDidTap() {
-        model?.prevButtonDidTap()
-    }
-
-    func completeToInputLanguage(languages: [(name: String, score: String)]) {
-        let languageCertificates: [InputStudentInformationRequestDTO.LanguageCertificate] = languages
-            .map { .init(languageCertificateName: $0.name, score: $0.score) }
-        model?.updateLanguages(languages: languageCertificates)
         model?.nextButtonDidTap()
     }
 }

@@ -1,7 +1,6 @@
 import BaseFeature
 import FileDomainInterface
 import InputInformationFeatureInterface
-import InputLanguageInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
@@ -12,7 +11,6 @@ import SwiftUI
 
 public protocol InputInformationDependency: Dependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
-    var inputLanguageInfoBuildable: any InputLanguageInfoBuildable { get }
     var inputProjectInfoBuildable: any InputProjectInfoBuildable { get }
     var inputPrizeInfoBuildable: any InputPrizeInfoBuildable { get }
     var fileDomainBuildable: any FileDomainBuildable { get }
@@ -38,7 +36,6 @@ public final class InputInformationComponent:
         )
         return InputInformationView(
             inputProfileInfoBuildable: dependency.inputProfileInfoBuildable,
-            inputLanguageInfoBuildable: dependency.inputLanguageInfoBuildable,
             inputProjectInfoBuildable: dependency.inputProjectInfoBuildable,
             inputPrizeInfoBuildable: dependency.inputPrizeInfoBuildable,
             container: container
