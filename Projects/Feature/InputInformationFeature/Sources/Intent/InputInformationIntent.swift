@@ -2,7 +2,6 @@ import FileDomainInterface
 import Foundation
 import InputInformationFeatureInterface
 import InputLanguageInfoFeatureInterface
-import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputPrizeInfoFeatureInterface

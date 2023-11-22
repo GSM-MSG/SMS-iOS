@@ -12,7 +12,6 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var errorMessage: String = "알 수 없는 오류가 발생했습니다."
     var inputProfileInformationObject: InputProfileInformationObject?
     var gsmAuthenticationScore: Int = 0
-    var militaryServiceType: MilitaryServiceType?
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] = []
     var projects: [InputProjectInfoObject] = []
     var prizes: [InputPrizeInfoObject] = []
@@ -36,10 +35,6 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateInputProfileInformationObject(object: InputProfileInformationObject) {
         self.inputProfileInformationObject = object
-    }
-
-    func updateMilitaryServiceType(type: MilitaryServiceType) {
-        self.militaryServiceType = type
     }
 
     func updateLanguages(languages: [InputStudentInformationRequestDTO.LanguageCertificate]) {

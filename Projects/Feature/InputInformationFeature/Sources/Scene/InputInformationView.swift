@@ -2,7 +2,6 @@ import BaseFeature
 import DesignSystem
 import InputCertificateInfoFeatureInterface
 import InputLanguageInfoFeatureInterface
-import InputMilitaryInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
@@ -17,7 +16,6 @@ struct InputInformationView: View {
 
     private let inputProfileInfoBuildable: any InputProfileInfoBuildable
     private let inputWorkInfoBuildable: any InputWorkInfoBuildable
-    private let inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable
     private let inputCertificateInfoBuildable: any InputCertificateInfoBuildable
     private let inputLanguageInfoBuildable: any InputLanguageInfoBuildable
     private let inputProjectInfoBuildable: any InputProjectInfoBuildable
@@ -26,7 +24,6 @@ struct InputInformationView: View {
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
         inputWorkInfoBuildable: any InputWorkInfoBuildable,
-        inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable,
         inputCertificateInfoBuildable: any InputCertificateInfoBuildable,
         inputLanguageInfoBuildable: any InputLanguageInfoBuildable,
         inputProjectInfoBuildable: any InputProjectInfoBuildable,
@@ -35,7 +32,6 @@ struct InputInformationView: View {
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
         self.inputWorkInfoBuildable = inputWorkInfoBuildable
-        self.inputMilitaryInfoBuildable = inputMilitaryInfoBuildable
         self.inputCertificateInfoBuildable = inputCertificateInfoBuildable
         self.inputLanguageInfoBuildable = inputLanguageInfoBuildable
         self.inputProjectInfoBuildable = inputProjectInfoBuildable
@@ -53,14 +49,6 @@ struct InputInformationView: View {
             inputProfileInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.profile)
-
-            inputWorkInfoBuildable.makeView(delegate: intent)
-                .eraseToAnyView()
-                .tag(InformationPhase.workCondition)
-
-            inputMilitaryInfoBuildable.makeView(delegate: intent)
-                .eraseToAnyView()
-                .tag(InformationPhase.military)
 
             inputCertificateInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
