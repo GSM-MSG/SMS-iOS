@@ -40,10 +40,6 @@ extension InputInformationModel: InputInformationActionProtocol {
         self.inputProfileInformationObject = object
     }
 
-    func updateInputSchoolLifeInformationObject(gsmAuthenticationScore: Int) {
-        self.gsmAuthenticationScore = gsmAuthenticationScore
-    }
-
     func updateInputWorkInformationObject(object: InputWorkInformationObject) {
         self.inputWorkInfomationObject = object
     }

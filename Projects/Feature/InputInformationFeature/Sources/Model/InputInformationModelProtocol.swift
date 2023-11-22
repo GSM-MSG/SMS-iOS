@@ -1,14 +1,12 @@
 import Foundation
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
-import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 
 enum InformationPhase: CaseIterable {
     case profile
-    case school
     case workCondition
     case military
     case certificate
@@ -36,7 +34,6 @@ protocol InputInformationActionProtocol: AnyObject {
     func prevButtonDidTap()
     func nextButtonDidTap()
     func updateInputProfileInformationObject(object: InputProfileInformationObject)
-    func updateInputSchoolLifeInformationObject(gsmAuthenticationScore: Int)
     func updateInputWorkInformationObject(object: InputWorkInformationObject)
     func updateMilitaryServiceType(type: MilitaryServiceType)
     func updateLanguages(languages: [InputStudentInformationRequestDTO.LanguageCertificate])

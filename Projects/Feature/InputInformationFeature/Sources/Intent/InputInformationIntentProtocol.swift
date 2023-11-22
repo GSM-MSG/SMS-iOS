@@ -4,13 +4,11 @@ import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
-import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 
 protocol InputInformationIntentProtocol:
     InputProfileDelegate,
-    InputSchoolLifeDelegate,
     InputWorkDelegate,
     InputMilitaryDelegate,
     InputCertificateDelegate,

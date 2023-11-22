@@ -6,7 +6,6 @@ import InputMilitaryInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
-import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import SwiftUI
 import ViewUtil
@@ -26,7 +25,6 @@ struct InputInformationView: View {
 
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
-        inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable,
         inputWorkInfoBuildable: any InputWorkInfoBuildable,
         inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable,
         inputCertificateInfoBuildable: any InputCertificateInfoBuildable,
@@ -36,7 +34,6 @@ struct InputInformationView: View {
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
-        self.inputSchoolLifeInfoBuildable = inputSchoolLifeInfoBuildable
         self.inputWorkInfoBuildable = inputWorkInfoBuildable
         self.inputMilitaryInfoBuildable = inputMilitaryInfoBuildable
         self.inputCertificateInfoBuildable = inputCertificateInfoBuildable
@@ -56,10 +53,6 @@ struct InputInformationView: View {
             inputProfileInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.profile)
-
-            inputSchoolLifeInfoBuildable.makeView(delegate: intent)
-                .eraseToAnyView()
-                .tag(InformationPhase.school)
 
             inputWorkInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()

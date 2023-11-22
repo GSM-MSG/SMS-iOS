@@ -1,12 +1,10 @@
 import FileDomainInterface
 import Foundation
-import InputCertificateInfoFeatureInterface
 import InputInformationFeatureInterface
 import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
-import InputSchoolLifeInfoFeatureInterface
 import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
@@ -106,17 +104,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 extension InputInformationIntent: InputProfileDelegate {
     func completeToInputProfile(input: InputProfileInformationObject) {
         model?.updateInputProfileInformationObject(object: input)
-        model?.nextButtonDidTap()
-    }
-}
-
-extension InputInformationIntent: InputSchoolLifeDelegate {
-    func schoolLifePrevButtonDidTap() {
-        model?.prevButtonDidTap()
-    }
-
-    func completeToInputSchoolLife(gsmAuthenticationScore: Int) {
-        model?.updateInputSchoolLifeInformationObject(gsmAuthenticationScore: gsmAuthenticationScore)
         model?.nextButtonDidTap()
     }
 }

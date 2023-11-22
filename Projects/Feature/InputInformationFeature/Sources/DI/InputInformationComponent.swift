@@ -14,7 +14,6 @@ import SwiftUI
 
 public protocol InputInformationDependency: Dependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
-    var inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable { get }
     var inputWorkInfoBuildable: any InputWorkInfoBuildable { get }
     var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable { get }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable { get }
@@ -43,7 +42,6 @@ public final class InputInformationComponent:
         )
         return InputInformationView(
             inputProfileInfoBuildable: dependency.inputProfileInfoBuildable,
-            inputSchoolLifeInfoBuildable: dependency.inputSchoolLifeInfoBuildable,
             inputWorkInfoBuildable: dependency.inputWorkInfoBuildable,
             inputMilitaryInfoBuildable: dependency.inputMilitaryInfoBuildable,
             inputLanguageInfoBuildable: dependency.inputLanguageInfoBuildable,
