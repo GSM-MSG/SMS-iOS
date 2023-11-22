@@ -2,14 +2,12 @@ import BaseFeature
 import FileDomainInterface
 import InputInformationFeatureInterface
 import InputProfileInfoFeatureInterface
-import InputPrizeInfoFeatureInterface
 import NeedleFoundation
 import StudentDomainInterface
 import SwiftUI
 
 public protocol InputInformationDependency: Dependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
-    var inputPrizeInfoBuildable: any InputPrizeInfoBuildable { get }
     var fileDomainBuildable: any FileDomainBuildable { get }
     var studentDomainBuildable: any StudentDomainBuildable { get }
 }
@@ -33,7 +31,6 @@ public final class InputInformationComponent:
         )
         return InputInformationView(
             inputProfileInfoBuildable: dependency.inputProfileInfoBuildable,
-            inputPrizeInfoBuildable: dependency.inputPrizeInfoBuildable,
             container: container
         )
     }

@@ -1,6 +1,5 @@
 import BaseFeature
 import DesignSystem
-import InputPrizeInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import SwiftUI
 import ViewUtil
@@ -11,15 +10,12 @@ struct InputInformationView: View {
     var state: any InputInformationStateProtocol { container.model }
                                                                                                                   
     private let inputProfileInfoBuildable: any InputProfileInfoBuildable
-    private let inputPrizeInfoBuildable: any InputPrizeInfoBuildable
 
     init(
         inputProfileInfoBuildable: any InputProfileInfoBuildable,
-        inputPrizeInfoBuildable: any InputPrizeInfoBuildable,
         container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     ) {
         self.inputProfileInfoBuildable = inputProfileInfoBuildable
-        self.inputPrizeInfoBuildable = inputPrizeInfoBuildable
         self._container = StateObject(wrappedValue: container)
     }
 
@@ -33,10 +29,6 @@ struct InputInformationView: View {
             inputProfileInfoBuildable.makeView(delegate: intent)
                 .eraseToAnyView()
                 .tag(InformationPhase.profile)
-
-            inputPrizeInfoBuildable.makeView(delegate: intent)
-                .eraseToAnyView()
-                .tag(InformationPhase.prize)
         }
         .ignoresSafeArea(.container, edges: .top)
         .smsAlert(

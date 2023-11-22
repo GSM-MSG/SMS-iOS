@@ -1,11 +1,9 @@
 import Foundation
 import InputProfileInfoFeatureInterface
-import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 
 enum InformationPhase: CaseIterable {
     case profile
-    case prize
 }
 
 protocol InputInformationStateProtocol {
@@ -15,7 +13,6 @@ protocol InputInformationStateProtocol {
     var errorMessage: String { get }
     var inputProfileInformationObject: InputProfileInformationObject? { get }
     var gsmAuthenticationScore: Int { get }
-    var prizes: [InputPrizeInfoObject] { get }
     var isCompleteToInputAllInfo: Bool { get }
 }
 
@@ -23,7 +20,6 @@ protocol InputInformationActionProtocol: AnyObject {
     func prevButtonDidTap()
     func nextButtonDidTap()
     func updateInputProfileInformationObject(object: InputProfileInformationObject)
-    func updatePrizes(prizes: [InputPrizeInfoObject])
     func updateIsCompleteToInputAllInfo(isComplete: Bool)
     func updateIsLoading(isLoading: Bool)
     func updateIsError(isError: Bool)

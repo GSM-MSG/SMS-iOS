@@ -2,8 +2,6 @@ import FileDomainInterface
 import Foundation
 import InputInformationFeatureInterface
 import InputProfileInfoFeatureInterface
-import InputProjectInfoFeatureInterface
-import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 import ConcurrencyUtil
 import DateUtil
@@ -50,8 +48,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                     major: inputProfileInfo.major,
                     portfolioURL: inputProfileInfo.portfoiloURL,
                     profileImgURL: profileImageURL,
-                    techStacks: inputProfileInfo.techStacks,
-                    prizes: state.prizes.map { $0.toDTO() }
+                    techStacks: inputProfileInfo.techStacks
                 )
 
                 try await inputInformationUseCase.execute(req: inputInformationRequest)
@@ -74,30 +71,5 @@ extension InputInformationIntent: InputProfileDelegate {
     func completeToInputProfile(input: InputProfileInformationObject) {
         model?.updateInputProfileInformationObject(object: input)
         model?.nextButtonDidTap()
-    }
-}
-
-extension InputInformationIntent: InputPrizeDelegate {
-    func prizeInfoPrevButtonDidTap() {
-        model?.prevButtonDidTap()
-    }
-
-    func completeToInputPrizeInfo(input: [InputPrizeInfoObject]) {
-        model?.updatePrizes(prizes: input)
-        model?.updateIsCompleteToInputAllInfo(isComplete: true)
-    }
-}
-
-extension InputPrizeInfoObject {
-    var prizeAtString: String {
-        prizeAt.toStringCustomFormat(format: "yyyy.MM")
-    }
-
-    func toDTO() -> InputStudentInformationRequestDTO.Prize {
-        InputStudentInformationRequestDTO.Prize(
-            name: name,
-            type: prize,
-            date: prizeAtString
-        )
     }
 }

@@ -1,10 +1,9 @@
 import Foundation
 import InputProfileInfoFeatureInterface
-import InputPrizeInfoFeatureInterface
 
 protocol InputInformationIntentProtocol:
-    InputProfileDelegate,
-    InputPrizeDelegate {
+    InputProfileDelegate
+{
     func completeToInputAllInfo(state: any InputInformationStateProtocol)
     func errorAlertDismissed()
 }
