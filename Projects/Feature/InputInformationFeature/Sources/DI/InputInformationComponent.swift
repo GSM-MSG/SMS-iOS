@@ -6,7 +6,6 @@ import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
-import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import NeedleFoundation
 import StudentDomainInterface
@@ -14,7 +13,6 @@ import SwiftUI
 
 public protocol InputInformationDependency: Dependency {
     var inputProfileInfoBuildable: any InputProfileInfoBuildable { get }
-    var inputWorkInfoBuildable: any InputWorkInfoBuildable { get }
     var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable { get }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable { get }
     var inputProjectInfoBuildable: any InputProjectInfoBuildable { get }
@@ -42,7 +40,6 @@ public final class InputInformationComponent:
         )
         return InputInformationView(
             inputProfileInfoBuildable: dependency.inputProfileInfoBuildable,
-            inputWorkInfoBuildable: dependency.inputWorkInfoBuildable,
             inputMilitaryInfoBuildable: dependency.inputMilitaryInfoBuildable,
             inputLanguageInfoBuildable: dependency.inputLanguageInfoBuildable,
             inputProjectInfoBuildable: dependency.inputProjectInfoBuildable,

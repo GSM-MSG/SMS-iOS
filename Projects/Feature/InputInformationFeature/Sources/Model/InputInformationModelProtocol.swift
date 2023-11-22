@@ -1,7 +1,6 @@
 import Foundation
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
-import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 
@@ -22,7 +21,6 @@ protocol InputInformationStateProtocol {
     var errorMessage: String { get }
     var inputProfileInformationObject: InputProfileInformationObject? { get }
     var gsmAuthenticationScore: Int { get }
-    var inputWorkInfomationObject: InputWorkInformationObject? { get }
     var militaryServiceType: MilitaryServiceType? { get }
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] { get }
     var projects: [InputProjectInfoObject] { get }
@@ -34,7 +32,6 @@ protocol InputInformationActionProtocol: AnyObject {
     func prevButtonDidTap()
     func nextButtonDidTap()
     func updateInputProfileInformationObject(object: InputProfileInformationObject)
-    func updateInputWorkInformationObject(object: InputWorkInformationObject)
     func updateMilitaryServiceType(type: MilitaryServiceType)
     func updateLanguages(languages: [InputStudentInformationRequestDTO.LanguageCertificate])
     func updateProjects(projects: [InputProjectInfoObject])

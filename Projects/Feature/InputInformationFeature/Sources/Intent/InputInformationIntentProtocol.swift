@@ -4,7 +4,6 @@ import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
-import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 
 protocol InputInformationIntentProtocol:

@@ -2,7 +2,6 @@ import Foundation
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeatureInterface
-import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 
@@ -13,7 +12,6 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var errorMessage: String = "알 수 없는 오류가 발생했습니다."
     var inputProfileInformationObject: InputProfileInformationObject?
     var gsmAuthenticationScore: Int = 0
-    var inputWorkInfomationObject: InputWorkInformationObject?
     var militaryServiceType: MilitaryServiceType?
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] = []
     var projects: [InputProjectInfoObject] = []
@@ -38,10 +36,6 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateInputProfileInformationObject(object: InputProfileInformationObject) {
         self.inputProfileInformationObject = object
-    }
-
-    func updateInputWorkInformationObject(object: InputWorkInformationObject) {
-        self.inputWorkInfomationObject = object
     }
 
     func updateMilitaryServiceType(type: MilitaryServiceType) {

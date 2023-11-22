@@ -5,7 +5,6 @@ import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
 import InputProfileInfoFeatureInterface
 import InputProjectInfoFeatureInterface
-import InputWorkInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 import ConcurrencyUtil
@@ -32,7 +31,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {
         guard
             let inputProfileInfo = state.inputProfileInformationObject,
-            let inputWorkInfo = state.inputWorkInfomationObject,
             let militaryServiceType = state.militaryServiceType
         else {
             model?.updateIsCompleteToInputAllInfo(isComplete: false)
@@ -49,7 +47,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 
                 let inputInformationRequest = try await InputStudentInformationRequestDTO(
                     contactEmail: inputProfileInfo.contactEmail,
-                    formOfEmployment: FormOfEmployment(rawValue: inputWorkInfo.formOfEmployment) ?? .fullTime,
                     gsmAuthenticationScore: state.gsmAuthenticationScore,
                     introduce: inputProfileInfo.introduce,
                     languageCertificates: state.languages,
@@ -104,17 +101,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 extension InputInformationIntent: InputProfileDelegate {
     func completeToInputProfile(input: InputProfileInformationObject) {
         model?.updateInputProfileInformationObject(object: input)
-        model?.nextButtonDidTap()
-    }
-}
-
-extension InputInformationIntent: InputWorkDelegate {
-    func workPrevButtonDidTap() {
-        model?.prevButtonDidTap()
-    }
-
-    func completeToInputWork(input: InputWorkInformationObject) {
-        model?.updateInputWorkInformationObject(object: input)
         model?.nextButtonDidTap()
     }
 }
