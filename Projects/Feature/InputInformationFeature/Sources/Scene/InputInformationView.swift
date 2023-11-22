@@ -17,7 +17,6 @@ struct InputInformationView: View {
     var state: any InputInformationStateProtocol { container.model }
 
     private let inputProfileInfoBuildable: any InputProfileInfoBuildable
-    private let inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable
     private let inputWorkInfoBuildable: any InputWorkInfoBuildable
     private let inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable
     private let inputCertificateInfoBuildable: any InputCertificateInfoBuildable

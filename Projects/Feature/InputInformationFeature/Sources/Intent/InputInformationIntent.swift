@@ -50,7 +50,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                 )
 
                 let inputInformationRequest = try await InputStudentInformationRequestDTO(
-                    certificates: state.certificates,
                     contactEmail: inputProfileInfo.contactEmail,
                     formOfEmployment: FormOfEmployment(rawValue: inputWorkInfo.formOfEmployment) ?? .fullTime,
                     gsmAuthenticationScore: state.gsmAuthenticationScore,
@@ -141,17 +140,6 @@ extension InputInformationIntent: InputMilitaryDelegate {
     func completeToInputMilitary(militaryServiceType: String) {
         let militaryServiceTypeEnum = MilitaryServiceType(rawValue: militaryServiceType) ?? .hope
         model?.updateMilitaryServiceType(type: militaryServiceTypeEnum)
-        model?.nextButtonDidTap()
-    }
-}
-
-extension InputInformationIntent: InputCertificateDelegate {
-    func certificatePrevButtonDidTap() {
-        model?.prevButtonDidTap()
-    }
-
-    func completeToInputCertificate(certificates: [String]) {
-        model?.updateCertificates(certificates: certificates)
         model?.nextButtonDidTap()
     }
 }

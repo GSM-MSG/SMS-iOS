@@ -14,7 +14,6 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var inputProfileInformationObject: InputProfileInformationObject?
     var gsmAuthenticationScore: Int = 0
     var inputWorkInfomationObject: InputWorkInformationObject?
-    var certificates: [String] = []
     var militaryServiceType: MilitaryServiceType?
     var languages: [InputStudentInformationRequestDTO.LanguageCertificate] = []
     var projects: [InputProjectInfoObject] = []
@@ -47,10 +46,6 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateInputWorkInformationObject(object: InputWorkInformationObject) {
         self.inputWorkInfomationObject = object
-    }
-
-    func updateCertificates(certificates: [String]) {
-        self.certificates = certificates
     }
 
     func updateMilitaryServiceType(type: MilitaryServiceType) {

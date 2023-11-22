@@ -1,6 +1,5 @@
 import BaseFeature
 import FileDomainInterface
-import InputCertificateInfoFeatureInterface
 import InputInformationFeatureInterface
 import InputLanguageInfoFeatureInterface
 import InputMilitaryInfoFeatureInterface
@@ -18,7 +17,6 @@ public protocol InputInformationDependency: Dependency {
     var inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable { get }
     var inputWorkInfoBuildable: any InputWorkInfoBuildable { get }
     var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable { get }
-    var inputCertificateInfoBuildable: any InputCertificateInfoBuildable { get }
     var inputLanguageInfoBuildable: any InputLanguageInfoBuildable { get }
     var inputProjectInfoBuildable: any InputProjectInfoBuildable { get }
     var inputPrizeInfoBuildable: any InputPrizeInfoBuildable { get }
@@ -48,7 +46,6 @@ public final class InputInformationComponent:
             inputSchoolLifeInfoBuildable: dependency.inputSchoolLifeInfoBuildable,
             inputWorkInfoBuildable: dependency.inputWorkInfoBuildable,
             inputMilitaryInfoBuildable: dependency.inputMilitaryInfoBuildable,
-            inputCertificateInfoBuildable: dependency.inputCertificateInfoBuildable,
             inputLanguageInfoBuildable: dependency.inputLanguageInfoBuildable,
             inputProjectInfoBuildable: dependency.inputProjectInfoBuildable,
             inputPrizeInfoBuildable: dependency.inputPrizeInfoBuildable,
