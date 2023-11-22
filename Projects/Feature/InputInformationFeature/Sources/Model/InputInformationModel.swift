@@ -1,6 +1,5 @@
 import Foundation
 import InputProfileInfoFeatureInterface
-import InputProjectInfoFeatureInterface
 import InputPrizeInfoFeatureInterface
 import StudentDomainInterface
 
@@ -11,7 +10,6 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     var errorMessage: String = "알 수 없는 오류가 발생했습니다."
     var inputProfileInformationObject: InputProfileInformationObject?
     var gsmAuthenticationScore: Int = 0
-    var projects: [InputProjectInfoObject] = []
     var prizes: [InputPrizeInfoObject] = []
     @Published var isCompleteToInputAllInfo: Bool = false
 }
@@ -33,10 +31,6 @@ extension InputInformationModel: InputInformationActionProtocol {
 
     func updateInputProfileInformationObject(object: InputProfileInformationObject) {
         self.inputProfileInformationObject = object
-    }
-
-    func updateProjects(projects: [InputProjectInfoObject]) {
-        self.projects = projects
     }
 
     func updatePrizes(prizes: [InputPrizeInfoObject]) {
