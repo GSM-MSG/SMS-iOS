@@ -26,8 +26,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 
     func completeToInputAllInfo(state: any InputInformationStateProtocol) {
         guard
-            let inputProfileInfo = state.inputProfileInformationObject,
-            let militaryServiceType = state.militaryServiceType
+            let inputProfileInfo = state.inputProfileInformationObject
         else {
             model?.updateIsCompleteToInputAllInfo(isComplete: false)
             return
@@ -43,10 +42,8 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 
                 let inputInformationRequest = try await InputStudentInformationRequestDTO(
                     contactEmail: inputProfileInfo.contactEmail,
-                    gsmAuthenticationScore: state.gsmAuthenticationScore,
                     introduce: inputProfileInfo.introduce,
                     major: inputProfileInfo.major,
-                    portfolioURL: inputProfileInfo.portfoiloURL,
                     profileImgURL: profileImageURL,
                     techStacks: inputProfileInfo.techStacks
                 )

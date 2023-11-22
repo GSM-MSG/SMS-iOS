@@ -8,7 +8,6 @@ struct InputInformationView: View {
     @StateObject var container: MVIContainer<InputInformationIntentProtocol, InputInformationStateProtocol>
     var intent: any InputInformationIntentProtocol { container.intent }
     var state: any InputInformationStateProtocol { container.model }
-                                                                                                                  
     private let inputProfileInfoBuildable: any InputProfileInfoBuildable
 
     init(

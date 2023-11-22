@@ -12,7 +12,6 @@ protocol InputInformationStateProtocol {
     var isError: Bool { get }
     var errorMessage: String { get }
     var inputProfileInformationObject: InputProfileInformationObject? { get }
-    var gsmAuthenticationScore: Int { get }
     var isCompleteToInputAllInfo: Bool { get }
 }
 

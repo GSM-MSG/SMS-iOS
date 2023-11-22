@@ -8,7 +8,6 @@ final class InputInformationModel: ObservableObject, InputInformationStateProtoc
     @Published var isError: Bool = false
     var errorMessage: String = "알 수 없는 오류가 발생했습니다."
     var inputProfileInformationObject: InputProfileInformationObject?
-    var gsmAuthenticationScore: Int = 0
     @Published var isCompleteToInputAllInfo: Bool = false
 }
 
