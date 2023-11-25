@@ -14,7 +14,6 @@ protocol InputProfileInfoStateProtocol {
     var email: String { get }
     var major: String { get }
     var majorList: [String] { get }
-    var portfolioURL: String { get }
     var techStacks: [String] { get }
     var isPresentedMajorSheet: Bool { get }
     var isPresentedImagePicker: Bool { get }
@@ -32,7 +31,6 @@ protocol InputProfileInfoActionProtocol: AnyObject {
     func updateEmail(email: String)
     func updateMajor(major: String)
     func updateMajorList(majorList: [String])
-    func updatePortfolioURL(portfolioURL: String)
     func updateTeckStacks(techStacks: [String])
     func removeTeckStacks(techStack: String)
     func updateIsPresentedTeckStackAppend(isPresented: Bool)

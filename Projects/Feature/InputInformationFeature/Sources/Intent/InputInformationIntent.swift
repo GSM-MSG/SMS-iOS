@@ -58,7 +58,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
                     languageCertificates: state.languages,
                     major: inputProfileInfo.major,
                     militaryService: militaryServiceType,
-                    portfolioURL: inputProfileInfo.portfoiloURL,
                     profileImgURL: profileImageURL,
                     regions: inputWorkInfo.workRegion,
                     salary: inputWorkInfo.salary,
@@ -107,7 +106,7 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 extension InputInformationIntent: InputProfileDelegate {
     func completeToInputProfile(input: InputProfileInformationObject) {
         model?.updateInputProfileInformationObject(object: input)
-        model?.nextButtonDidTap()
+        inputInformationDelegate?.completeToInputInformation()
     }
 }
 

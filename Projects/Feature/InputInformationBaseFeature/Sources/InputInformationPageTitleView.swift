@@ -21,8 +21,6 @@ public struct InputInformationPageTitleView: View {
 
     public var body: some View {
         VStack(spacing: 16) {
-            SMSPageControl(pageCount: pageCount, selectedPage: selectedPage)
-                .padding(.horizontal, 20)
 
             SMSSeparator()
 
