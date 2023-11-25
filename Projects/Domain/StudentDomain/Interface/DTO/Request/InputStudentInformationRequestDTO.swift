@@ -9,7 +9,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
     public let languageCertificates: [LanguageCertificate]
     public let major: String
     public let militaryService: MilitaryServiceType
-    public let portfolioURL: String
     public let profileImgURL: String
     public let regions: [String]
     public let salary: Int
@@ -26,7 +25,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         languageCertificates: [LanguageCertificate],
         major: String,
         militaryService: MilitaryServiceType,
-        portfolioURL: String,
         profileImgURL: String,
         regions: [String],
         salary: Int,
@@ -42,7 +40,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         self.languageCertificates = languageCertificates
         self.major = major
         self.militaryService = militaryService
-        self.portfolioURL = portfolioURL
         self.profileImgURL = profileImgURL
         self.regions = regions
         self.salary = salary
@@ -60,7 +57,6 @@ public struct InputStudentInformationRequestDTO: Encodable {
         case languageCertificates
         case major
         case militaryService
-        case portfolioURL = "portfolioUrl"
         case profileImgURL = "profileImgUrl"
         case regions
         case salary

@@ -6,7 +6,6 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     @Published var email: String = ""
     @Published var major: String = ""
     @Published var majorList: [String] = []
-    @Published var portfolioURL: String = ""
     @Published var techStacks: [String] = []
     @Published var isPresentedMajorSheet: Bool = false
     @Published var isPresentedImagePicker: Bool = false
@@ -19,8 +18,7 @@ final class InputProfileInfoModel: ObservableObject, InputProfileInfoStateProtoc
     var isDisabledNextButton: Bool {
         introduce.isEmpty ||
         email.isEmpty ||
-        major.isEmpty ||
-        portfolioURL.isEmpty
+        major.isEmpty
     }
 }
 
@@ -39,10 +37,6 @@ extension InputProfileInfoModel: InputProfileInfoActionProtocol {
 
     func updateMajorList(majorList: [String]) {
         self.majorList = majorList
-    }
-
-    func updatePortfolioURL(portfolioURL: String) {
-        self.portfolioURL = portfolioURL
     }
 
     func updateTeckStacks(techStacks: [String]) {
