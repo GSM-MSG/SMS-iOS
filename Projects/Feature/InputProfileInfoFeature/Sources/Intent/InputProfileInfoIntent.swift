@@ -31,10 +31,6 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateMajor(major: major)
     }
 
-    func updatePortfolioURL(portfolioURL: String) {
-        model?.updatePortfolioURL(portfolioURL: portfolioURL)
-    }
-
     func techStackAppendIsRequired() {
         model?.updateIsPresentedTeckStackAppend(isPresented: true)
     }
@@ -81,7 +77,7 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
         model?.updateProfileImage(imageResult: imageResult)
     }
 
-    func nextButtonDidTap(state: any InputProfileInfoStateProtocol) {
+    func completeButtonDidTap(state: any InputProfileInfoStateProtocol) {
         var errorSet = Set<InputProfileErrorField>()
         if state.profileImage == nil {
             errorSet.insert(.profile)
@@ -101,10 +97,6 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
             errorSet.insert(.major)
         }
 
-        let urlValidator = URLValidator()
-        if !urlValidator.validate(state.portfolioURL) {
-            errorSet.insert(.portfoilo)
-        }
 
         model?.updateErrorFieldSet(set: errorSet)
         guard
@@ -119,7 +111,6 @@ final class InputProfileInfoIntent: InputProfileInfoIntentProtocol {
             introduce: state.introduce,
             contactEmail: state.email,
             major: state.major,
-            portfoiloURL: state.portfolioURL,
             techStacks: state.techStacks
         )
         inputProfileDelegate?.completeToInputProfile(input: input)

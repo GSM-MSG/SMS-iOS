@@ -117,21 +117,6 @@ struct InputProfileInfoView: View {
                             )
                             .titleWrapper("분야")
 
-                            SMSTextField(
-                                "E.g. https://github.com",
-                                text: Binding(
-                                    get: { state.portfolioURL },
-                                    set: intent.updatePortfolioURL(portfolioURL:)
-                                ),
-                                errorText: "URL 형식에 맞게 입력해주세요",
-                                isError: state.inputProfileErrorFieldSet.contains(.portfoilo)
-                            ) {
-                                intent.techStackAppendIsRequired()
-                            }
-                            .keyboardType(.URL)
-                            .focused($focusField, equals: .portfoilo)
-                            .titleWrapper("포트폴리오 URL")
-
                             VStack(spacing: 8) {
                                 HStack(spacing: 8) {
                                     SMSIcon(.magnifyingglass)
@@ -180,8 +165,8 @@ struct InputProfileInfoView: View {
                             .titleWrapper("세부스택 (최대 5개)")
                         }
 
-                        CTAButton(text: "다음") {
-                            intent.nextButtonDidTap(state: state)
+                        CTAButton(text: "완료") {
+                            intent.completeButtonDidTap(state: state)
                         }
                         .disabled(state.isDisabledNextButton)
                         .padding(.bottom, 32)

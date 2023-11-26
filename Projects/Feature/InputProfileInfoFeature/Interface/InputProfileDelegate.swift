@@ -10,7 +10,6 @@ public struct InputProfileInformationObject {
     public let introduce: String
     public let contactEmail: String
     public let major: String
-    public let portfoiloURL: String
     public let techStacks: [String]
 
     public init(
@@ -19,7 +18,6 @@ public struct InputProfileInformationObject {
         introduce: String,
         contactEmail: String,
         major: String,
-        portfoiloURL: String,
         techStacks: [String]
     ) {
         self.profileImageData = profileImageData
@@ -27,7 +25,6 @@ public struct InputProfileInformationObject {
         self.introduce = introduce
         self.contactEmail = contactEmail
         self.major = major
-        self.portfoiloURL = portfoiloURL
         self.techStacks = techStacks
     }
 }
