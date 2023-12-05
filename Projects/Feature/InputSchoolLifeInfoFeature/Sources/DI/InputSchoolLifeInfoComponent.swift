@@ -7,7 +7,7 @@ public protocol InputSchoolLifeInfoDependency: Dependency {}
 
 public final class InputSchoolLifeInfoComponent:
     Component<InputSchoolLifeInfoDependency>,
-    InputSchoolListInfoBuildable {
+    InputSchoolLifeInfoBuildable {
 
     public func makeView(delegate: any InputSchoolLifeDelegate) -> some View {
         let model = InputSchoolLifeInfoModel()
