@@ -278,27 +278,6 @@ private class InputInformationDependency7b32a8e7e8a8f0ab5466Provider: InputInfor
     var inputProfileInfoBuildable: any InputProfileInfoBuildable {
         return appComponent.inputProfileInfoBuildable
     }
-    var inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable {
-        return appComponent.inputSchoolLifeInfoBuildable
-    }
-    var inputWorkInfoBuildable: any InputWorkInfoBuildable {
-        return appComponent.inputWorkInfoBuildable
-    }
-    var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable {
-        return appComponent.inputMilitaryInfoBuildable
-    }
-    var inputCertificateInfoBuildable: any InputCertificateInfoBuildable {
-        return appComponent.inputCertificateInfoBuildable
-    }
-    var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
-        return appComponent.inputLanguageInfoBuildable
-    }
-    var inputProjectInfoBuildable: any InputProjectInfoBuildable {
-        return appComponent.inputProjectInfoBuildable
-    }
-    var inputPrizeInfoBuildable: any InputPrizeInfoBuildable {
-        return appComponent.inputPrizeInfoBuildable
-    }
     var fileDomainBuildable: any FileDomainBuildable {
         return appComponent.fileDomainBuildable
     }
@@ -456,7 +435,31 @@ extension JwtStoreComponent: Registration {
 extension AppComponent: Registration {
     public func registerItems() {
 
-
+        localTable["rootComponent-RootComponent"] = { [unowned self] in self.rootComponent as Any }
+        localTable["signinBuildable-any SigninBuildable"] = { [unowned self] in self.signinBuildable as Any }
+        localTable["inputInformationBuildable-any InputInformationBuildable"] = { [unowned self] in self.inputInformationBuildable as Any }
+        localTable["inputProfileInfoBuildable-any InputProfileInfoBuildable"] = { [unowned self] in self.inputProfileInfoBuildable as Any }
+        localTable["inputSchoolLifeInfoBuildable-any InputSchoolLifeInfoBuildable"] = { [unowned self] in self.inputSchoolLifeInfoBuildable as Any }
+        localTable["inputWorkInfoBuildable-any InputWorkInfoBuildable"] = { [unowned self] in self.inputWorkInfoBuildable as Any }
+        localTable["inputMilitaryInfoBuildable-any InputMilitaryInfoBuildable"] = { [unowned self] in self.inputMilitaryInfoBuildable as Any }
+        localTable["inputCertificateInfoBuildable-any InputCertificateInfoBuildable"] = { [unowned self] in self.inputCertificateInfoBuildable as Any }
+        localTable["inputLanguageInfoBuildable-any InputLanguageInfoBuildable"] = { [unowned self] in self.inputLanguageInfoBuildable as Any }
+        localTable["inputPrizeInfoBuildable-any InputPrizeInfoBuildable"] = { [unowned self] in self.inputPrizeInfoBuildable as Any }
+        localTable["inputProjectInfoBuildable-any InputProjectInfoBuildable"] = { [unowned self] in self.inputProjectInfoBuildable as Any }
+        localTable["mainBuildable-any MainBuildable"] = { [unowned self] in self.mainBuildable as Any }
+        localTable["myPageBuildable-any MyPageBuildable"] = { [unowned self] in self.myPageBuildable as Any }
+        localTable["techStackAppendBuildable-any TechStackAppendBuildable"] = { [unowned self] in self.techStackAppendBuildable as Any }
+        localTable["studentDetailBuildable-any StudentDetailBuildable"] = { [unowned self] in self.studentDetailBuildable as Any }
+        localTable["filterBuildable-any FilterBuildable"] = { [unowned self] in self.filterBuildable as Any }
+        localTable["splashBuildable-any SplashBuildable"] = { [unowned self] in self.splashBuildable as Any }
+        localTable["authDomainBuildable-any AuthDomainBuildable"] = { [unowned self] in self.authDomainBuildable as Any }
+        localTable["studentDomainBuildable-any StudentDomainBuildable"] = { [unowned self] in self.studentDomainBuildable as Any }
+        localTable["majorDomainBuildable-any MajorDomainBuildable"] = { [unowned self] in self.majorDomainBuildable as Any }
+        localTable["fileDomainBuildable-any FileDomainBuildable"] = { [unowned self] in self.fileDomainBuildable as Any }
+        localTable["userDomainBuildable-any UserDomainBuildable"] = { [unowned self] in self.userDomainBuildable as Any }
+        localTable["techStackDomainBuildable-any TechStackDomainBuildable"] = { [unowned self] in self.techStackDomainBuildable as Any }
+        localTable["jwtStoreBuildable-any JwtStoreBuildable"] = { [unowned self] in self.jwtStoreBuildable as Any }
+        localTable["keychainBuildable-any KeychainBuildable"] = { [unowned self] in self.keychainBuildable as Any }
     }
 }
 extension KeychainComponent: Registration {
@@ -542,13 +545,6 @@ extension TechStackAppendComponent: Registration {
 extension InputInformationComponent: Registration {
     public func registerItems() {
         keyPathToName[\InputInformationDependency.inputProfileInfoBuildable] = "inputProfileInfoBuildable-any InputProfileInfoBuildable"
-        keyPathToName[\InputInformationDependency.inputSchoolLifeInfoBuildable] = "inputSchoolLifeInfoBuildable-any InputSchoolListInfoBuildable"
-        keyPathToName[\InputInformationDependency.inputWorkInfoBuildable] = "inputWorkInfoBuildable-any InputWorkInfoBuildable"
-        keyPathToName[\InputInformationDependency.inputMilitaryInfoBuildable] = "inputMilitaryInfoBuildable-any InputMilitaryInfoBuildable"
-        keyPathToName[\InputInformationDependency.inputCertificateInfoBuildable] = "inputCertificateInfoBuildable-any InputCertificateInfoBuildable"
-        keyPathToName[\InputInformationDependency.inputLanguageInfoBuildable] = "inputLanguageInfoBuildable-any InputLanguageInfoBuildable"
-        keyPathToName[\InputInformationDependency.inputProjectInfoBuildable] = "inputProjectInfoBuildable-any InputProjectInfoBuildable"
-        keyPathToName[\InputInformationDependency.inputPrizeInfoBuildable] = "inputPrizeInfoBuildable-any InputPrizeInfoBuildable"
         keyPathToName[\InputInformationDependency.fileDomainBuildable] = "fileDomainBuildable-any FileDomainBuildable"
         keyPathToName[\InputInformationDependency.studentDomainBuildable] = "studentDomainBuildable-any StudentDomainBuildable"
     }
@@ -620,7 +616,7 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 
 #if !NEEDLE_DYNAMIC
 
-private func register1() {
+@inline(never) private func register1() {
     registerProviderFactory("^->AppComponent->JwtStoreComponent", factoryb27d5aae1eb7e73575a6f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->KeychainComponent", factoryEmptyDependencyProvider)

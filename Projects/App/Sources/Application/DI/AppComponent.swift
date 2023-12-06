@@ -56,103 +56,103 @@ final class AppComponent: BootstrapComponent {
         rootComponent.makeView()
     }
 
-    var rootComponent: RootComponent {
+    public var rootComponent: RootComponent {
         RootComponent(parent: self)
     }
 
-    var signinBuildable: any SigninBuildable {
+    public var signinBuildable: any SigninBuildable {
         SigninComponent(parent: self)
     }
 
-    var inputInformationBuildable: any InputInformationBuildable {
+    public var inputInformationBuildable: any InputInformationBuildable {
         InputInformationComponent(parent: self)
     }
 
-    var inputProfileInfoBuildable: any InputProfileInfoBuildable {
+    public var inputProfileInfoBuildable: any InputProfileInfoBuildable {
         InputProfileInfoComponent(parent: self)
     }
 
-    var inputSchoolLifeInfoBuildable: any InputSchoolListInfoBuildable {
+    public var inputSchoolLifeInfoBuildable: any InputSchoolLifeInfoBuildable {
         InputSchoolLifeInfoComponent(parent: self)
     }
 
-    var inputWorkInfoBuildable: any InputWorkInfoBuildable {
+    public var inputWorkInfoBuildable: any InputWorkInfoBuildable {
         InputWorkInfoComponent(parent: self)
     }
 
-    var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable {
+    public var inputMilitaryInfoBuildable: any InputMilitaryInfoBuildable {
         InputMilitaryInfoComponent(parent: self)
     }
 
-    var inputCertificateInfoBuildable: any InputCertificateInfoBuildable {
+    public var inputCertificateInfoBuildable: any InputCertificateInfoBuildable {
         InputCertificateInfoComponent(parent: self)
     }
 
-    var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
+    public var inputLanguageInfoBuildable: any InputLanguageInfoBuildable {
         InputLanguageInfoComponent(parent: self)
     }
 
-    var inputPrizeInfoBuildable: any InputPrizeInfoBuildable {
+    public var inputPrizeInfoBuildable: any InputPrizeInfoBuildable {
         InputPrizeInfoComponent(parent: self)
     }
 
-    var inputProjectInfoBuildable: any InputProjectInfoBuildable {
+    public var inputProjectInfoBuildable: any InputProjectInfoBuildable {
         InputProjectInfoComponent(parent: self)
     }
 
-    var mainBuildable: any MainBuildable {
+    public var mainBuildable: any MainBuildable {
         MainComponent(parent: self)
     }
 
-    var myPageBuildable: any MyPageBuildable {
+    public var myPageBuildable: any MyPageBuildable {
         MyPageComponent(parent: self)
     }
 
-    var techStackAppendBuildable: any TechStackAppendBuildable {
+    public var techStackAppendBuildable: any TechStackAppendBuildable {
         TechStackAppendComponent(parent: self)
     }
 
-    var studentDetailBuildable: any StudentDetailBuildable {
+    public var studentDetailBuildable: any StudentDetailBuildable {
         StudentDetailComponent(parent: self)
     }
 
-    var filterBuildable: any FilterBuildable {
+    public var filterBuildable: any FilterBuildable {
         FilterComponent(parent: self)
     }
 
-    var splashBuildable: any SplashBuildable {
+    public var splashBuildable: any SplashBuildable {
         SplashComponent(parent: self)
     }
 
-    var authDomainBuildable: any AuthDomainBuildable {
+    public var authDomainBuildable: any AuthDomainBuildable {
         AuthDomainComponent(parent: self)
     }
 
-    var studentDomainBuildable: any StudentDomainBuildable {
+    public var studentDomainBuildable: any StudentDomainBuildable {
         StudentDomainComponent(parent: self)
     }
 
-    var majorDomainBuildable: any MajorDomainBuildable {
+    public var majorDomainBuildable: any MajorDomainBuildable {
         MajorDomainComponent(parent: self)
     }
 
-    var fileDomainBuildable: any FileDomainBuildable {
+    public var fileDomainBuildable: any FileDomainBuildable {
         FileDomainComponent(parent: self)
     }
 
-    var userDomainBuildable: any UserDomainBuildable {
+    public var userDomainBuildable: any UserDomainBuildable {
         UserDomainComponent(parent: self)
     }
 
-    var techStackDomainBuildable: any TechStackDomainBuildable {
+    public var techStackDomainBuildable: any TechStackDomainBuildable {
         TechStackDomainComponent(parent: self)
     }
 
-    var jwtStoreBuildable: any JwtStoreBuildable {
+    public var jwtStoreBuildable: any JwtStoreBuildable {
         JwtStoreComponent(parent: self)
     }
 
-    var keychainBuildable: any KeychainBuildable {
+    public var keychainBuildable: any KeychainBuildable {
         KeychainComponent(parent: self)
     }
 }
