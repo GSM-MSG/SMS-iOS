@@ -46,6 +46,7 @@ let targets: [Target] = [
             .Feature.InputCertificateInfoFeature,
             .Feature.InputLanguageInfoFeature,
             .Feature.InputProjectInfoFeature,
+            .Feature.InputTeacherInfoFeature,
             .Feature.MainFeature,
             .Feature.SplashFeature,
             .Feature.TechStackAppendFeature,
