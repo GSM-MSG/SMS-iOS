@@ -1,9 +1,12 @@
-//
-//  InputTeacherInfoView.swift
-//  InputTeacherInfoFeatureInterface
-//
-//  Created by 정윤서 on 1/18/24.
-//  Copyright © 2024 com.msg. All rights reserved.
-//
+import BaseFeature
+import SwiftUI
 
-import Foundation
+struct InputWorkInfoView: View {
+    @StateObject var container: MVIContainer<InputTeacherInfoIntentProtocol, InputTeacherInfoStateProtocol>
+    var intent: any InputTeacherInfoIntentProtocol { container.intent }
+    var state: any InputTeacherInfoStateProtocol { container.model }
+    
+    var body: some View {
+        Text("Hello, World!")
+    }
+}

@@ -2,4 +2,4 @@ import Foundation
 
 protocol InputTeacherInfoStateProtocol {}
 
-protocol InputTeacherInfoActionProtocol {}
+protocol InputTeacherInfoActionProtocol: AnyObject {}
