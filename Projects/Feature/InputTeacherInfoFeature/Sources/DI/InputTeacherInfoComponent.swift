@@ -3,7 +3,9 @@ import InputTeacherInfoFeatureInterface
 import NeedleFoundation
 import SwiftUI
 
-public protocol InputTeacherInfoDependency: Dependency {}
+public protocol InputTeacherInfoDependency: Dependency {
+    
+}
 
 public final class InputTeacherInfoComponent: Component<InputTeacherInfoDependency>, InputTeacherInfoBuildable {
 

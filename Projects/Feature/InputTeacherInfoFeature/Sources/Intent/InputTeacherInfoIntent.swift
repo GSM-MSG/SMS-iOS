@@ -1,4 +1,5 @@
 import Foundation
+import InputTeacherInfoFeatureInterface
 
 final class InputTeacherInfoIntent: InputTeacherInfoIntentProtocol {
     private weak var model: (any InputTeacherInfoActionProtocol)?

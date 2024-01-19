@@ -1,5 +1,5 @@
 import Foundation
 
-protocol InputTeacherInfoStateProtocol {}
+ protocol InputTeacherInfoStateProtocol {}
 
 protocol InputTeacherInfoActionProtocol: AnyObject {}
