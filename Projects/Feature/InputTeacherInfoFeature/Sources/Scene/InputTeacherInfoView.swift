@@ -4,6 +4,9 @@ import InputInformationBaseFeature
 import SwiftUI
 
 struct InputTeacherInfoView: View {
+    @StateObject var container: MVIContainer<InputTeacherInfoIntentProtocol, InputTeacherInfoStateProtocol>
+    var intent: any InputTeacherInfoIntentProtocol { container.intent }
+    var model: any InputTeacherInfoStateProtocol { container.model }
 
     var body: some View {
         SMSNavigationTitleView(title: "정보입력") {

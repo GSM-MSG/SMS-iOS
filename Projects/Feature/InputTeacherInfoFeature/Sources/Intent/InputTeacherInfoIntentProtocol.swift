@@ -1,3 +1,5 @@
 import Foundation
 
-protocol InputTeacherInfoIntentProtocol {}
+protocol InputTeacherInfoIntentProtocol {
+    func completeButtonDidTap()
+}
