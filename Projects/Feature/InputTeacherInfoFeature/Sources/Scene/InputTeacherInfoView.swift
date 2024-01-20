@@ -35,7 +35,7 @@ struct InputTeacherInfoView: View {
 
                     inputTeacherInfoTextField(
                         title: "학년",
-                        placeholder: "학년 선택",
+                        placeholder: "담당 학년 선택",
                         text: .constant("")
                     )
                     .onTapGesture {
@@ -44,7 +44,7 @@ struct InputTeacherInfoView: View {
 
                     inputTeacherInfoTextField(
                         title: "반",
-                        placeholder: "반 선택",
+                        placeholder: "담당 반 선택",
                         text: .constant("")
                     )
                     .onTapGesture {
