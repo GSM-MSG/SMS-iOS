@@ -6,4 +6,6 @@ protocol InputTeacherInfoIntentProtocol {
     func jobTitleSheetDismissed()
     func gradeSheetIsRequired()
     func gradeSheetDismissed()
+    func classSheetIsRequired()
+    func classSheetDismissed()
 }

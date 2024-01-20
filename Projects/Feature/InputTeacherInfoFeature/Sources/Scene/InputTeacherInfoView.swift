@@ -41,6 +41,15 @@ struct InputTeacherInfoView: View {
                     .onTapGesture {
                         intent.gradeSheetIsRequired()
                     }
+
+                    inputTeacherInfoTextField(
+                        title: "반",
+                        placeholder: "반 선택",
+                        text: .constant("")
+                    )
+                    .onTapGesture {
+                        intent.classSheetIsRequired()
+                    }
                 }
                 .padding(.top, 32)
 
@@ -66,6 +75,14 @@ struct InputTeacherInfoView: View {
             )
         ) {
             gradeListView()
+        }
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedClassSheet},
+                set: { _ in intent.classSheetDismissed() }
+            )
+        ) {
+            classListView()
         }
     }
 
@@ -112,6 +129,25 @@ struct InputTeacherInfoView: View {
             ForEach(1..<4, id: \.self) { index in
                 HStack {
                     Text("\(index)학년")
+                        .smsFont(.body1, color: .neutral(.n50))
+
+                    Spacer()
+
+                    Circle()
+                        .fill(Color.sms(.primary(.p2)))
+                        .frame(width: 24, height: 24)
+                }
+                .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func classListView() -> some View {
+        VStack(spacing: 16) {
+            ForEach(1..<5, id: \.self) { index in
+                HStack {
+                    Text("\(index)반")
                         .smsFont(.body1, color: .neutral(.n50))
 
                     Spacer()
