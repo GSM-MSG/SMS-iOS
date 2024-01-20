@@ -1,5 +1,9 @@
 import Foundation
 
- protocol InputTeacherInfoStateProtocol {}
+protocol InputTeacherInfoStateProtocol {
+    var isPresentedJobTitleSheet: Bool { get }
+}
 
-protocol InputTeacherInfoActionProtocol: AnyObject {}
+protocol InputTeacherInfoActionProtocol: AnyObject {
+    func updateIsPresentedJobTitleSheet(isPresented: Bool)
+}

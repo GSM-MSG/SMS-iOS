@@ -16,4 +16,12 @@ final class InputTeacherInfoIntent: InputTeacherInfoIntentProtocol {
     func completeButtonDidTap() {
         teacherDelegate?.completeToInputTeacherInformation()
     }
+
+    func jobTitleSheetIsRequired() {
+        model?.updateIsPresentedJobTitleSheet(isPresented: true)
+    }
+
+    func jobTitleSheetDismissed() {
+        model?.updateIsPresentedJobTitleSheet(isPresented: false)
+    }
 }

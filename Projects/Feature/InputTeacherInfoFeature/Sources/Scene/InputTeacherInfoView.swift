@@ -6,7 +6,7 @@ import SwiftUI
 struct InputTeacherInfoView: View {
     @StateObject var container: MVIContainer<InputTeacherInfoIntentProtocol, InputTeacherInfoStateProtocol>
     var intent: any InputTeacherInfoIntentProtocol { container.intent }
-    var model: any InputTeacherInfoStateProtocol { container.model }
+    var state: any InputTeacherInfoStateProtocol { container.model }
 
     var body: some View {
         SMSNavigationTitleView(title: "정보입력") {
@@ -29,6 +29,9 @@ struct InputTeacherInfoView: View {
                         placeholder: "직함을 선택해 주세요.",
                         text: .constant("")
                     )
+                    .onTapGesture {
+                        intent.jobTitleSheetIsRequired()
+                    }
                 }
                 .padding(.top, 32)
 
@@ -38,6 +41,14 @@ struct InputTeacherInfoView: View {
                 Spacer()
             }
             .padding(.horizontal, 20)
+        }
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedJobTitleSheet },
+                set: { _ in intent.jobTitleSheetDismissed() }
+            )
+        ) {
+            jobTitleListView()
         }
     }
 
@@ -57,5 +68,24 @@ struct InputTeacherInfoView: View {
                 .padding(.trailing, 12)
         }
         .titleWrapper(title)
+    }
+
+    @ViewBuilder
+    func jobTitleListView() -> some View {
+        VStack(spacing: 16) {
+            ForEach(0..<5, id: \.self) { index in
+                HStack {
+                    Text("\(index)")
+                        .smsFont(.body1, color: .neutral(.n50))
+
+                    Spacer()
+
+                    Circle()
+                        .fill(Color.sms(.primary(.p2)))
+                        .frame(width: 24, height: 24)
+                }
+                .padding(.horizontal, 20)
+            }
+        }
     }
 }
