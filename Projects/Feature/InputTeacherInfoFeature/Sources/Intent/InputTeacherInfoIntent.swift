@@ -24,4 +24,12 @@ final class InputTeacherInfoIntent: InputTeacherInfoIntentProtocol {
     func jobTitleSheetDismissed() {
         model?.updateIsPresentedJobTitleSheet(isPresented: false)
     }
+
+    func gradeSheetIsRequired() {
+        model?.updateIsPresentedGradeSheet(isPresented: true)
+    }
+
+    func gradeSheetDismissed() {
+        model?.updateIsPresentedGradeSheet(isPresented: false)
+    }
 }

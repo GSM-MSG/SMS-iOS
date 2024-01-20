@@ -26,11 +26,20 @@ struct InputTeacherInfoView: View {
                 VStack(spacing: 24) {
                     inputTeacherInfoTextField(
                         title: "직함",
-                        placeholder: "직함을 선택해 주세요.",
+                        placeholder: "직함 선택",
                         text: .constant("")
                     )
                     .onTapGesture {
                         intent.jobTitleSheetIsRequired()
+                    }
+
+                    inputTeacherInfoTextField(
+                        title: "학년",
+                        placeholder: "학년 선택",
+                        text: .constant("")
+                    )
+                    .onTapGesture {
+                        intent.gradeSheetIsRequired()
                     }
                 }
                 .padding(.top, 32)
@@ -49,6 +58,14 @@ struct InputTeacherInfoView: View {
             )
         ) {
             jobTitleListView()
+        }
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { state.isPresentedGradeSheet },
+                set: { _ in intent.gradeSheetDismissed() }
+            )
+        ) {
+            gradeListView()
         }
     }
 
@@ -76,6 +93,25 @@ struct InputTeacherInfoView: View {
             ForEach(0..<5, id: \.self) { index in
                 HStack {
                     Text("\(index)")
+                        .smsFont(.body1, color: .neutral(.n50))
+
+                    Spacer()
+
+                    Circle()
+                        .fill(Color.sms(.primary(.p2)))
+                        .frame(width: 24, height: 24)
+                }
+                .padding(.horizontal, 20)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func gradeListView() -> some View {
+        VStack(spacing: 16) {
+            ForEach(1..<4, id: \.self) { index in
+                HStack {
+                    Text("\(index)학년")
                         .smsFont(.body1, color: .neutral(.n50))
 
                     Spacer()
