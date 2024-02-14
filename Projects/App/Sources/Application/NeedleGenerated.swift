@@ -25,6 +25,7 @@ import InputProjectInfoFeature
 import InputProjectInfoFeatureInterface
 import InputSchoolLifeInfoFeature
 import InputSchoolLifeInfoFeatureInterface
+import InputTeacherInfoFeatureInterface
 import InputWorkInfoFeature
 import InputWorkInfoFeatureInterface
 import JwtStore
