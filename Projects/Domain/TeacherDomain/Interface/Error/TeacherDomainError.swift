@@ -1,9 +1,17 @@
-//
-//  TeacherDomainError.swift
-//  TeacherDomainInterface
-//
-//  Created by 정윤서 on 2/20/24.
-//  Copyright © 2024 com.msg. All rights reserved.
-//
-
 import Foundation
+
+public enum TeacherDomainError: Error {
+    case invalidRequest
+    case alreadyExistUser
+}
+
+extension TeacherDomainError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .invalidRequest:
+            return "알 수 없는 에러가 발생하였습니다."
+        case .alreadyExistUser:
+            return "이미 가입을 완료한 유저입니다."
+        }
+    }
+}
