@@ -7,4 +7,3 @@ public protocol RemoteTeacherDataSource {
     func director() async throws
     func homeroom(grade: Int, classNum: Int) async throws
 }
-
