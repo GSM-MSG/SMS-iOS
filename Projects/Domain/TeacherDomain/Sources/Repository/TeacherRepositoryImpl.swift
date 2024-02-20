@@ -1,9 +1,30 @@
-//
-//  TeacherRepositoryImpl.swift
-//  TeacherDomain
-//
-//  Created by 정윤서 on 2/20/24.
-//  Copyright © 2024 com.msg. All rights reserved.
-//
-
+import TeacherDomainInterface
 import Foundation
+
+struct TeacherRepositoryImpl: TeacherRepository {
+    private let remoteTeacherDataSource: any RemoteTeacherDataSource
+    
+    init(remoteTeacherDataSource: any RemoteTeacherDataSource) {
+        self.remoteTeacherDataSource = remoteTeacherDataSource
+    }
+    
+    func common() async throws {
+        try await remoteTeacherDataSource.common()
+    }
+    
+    func principal() async throws {
+        try await remoteTeacherDataSource.principal()
+    }
+    
+    func deputyPrincipal() async throws {
+        try await remoteTeacherDataSource.deputyPrincipal()
+    }
+    
+    func director() async throws {
+        try await remoteTeacherDataSource.director()
+    }
+    
+    func homeroom(grade: Int, classNum: Int) async throws {
+        try await remoteTeacherDataSource.homeroom(grade: grade, classNum: classNum)
+    }
+}
