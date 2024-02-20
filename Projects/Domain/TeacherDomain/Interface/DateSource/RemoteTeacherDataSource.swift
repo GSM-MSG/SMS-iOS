@@ -1,9 +1,10 @@
-//
-//  RemoteTeacherDataSource.swift
-//  TeacherDomainInterface
-//
-//  Created by 정윤서 on 2/20/24.
-//  Copyright © 2024 com.msg. All rights reserved.
-//
-
 import Foundation
+
+public protocol RemoteTeacherDataSource {
+    func common() async throws
+    func principal() async throws
+    func deputyPrincipal() async throws
+    func director() async throws
+    func homeroom(grade: Int, classNum: Int) async throws
+}
+
