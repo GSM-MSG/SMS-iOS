@@ -7,4 +7,5 @@ public enum SMSDomain: String {
     case major
     case techStack = "stack"
     case user
+    case teacher
 }
