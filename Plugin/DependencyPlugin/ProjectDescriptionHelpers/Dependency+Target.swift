@@ -168,6 +168,18 @@ public extension TargetDependency.Feature {
 }
 
 public extension TargetDependency.Domain {
+    static let TeacherDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.TeacherDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.TeacherDomain.rawValue)
+    )
+    static let TeacherDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.TeacherDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.TeacherDomain.rawValue)
+    )
+    static let TeacherDomain = TargetDependency.project(
+        target: ModulePaths.Domain.TeacherDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.TeacherDomain.rawValue)
+    )
     static let UserDomainTesting = TargetDependency.project(
         target: ModulePaths.Domain.UserDomain.targetName(type: .testing),
         path: .relativeToDomain(ModulePaths.Domain.UserDomain.rawValue)

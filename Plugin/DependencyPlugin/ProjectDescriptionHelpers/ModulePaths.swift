@@ -39,6 +39,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Domain: String {
+        case TeacherDomain
         case UserDomain
         case TechStackDomain
         case FileDomain
