@@ -9,6 +9,7 @@ import FileDomainInterface
 import FilterFeature
 import FilterFeatureInterface
 import Foundation
+import InputAuthenticationFeatureInterface
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
