@@ -16,11 +16,11 @@ struct InputAuthenticationView: View {
                 VStack(spacing: 0) {
                     ForEach(state.authenticationList.indices, id: \.self) { index in
                         SMSSeparator()
-                        
+
                         authenticationPageView(index: index)
                     }
                     .padding(.top, 16)
-                    
+
                     CTAButton(text: "저장")
                         .padding(.top, 16)
                         .padding(.horizontal, 20)
@@ -44,29 +44,28 @@ struct InputAuthenticationView: View {
 
     @ViewBuilder
     func authenticationPageView(index: Int) -> some View {
-        let collapsed = state.collapsedAuthentication[safe: index] ?? false
-        ConditionView(!collapsed) {
+        VStack(spacing: 0) {
             HStack(spacing: 4) {
                 Text("인증제")
                     .foregroundColor(.sms(.system(.black)))
-                
+
                 Text("*")
                     .foregroundColor(.sms(.sub(.s2)))
-                
+
                 Spacer()
             }
             .smsFont(.title1)
             .padding(.top, 16)
-            
+
             VStack(spacing: 24) {
                 HStack {
                     authenticationImage(index: index)
-                    
+
                     Spacer()
                 }
-                
+
                 authenticationTitle(index: index)
-                
+
                 authenticationContent(index: index)
             }
         }
@@ -85,7 +84,7 @@ private extension InputAuthenticationView {
             }
             .titleWrapper("사진")
     }
-    
+
     @ViewBuilder
     func authenticationTitle(index: Int) -> some View {
         SMSTextField(
@@ -97,7 +96,7 @@ private extension InputAuthenticationView {
         )
         .titleWrapper("활동 제목")
     }
-    
+
     @ViewBuilder
     func authenticationContent(index: Int) -> some View {
         SMSTextEditor(

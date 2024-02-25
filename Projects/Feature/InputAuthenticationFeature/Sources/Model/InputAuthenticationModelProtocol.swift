@@ -9,7 +9,6 @@ protocol InputAuthenticationStateProtocol {
     var authenticationTitle: String { get }
     var authenticationContent: String { get }
     var authenticationList: [AuthenticationInfo] { get }
-    var collapsedAuthentication: [Bool] { get }
 }
 
 protocol InputAuthenticationActionProtocol: AnyObject {

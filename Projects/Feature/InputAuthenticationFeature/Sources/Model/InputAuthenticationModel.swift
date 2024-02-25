@@ -4,7 +4,6 @@ final class InputAuthenticationModel: ObservableObject, InputAuthenticationState
     @Published var authenticationTitle: String = ""
     @Published var authenticationContent: String = ""
     @Published var authenticationList: [AuthenticationInfo] = []
-    @Published var collapsedAuthentication: [Bool] = []
 }
 
 extension InputAuthenticationModel: InputAuthenticationActionProtocol {
@@ -14,14 +13,13 @@ extension InputAuthenticationModel: InputAuthenticationActionProtocol {
             content: ""
         )
         self.authenticationList.append(newAuthentication)
-        self.collapsedAuthentication.append(false)
     }
-    
+
     func updateAuthenticationTitle(index: Int, title: String) {
         guard authenticationList[safe: index] != nil else { return }
         self.authenticationList[index].title = title
     }
-    
+
     func updateAuthenticationContent(index: Int, content: String) {
         guard authenticationList[safe: index] != nil else { return }
         self.authenticationList[index].content = content
