@@ -50,6 +50,7 @@ import StudentDetailFeatureInterface
 import StudentDomain
 import StudentDomainInterface
 import SwiftUI
+import TeacherDomainInterface
 import TechStackAppendFeature
 import TechStackAppendFeatureInterface
 import TechStackDomain
