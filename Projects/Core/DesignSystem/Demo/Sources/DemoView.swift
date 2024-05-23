@@ -6,7 +6,7 @@ public struct DemoView: View {
 
     public var body: some View {
         VStack {
-            SMSPageControl(pageCount: 8, selectedPage: 2)
+            SMSTextField(text: .constant("asd"))
         }
         .padding(.horizontal, 20)
     }
