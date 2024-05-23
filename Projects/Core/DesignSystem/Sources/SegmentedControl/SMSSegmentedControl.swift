@@ -50,6 +50,3 @@ public struct SMSSegmentedControl: View {
     }
 }
 
-#Preview {
-    SMSSegmentedControl(options: ["True", "False"]) { _ in }
-}
