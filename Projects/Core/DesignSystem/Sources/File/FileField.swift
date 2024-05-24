@@ -1,21 +1,28 @@
 import SwiftUI
 import ViewUtil
+import UniformTypeIdentifiers
 
 public struct FileField: View {
     @State var fileText: String
     @State var isShow: Bool
     @State var isError: Bool
-    let action: () -> Void
+    let errorText: String
+    let allowedContentTypes: [UTType]
+    let action: (URL) -> Void
 
     public init(
         fileText: String,
         isShow: Bool,
         isError: Bool = false,
-        action: @escaping () -> Void
+        errorText: String = "",
+        allowedContentTypes: [UTType] = [.content],
+        action: @escaping (URL) -> Void
     ) {
         self.fileText = fileText
         self.isShow = isShow
         self.isError = isError
+        self.errorText = errorText
+        self.allowedContentTypes = allowedContentTypes
         self.action = action
     }
 
@@ -26,6 +33,7 @@ public struct FileField: View {
                 get: { fileText },
                 set: { _ in }
             ),
+            errorText: errorText,
             isError: isError,
             isOnClear: false
         )
@@ -38,22 +46,23 @@ public struct FileField: View {
             TapGesture()
                 .onEnded {
                     self.isShow = true
-                    action()
                 }
         )
         .fileImporter(
-            isPresented:
-                Binding(
-                    get: {isShow},
-                    set: {active in isShow = active
-                    }
-                ),
-            allowedContentTypes: [.content]
+            isPresented: Binding(
+                get: { isShow },
+                set: { active in
+                    isShow = active
+                }
+            ),
+            allowedContentTypes: allowedContentTypes
         ) { result in
             switch result {
             case .success(let url):
                 fileText = url.lastPathComponent
-            case .failure(let error):
+                action(url)
+
+            case .failure:
                 self.isError = true
             }
         }
