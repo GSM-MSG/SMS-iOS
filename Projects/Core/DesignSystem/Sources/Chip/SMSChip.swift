@@ -4,16 +4,19 @@ import ViewUtil
 public struct SMSChip<Content: View>: View {
     var iconLabel: Content
     var text: String
+    var style: ChipStyle
     var action: () -> Void
 
     public init(
         _ text: String,
+        style: ChipStyle = .default,
         action: @escaping () -> Void = {},
         iconLabel: @escaping () -> Content = {
             SMSIcon(.plus, renderingMode: .template, width: 12, height: 12)
         }
     ) {
         self.text = text
+        self.style = style
         self.iconLabel = iconLabel()
         self.action = action
     }
@@ -24,9 +27,8 @@ public struct SMSChip<Content: View>: View {
 
             Text(text)
         }
-        .smsFont(.body1, color: .neutral(.n30))
         .buttonWrapper(action)
-        .buttonStyle(SMSChipButtonStyle())
+        .buttonStyle(SMSChipButtonStyle(style: style))
     }
 }
 
