@@ -49,7 +49,6 @@ public struct SMSSegmentedControl: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.sms(.neutral(.n10)))
         }
-        .padding()
     }
 }
 
