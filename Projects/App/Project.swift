@@ -48,6 +48,7 @@ let targets: [Target] = [
             .Feature.InputProjectInfoFeature,
             .Feature.InputTeacherInfoFeature,
             .Feature.InputAuthenticationFeature,
+            .Feature.GSMAuthenticationFormFeature,
             .Feature.MainFeature,
             .Feature.SplashFeature,
             .Feature.TechStackAppendFeature,
