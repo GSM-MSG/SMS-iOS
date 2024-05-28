@@ -18,10 +18,9 @@ public struct SMSSegmentedControl: View {
 
     public var body: some View {
         HStack(spacing: 0) {
-            ForEach(0..<options.count, id: \.self) { index in
-                let option = options[index]
-                let isSelected = options[index] == selectedOption
-                SMSText(options[index], font: .title2)
+            ForEach(options, id: \.self) { option in
+                let isSelected = option == selectedOption
+                SMSText(option, font: .title2)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 9.5)
                     .background {
@@ -51,4 +50,3 @@ public struct SMSSegmentedControl: View {
         }
     }
 }
-
