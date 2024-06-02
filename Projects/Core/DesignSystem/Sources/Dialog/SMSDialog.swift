@@ -17,6 +17,22 @@ public extension View {
             )
         )
     }
+
+    func smsDialog<DialogView: View>(
+        title: String,
+        isShowing: Binding<Bool>,
+        dialogActions: [SMSAlertButtonType],
+        @ViewBuilder dialogView: @escaping () -> DialogView
+    ) -> some View {
+        modifier(
+            SMSDialogModifier(
+                title: title,
+                isShowing: isShowing,
+                dialogActions: dialogActions,
+                dialogView: dialogView
+            )
+        )
+    }
 }
 
 struct SMSAlertModifier: ViewModifier {
@@ -74,6 +90,64 @@ struct SMSAlertModifier: ViewModifier {
             HStack(spacing: 8) {
                 ForEach(alertActions, id: \.id) { button in
                     CTAButton(text: button.text, style: button.style, action: button.action)
+                }
+            }
+        }
+        .padding(24)
+        .background(Color.sms(.system(.white)))
+        .cornerRadius(16)
+    }
+}
+
+struct SMSDialogModifier<DialogView: View>: ViewModifier {
+    var title: String
+    @Binding var isShowing: Bool
+    var dialogActions: [SMSAlertButtonType]
+    var dialogView: () -> DialogView
+
+    public init(
+        title: String,
+        isShowing: Binding<Bool>,
+        dialogActions: [SMSAlertButtonType],
+        @ViewBuilder dialogView: @escaping () -> DialogView
+    ) {
+        self.title = title
+        _isShowing = isShowing
+        self.dialogActions = dialogActions
+        self.dialogView = dialogView
+    }
+
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+
+            ConditionView(isShowing) {
+                Color.sms(.system(.black))
+                    .opacity(0.25)
+                    .ignoresSafeArea()
+
+                smsDialog()
+                    .padding()
+            }
+        }
+    }
+
+    @ViewBuilder
+    func smsDialog() -> some View {
+        VStack(alignment: .leading, spacing: 24) {
+            Text(title)
+                .smsFont(.title2, color: .system(.black))
+
+            dialogView()
+                .padding(.bottom, 13)
+
+            HStack(spacing: 8) {
+                ForEach(dialogActions, id: \.id) { button in
+                    CTAButton(
+                        text: button.text,
+                        style: button.style,
+                        action: button.action
+                    )
                 }
             }
         }
