@@ -61,7 +61,7 @@ struct StudentDetailView: View {
                         }
                     }
 
-//                    if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
+                    if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
                         HStack(spacing: 8) {
                             CTAButton(text: "포트폴리오") {
                                 guard
@@ -81,7 +81,7 @@ struct StudentDetailView: View {
                             Color.sms(.system(.white))
                         }
                         .ignoresSafeArea()
-//                    }
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -111,12 +111,29 @@ struct StudentDetailView: View {
                     style: .default,
                     action: {
                         #warning("링크 생성 이벤트 추가")
+                        intent.pasteLinkDialogIsRequired()
                         intent.effectiveDateDialogDismissed()
                     }
                 )
             ]
         ) {
             effectiveDateView()
+        }
+        .smsDialog(
+            title: "만료기간 선택",
+            isShowing: Binding(
+                get: { state.isPresentedPasteLinkDialog },
+                set: { _ in intent.pasteLinkDialogDismissed() }
+            ),
+            dialogActions: [
+                .init(
+                    text: "확인",
+                    style: .default,
+                    action: { intent.pasteLinkDialogDismissed() }
+                )
+            ]
+        ) {
+            copyLinkView()
         }
         .statusBarHidden(true)
         .animation(.easeIn, value: state.studentDetailEntity)
@@ -352,6 +369,28 @@ struct StudentDetailView: View {
             }
         ) { effectiveDate in
             SMSText("\(effectiveDate.rawValue)일", font: .body1)
+        }
+    }
+
+    @ViewBuilder
+    func copyLinkView() -> some View {
+        HStack(spacing: 8) {
+            SMSText(state.portfolioLink, font: .body1)
+
+            Spacer()
+
+            Button {
+                intent.pastePortfolioLink(portfolioLink: state.portfolioLink)
+            } label: {
+                Text("복사")
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 5)
+                    .smsFont(.body1, color: .primary(.p2))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 56)
+                            .strokeBorder(Color.sms(.primary(.p2)), lineWidth: 1)
+                    }
+            }
         }
     }
 }

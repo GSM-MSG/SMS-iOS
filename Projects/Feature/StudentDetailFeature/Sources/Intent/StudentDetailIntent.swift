@@ -53,6 +53,18 @@ final class StudentDetailIntent: StudentDetailIntentProtocol {
     func effectiveDateSelect(effectiveDate: EffectiveDateType) {
         model?.insertEffectiveDateType(effectiveDateType: effectiveDate)
     }
+
+    func pasteLinkDialogIsRequired() {
+        model?.updateIsPresentedPasteLinkDialog(isPresented: true)
+    }
+
+    func pasteLinkDialogDismissed() {
+        model?.updateIsPresentedPasteLinkDialog(isPresented: false)
+    }
+
+    func pastePortfolioLink(portfolioLink: String) {
+        UIPasteboard.general.string = portfolioLink
+    }
 }
 
 private extension UserRoleType {

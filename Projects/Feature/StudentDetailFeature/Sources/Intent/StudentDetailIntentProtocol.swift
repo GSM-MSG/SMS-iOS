@@ -5,4 +5,7 @@ protocol StudentDetailIntentProtocol {
     func effectiveDateDialogIsRequired()
     func effectiveDateDialogDismissed()
     func effectiveDateSelect(effectiveDate: EffectiveDateType)
+    func pasteLinkDialogIsRequired()
+    func pasteLinkDialogDismissed()
+    func pastePortfolioLink(portfolioLink: String)
 }

@@ -17,6 +17,8 @@ protocol StudentDetailStateProtocol {
     var isLoading: Bool { get }
     var isPresentedEffectiveDateDialog: Bool { get }
     var effectiveDateType: EffectiveDateType { get }
+    var isPresentedPasteLinkDialog: Bool { get }
+    var portfolioLink: String { get }
 }
 
 protocol StudentDetailActionProtocol: AnyObject {
@@ -25,4 +27,5 @@ protocol StudentDetailActionProtocol: AnyObject {
     func updateIsLoading(isLoading: Bool)
     func updateIsPresentedEffectiveDateDialog(isPresented: Bool)
     func insertEffectiveDateType(effectiveDateType: EffectiveDateType)
+    func updateIsPresentedPasteLinkDialog(isPresented: Bool)
 }

@@ -28,6 +28,8 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     @Published var isLoading: Bool = false
     @Published var isPresentedEffectiveDateDialog: Bool = false
     @Published var effectiveDateType: EffectiveDateType = .five
+    @Published var isPresentedPasteLinkDialog: Bool = false
+    @Published var portfolioLink: String = ""
 }
 // swiftlint: enable identifier_name
 
@@ -50,5 +52,9 @@ extension StudentDetailModel: StudentDetailActionProtocol {
 
     func insertEffectiveDateType(effectiveDateType: EffectiveDateType) {
         self.effectiveDateType = effectiveDateType
+    }
+
+    func updateIsPresentedPasteLinkDialog(isPresented: Bool) {
+        self.isPresentedPasteLinkDialog = isPresented
     }
 }
