@@ -22,7 +22,7 @@ public extension View {
         title: String,
         isShowing: Binding<Bool>,
         dialogActions: [SMSAlertButtonType],
-        @ViewBuilder dialogView: @escaping () -> DialogView
+        @ViewBuilder dialogView: @escaping () -> DialogView = { EmptyView() }
     ) -> some View {
         modifier(
             SMSDialogModifier(
@@ -109,7 +109,7 @@ struct SMSDialogModifier<DialogView: View>: ViewModifier {
         title: String,
         isShowing: Binding<Bool>,
         dialogActions: [SMSAlertButtonType],
-        @ViewBuilder dialogView: @escaping () -> DialogView
+        @ViewBuilder dialogView: @escaping () -> DialogView = { EmptyView() }
     ) {
         self.title = title
         _isShowing = isShowing
@@ -127,7 +127,13 @@ struct SMSDialogModifier<DialogView: View>: ViewModifier {
                     .ignoresSafeArea()
 
                 smsDialog()
-                    .padding()
+                    .padding(40)
+                    .transition(
+                        .asymmetric(
+                            insertion: AnyTransition.move(edge: .bottom),
+                            removal: .move(edge: .bottom).combined(with: .opacity)
+                        )
+                    )
             }
         }
     }

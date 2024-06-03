@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import UserDomainInterface
 import StudentDomainInterface
 
@@ -25,6 +26,8 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
     }
     @Published var _studentDetailEntity: StudentDetailEntity?
     @Published var isLoading: Bool = false
+    @Published var isPresentedEffectiveDateDialog: Bool = false
+    @Published var effectiveDateType: EffectiveDateType = .five
 }
 // swiftlint: enable identifier_name
 
@@ -39,5 +42,13 @@ extension StudentDetailModel: StudentDetailActionProtocol {
 
     func updateIsLoading(isLoading: Bool) {
         self.isLoading = isLoading
+    }
+
+    func updateIsPresentedEffectiveDateDialog(isPresented: Bool) {
+        self.isPresentedEffectiveDateDialog = isPresented
+    }
+
+    func insertEffectiveDateType(effectiveDateType: EffectiveDateType) {
+        self.effectiveDateType = effectiveDateType
     }
 }

@@ -61,13 +61,19 @@ struct StudentDetailView: View {
                         }
                     }
 
-                    if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
-                        CTAButton(text: "포트폴리오") {
-                            guard
-                                let portfolioURLString = detailInfoByTeacher.portfolioURL,
-                                let portfolioURL = URL(string: portfolioURLString)
-                            else { return }
-                            openURL(portfolioURL)
+//                    if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
+                        HStack(spacing: 8) {
+                            CTAButton(text: "포트폴리오") {
+                                guard
+                                    let portfolioURLString = studentDetail?.detailInfoByTeacher?.portfolioURL,
+                                    let portfolioURL = URL(string: portfolioURLString)
+                                else { return }
+                                openURL(portfolioURL)
+                            }
+
+                            CTAButton(text: "공유", style: .outline) {
+                                intent.effectiveDateDialogIsRequired()
+                            }
                         }
                         .padding(.horizontal, 20)
                         .padding(.bottom, safeAreaInsets.bottom + 16)
@@ -75,7 +81,7 @@ struct StudentDetailView: View {
                             Color.sms(.system(.white))
                         }
                         .ignoresSafeArea()
-                    }
+//                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -87,6 +93,30 @@ struct StudentDetailView: View {
                 .buttonWrapper {
                     dismiss()
                 }
+        }
+        .smsDialog(
+            title: "만료기간 선택",
+            isShowing: Binding(
+                get: { state.isPresentedEffectiveDateDialog },
+                set: { _ in intent.effectiveDateDialogDismissed() }
+            ),
+            dialogActions: [
+                .init(
+                    text: "취소",
+                    style: .outline,
+                    action: { intent.effectiveDateDialogDismissed() }
+                ),
+                .init(
+                    text: "링크생성",
+                    style: .default,
+                    action: {
+                        #warning("링크 생성 이벤트 추가")
+                        intent.effectiveDateDialogDismissed()
+                    }
+                )
+            ]
+        ) {
+            effectiveDateView()
         }
         .statusBarHidden(true)
         .animation(.easeIn, value: state.studentDetailEntity)
@@ -306,6 +336,22 @@ struct StudentDetailView: View {
                 .lineLimit(1)
                 .foregroundColor(.sms(.neutral(.n40)))
                 .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    @ViewBuilder
+    func effectiveDateView() -> some View {
+        SelectedEffectiveDateView(
+            data: EffectiveDateType.allCases,
+            id: \.self,
+            isSelected: {
+                state.effectiveDateType == $0
+            },
+            selectAction: {
+                intent.effectiveDateSelect(effectiveDate: $0)
+            }
+        ) { effectiveDate in
+            SMSText("\(effectiveDate.rawValue)일", font: .body1)
         }
     }
 }
