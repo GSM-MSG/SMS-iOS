@@ -359,7 +359,7 @@ struct StudentDetailView: View {
 
     @ViewBuilder
     func effectiveDateView() -> some View {
-        SelectedEffectiveDateView(
+        EffectiveDateRadioGroupView(
             data: EffectiveDateType.allCases,
             id: \.self,
             isSelected: {

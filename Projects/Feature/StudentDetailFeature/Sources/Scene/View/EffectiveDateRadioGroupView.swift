@@ -1,7 +1,7 @@
 import SwiftUI
 import DesignSystem
 
-struct SelectedEffectiveDateView<T, ID, Content>: View where ID: Hashable, Content: View {
+struct EffectiveDateRadioGroupView<T, ID, Content>: View where ID: Hashable, Content: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     let data: [T]
     let id: KeyPath<T, ID>
