@@ -74,6 +74,7 @@ struct StudentDetailView: View {
                             CTAButton(text: "공유", style: .outline) {
                                 intent.effectiveDateDialogIsRequired()
                             }
+                            .frame(maxWidth: 104)
                         }
                         .padding(.horizontal, 20)
                         .padding(.bottom, safeAreaInsets.bottom + 16)
