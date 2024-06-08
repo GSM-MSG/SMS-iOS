@@ -9,7 +9,6 @@ struct GSMAuthenticationFormDemoApp: App {
                 areas: [
                     .init(
                         title: "Area",
-                        files: [],
                         sections: [
                             .init(
                                 title: "Section1",
@@ -52,11 +51,12 @@ struct GSMAuthenticationFormDemoApp: App {
                             )
                         ]
                     )
-                ]
+                ],
+                files: [.init(name: "내가 짱이다.pdf", url: "https://pdfobject.com/pdf/sample.pdf"), .init(name: "내가 짱인데요.pdf", url: "https://pdfobject.com/pdf/sample.pdf")]
             )
 
-            GSMAuthenticationFormBuilderView(uiModel: uiModel) { interaction in
-                    
+            GSMAuthenticationFormBuilderView(uiModel: uiModel) { _ in
+
             }
         }
     }
