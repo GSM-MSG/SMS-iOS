@@ -9,6 +9,14 @@ public extension TargetDependency {
 }
 
 public extension TargetDependency.Feature {
+    static let GSMAuthenticationFormFeatureInterface = TargetDependency.project(
+        target: ModulePaths.Feature.GSMAuthenticationFormFeature.targetName(type: .interface),
+        path: .relativeToFeature(ModulePaths.Feature.GSMAuthenticationFormFeature.rawValue)
+    )
+    static let GSMAuthenticationFormFeature = TargetDependency.project(
+        target: ModulePaths.Feature.GSMAuthenticationFormFeature.targetName(type: .sources),
+        path: .relativeToFeature(ModulePaths.Feature.GSMAuthenticationFormFeature.rawValue)
+    )
     static let InputAuthenticationFeatureInterface = TargetDependency.project(
         target: ModulePaths.Feature.InputAuthenticationFeature.targetName(type: .interface),
         path: .relativeToFeature(ModulePaths.Feature.InputAuthenticationFeature.rawValue)
