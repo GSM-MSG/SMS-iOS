@@ -3,16 +3,11 @@ import Foundation
 // swiftlint: disable nesting
 struct GSMAuthenticationFormUIModel {
     let areas: [Area]
+    let files: [File]
 
     struct Area {
         let title: String
-        let files: [File]
         let sections: [Section]
-
-        struct File {
-            let name: String
-            let url: String
-        }
 
         struct Section {
             let title: String
@@ -34,6 +29,11 @@ struct GSMAuthenticationFormUIModel {
                 }
             }
         }
+    }
+
+    struct File {
+        let name: String
+        let url: String
     }
 }
 // swiftlint: enable nesting

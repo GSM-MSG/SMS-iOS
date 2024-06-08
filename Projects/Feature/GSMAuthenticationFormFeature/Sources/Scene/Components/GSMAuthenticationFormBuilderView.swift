@@ -34,6 +34,10 @@ struct GSMAuthenticationFormBuilderView: View {
 
     var body: some View {
         ScrollView {
+            GSMAuthenticationFileDownloadView(uiModel: uiModel.files)
+
+            SMSSeparator()
+
             areaList(areas: uiModel.areas)
         }
     }
