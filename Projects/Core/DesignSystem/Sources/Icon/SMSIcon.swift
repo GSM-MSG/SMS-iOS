@@ -25,6 +25,7 @@ public struct SMSIcon: View {
         case check
         case checkmark
         case downChevron
+        case file
         case filter
         case greenCheck
         case photo
@@ -73,6 +74,9 @@ public struct SMSIcon: View {
 
         case .downChevron:
             return DesignSystemAsset.Icons.downChevron.swiftUIImage
+
+        case .file:
+            return DesignSystemAsset.Icons.file.swiftUIImage
 
         case .filter:
             return DesignSystemAsset.Icons.filter.swiftUIImage
