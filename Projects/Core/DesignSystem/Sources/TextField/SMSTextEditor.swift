@@ -34,7 +34,7 @@ public struct SMSTextEditor: View {
                         .onSubmit(onSubmit)
                         .smsFont(.body1, color: .neutral(.n50))
                         .focused($isFocused)
-                    
+
                     SMSIcon(.xmark)
                         .buttonWrapper {
                             text = ""
@@ -54,7 +54,7 @@ public struct SMSTextEditor: View {
                 .onTapGesture {
                     isFocused = true
                 }
-            
+
                 if text.isEmpty {
                     Text(placeholder)
                         .smsFont(.body1, color: .neutral(.n30))

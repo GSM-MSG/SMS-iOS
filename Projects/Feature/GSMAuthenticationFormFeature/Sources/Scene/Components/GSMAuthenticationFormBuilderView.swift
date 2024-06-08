@@ -192,17 +192,17 @@ struct GSMAuthenticationFormBuilderView: View {
         placeholder: String?,
         fileName: String?
     ) -> some View {
-        SMSTextField(
-            placeholder ?? "",
-            text: Binding(
-                get: { fileName ?? "" },
-                set: { _ in }
-            )
-        )
-        .disabled(true)
-        .overlay(alignment: .trailing) {
-            SMSIcon(.downChevron)
-                .padding(.trailing, 12)
+        SMSFileField(
+            placeholder,
+            fileText: fileName
+        ) { result in
+            switch result {
+            case let .success(url):
+                onFieldInteraction(.fieldChanges(key: key, fieldChanges: .file(url)))
+
+            default:
+                return
+            }
         }
     }
 
