@@ -43,7 +43,7 @@ extension SMSChipButtonStyle {
                 .padding(8)
                 .smsFont(.body1, color: .system(.black))
                 .background {
-                    configuration.isPressed ? Color.sms(.neutral(.n10)) : .sms(.system(.white))
+                    configuration.isPressed ? Color.sms(.neutral(.n20)) : .sms(.neutral(.n10))
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 8).stroke(Color.sms(.system(.black)), lineWidth: 1)
