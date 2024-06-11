@@ -11,6 +11,7 @@ let project = Project.makeModule(
         .Feature.StudentDetailFeatureInterface,
         .Feature.FilterFeatureInterface,
         .Feature.MyPageFeatureInterface,
+        .Feature.GSMAuthenticationFormFeatureInterface,
         .Domain.StudentDomainInterface,
         .Domain.UserDomainInterface
     ]

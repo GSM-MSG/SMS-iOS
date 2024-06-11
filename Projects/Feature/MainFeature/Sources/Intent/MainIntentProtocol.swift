@@ -2,8 +2,9 @@ import Foundation
 import FilterFeatureInterface
 import MyPageFeatureInterface
 import StudentDomainInterface
+import GSMAuthenticationFormFeatureInterface
 
-protocol MainIntentProtocol: FilterDelegate, MyPageDelegate {
+protocol MainIntentProtocol: FilterDelegate, MyPageDelegate, GSMAuthenticationDelegate {
     func reachedBottom(page: Int, isLast: Bool, filterOption: FilterOption?)
     func refresh(filterOption: FilterOption?)
     func filterIsRequired()

@@ -11,13 +11,14 @@ struct GSMAuthenticationFormUIModel {
 
         struct Section {
             let title: String
-            let description: String
-            let currentFieldCount: Int
+            let sectionId: String
+            let currentFieldCount: Double
             let fields: [Field]
 
             struct Field {
-                let key: String
+                let fieldId: String
                 let type: FieldType
+                let scoreDescription: String?
                 let placeholder: String?
 
                 enum FieldType {

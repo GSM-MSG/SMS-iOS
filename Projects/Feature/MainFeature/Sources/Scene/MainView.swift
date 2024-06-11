@@ -8,6 +8,7 @@ import UserDomainInterface
 import ViewUtil
 import FilterFeatureInterface
 import MyPageFeatureInterface
+import GSMAuthenticationFormFeatureInterface
 
 enum MainStudentIDProperty {
     static let studentScrollToTopID = "STUDENT_SCROLL_TO_TOP"
@@ -21,17 +22,20 @@ struct MainView: View {
     private let studentDetailBuildable: any StudentDetailBuildable
     private let filterBuildable: any FilterBuildable
     private let myPageBuildable: any MyPageBuildable
+    private let gsmAuthenticatoinBuildable: any GSMAuthenticationBuildable
 
     init(
         container: MVIContainer<MainIntentProtocol, MainStateProtocol>,
         studentDetailBuildable: any StudentDetailBuildable,
         filterBuildable: any FilterBuildable,
-        myPageBuildable: any MyPageBuildable
+        myPageBuildable: any MyPageBuildable,
+        gsmAuthenticatoinBuildable: any GSMAuthenticationBuildable
     ) {
         self._container = StateObject(wrappedValue: container)
         self.studentDetailBuildable = studentDetailBuildable
         self.filterBuildable = filterBuildable
         self.myPageBuildable = myPageBuildable
+        self.gsmAuthenticatoinBuildable = gsmAuthenticatoinBuildable
     }
 
     var body: some View {
@@ -116,7 +120,7 @@ struct MainView: View {
                 )
             )
             .navigate(
-                to: myPageBuildable.makeView(delegate: intent).eraseToAnyView(),
+                to: gsmAuthenticatoinBuildable.makeView().eraseToAnyView(),
                 when: Binding(
                     get: { state.isPresentedMyPage },
                     set: { _ in intent.myPageDismissed() }
