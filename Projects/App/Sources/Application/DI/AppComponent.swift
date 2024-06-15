@@ -1,10 +1,14 @@
 import AuthDomain
 import AuthDomainInterface
+import AuthenticationDomain
+import AuthenticationDomainInterface
 import BaseDomain
 import FileDomain
 import FileDomainInterface
 import FilterFeature
 import FilterFeatureInterface
+import GSMAuthenticationFormFeature
+import GSMAuthenticationFormFeatureInterface
 import InputCertificateInfoFeature
 import InputCertificateInfoFeatureInterface
 import InputInformationFeature
@@ -124,6 +128,10 @@ final class AppComponent: BootstrapComponent {
         SplashComponent(parent: self)
     }
 
+    public var gsmAuthenticationBuildable: any GSMAuthenticationBuildable {
+        GSMAuthenticationComponent(parent: self)
+    }
+
     public var authDomainBuildable: any AuthDomainBuildable {
         AuthDomainComponent(parent: self)
     }
@@ -154,5 +162,9 @@ final class AppComponent: BootstrapComponent {
 
     public var keychainBuildable: any KeychainBuildable {
         KeychainComponent(parent: self)
+    }
+
+    public var authenticationDomainBuildable: any AuthenticationDomainBuildable {
+        AuthenticationDomainComponent(parent: self)
     }
 }

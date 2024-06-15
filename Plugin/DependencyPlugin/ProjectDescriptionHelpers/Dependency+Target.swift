@@ -184,6 +184,18 @@ public extension TargetDependency.Feature {
 }
 
 public extension TargetDependency.Domain {
+    static let AuthenticationDomainTesting = TargetDependency.project(
+        target: ModulePaths.Domain.AuthenticationDomain.targetName(type: .testing),
+        path: .relativeToDomain(ModulePaths.Domain.AuthenticationDomain.rawValue)
+    )
+    static let AuthenticationDomainInterface = TargetDependency.project(
+        target: ModulePaths.Domain.AuthenticationDomain.targetName(type: .interface),
+        path: .relativeToDomain(ModulePaths.Domain.AuthenticationDomain.rawValue)
+    )
+    static let AuthenticationDomain = TargetDependency.project(
+        target: ModulePaths.Domain.AuthenticationDomain.targetName(type: .sources),
+        path: .relativeToDomain(ModulePaths.Domain.AuthenticationDomain.rawValue)
+    )
     static let TeacherDomainTesting = TargetDependency.project(
         target: ModulePaths.Domain.TeacherDomain.targetName(type: .testing),
         path: .relativeToDomain(ModulePaths.Domain.TeacherDomain.rawValue)
