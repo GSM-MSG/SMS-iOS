@@ -13,7 +13,7 @@ public final class StudentDomainComponent: Component<StudentDomainDependency>, S
     public var fetchStudentListUseCase: any FetchStudentListUseCase {
         FetchStudentListUseCaseImpl(studentRepository: studentRepository)
     }
-    public var fetchStudentDetailUSeCase: any FetchStudentDetailUseCase { // 오타 수정
+    public var fetchStudentDetailUseCase: any FetchStudentDetailUseCase {
         FetchStudentDetailUseCaseImpl(studentRepository: studentRepository)
     }
     public var modifyInformationUseCase: any ModifyInformationUseCase {
