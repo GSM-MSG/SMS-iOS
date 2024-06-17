@@ -38,4 +38,12 @@ final class RemoteStudentDataSourceImpl: BaseRemoteDataSource<StudentEndpoint>, 
     func modifyInformation(req: ModifyStudentInformationRequestDTO) async throws {
         try await request(.modifyInformation(req))
     }
+
+    func createPortfolioLink(req: CreatePortfolioLinkRequestDTO) async throws -> PortfolioLinkEntity {
+        try await request(
+            .createPortfolioLink(req),
+            dto: CreatePortfolioLinkResponseDTO.self
+        )
+        .toDomain()
+    }
 }
