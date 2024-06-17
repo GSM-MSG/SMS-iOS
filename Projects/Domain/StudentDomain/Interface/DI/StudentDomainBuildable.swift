@@ -4,4 +4,5 @@ public protocol StudentDomainBuildable {
     var fetchStudentListUseCase: any FetchStudentListUseCase { get }
     var fetchStudentDetailUSeCase: any FetchStudentDetailUseCase { get }
     var modifyInformationUseCase: any ModifyInformationUseCase { get }
+    var createPortfolioLinkUseCase: any CreatePortfolioLinkUseCase { get }
 }
