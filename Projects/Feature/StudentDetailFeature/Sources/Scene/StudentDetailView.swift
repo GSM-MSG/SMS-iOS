@@ -111,7 +111,7 @@ struct StudentDetailView: View {
                     text: "링크생성",
                     style: .default,
                     action: {
-                        #warning("링크 생성 이벤트 추가")
+                        intent.createPortfolioLink(state: state, portfolioLink: state.portfolioLink)
                         intent.pasteLinkDialogIsRequired()
                         intent.effectiveDateDialogDismissed()
                     }

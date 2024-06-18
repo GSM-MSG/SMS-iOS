@@ -18,7 +18,8 @@ public final class StudentDetailComponent: Component<StudentDetailDependency>, S
             userID: userID,
             model: model,
             loadUserRoleUseCase: dependency.userDomainBuildable.loadUserRoleUseCase,
-            fetchStudentDetailUseCase: dependency.studentDomainBuildable.fetchStudentDetailUSeCase
+            fetchStudentDetailUseCase: dependency.studentDomainBuildable.fetchStudentDetailUseCase,
+            createPortfolioLinkUseCase: dependency.studentDomainBuildable.createPortfolioLinkUseCase
         )
         let container = MVIContainer(
             intent: intent as StudentDetailIntentProtocol,

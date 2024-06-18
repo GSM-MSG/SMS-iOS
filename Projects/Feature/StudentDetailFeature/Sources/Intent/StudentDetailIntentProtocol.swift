@@ -8,4 +8,5 @@ protocol StudentDetailIntentProtocol {
     func pasteLinkDialogIsRequired()
     func pasteLinkDialogDismissed()
     func pastePortfolioLink(portfolioLink: String)
+    func createPortfolioLink(state: any StudentDetailStateProtocol, portfolioLink: String)
 }
