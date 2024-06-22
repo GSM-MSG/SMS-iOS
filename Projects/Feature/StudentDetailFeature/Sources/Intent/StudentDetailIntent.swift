@@ -73,7 +73,7 @@ final class StudentDetailIntent: StudentDetailIntentProtocol {
         Task {
             do {
                 let createPortfolioLinkRequest = CreatePortfolioLinkRequestDTO(
-                    studentId: userID,
+                    studentID: userID,
                     periodDay: state.effectiveDateType.rawValue
                 )
 

@@ -1,14 +1,19 @@
 import Foundation
 
 public struct CreatePortfolioLinkRequestDTO: Encodable {
-    public let studentId: String
+    public let studentID: String
     public let periodDay: Int
 
     public init(
-        studentId: String,
+        studentID: String,
         periodDay: Int
     ) {
-        self.studentId = studentId
+        self.studentID = studentID
         self.periodDay = periodDay
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case studentID = "studentId"
+        case periodDay
     }
 }
