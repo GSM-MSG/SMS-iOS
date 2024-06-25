@@ -18,6 +18,7 @@ protocol StudentDetailStateProtocol {
     var isPresentedEffectiveDateDialog: Bool { get }
     var effectiveDateType: EffectiveDateType { get }
     var isPresentedPasteLinkDialog: Bool { get }
+    var portfolioLinkEntity: PortfolioLinkEntity? { get }
     var portfolioLink: String { get }
 }
 
@@ -28,4 +29,7 @@ protocol StudentDetailActionProtocol: AnyObject {
     func updateIsPresentedEffectiveDateDialog(isPresented: Bool)
     func insertEffectiveDateType(effectiveDateType: EffectiveDateType)
     func updateIsPresentedPasteLinkDialog(isPresented: Bool)
+    func updatePortfolioLink(portfolioLink: String)
+    func createPortfolioLink(entity: PortfolioLinkEntity)
+    func updateToken(token: String)
 }

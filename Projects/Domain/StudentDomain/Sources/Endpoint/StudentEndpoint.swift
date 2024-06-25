@@ -9,6 +9,7 @@ enum StudentEndpoint {
     case fetchStudentDetailByGuest(userID: String)
     case fetchStudentDetailByTeacher(userID: String)
     case modifyInformation(ModifyStudentInformationRequestDTO)
+    case createPortfolioLink(CreatePortfolioLinkRequestDTO)
 }
 
 extension StudentEndpoint: SMSEndpoint {
@@ -37,6 +38,9 @@ extension StudentEndpoint: SMSEndpoint {
 
         case .modifyInformation:
             return .put("")
+            
+        case .createPortfolioLink:
+            return .post("/link")
         }
     }
 
@@ -73,6 +77,9 @@ extension StudentEndpoint: SMSEndpoint {
             return .requestParameters(query: requestDictionary)
 
         case let .modifyInformation(req):
+            return .requestJSONEncodable(req)
+            
+        case let .createPortfolioLink(req):
             return .requestJSONEncodable(req)
 
         default:
@@ -117,6 +124,9 @@ extension StudentEndpoint: SMSEndpoint {
             return [
                 400: .invalidRequest
             ]
+            
+        case .createPortfolioLink:
+            return [:]
         }
     }
 }
