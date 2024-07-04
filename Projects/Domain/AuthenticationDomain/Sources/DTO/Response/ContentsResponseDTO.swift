@@ -23,13 +23,19 @@ public struct ContentsResponseDTO: Decodable {
     public struct SectionsResponseDTO: Decodable {
         public let sectionId: String
         public let sectionName: String
-        public let maxCount: Double
+        public let maxCount: Int
+        public let groups: [GroupsResponseDTO]
+    }
+
+    public struct GroupsResponseDTO: Decodable {
+        public let groupId: String
+        public let maxScore: Double
         public let fields: [FieldsResponseDTO]
     }
 
     public struct FieldsResponseDTO: Decodable {
         public let fieldId: String
-        public let sectionType: FieldType
+        public let fieldType: FieldType
         public let scoreDescription: String?
         public let values: [ValuesResponseDTO]?
         public let example: String?
@@ -68,6 +74,16 @@ extension ContentsResponseDTO.SectionsResponseDTO {
             sectionId: sectionId,
             title: sectionName,
             maxCount: maxCount,
+            groups: groups.map { $0.toDomain() }
+        )
+    }
+}
+
+extension ContentsResponseDTO.GroupsResponseDTO {
+    func toDomain() -> GroupEntity {
+        GroupEntity(
+            groupId: groupId,
+            maxScore: maxScore,
             fields: fields.map { $0.toDomain() }
         )
     }
@@ -77,7 +93,7 @@ extension ContentsResponseDTO.FieldsResponseDTO {
     func toDomain() -> FieldEntity {
         FieldEntity(
             fieldId: fieldId,
-            type: sectionType,
+            type: fieldType,
             scoreDescription: scoreDescription,
             values: values.map { $0.map { $0.toDomain() } },
             placeholder: example

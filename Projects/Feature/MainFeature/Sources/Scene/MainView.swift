@@ -120,10 +120,17 @@ struct MainView: View {
                 )
             )
             .navigate(
-                to: gsmAuthenticatoinBuildable.makeView().eraseToAnyView(),
+                to: myPageBuildable.makeView(delegate: intent).eraseToAnyView(),
                 when: Binding(
                     get: { state.isPresentedMyPage },
                     set: { _ in intent.myPageDismissed() }
+                )
+            )
+            .navigate(
+                to: gsmAuthenticatoinBuildable.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { state.isPresentedAuthentification },
+                    set: { _ in intent.authentificationPageIsDismissed() }
                 )
             )
             .navigationBarTitleDisplayMode(.inline)
@@ -138,7 +145,7 @@ struct MainView: View {
                     SMSIcon(.profile, width: 32, height: 32)
                         .clipShape(Circle())
                         .onTapGesture {
-                            state.currentUserRole == .student ? intent.myPageIsRequired() : intent.exitIsRequired()
+                            state.currentUserRole == .student ? intent.myInfoBottomSheetIsRequired() : intent.exitIsRequired()
                         }
                 }
             }
@@ -164,6 +171,45 @@ struct MainView: View {
                     }
                 ]
             )
+            .smsBottomSheet(
+                isShowing: Binding(
+                    get: { state.isPresentedMyInfoBottomSheet },
+                    set: { _ in intent.myInfoBottomSheetIsDismissed() }
+                )
+            ) {
+                VStack(alignment: .leading, spacing: 32) {
+                    Button {
+                        intent.myInfoBottomSheetIsDismissed()
+                        intent.myPageIsRequired()
+                    } label: {
+                        HStack(spacing: 12) {
+                            SMSIcon(.person)
+
+                            SMSText("마이페이지", font: .title2)
+                                .foregroundStyle(Color.sms(.neutral(.n50)))
+
+                            Spacer()
+                        }
+                    }
+
+                    Button {
+                        intent.myInfoBottomSheetIsDismissed()
+                        intent.authentificationPageIsRequired()
+                    } label: {
+                        HStack(spacing: 12) {
+                            SMSIcon(.briefcases)
+
+                            SMSText("인증제", font: .title2)
+                                .foregroundStyle(Color.sms(.neutral(.n50)))
+
+                            Spacer()
+                        }
+                    }
+                }
+                .padding(.top, 12)
+                .padding(.horizontal, 20)
+            }
+            .animation(.default, value: state.isPresentedMyInfoBottomSheet)
         }
         .navigationViewStyle(.stack)
     }

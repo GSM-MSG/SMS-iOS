@@ -3,8 +3,8 @@ import BaseDomain
 import Emdpoint
 
 enum AuthenticationEndpoint {
-    case fetchAuthenticationForm(uuid: String)
-    case inputAuthentication(uuid: String, req: InputAuthenticationRequestDTO)
+    case fetchAuthenticationForm
+    case inputAuthentication(req: InputAuthenticationRequestDTO)
 }
 
 extension AuthenticationEndpoint: SMSEndpoint {
@@ -16,10 +16,10 @@ extension AuthenticationEndpoint: SMSEndpoint {
 
     var route: Route {
         switch self {
-        case let .fetchAuthenticationForm(uuid):
-            return .get("/form/\(uuid)")
-        case let .inputAuthentication(uuid, _):
-            return .post("/submit/\(uuid)")
+        case .fetchAuthenticationForm:
+            return .get("/form")
+        case .inputAuthentication:
+            return .post("/submit")
         }
     }
 
@@ -28,7 +28,7 @@ extension AuthenticationEndpoint: SMSEndpoint {
         case .fetchAuthenticationForm:
             return .requestPlain
 
-        case let .inputAuthentication(_, req):
+        case let .inputAuthentication(req):
             return .requestJSONEncodable(req)
 
         default:

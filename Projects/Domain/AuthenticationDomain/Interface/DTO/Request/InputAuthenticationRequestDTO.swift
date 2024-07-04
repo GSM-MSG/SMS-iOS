@@ -18,16 +18,26 @@ public struct Content: Encodable {
     }
 }
 
-// MARK: - Object
 public struct Object: Encodable {
+    public let groupId: String
+    public let fields: [Field]
+
+    public init(groupId: String, fields: [Field]) {
+        self.groupId = groupId
+        self.fields = fields
+    }
+}
+
+// MARK: - Object
+public struct Field: Encodable {
     public let fieldID: String
-    public let sectionType: FieldType
+    public let fieldType: FieldType
     public let value: String
     public let selectID: String
 
-    public init(fieldID: String, sectionType: FieldType, value: String, selectID: String) {
+    public init(fieldID: String, fieldType: FieldType, value: String, selectID: String) {
         self.fieldID = fieldID
-        self.sectionType = sectionType
+        self.fieldType = fieldType
         self.value = value
         self.selectID = selectID
     }

@@ -2,31 +2,49 @@ import Foundation
 
 // swiftlint: disable nesting
 struct GSMAuthenticationFormUIModel {
-    let areas: [Area]
-    let files: [File]
+    var areas: [Area]
+    var files: [File]
 
     struct Area {
-        let title: String
-        let sections: [Section]
+        var title: String
+        var sections: [Section]
 
         struct Section {
-            let title: String
-            let sectionId: String
-            let currentFieldCount: Double
-            let fields: [Field]
+            var title: String
+            var sectionId: String
+            var maxCount: Int
+            var currentFieldCount: Int
+            var groups: [Group]
 
-            struct Field {
-                let fieldId: String
-                let type: FieldType
-                let scoreDescription: String?
-                let placeholder: String?
+            struct Group {
+                var groupId: String
+                var maxScore: Double
+                var fields: [Field]
 
-                enum FieldType {
-                    case text(value: String?)
-                    case number(value: Int?)
-                    case boolean(isSelcted: Bool?)
-                    case file(fileName: String?)
-                    case select(selectedValue: String?, values: [String])
+                struct Field {
+                    var fieldId: String
+                    var type: FieldType
+                    var scoreDescription: String?
+                    var placeholder: String?
+
+                    enum FieldType {
+                        case text(value: String?)
+                        case number(value: Int?)
+                        case boolean(selectedValue: String?, values: [String])
+                        case file(fileName: String?)
+                        case select(selectedValue: String?, values: [String])
+                    }
+
+                    func findFieldTypeValue() -> [String] {
+                        switch type {
+                        case let .boolean(_, values):
+                            return values
+                        case let .select(_, values):
+                            return values
+                        default:
+                            return []
+                        }
+                    }
                 }
             }
         }
@@ -37,4 +55,5 @@ struct GSMAuthenticationFormUIModel {
         let url: String
     }
 }
+
 // swiftlint: enable nesting

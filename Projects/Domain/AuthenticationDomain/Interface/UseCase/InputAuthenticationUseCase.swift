@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol InputAuthenticationUseCase {
-    func execute(uuid: String, req: InputAuthenticationRequestDTO) async throws
+    func execute(req: InputAuthenticationRequestDTO) async throws
 }

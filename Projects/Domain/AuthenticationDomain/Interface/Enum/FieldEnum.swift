@@ -4,5 +4,4 @@ public enum FieldType: String, Codable {
     case boolean = "BOOLEAN"
     case file = "FILE"
     case select = "SELECT"
-//    case selectValue = "SELECT_VALUE"
 }

@@ -1,17 +1,19 @@
 import DesignSystem
 import Foundation
 import SwiftUI
+import BaseFeature
+import ViewUtil
 
 enum FieldChanges {
     case text(String)
     case number(Int)
-    case boolean(Bool)
-    case file(URL)
+    case boolean(String)
+    case file(String)
     case select(String)
 }
 
 enum FieldInteraction {
-    case fieldChanges(key: String, fieldChanges: FieldChanges)
+    case fieldChanges(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, fieldChanges: FieldChanges)
     case fieldAdd(area: Int, section: Int, field: Int)
 }
 
@@ -22,12 +24,16 @@ struct GSMAuthenticationFormBuilderView: View {
     private let onFieldInteraction: (FieldInteraction) -> Void
     private typealias Area = GSMAuthenticationFormUIModel.Area
     private typealias Section = Area.Section
-    private typealias Field = Section.Field
+    private typealias Group = Section.Group
+    private typealias Field = Group.Field
+    let intent: GSMAuthenticationFormIntentProtocol
 
     init(
+        intent: GSMAuthenticationFormIntentProtocol,
         uiModel: GSMAuthenticationFormUIModel,
         onFieldInteraction: @escaping (FieldInteraction) -> Void
     ) {
+        self.intent = intent
         self.uiModel = uiModel
         self.onFieldInteraction = onFieldInteraction
     }
@@ -43,12 +49,12 @@ struct GSMAuthenticationFormBuilderView: View {
     @ViewBuilder
     private func areaList(areas: [Area]) -> some View {
         LazyVStack(spacing: 16) {
-            ForEach(uiModel.areas, id: \.title) { area in
+            ForEach(uiModel.areas.indices, id: \.self) { index in
                 SMSSeparator()
                     .padding(.bottom, 4)
 
                 HStack(spacing: 16) {
-                    SMSText(area.title, font: .title1)
+                    SMSText(areas[index].title, font: .title1)
 
                     Spacer()
 
@@ -63,7 +69,7 @@ struct GSMAuthenticationFormBuilderView: View {
                 }
                 .padding(.horizontal, 20)
 
-                sectionList(sections: area.sections)
+                sectionList(areaIndex: index, sections: areas[index].sections)
                     .padding(.horizontal, 20)
             }
         }
@@ -71,24 +77,13 @@ struct GSMAuthenticationFormBuilderView: View {
     }
 
     @ViewBuilder
-    private func sectionList(sections: [Section]) -> some View {
+    private func sectionList(areaIndex: Int, sections: [Section]) -> some View {
         LazyVStack(spacing: 0) {
-            ForEach(sections, id: \.sectionId) { section in
+            ForEach(sections.indices, id: \.self) { index in
                 VStack {
-                    fieldList(key: section.sectionId, fields: section.fields)
-
-                    if section.currentFieldCount != 1 {
-                        HStack {
-                            SMSChip("추가") {
-                            }
-
-                            Spacer()
-
-                            SMSIcon(.trash)
-                        }
-                    }
+                    groupList(areaIndex: areaIndex, sectionIndex: index, groups: sections[index].groups, maxCount: sections[index].maxCount)
                 }
-                .titleWrapper(section.title)
+                .titleWrapper(sections[index].title)
                 .frame(maxWidth: .infinity)
             }
             .padding(.vertical, 20)
@@ -96,48 +91,131 @@ struct GSMAuthenticationFormBuilderView: View {
     }
 
     @ViewBuilder
-    private func fieldList(key: String, fields: [Field]) -> some View {
-        LazyVStack(spacing: 16) {
-            ForEach(fields, id: \.fieldId) { field in
-                fieldView(key: field.fieldId, field: field)
-                    .titleWrapper(
-                        field.scoreDescription ?? "",
-                        position: .bottom(.leading),
-                        font: .caption1,
-                        color: .neutral(.n30)
+    private func groupList(areaIndex: Int, sectionIndex: Int, groups: [Group], maxCount: Int) -> some View {
+        LazyVStack(spacing: 0) {
+            ForEach(groups.indices, id: \.self) { index in
+                VStack {
+                    fieldList(
+                        areaIndex: areaIndex,
+                        sectionIndex: sectionIndex,
+                        groupIndex: index,
+                        fields: groups[index].fields
                     )
+
+                    HStack {
+                        ConditionView(maxCount > groups[index].fields.count) {
+                            SMSChip("추가") {
+                                intent.appendField(
+                                    area: areaIndex,
+                                    sectionIndex: sectionIndex,
+                                    groupIndex: index,
+                                    fields: groups[index].fields
+                                )
+                            }
+                        }
+
+                        Spacer()
+
+                        ConditionView(groups[index].fields.count > 1 && maxCount > 1) {
+                            Button {
+                                intent.deleteField(
+                                    area: areaIndex,
+                                    sectionIndex: sectionIndex,
+                                    groupIndex: index
+                                )
+                            } label: {
+                                SMSIcon(.trash)
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
     @ViewBuilder
-    private func fieldView(key: String, field: Field) -> some View {
+    private func fieldList(areaIndex: Int, sectionIndex: Int, groupIndex: Int, fields: [Field]) -> some View {
+        LazyVStack(spacing: 0) {
+            ForEach(fields.indices, id: \.self) { index in
+                fieldView(
+                    areaIndex: areaIndex,
+                    sectionIndex: sectionIndex,
+                    groupIndex: groupIndex,
+                    fieldIndex: index,
+                    field: fields[index]
+                )
+                .titleWrapper(
+                    fields[index].scoreDescription ?? "",
+                    position: .bottom(.leading),
+                    font: .caption1,
+                    color: .neutral(.n30)
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func fieldView(areaIndex: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, field: Field) -> some View {
         switch field.type {
-            case let .text(value):
-                textTypeFieldView(key: key, placeholder: field.placeholder, text: value)
+        case let .text(value):
+            textTypeFieldView(
+                areaIndex: areaIndex,
+                sectionIndex: sectionIndex,
+                groupIndex: groupIndex,
+                fieldIndex: fieldIndex,
+                placeholder: field.placeholder,
+                text: value
+            )
 
-            case let .number(value):
-                numberTypeFieldView(key: key, placeholder: field.placeholder, number: value)
+        case let .number(value):
+            numberTypeFieldView(
+                areaIndex: areaIndex,
+                sectionIndex: sectionIndex,
+                groupIndex: groupIndex,
+                fieldIndex: fieldIndex,
+                placeholder: field.placeholder,
+                number: value
+            )
 
-            case let .boolean(isSelected):
-                booleanTypeFieldView(key: key, isSelected: isSelected)
+        case let .boolean(selectedValue, values):
+            booleanTypeFieldView(
+                areaIndex: areaIndex,
+                sectionIndex: sectionIndex,
+                groupIndex: groupIndex,
+                fieldIndex: fieldIndex,
+                selectedValue: selectedValue,
+                values: values
+            )
 
-            case let .file(fileName):
-                fileTypeFieldView(key: key, placeholder: field.placeholder, fileName: fileName)
+        case let .file(fileName):
+            fileTypeFieldView(
+                areaIndex: areaIndex,
+                sectionIndex: sectionIndex,
+                groupIndex: groupIndex,
+                fieldIndex: fieldIndex,
+                placeholder: field.placeholder,
+                fileName: fileName
+            )
 
-            case let .select(selectedValue, values):
-                selectTypeFieldView(
-                    key: key,
-                    placeholder: field.placeholder,
-                    selectedValue: selectedValue,
-                    values: values
+        case let .select(selectedValue, values):
+            selectTypeFieldView(
+                areaIndex: areaIndex,
+                sectionIndex: sectionIndex,
+                groupIndex: groupIndex,
+                fieldIndex: fieldIndex,
+                placeholder: field.placeholder,
+                selectedValue: selectedValue,
+                values: values
             )
         }
     }
 
     @ViewBuilder
     private func textTypeFieldView(
-        key: String,
+        areaIndex: Int,
+        sectionIndex: Int,
+        groupIndex: Int,
+        fieldIndex: Int,
         placeholder: String?,
         text: String?
     ) -> some View {
@@ -146,7 +224,15 @@ struct GSMAuthenticationFormBuilderView: View {
             text: Binding(
                 get: { text ?? "" },
                 set: { newValue in
-                    onFieldInteraction(.fieldChanges(key: key, fieldChanges: .text(newValue)))
+                    onFieldInteraction(
+                        .fieldChanges(
+                            area: areaIndex,
+                            sectionIndex: sectionIndex,
+                            groupIndex: groupIndex,
+                            fieldIndex: fieldIndex,
+                            fieldChanges: .text(newValue)
+                        )
+                    )
                 }
             )
         )
@@ -154,7 +240,10 @@ struct GSMAuthenticationFormBuilderView: View {
 
     @ViewBuilder
     private func numberTypeFieldView(
-        key: String,
+        areaIndex: Int,
+        sectionIndex: Int,
+        groupIndex: Int,
+        fieldIndex: Int,
         placeholder: String?,
         number: Int?
     ) -> some View {
@@ -170,7 +259,15 @@ struct GSMAuthenticationFormBuilderView: View {
                 },
                 set: { newValue in
                     guard let numberValue = Int(newValue) else { return }
-                    onFieldInteraction(.fieldChanges(key: key, fieldChanges: .number(numberValue)))
+                    onFieldInteraction(
+                        .fieldChanges(
+                            area: areaIndex,
+                            sectionIndex: sectionIndex,
+                            groupIndex: groupIndex,
+                            fieldIndex: fieldIndex,
+                            fieldChanges: .number(numberValue)
+                        )
+                    )
                 }
             )
         )
@@ -178,19 +275,39 @@ struct GSMAuthenticationFormBuilderView: View {
 
     @ViewBuilder
     private func booleanTypeFieldView(
-        key: String,
-        isSelected: Bool?
+        areaIndex: Int,
+        sectionIndex: Int,
+        groupIndex: Int,
+        fieldIndex: Int,
+        selectedValue: String?,
+        values: [String]
     ) -> some View {
         SMSSegmentedControl(
-            options: ["True", "False"],
-            selectedOption: (isSelected ?? false) ? "True" : "False"
+            options: values,
+            selectedOption: selectedValue
         ) { option in
             switch option {
-            case "True":
-                onFieldInteraction(.fieldChanges(key: key, fieldChanges: .boolean(true)))
+            case values[0]:
+                onFieldInteraction(
+                    .fieldChanges(
+                        area: areaIndex,
+                        sectionIndex: sectionIndex,
+                        groupIndex: groupIndex,
+                        fieldIndex: fieldIndex,
+                        fieldChanges: .boolean(values[0])
+                    )
+                )
 
-            case "False":
-                onFieldInteraction(.fieldChanges(key: key, fieldChanges: .boolean(false)))
+            case values[1]:
+                onFieldInteraction(
+                    .fieldChanges(
+                        area: areaIndex,
+                        sectionIndex: sectionIndex,
+                        groupIndex: groupIndex,
+                        fieldIndex: fieldIndex,
+                        fieldChanges: .boolean(values[1])
+                    )
+                )
 
             default:
                 return
@@ -200,7 +317,10 @@ struct GSMAuthenticationFormBuilderView: View {
 
     @ViewBuilder
     private func fileTypeFieldView(
-        key: String,
+        areaIndex: Int,
+        sectionIndex: Int,
+        groupIndex: Int,
+        fieldIndex: Int,
         placeholder: String?,
         fileName: String?
     ) -> some View {
@@ -210,7 +330,15 @@ struct GSMAuthenticationFormBuilderView: View {
         ) { result in
             switch result {
             case let .success(url):
-                onFieldInteraction(.fieldChanges(key: key, fieldChanges: .file(url)))
+                onFieldInteraction(
+                    .fieldChanges(
+                        area: areaIndex,
+                        sectionIndex: sectionIndex,
+                        groupIndex: groupIndex,
+                        fieldIndex: fieldIndex,
+                        fieldChanges: .file(url.absoluteString)
+                    )
+                )
 
             default:
                 return
@@ -220,7 +348,10 @@ struct GSMAuthenticationFormBuilderView: View {
 
     @ViewBuilder
     private func selectTypeFieldView(
-        key: String,
+        areaIndex: Int,
+        sectionIndex: Int,
+        groupIndex: Int,
+        fieldIndex: Int,
         placeholder: String?,
         selectedValue: String?,
         values: [String]
@@ -230,7 +361,8 @@ struct GSMAuthenticationFormBuilderView: View {
             text: Binding(
                 get: { selectedValue ?? "" },
                 set: { _ in }
-            )
+            ),
+            isOnClear: false
         )
         .disabled(true)
         .overlay(alignment: .trailing) {
@@ -243,7 +375,15 @@ struct GSMAuthenticationFormBuilderView: View {
                     optionPickerPresenter.presentOptionPicker(
                         options: values,
                         onOptionSelect: { selectedOption in
-                            onFieldInteraction(.fieldChanges(key: key, fieldChanges: .select(selectedOption)))
+                            onFieldInteraction(
+                                .fieldChanges(
+                                    area: areaIndex,
+                                    sectionIndex: sectionIndex,
+                                    groupIndex: groupIndex,
+                                    fieldIndex: fieldIndex,
+                                    fieldChanges: .select(selectedOption)
+                                )
+                            )
                         }
                     )
                 }

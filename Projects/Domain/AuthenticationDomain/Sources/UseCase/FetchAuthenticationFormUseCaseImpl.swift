@@ -7,7 +7,7 @@ struct FetchAuthenticationFormUseCaseImpl: FetchAuthenticationFormUseCase {
         self.authenticationRepository = authenticationRepository
     }
 
-    func execute(uuid: String) async throws -> AuthenticationFormEntity {
-        try await authenticationRepository.fetchAuthenticationForm(uuid: uuid)
+    func execute() async throws -> AuthenticationFormEntity {
+        try await authenticationRepository.fetchAuthenticationForm()
     }
 }

@@ -7,7 +7,7 @@ struct InputAuthenticationUseCaseImpl: InputAuthenticationUseCase {
         self.authenticationRepository = authenticationRepository
     }
 
-    func execute(uuid: String, req: InputAuthenticationRequestDTO) async throws {
-        try await authenticationRepository.inputAuthentication(uuid: uuid, req: req)
+    func execute(req: InputAuthenticationRequestDTO) async throws {
+        try await authenticationRepository.inputAuthentication(req: req)
     }
 }

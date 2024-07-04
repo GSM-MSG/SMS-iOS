@@ -7,11 +7,11 @@ struct AuthenticationRepositoryImpl: AuthenticationRepository {
         self.remoteAuthenticationDataSource = remoteAuthenticationDataSource
     }
 
-    func fetchAuthenticationForm(uuid: String) async throws -> AuthenticationFormEntity {
-        try await remoteAuthenticationDataSource.fetchAuthenticationForm(uuid: uuid)
+    func fetchAuthenticationForm() async throws -> AuthenticationFormEntity {
+        try await remoteAuthenticationDataSource.fetchAuthenticationForm()
     }
 
-    func inputAuthentication(uuid: String, req: InputAuthenticationRequestDTO) async throws {
-        try await remoteAuthenticationDataSource.inputAuthentication(uuid: uuid, req: req)
+    func inputAuthentication(req: InputAuthenticationRequestDTO) async throws {
+        try await remoteAuthenticationDataSource.inputAuthentication(req: req)
     }
 }

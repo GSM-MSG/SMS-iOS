@@ -15,4 +15,8 @@ protocol MainIntentProtocol: FilterDelegate, MyPageDelegate, GSMAuthenticationDe
     func studentDetailDismissed()
     func exitIsRequired()
     func exitIsDismissed()
+    func myInfoBottomSheetIsRequired()
+    func myInfoBottomSheetIsDismissed()
+    func authentificationPageIsRequired()
+    func authentificationPageIsDismissed()
 }

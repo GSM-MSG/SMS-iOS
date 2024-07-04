@@ -94,6 +94,22 @@ final class MainIntent: MainIntentProtocol {
     func exitIsDismissed() {
         model?.updateIsPresentedExitDialog(isPresented: false)
     }
+
+    func myInfoBottomSheetIsRequired() {
+        model?.updateIsPresentedMyInfoBottomSheet(isPresented: true)
+    }
+
+    func myInfoBottomSheetIsDismissed() {
+        model?.updateIsPresentedMyInfoBottomSheet(isPresented: false)
+    }
+
+    func authentificationPageIsRequired() {
+        model?.updateIsPresentedAuthentification(isPresented: true)
+    }
+
+    func authentificationPageIsDismissed() {
+        model?.updateIsPresentedAuthentification(isPresented: false)
+    }
 }
 
 extension MainIntent: FilterDelegate {

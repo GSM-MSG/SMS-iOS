@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol RemoteAuthenticationDataSource {
-    func fetchAuthenticationForm(uuid: String) async throws -> AuthenticationFormEntity
+    func fetchAuthenticationForm() async throws -> AuthenticationFormEntity
 
-    func inputAuthentication(uuid: String, req: InputAuthenticationRequestDTO) async throws
+    func inputAuthentication(req: InputAuthenticationRequestDTO) async throws
 }
