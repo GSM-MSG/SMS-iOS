@@ -26,23 +26,36 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
         sectionIndex: Int,
         groupIndex: Int
     ) {
-        let selectedGroup: GSMAuthenticationFormUIModel.Area.Section.Group = uiModel.areas[area].sections[sectionIndex].groups[groupIndex]
+        guard let authenticationEntity else { return }
+        assert(
+            authenticationEntity.areas[area]
+                .sections[sectionIndex]
+                .groups.count == 1,
+            "section : group = 1 : 1 관계인 정책"
+        )
+        guard let selectedGroup = authenticationEntity.areas[area]
+            .sections[sectionIndex]
+            .groups
+            .first
+        else { return }
+
+        let fields = selectedGroup.fields.map {
+            GSMAuthenticationFormUIModel.Area.Section.Group.Field.init(
+                fieldId: $0.fieldId,
+                type: toUIFieldType(field: $0),
+                scoreDescription: $0.scoreDescription,
+                placeholder: $0.placeholder
+            )
+        }
+
         uiModel.areas[area].sections[sectionIndex].groups.insert(
             .init(
                 groupId: selectedGroup.groupId,
                 maxScore: selectedGroup.maxScore,
-                fields: selectedGroup.fields.map {
-                    GSMAuthenticationFormUIModel.Area.Section.Group.Field.init(
-                        fieldId: $0.fieldId,
-                        type: $0.type.emptyValue,
-                        scoreDescription: $0.scoreDescription,
-                        placeholder: $0.placeholder
-                    )
-                }
+                fields: fields
             ),
-            at: groupIndex + 1
+            at: groupIndex
         )
-        objectWillChange.send()
     }
 
     func updateTextField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, text: String) {
@@ -73,6 +86,19 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
         groupIndex: Int
     ) {
         uiModel.areas[area].sections[sectionIndex].groups.remove(at: groupIndex)
-        objectWillChange.send()
+    }
+}
+
+private extension GSMAuthenticationFormModel {
+    func toUIFieldType(
+        field: FieldEntity
+    ) -> GSMAuthenticationFormUIModel.Area.Section.Group.Field.FieldType {
+        switch field.type {
+        case .text: return .text(value: nil)
+        case .number: return .number(value: nil)
+        case .boolean: return .boolean(selectedValue: nil, values: field.values?.map { $0.value } ?? [])
+        case .file: return .file(fileName: nil)
+        case .select: return .select(selectedValue: nil, values: field.values?.map { $0.value } ?? [])
+        }
     }
 }
