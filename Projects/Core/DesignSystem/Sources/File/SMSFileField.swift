@@ -2,24 +2,25 @@ import SwiftUI
 import ViewUtil
 import UniformTypeIdentifiers
 
-public struct FileField: View {
-    @State var fileText: String
-    @State var isShow: Bool
-    @State var isError: Bool
-    let errorText: String
-    let allowedContentTypes: [UTType]
-    let action: (URL) -> Void
+public struct SMSFileField: View {
+    private let placeholder: String?
+    private let fileText: String?
+    @State private var isShow: Bool = false
+    private let isError: Bool
+    private let errorText: String
+    private let allowedContentTypes: [UTType]
+    private let action: (Result<URL, Error>) -> Void
 
     public init(
-        fileText: String,
-        isShow: Bool,
+        _ placeholder: String? = nil,
+        fileText: String?,
         isError: Bool = false,
         errorText: String = "",
         allowedContentTypes: [UTType] = [.content],
-        action: @escaping (URL) -> Void
+        action: @escaping (Result<URL, Error>) -> Void
     ) {
+        self.placeholder = placeholder
         self.fileText = fileText
-        self.isShow = isShow
         self.isError = isError
         self.errorText = errorText
         self.allowedContentTypes = allowedContentTypes
@@ -28,9 +29,9 @@ public struct FileField: View {
 
     public var body: some View {
         SMSTextField(
-            "",
+            placeholder ?? "",
             text: Binding(
-                get: { fileText },
+                get: { fileText ?? "" },
                 set: { _ in }
             ),
             errorText: errorText,
@@ -57,14 +58,7 @@ public struct FileField: View {
             ),
             allowedContentTypes: allowedContentTypes
         ) { result in
-            switch result {
-            case .success(let url):
-                fileText = url.lastPathComponent
-                action(url)
-
-            case .failure:
-                self.isError = true
-            }
+            action(result)
         }
     }
 }
