@@ -1,16 +1,19 @@
+import AuthenticationDomainInterface
 import Foundation
+
 protocol GSMAuthenticationFormStateProtocol {
     var uiModel: GSMAuthenticationFormUIModel { get }
+    var authenticationEntity: AuthenticationFormEntity? { get }
 }
 
 protocol GSMAuthenticationFormActionProtocol: AnyObject {
     func updateGSMAuthenticationFormUIModel(uiModel: GSMAuthenticationFormUIModel)
+    func updateAuthenticationEntity(authenticationEntity: AuthenticationFormEntity)
 
     func appendField(
         area: Int,
         sectionIndex: Int,
-        groupIndex: Int,
-        fields: [GSMAuthenticationFormUIModel.Area.Section.Group.Field]
+        groupIndex: Int
     )
 
     func updateTextField(

@@ -21,14 +21,12 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
     func appendField(
         area: Int,
         sectionIndex: Int,
-        groupIndex: Int,
-        fields: [GSMAuthenticationFormUIModel.Area.Section.Group.Field]
+        groupIndex: Int
     ) {
         model?.appendField(
             area: area,
             sectionIndex: sectionIndex,
-            groupIndex: groupIndex,
-            fields: fields
+            groupIndex: groupIndex
         )
     }
 
@@ -39,12 +37,13 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
     func onAppear() {
         Task {
             do {
-                let uiModel = try await fetchAuthenticationFormUseCase.execute()
+                let authenticationEntity = try await fetchAuthenticationFormUseCase.execute()
 
+                model?.updateAuthenticationEntity(authenticationEntity: authenticationEntity)
                 model?.updateGSMAuthenticationFormUIModel(
                     uiModel: .init(
-                        areas: uiModel.areas.map { $0.toModel() },
-                        files: uiModel.files.map { $0.toModel() }
+                        areas: authenticationEntity.areas.map { $0.toModel() },
+                        files: authenticationEntity.files.map { $0.toModel() }
                     )
                 )
             }
@@ -54,54 +53,73 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
     func saveButtonDidTap(state: any GSMAuthenticationFormStateProtocol) {
         Task {
             do {
+                guard let authenticationEntity = state.authenticationEntity else { return }
                 try await inputAuthenticationUseCase.execute(
-                    req: convertToDTO(model: state.uiModel)
+                    req: convertToDTO(
+                        model: state.uiModel,
+                        entity: authenticationEntity
+                    )
                 )
             }
         }
     }
 
-    func convertToDTO(model: GSMAuthenticationFormUIModel) -> InputAuthenticationRequestDTO {
-        let contents: [Content] = model.areas.flatMap { area in
-                area.sections.map { section in
-                    let objects: [Object] = section.groups.map { group in
-                        let fields: [Field] = group.fields.map { field in
-                            let fieldType: FieldType
-                            let value: String
-                            let selectID: String
-                            
-                            switch field.type {
-                            case .text(let textValue):
-                                fieldType = .text
-                                value = textValue ?? ""
-                                selectID = ""
-                            case .number(let numberValue):
-                                fieldType = .number
-                                value = numberValue.map { String($0) } ?? ""
-                                selectID = ""
-                            case .boolean(let selectedValue, let values):
-                                fieldType = .boolean
-                                value = selectedValue ?? ""
-                                selectID = values.joined(separator: ",")
-                            case .file(let fileName):
-                                fieldType = .file
-                                value = fileName ?? ""
-                                selectID = ""
-                            case .select(let selectedValue, let values):
-                                fieldType = .select
-                                value = selectedValue ?? ""
-                                selectID = values.joined(separator: ",")
-                            }
-                            
-                            return Field(fieldID: field.fieldId, fieldType: fieldType, value: value, selectID: selectID)
+    func convertToDTO(
+        model: GSMAuthenticationFormUIModel,
+        entity: AuthenticationFormEntity
+    ) -> InputAuthenticationRequestDTO {
+        let contents: [Content] = model.areas.enumerated().flatMap { areaIndex, area in
+            area.sections.enumerated().map { sectionIndex, section in
+                let objects: [Object] = section.groups.enumerated().map { objectIndex, group in
+                    let fields: [Field] = group.fields.enumerated().map { fieldIndex, field in
+                        let fieldType: FieldType
+                        let value: String
+                        let selectID: String
+
+                        switch field.type {
+                        case .text(let textValue):
+                            fieldType = .text
+                            value = textValue ?? ""
+                            selectID = ""
+                        case .number(let numberValue):
+                            fieldType = .number
+                            value = numberValue.map { String($0) } ?? ""
+                            selectID = ""
+                        case .boolean(let selectedValue, let values):
+                            fieldType = .boolean
+                            value = selectedValue ?? ""
+                            selectID = entity.areas[areaIndex]
+                                .sections[sectionIndex]
+                                .groups[objectIndex]
+                                .fields
+                                .first { $0.fieldId == field.fieldId }?
+                                .values?
+                                .first { $0.value == selectedValue }?.selectId ?? ""
+                        case .file(let fileName):
+                            fieldType = .file
+                            value = fileName ?? ""
+                            selectID = ""
+                        case .select(let selectedValue, let values):
+                            fieldType = .select
+                            value = selectedValue ?? ""
+                            selectID = entity.areas[areaIndex]
+                                .sections[sectionIndex]
+                                .groups[objectIndex]
+                                .fields
+                                .first { $0.fieldId == field.fieldId }?
+                                .values?
+                                .first { $0.value == selectedValue }?.selectId ?? ""
                         }
-                        return Object(groupId: group.groupId, fields: fields)
+
+                        return Field(fieldID: field.fieldId, fieldType: fieldType, value: value, selectID: selectID)
                     }
-                    return Content(sectionID: section.sectionId, objects: objects)
+                    return Object(groupId: group.groupId, fields: fields)
                 }
+                return Content(sectionID: section.sectionId, objects: objects)
             }
-            
-            return InputAuthenticationRequestDTO(contents: contents)
+        }
+
+        return InputAuthenticationRequestDTO(contents: contents)
     }
 
     func updateTextField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, text: String) {

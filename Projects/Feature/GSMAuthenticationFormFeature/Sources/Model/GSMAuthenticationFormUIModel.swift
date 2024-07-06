@@ -33,6 +33,16 @@ struct GSMAuthenticationFormUIModel {
                         case boolean(selectedValue: String?, values: [String])
                         case file(fileName: String?)
                         case select(selectedValue: String?, values: [String])
+
+                        var emptyValue: FieldType {
+                            switch self {
+                            case .text: return .text(value: nil)
+                            case .number: return .number(value: nil)
+                            case let .boolean(_, values): return .boolean(selectedValue: nil, values: values)
+                            case .file: return .file(fileName: nil)
+                            case let .select(_, values): return .select(selectedValue: nil, values: values)
+                            }
+                        }
                     }
 
                     func findFieldTypeValue() -> [String] {

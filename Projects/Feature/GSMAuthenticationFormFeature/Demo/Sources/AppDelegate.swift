@@ -1,8 +1,11 @@
 import SwiftUI
 @testable import GSMAuthenticationFormFeature
+import AuthenticationDomainTesting
 
 @main
 struct GSMAuthenticationFormDemoApp: App {
+    let make: DemoMakable = DemoMakable()
+
     var body: some Scene {
         WindowGroup {
             let uiModel = GSMAuthenticationFormUIModel(
@@ -69,9 +72,21 @@ struct GSMAuthenticationFormDemoApp: App {
                 ]
             )
 
-//            GSMAuthenticationFormBuilderView(intent: , uiModel: uiModel) { _ in
-//
-//            }
+            make.makeView(uiModel: uiModel)
+        }
+    }
+}
+
+final class DemoMakable {
+    func makeView(uiModel: GSMAuthenticationFormUIModel) -> GSMAuthenticationFormBuilderView {
+        return GSMAuthenticationFormBuilderView(
+            intent: GSMAuthenticationFormIntent(
+                model: GSMAuthenticationFormModel(),
+                fetchAuthenticationFormUseCase: FetchAuthenticationFormUseCaseSpy(),
+                inputAuthenticationUseCase: InputAuthenticationUseCaseSpy()
+            ),
+            uiModel: uiModel
+        ) { _ in
         }
     }
 }

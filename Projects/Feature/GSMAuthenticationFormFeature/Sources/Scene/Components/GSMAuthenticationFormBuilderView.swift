@@ -14,7 +14,8 @@ enum FieldChanges {
 
 enum FieldInteraction {
     case fieldChanges(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, fieldChanges: FieldChanges)
-    case fieldAdd(area: Int, section: Int, field: Int)
+    case groupAdd(area: Int, section: Int, group: Int)
+    case groupRemove(area: Int, section: Int, group: Int)
 }
 
 struct GSMAuthenticationFormBuilderView: View {
@@ -92,7 +93,7 @@ struct GSMAuthenticationFormBuilderView: View {
 
     @ViewBuilder
     private func groupList(areaIndex: Int, sectionIndex: Int, groups: [Group], maxCount: Int) -> some View {
-        LazyVStack(spacing: 0) {
+        LazyVStack(spacing: 16) {
             ForEach(groups.indices, id: \.self) { index in
                 VStack {
                     fieldList(
@@ -103,25 +104,20 @@ struct GSMAuthenticationFormBuilderView: View {
                     )
 
                     HStack {
-                        ConditionView(maxCount > groups[index].fields.count) {
+                        ConditionView(maxCount > groups.count && maxCount > 1) {
                             SMSChip("추가") {
-                                intent.appendField(
-                                    area: areaIndex,
-                                    sectionIndex: sectionIndex,
-                                    groupIndex: index,
-                                    fields: groups[index].fields
+                                onFieldInteraction(
+                                    .groupAdd(area: areaIndex, section: sectionIndex, group: index)
                                 )
                             }
                         }
 
                         Spacer()
 
-                        ConditionView(groups[index].fields.count > 1 && maxCount > 1) {
+                        ConditionView(groups.count > maxCount && maxCount > 1) {
                             Button {
-                                intent.deleteField(
-                                    area: areaIndex,
-                                    sectionIndex: sectionIndex,
-                                    groupIndex: index
+                                onFieldInteraction(
+                                    .groupRemove(area: areaIndex, section: sectionIndex, group: index)
                                 )
                             } label: {
                                 SMSIcon(.trash)

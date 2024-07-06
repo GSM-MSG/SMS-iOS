@@ -5,11 +5,16 @@ import FoundationUtil
 final class GSMAuthenticationFormModel: ObservableObject, GSMAuthenticationFormStateProtocol {
     @Published var uiModel: GSMAuthenticationFormUIModel = .init(areas: [], files: [])
     @Published var fieldContents: [GSMAuthenticationFormFieldModel] = []
+    var authenticationEntity: AuthenticationFormEntity?
 }
 
 extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
     func updateGSMAuthenticationFormUIModel(uiModel: GSMAuthenticationFormUIModel) {
         self.uiModel = uiModel
+    }
+
+    func updateAuthenticationEntity(authenticationEntity: AuthenticationFormEntity) {
+        self.authenticationEntity = authenticationEntity
     }
 
     func updateFieldContents(fields: [GSMAuthenticationFormFieldModel]) {
@@ -19,17 +24,25 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
     func appendField(
         area: Int,
         sectionIndex: Int,
-        groupIndex: Int,
-        fields: [GSMAuthenticationFormUIModel.Area.Section.Group.Field]
+        groupIndex: Int
     ) {
-        uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields.append(
+        let selectedGroup: GSMAuthenticationFormUIModel.Area.Section.Group = uiModel.areas[area].sections[sectionIndex].groups[groupIndex]
+        uiModel.areas[area].sections[sectionIndex].groups.insert(
             .init(
-                fieldId: fields.first?.fieldId ?? "",
-                type: fields.first?.type ?? .text(value: ""),
-                scoreDescription: fields.first?.scoreDescription,
-                placeholder: fields.first?.placeholder
-            )
+                groupId: selectedGroup.groupId,
+                maxScore: selectedGroup.maxScore,
+                fields: selectedGroup.fields.map {
+                    GSMAuthenticationFormUIModel.Area.Section.Group.Field.init(
+                        fieldId: $0.fieldId,
+                        type: $0.type.emptyValue,
+                        scoreDescription: $0.scoreDescription,
+                        placeholder: $0.placeholder
+                    )
+                }
+            ),
+            at: groupIndex + 1
         )
+        objectWillChange.send()
     }
 
     func updateTextField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, text: String) {
@@ -54,7 +67,12 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
             .select(selectedValue: select, values: uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].findFieldTypeValue())
     }
 
-    func deleteField(area: Int, sectionIndex: Int, groupIndex: Int) {
-        uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields.remove(at: uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields.endIndex - 1)
+    func deleteField(
+        area: Int,
+        sectionIndex: Int,
+        groupIndex: Int
+    ) {
+        uiModel.areas[area].sections[sectionIndex].groups.remove(at: groupIndex)
+        objectWillChange.send()
     }
 }

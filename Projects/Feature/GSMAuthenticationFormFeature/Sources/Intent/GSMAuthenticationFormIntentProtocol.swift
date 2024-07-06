@@ -6,8 +6,7 @@ protocol GSMAuthenticationFormIntentProtocol {
     func appendField(
         area: Int,
         sectionIndex: Int,
-        groupIndex: Int,
-        fields: [GSMAuthenticationFormUIModel.Area.Section.Group.Field]
+        groupIndex: Int
     )
     func deleteField(
         area: Int,

@@ -38,8 +38,10 @@ struct GSMAuthenticationFormView: View {
                     case let .select(select):
                         intent.updateSelectField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
                     }
-                case let .fieldAdd(area, section, field):
-                    break
+                case let .groupAdd(area, section, group):
+                    intent.appendField(area: area, sectionIndex: section, groupIndex: group)
+                case let .groupRemove(area, section, group):
+                    intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
                 }
             }
             .padding(.bottom, safeAreaInsets.bottom + 16)
