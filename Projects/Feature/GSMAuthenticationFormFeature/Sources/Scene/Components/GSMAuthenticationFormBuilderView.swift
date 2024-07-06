@@ -114,7 +114,7 @@ struct GSMAuthenticationFormBuilderView: View {
 
                         Spacer()
 
-                        ConditionView(groups.count > maxCount && maxCount > 1) {
+                        ConditionView(maxCount > 1) {
                             Button {
                                 onFieldInteraction(
                                     .groupRemove(area: areaIndex, section: sectionIndex, group: index)
