@@ -24,7 +24,13 @@ final class StudentDetailModel: ObservableObject, StudentDetailStateProtocol {
         set { _studentDetailEntity = newValue }
     }
     @Published var _studentDetailEntity: StudentDetailEntity?
+    @Published var portfolioLinkEntity: PortfolioLinkEntity?
     @Published var isLoading: Bool = false
+    @Published var isPresentedEffectiveDateDialog: Bool = false
+    @Published var effectiveDateType: EffectiveDateType = .five
+    @Published var isPresentedPasteLinkDialog: Bool = false
+    @Published var portfolioLink: String = ""
+    @Published var token: String = ""
 }
 // swiftlint: enable identifier_name
 
@@ -39,5 +45,29 @@ extension StudentDetailModel: StudentDetailActionProtocol {
 
     func updateIsLoading(isLoading: Bool) {
         self.isLoading = isLoading
+    }
+
+    func updateIsPresentedEffectiveDateDialog(isPresented: Bool) {
+        self.isPresentedEffectiveDateDialog = isPresented
+    }
+
+    func insertEffectiveDateType(effectiveDateType: EffectiveDateType) {
+        self.effectiveDateType = effectiveDateType
+    }
+
+    func updateIsPresentedPasteLinkDialog(isPresented: Bool) {
+        self.isPresentedPasteLinkDialog = isPresented
+    }
+
+    func createPortfolioLink(entity: PortfolioLinkEntity) {
+        self.portfolioLinkEntity = entity
+    }
+
+    func updatePortfolioLink(portfolioLink: String) {
+        self.portfolioLink = portfolioLink
+    }
+
+    func updateToken(token: String) {
+        self.token = token
     }
 }
