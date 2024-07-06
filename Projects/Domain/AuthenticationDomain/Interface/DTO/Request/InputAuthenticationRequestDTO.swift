@@ -16,6 +16,11 @@ public struct Content: Encodable {
         self.sectionID = sectionID
         self.objects = objects
     }
+
+    enum CodingKeys: String, CodingKey {
+        case sectionID = "sectionId"
+        case objects
+    }
 }
 
 public struct Object: Encodable {
@@ -25,6 +30,11 @@ public struct Object: Encodable {
     public init(groupId: String, fields: [Field]) {
         self.groupId = groupId
         self.fields = fields
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case groupId = "groupId"
+        case fields
     }
 }
 
@@ -40,5 +50,12 @@ public struct Field: Encodable {
         self.fieldType = fieldType
         self.value = value
         self.selectID = selectID
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case fieldID = "fieldId"
+        case fieldType
+        case value
+        case selectID = "selectId"
     }
 }
