@@ -7,4 +7,5 @@ public protocol StudentRepository {
     func fetchStudentDetailByGuest(userID: String) async throws -> StudentDetailEntity
     func fetchStudentDetailByTeacher(userID: String) async throws -> StudentDetailEntity
     func modifyInformation(req: ModifyStudentInformationRequestDTO) async throws
+    func createPortfolioLink(req: CreatePortfolioLinkRequestDTO) async throws -> PortfolioLinkEntity
 }

@@ -20,7 +20,8 @@ struct StudentDetailDemoApp: App {
                 userID: "2f004cba-a22e-414a-9e52-afd54c762216",
                 model: model,
                 loadUserRoleUseCase: LoadUserRoleUseCaseSpy(),
-                fetchStudentDetailUseCase: fetchStudentDetailUseCase
+                fetchStudentDetailUseCase: FetchStudentDetailUseCaseSpy(),
+                createPortfolioLinkUseCase: CreatePortfolioLinkUseCaseSpy()
             )
             let container = MVIContainer(
                 intent: intent as StudentDetailIntentProtocol,
