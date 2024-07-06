@@ -31,4 +31,8 @@ struct StudentRepositoryImpl: StudentRepository {
     func modifyInformation(req: ModifyStudentInformationRequestDTO) async throws {
         try await remoteStudentDataSource.modifyInformation(req: req)
     }
+
+    func createPortfolioLink(req: CreatePortfolioLinkRequestDTO) async throws -> PortfolioLinkEntity {
+        try await remoteStudentDataSource.createPortfolioLink(req: req)
+    }
 }

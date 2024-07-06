@@ -62,12 +62,19 @@ struct StudentDetailView: View {
                     }
 
                     if let detailInfoByTeacher = studentDetail?.detailInfoByTeacher {
-                        CTAButton(text: "포트폴리오") {
-                            guard
-                                let portfolioURLString = detailInfoByTeacher.portfolioURL,
-                                let portfolioURL = URL(string: portfolioURLString)
-                            else { return }
-                            openURL(portfolioURL)
+                        HStack(spacing: 8) {
+                            CTAButton(text: "포트폴리오") {
+                                guard
+                                    let portfolioURLString = studentDetail?.detailInfoByTeacher?.portfolioURL,
+                                    let portfolioURL = URL(string: portfolioURLString)
+                                else { return }
+                                openURL(portfolioURL)
+                            }
+
+                            CTAButton(text: "공유", style: .outline) {
+                                intent.effectiveDateDialogIsRequired()
+                            }
+                            .frame(maxWidth: 104)
                         }
                         .padding(.horizontal, 20)
                         .padding(.bottom, safeAreaInsets.bottom + 16)
@@ -87,6 +94,47 @@ struct StudentDetailView: View {
                 .buttonWrapper {
                     dismiss()
                 }
+        }
+        .smsDialog(
+            title: "만료기간 선택",
+            isShowing: Binding(
+                get: { state.isPresentedEffectiveDateDialog },
+                set: { _ in intent.effectiveDateDialogDismissed() }
+            ),
+            dialogActions: [
+                .init(
+                    text: "취소",
+                    style: .outline,
+                    action: { intent.effectiveDateDialogDismissed() }
+                ),
+                .init(
+                    text: "링크생성",
+                    style: .default,
+                    action: {
+                        intent.createPortfolioLink(state: state, portfolioLink: state.portfolioLink)
+                        intent.pasteLinkDialogIsRequired()
+                        intent.effectiveDateDialogDismissed()
+                    }
+                )
+            ]
+        ) {
+            effectiveDateView()
+        }
+        .smsDialog(
+            title: "만료기간 선택",
+            isShowing: Binding(
+                get: { state.isPresentedPasteLinkDialog },
+                set: { _ in intent.pasteLinkDialogDismissed() }
+            ),
+            dialogActions: [
+                .init(
+                    text: "확인",
+                    style: .default,
+                    action: { intent.pasteLinkDialogDismissed() }
+                )
+            ]
+        ) {
+            copyLinkView()
         }
         .statusBarHidden(true)
         .animation(.easeIn, value: state.studentDetailEntity)
@@ -306,6 +354,44 @@ struct StudentDetailView: View {
                 .lineLimit(1)
                 .foregroundColor(.sms(.neutral(.n40)))
                 .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    @ViewBuilder
+    func effectiveDateView() -> some View {
+        EffectiveDateRadioGroupView(
+            data: EffectiveDateType.allCases,
+            id: \.self,
+            isSelected: {
+                state.effectiveDateType == $0
+            },
+            selectAction: {
+                intent.effectiveDateSelect(effectiveDate: $0)
+            }
+        ) { effectiveDate in
+            SMSText("\(effectiveDate.rawValue)일", font: .body1)
+        }
+    }
+
+    @ViewBuilder
+    func copyLinkView() -> some View {
+        HStack(spacing: 8) {
+            SMSText(state.portfolioLink, font: .body1)
+
+            Spacer()
+
+            Button {
+                intent.pastePortfolioLink(portfolioLink: state.portfolioLink)
+            } label: {
+                Text("복사")
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 5)
+                    .smsFont(.body1, color: .primary(.p2))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 56)
+                            .strokeBorder(Color.sms(.primary(.p2)), lineWidth: 1)
+                    }
+            }
         }
     }
 }
