@@ -39,6 +39,11 @@ public struct ContentsResponseDTO: Decodable {
         public let scoreDescription: String?
         public let values: [ValuesResponseDTO]?
         public let example: String?
+
+        enum CodingKeys: String, CodingKey {
+            case fieldId, fieldType, scoreDescription, values
+            case example = "placeholder"
+        }
     }
 
     public struct ValuesResponseDTO: Decodable {
