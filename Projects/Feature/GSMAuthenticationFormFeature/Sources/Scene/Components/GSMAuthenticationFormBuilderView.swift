@@ -114,7 +114,7 @@ struct GSMAuthenticationFormBuilderView: View {
 
                         Spacer()
 
-                        ConditionView(maxCount > 1) {
+                        ConditionView(groups.count > 1 && maxCount > 1) {
                             Button {
                                 onFieldInteraction(
                                     .groupRemove(area: areaIndex, section: sectionIndex, group: index)
@@ -151,7 +151,13 @@ struct GSMAuthenticationFormBuilderView: View {
     }
 
     @ViewBuilder
-    private func fieldView(areaIndex: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, field: Field) -> some View {
+    private func fieldView(
+        areaIndex: Int,
+        sectionIndex: Int,
+        groupIndex: Int,
+        fieldIndex: Int,
+        field: Field
+    ) -> some View {
         switch field.type {
         case let .text(value):
             textTypeFieldView(
