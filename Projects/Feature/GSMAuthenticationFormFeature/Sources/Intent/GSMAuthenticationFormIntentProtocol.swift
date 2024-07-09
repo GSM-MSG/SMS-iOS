@@ -39,8 +39,10 @@ protocol GSMAuthenticationFormIntentProtocol {
         sectionIndex: Int,
         groupIndex: Int,
         fieldIndex: Int,
-        file: String
+        file: Data,
+        fileName: String
     )
+
     func updateSelectField(
         area: Int,
         sectionIndex: Int,

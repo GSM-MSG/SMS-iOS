@@ -1,4 +1,5 @@
 import AuthenticationDomainInterface
+import FileDomainInterface
 import Foundation
 import ConcurrencyUtil
 import DateUtil
@@ -7,15 +8,18 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
     weak var model: (any GSMAuthenticationFormActionProtocol)?
     private let fetchAuthenticationFormUseCase: any FetchAuthenticationFormUseCase
     private let inputAuthenticationUseCase: any InputAuthenticationUseCase
+    private let fileUploadUseCase: any FileUploadUseCase
 
     init(
         model: any GSMAuthenticationFormActionProtocol,
         fetchAuthenticationFormUseCase: any FetchAuthenticationFormUseCase,
-        inputAuthenticationUseCase: any InputAuthenticationUseCase
+        inputAuthenticationUseCase: any InputAuthenticationUseCase,
+        fileUploadUseCase: any FileUploadUseCase
     ) {
         self.model = model
         self.fetchAuthenticationFormUseCase = fetchAuthenticationFormUseCase
         self.inputAuthenticationUseCase = inputAuthenticationUseCase
+        self.fileUploadUseCase = fileUploadUseCase
     }
 
     func appendField(
@@ -134,8 +138,13 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
         model?.updateBoolField(area: area, sectionIndex: sectionIndex, groupIndex: groupIndex, fieldIndex: fieldIndex, select: select)
     }
 
-    func updateFileField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, file: String) {
-        model?.updateFileField(area: area, sectionIndex: sectionIndex, groupIndex: groupIndex, fieldIndex: fieldIndex, file: file)
+    func updateFileField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, file: Data, fileName: String) {
+        Task {
+            do {
+                let fileUrl = try await fileUploadUseCase.execute(file: file, fileName: fileName)
+                model?.updateFileField(area: area, sectionIndex: sectionIndex, groupIndex: groupIndex, fieldIndex: fieldIndex, file: fileUrl)
+            }
+        }
     }
 
     func updateSelectField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, select: String) {

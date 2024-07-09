@@ -8,7 +8,7 @@ enum FieldChanges {
     case text(String)
     case number(Int)
     case boolean(String)
-    case file(String)
+    case file(Data, String)
     case select(String)
 }
 
@@ -332,15 +332,18 @@ struct GSMAuthenticationFormBuilderView: View {
         ) { result in
             switch result {
             case let .success(url):
-                onFieldInteraction(
-                    .fieldChanges(
-                        area: areaIndex,
-                        sectionIndex: sectionIndex,
-                        groupIndex: groupIndex,
-                        fieldIndex: fieldIndex,
-                        fieldChanges: .file(url.absoluteString)
+                if let fileData = try? Data(contentsOf: url) {
+                    let fileName = url.lastPathComponent
+                    onFieldInteraction(
+                        .fieldChanges(
+                            area: areaIndex,
+                            sectionIndex: sectionIndex,
+                            groupIndex: groupIndex,
+                            fieldIndex: fieldIndex,
+                            fieldChanges: .file(fileData, fileName)
+                        )
                     )
-                )
+                }
 
             default:
                 return

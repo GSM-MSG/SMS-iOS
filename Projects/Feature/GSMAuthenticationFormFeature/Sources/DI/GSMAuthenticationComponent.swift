@@ -4,9 +4,11 @@ import NeedleFoundation
 import SwiftUI
 import GSMAuthenticationFormFeatureInterface
 import AuthenticationDomainInterface
+import FileDomainInterface
 
 public protocol GSMAuthenticationDependency: Dependency {
     var authenticationDomainBuildable: any AuthenticationDomainBuildable { get }
+    var fileDomainBuildable: any FileDomainBuildable { get }
 }
 
 public final class GSMAuthenticationComponent: Component<GSMAuthenticationDependency>, GSMAuthenticationBuildable {
@@ -15,7 +17,8 @@ public final class GSMAuthenticationComponent: Component<GSMAuthenticationDepend
         let intent = GSMAuthenticationFormIntent(
             model: model,
             fetchAuthenticationFormUseCase: dependency.authenticationDomainBuildable.fetchAuthenticationFormUseCase,
-            inputAuthenticationUseCase: dependency.authenticationDomainBuildable.inputAuthenticationUseCase
+            inputAuthenticationUseCase: dependency.authenticationDomainBuildable.inputAuthenticationUseCase,
+            fileUploadUseCase: dependency.fileDomainBuildable.fileUploadUseCase
         )
         let container = MVIContainer(
             intent: intent as GSMAuthenticationFormIntentProtocol,
