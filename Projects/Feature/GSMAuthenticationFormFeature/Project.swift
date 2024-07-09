@@ -12,6 +12,7 @@ let project = Project.makeModule(
         .Domain.FileDomainInterface
     ],
     demoDependencies: [
-        .Domain.AuthenticationDomainTesting
+        .Domain.AuthenticationDomainTesting,
+        .Domain.FileDomainTesting
     ]
 )

@@ -1,6 +1,7 @@
 import SwiftUI
 @testable import GSMAuthenticationFormFeature
 import AuthenticationDomainTesting
+import FileDomainTesting
 
 @main
 struct GSMAuthenticationFormDemoApp: App {
@@ -83,7 +84,8 @@ final class DemoMakable {
             intent: GSMAuthenticationFormIntent(
                 model: GSMAuthenticationFormModel(),
                 fetchAuthenticationFormUseCase: FetchAuthenticationFormUseCaseSpy(),
-                inputAuthenticationUseCase: InputAuthenticationUseCaseSpy()
+                inputAuthenticationUseCase: InputAuthenticationUseCaseSpy(),
+                fileUploadUseCase: FileUploadUseCaseSpy()
             ),
             uiModel: uiModel
         ) { _ in
