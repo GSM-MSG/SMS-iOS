@@ -33,8 +33,8 @@ struct GSMAuthenticationFormView: View {
                         intent.updateNumberField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, number: number)
                     case let .boolean(select):
                         intent.updateBoolField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
-                    case let .file(file):
-                        intent.updateFileField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, file: file)
+                    case let .file(file, fileName):
+                        intent.updateFileField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, file: file, fileName: fileName)
                     case let .select(select):
                         intent.updateSelectField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
                     }

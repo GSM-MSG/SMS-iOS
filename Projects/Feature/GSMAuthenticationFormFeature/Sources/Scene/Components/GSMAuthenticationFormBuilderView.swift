@@ -8,7 +8,7 @@ enum FieldChanges {
     case text(String)
     case number(Int)
     case boolean(String)
-    case file(String)
+    case file(Data, String)
     case select(String)
 }
 

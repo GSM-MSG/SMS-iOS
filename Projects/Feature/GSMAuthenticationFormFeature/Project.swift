@@ -8,7 +8,8 @@ let project = Project.makeModule(
     targets: [.interface, .unitTest, .demo],
     internalDependencies: [
         .Feature.BaseFeature,
-        .Domain.AuthenticationDomainInterface
+        .Domain.AuthenticationDomainInterface,
+        .Domain.FileDomainInterface
     ],
     demoDependencies: [
         .Domain.AuthenticationDomainTesting
