@@ -290,15 +290,18 @@ struct FormBuilderAreaView: View {
         ) { result in
             switch result {
             case let .success(url):
-                onFieldInteraction(
-                    .fieldChanges(
-                        area: areaIndex,
-                        sectionIndex: sectionIndex,
-                        groupIndex: groupIndex,
-                        fieldIndex: fieldIndex,
-                        fieldChanges: .file(url.absoluteString)
+                if let fileData = try? Data(contentsOf: url) {
+                    let fileName = url.lastPathComponent
+                    onFieldInteraction(
+                        .fieldChanges(
+                            area: areaIndex,
+                            sectionIndex: sectionIndex,
+                            groupIndex: groupIndex,
+                            fieldIndex: fieldIndex,
+                            fieldChanges: .file(fileData, fileName)
+                        )
                     )
-                )
+                }
 
             default:
                 return

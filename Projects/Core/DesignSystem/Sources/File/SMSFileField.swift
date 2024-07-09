@@ -39,6 +39,10 @@ public struct SMSFileField: View {
             isOnClear: false
         )
         .disabled(true)
+        .overlay(alignment: .trailing) {
+            SMSIcon(.folder)
+                .padding(.trailing, 12)
+        }
         .simultaneousGesture(
             TapGesture()
                 .onEnded {
