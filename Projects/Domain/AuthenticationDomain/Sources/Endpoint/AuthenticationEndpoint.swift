@@ -5,6 +5,7 @@ import Emdpoint
 enum AuthenticationEndpoint {
     case fetchAuthenticationForm
     case inputAuthentication(req: InputAuthenticationRequestDTO)
+    case fetchAuthenticationState
 }
 
 extension AuthenticationEndpoint: SMSEndpoint {
@@ -20,6 +21,8 @@ extension AuthenticationEndpoint: SMSEndpoint {
             return .get("/form")
         case .inputAuthentication:
             return .post("/submit")
+        case .fetchAuthenticationState:
+            return .get("/verify")
         }
     }
 
@@ -30,6 +33,9 @@ extension AuthenticationEndpoint: SMSEndpoint {
 
         case let .inputAuthentication(req):
             return .requestJSONEncodable(req)
+
+        case .fetchAuthenticationState:
+            return .requestPlain
 
         default:
             return .requestPlain
@@ -44,6 +50,9 @@ extension AuthenticationEndpoint: SMSEndpoint {
         case .inputAuthentication:
             return .accessToken
 
+        case .fetchAuthenticationState:
+            return .accessToken
+
         default:
             return .none
         }
@@ -56,6 +65,10 @@ extension AuthenticationEndpoint: SMSEndpoint {
                 500: .internalServerError
             ]
         case .inputAuthentication:
+            return [
+                500: .internalServerError
+            ]
+        case .fetchAuthenticationState:
             return [
                 500: .internalServerError
             ]

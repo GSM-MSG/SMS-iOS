@@ -1,7 +1,8 @@
 import Foundation
 
 protocol GSMAuthenticationFormIntentProtocol {
-    func onAppear()
+    func viewOnAppear()
+    func formOnAppear()
     func saveButtonDidTap(state: any GSMAuthenticationFormStateProtocol)
     func appendField(
         area: Int,

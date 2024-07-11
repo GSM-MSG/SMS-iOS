@@ -5,7 +5,10 @@ import FoundationUtil
 final class GSMAuthenticationFormModel: ObservableObject, GSMAuthenticationFormStateProtocol {
     @Published var uiModel: GSMAuthenticationFormUIModel = .init(areas: [], files: [])
     @Published var fieldContents: [GSMAuthenticationFormFieldModel] = []
+    @Published var stateModel: GSMAuthenticationStateModel = .init(name: "", score: 0, markingBoardType: .notSubmitted)
+    @Published var isLoading: Bool = false
     var authenticationEntity: AuthenticationFormEntity?
+    var authenticationStateEntity: AuthenticationStateEntity?
 }
 
 extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
@@ -19,6 +22,16 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
 
     func updateFieldContents(fields: [GSMAuthenticationFormFieldModel]) {
         self.fieldContents = fields
+    }
+
+    func updateAuthenticationStateEntity(
+        authenticationStateEntity: AuthenticationStateEntity
+    ) {
+        self.authenticationStateEntity = authenticationStateEntity
+    }
+
+    func updateAuthenticationStateModel(stateModel: GSMAuthenticationStateModel) {
+        self.stateModel = stateModel
     }
 
     func appendField(
@@ -86,6 +99,11 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
         groupIndex: Int
     ) {
         uiModel.areas[area].sections[sectionIndex].groups.remove(at: groupIndex)
+    }
+
+
+    func updateIsLoading(isLoading: Bool) {
+        self.isLoading = isLoading
     }
 }
 

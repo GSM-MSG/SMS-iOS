@@ -14,4 +14,8 @@ struct AuthenticationRepositoryImpl: AuthenticationRepository {
     func inputAuthentication(req: InputAuthenticationRequestDTO) async throws {
         try await remoteAuthenticationDataSource.inputAuthentication(req: req)
     }
+
+    func fetchAuthenticationState() async throws -> AuthenticationStateEntity {
+        try await remoteAuthenticationDataSource.fetchAuthenticationState()
+    }
 }

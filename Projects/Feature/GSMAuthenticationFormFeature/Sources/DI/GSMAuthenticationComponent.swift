@@ -18,7 +18,7 @@ public final class GSMAuthenticationComponent: Component<GSMAuthenticationDepend
             model: model,
             fetchAuthenticationFormUseCase: dependency.authenticationDomainBuildable.fetchAuthenticationFormUseCase,
             inputAuthenticationUseCase: dependency.authenticationDomainBuildable.inputAuthenticationUseCase,
-            fileUploadUseCase: dependency.fileDomainBuildable.fileUploadUseCase
+            fileUploadUseCase: dependency.fileDomainBuildable.fileUploadUseCase, fetchAuthenticationStateUseCase: dependency.authenticationDomainBuildable.fetchAuthenticationStateUseCase
         )
         let container = MVIContainer(
             intent: intent as GSMAuthenticationFormIntentProtocol,

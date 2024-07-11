@@ -23,55 +23,37 @@ struct GSMAuthenticationFormView: View {
 
     var body: some View {
         ZStack {
-            GSMAuthenticationFormBuilderView(intent: intent, uiModel: state.uiModel) { field in
-                switch field {
-                case let .fieldChanges(area, section, group, field, fieldChanges):
-                    switch fieldChanges {
-                    case let .text(text):
-                        intent.updateTextField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, text: text)
-                    case let .number(number):
-                        intent.updateNumberField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, number: number)
-                    case let .boolean(select):
-                        intent.updateBoolField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
-                    case let .file(file, fileName):
-                        intent.updateFileField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, file: file, fileName: fileName)
-                    case let .select(select):
-                        intent.updateSelectField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
-                    }
-                case let .groupAdd(area, section, group):
-                    intent.appendField(area: area, sectionIndex: section, groupIndex: group)
-                case let .groupRemove(area, section, group):
-                    intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
-                }
-            }
-            .padding(.bottom, safeAreaInsets.bottom + 16)
-            .onAppear {
-                intent.onAppear()
-            }
-            .overlay(alignment: .bottom) {
-                CTAButton(text: "저장") {
-                    intent.saveButtonDidTap(state: state)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 20)
-            }
-            .navigationTitle("인증제")
-            .smsBackButton(
-                dismiss: dismiss
-            )
-            .smsBottomSheet(
-                isShowing: Binding(
-                    get: { isPresented },
-                    set: { _ in }
-                )
-            ) {
-                valueListView()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                subscribeToIsPresentedPublisher()
+            switch state.stateModel.markingBoardType {
+            case .notSubmitted:
+                authenticationView()
+            case .underReview:
+                underReview()
+            case .pendingReview:
+                pendingView()
+            case .completed:
+                completed()
             }
         }
+        .onAppear {
+            intent.viewOnAppear()
+        }
+        .navigationTitle("인증제")
+        .smsBackButton(
+            dismiss: dismiss
+        )
+        .smsBottomSheet(
+            isShowing: Binding(
+                get: { isPresented },
+                set: { _ in }
+            )
+        ) {
+            valueListView()
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            subscribeToIsPresentedPublisher()
+        }
+        .smsLoading(isLoading: state.isLoading)
     }
 
     func subscribeToIsPresentedPublisher() {
@@ -108,6 +90,97 @@ struct GSMAuthenticationFormView: View {
                     }
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    func pendingView() -> some View {
+        HStack {
+            Spacer()
+            SMSText("\(state.stateModel.name)님의 인증제는 현재 채점 중입니다", font: .title2)
+                .foregroundStyle(Color.sms(.neutral(.n40)))
+            Spacer()
+        }
+        .padding(.vertical, 32)
+        .background(Color.sms(.system(.white)))
+        .cornerRadius(16)
+        .shadow(color: .sms(.system(.black)).opacity(0.08), radius: 16, y: 2)
+        .padding(.horizontal, 20)
+    }
+
+    @ViewBuilder
+    func underReview() -> some View {
+        HStack {
+            Spacer()
+            SMSText("\(state.stateModel.name)님의 인증제는 현재 채점 전입니다", font: .title2)
+                .foregroundStyle(Color.sms(.neutral(.n40)))
+            Spacer()
+        }
+        .padding(.vertical, 32)
+        .background(Color.sms(.system(.white)))
+        .cornerRadius(16)
+        .shadow(color: .sms(.system(.black)).opacity(0.08), radius: 16, y: 2)
+        .padding(.horizontal, 20)
+    }
+
+    @ViewBuilder func completed() -> some View {
+        HStack {
+            Spacer()
+            VStack(spacing: 8) {
+                SMSText("\(state.stateModel.name)님의 인증제 점수는", font: .title2)
+                    .foregroundStyle(Color.sms(.system(.black)))
+                    .multilineTextAlignment(.center)
+
+                SMSText("\(Int(state.stateModel.score.rounded()))점 입니다.", font: .headline3)
+                    .foregroundStyle(Color.sms(.primary(.p2)))
+                    .multilineTextAlignment(.center)
+
+                SMSText("채점자 : \(state.stateModel.grader ?? "선생님")", font: .body2)
+                    .foregroundStyle(Color.sms(.neutral(.n40)))
+                    .multilineTextAlignment(.center)
+            }
+            Spacer()
+        }
+        .padding(.vertical, 32)
+        .background(Color.sms(.system(.white)))
+        .cornerRadius(16)
+        .shadow(color: .sms(.system(.black)).opacity(0.08), radius: 16, y: 2)
+        .padding(.horizontal, 20)
+    }
+
+    @ViewBuilder
+    func authenticationView() -> some View {
+        GSMAuthenticationFormBuilderView(intent: intent, uiModel: state.uiModel) { field in
+            switch field {
+            case let .fieldChanges(area, section, group, field, fieldChanges):
+                switch fieldChanges {
+                case let .text(text):
+                    intent.updateTextField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, text: text)
+                case let .number(number):
+                    intent.updateNumberField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, number: number)
+                case let .boolean(select):
+                    intent.updateBoolField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
+                case let .file(file, fileName):
+                    intent.updateFileField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, file: file, fileName: fileName)
+                case let .select(select):
+                    intent.updateSelectField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
+                }
+            case let .groupAdd(area, section, group):
+                intent.appendField(area: area, sectionIndex: section, groupIndex: group)
+            case let .groupRemove(area, section, group):
+                intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
+            }
+        }
+        .padding(.bottom, safeAreaInsets.bottom + 16)
+        .overlay(alignment: .bottom) {
+            CTAButton(text: "저장") {
+                intent.saveButtonDidTap(state: state)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 20)
+        }
+        .onAppear {
+            intent.formOnAppear()
         }
     }
 }

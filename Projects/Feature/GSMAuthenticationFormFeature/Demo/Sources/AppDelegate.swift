@@ -85,7 +85,7 @@ final class DemoMakable {
                 model: GSMAuthenticationFormModel(),
                 fetchAuthenticationFormUseCase: FetchAuthenticationFormUseCaseSpy(),
                 inputAuthenticationUseCase: InputAuthenticationUseCaseSpy(),
-                fileUploadUseCase: FileUploadUseCaseSpy()
+                fileUploadUseCase: FileUploadUseCaseSpy(), fetchAuthenticationStateUseCase: FetchAuthenticationStateUseCaseSpy()
             ),
             uiModel: uiModel
         ) { _ in

@@ -14,6 +14,9 @@ public final class AuthenticationDomainComponent: Component<AuthenticationDomain
     public var fetchAuthenticationFormUseCase: any FetchAuthenticationFormUseCase {
         FetchAuthenticationFormUseCaseImpl(authenticationRepository: authenticationRepository)
     }
+    public var fetchAuthenticationStateUseCase: any FetchAuthenticationStateUseCase {
+        FetchAuthenticationStateUseCaseImpl(authenticationRepository: authenticationRepository)
+    }
     public var authenticationRepository: any AuthenticationRepository {
         AuthenticationRepositoryImpl(remoteAuthenticationDataSource: remoteAuthenticationDataSource)
     }

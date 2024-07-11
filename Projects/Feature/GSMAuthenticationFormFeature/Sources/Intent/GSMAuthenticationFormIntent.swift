@@ -9,17 +9,44 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
     private let fetchAuthenticationFormUseCase: any FetchAuthenticationFormUseCase
     private let inputAuthenticationUseCase: any InputAuthenticationUseCase
     private let fileUploadUseCase: any FileUploadUseCase
+    private let fetchAuthenticationStateUseCase: any FetchAuthenticationStateUseCase
 
     init(
         model: any GSMAuthenticationFormActionProtocol,
         fetchAuthenticationFormUseCase: any FetchAuthenticationFormUseCase,
         inputAuthenticationUseCase: any InputAuthenticationUseCase,
-        fileUploadUseCase: any FileUploadUseCase
+        fileUploadUseCase: any FileUploadUseCase,
+        fetchAuthenticationStateUseCase: FetchAuthenticationStateUseCase
     ) {
         self.model = model
         self.fetchAuthenticationFormUseCase = fetchAuthenticationFormUseCase
         self.inputAuthenticationUseCase = inputAuthenticationUseCase
         self.fileUploadUseCase = fileUploadUseCase
+        self.fetchAuthenticationStateUseCase = fetchAuthenticationStateUseCase
+    }
+
+    func viewOnAppear() {
+        model?.updateIsLoading(isLoading: true)
+        Task {
+            do {
+                let authenticationStateEntity = try await fetchAuthenticationStateUseCase.execute()
+
+                model?.updateAuthenticationStateEntity(authenticationStateEntity: authenticationStateEntity)
+
+                model?.updateAuthenticationStateModel(
+                    stateModel:
+                            .init(
+                                name: authenticationStateEntity.name,
+                                score: authenticationStateEntity.score,
+                                grader: authenticationStateEntity.grader,
+                                markingBoardType: authenticationStateEntity.markingBoardType
+                            )
+                )
+                if authenticationStateEntity.markingBoardType != .notSubmitted {
+                    model?.updateIsLoading(isLoading: false)
+                }
+            }
+        }
     }
 
     func appendField(
@@ -38,7 +65,7 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
         model?.deleteField(area: area, sectionIndex: sectionIndex, groupIndex: groupIndex)
     }
 
-    func onAppear() {
+    func formOnAppear() {
         Task {
             do {
                 let authenticationEntity = try await fetchAuthenticationFormUseCase.execute()
@@ -50,6 +77,8 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
                         files: authenticationEntity.files.map { $0.toModel() }
                     )
                 )
+
+                model?.updateIsLoading(isLoading: false)
             }
         }
     }
