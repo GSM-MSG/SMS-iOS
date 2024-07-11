@@ -4,6 +4,7 @@ import SwiftUI
 
 struct GSMAuthenticationFileDownloadView: View {
     @Environment(\.openURL) var openURL
+    @State private var isCollapsed = false
     private let uiModel: [GSMAuthenticationFormUIModel.File]
     private typealias File = GSMAuthenticationFormUIModel.File
 
@@ -26,12 +27,14 @@ struct GSMAuthenticationFileDownloadView: View {
                 Spacer()
 
                 SMSIcon(.downChevron)
-                    .rotationEffect(false ? .degrees(90) : .degrees(0))
+                    .rotationEffect(isCollapsed ? .degrees(90) : .degrees(0))
                     .buttonWrapper {
+                        isCollapsed.toggle()
                     }
             }
 
             fileSectionList(sections: files)
+                .conditional(!isCollapsed)
         }
         .padding(20)
     }
