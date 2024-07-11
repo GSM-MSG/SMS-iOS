@@ -8,6 +8,7 @@ import UserDomainInterface
 import ViewUtil
 import FilterFeatureInterface
 import MyPageFeatureInterface
+import GSMAuthenticationFormFeatureInterface
 
 enum MainStudentIDProperty {
     static let studentScrollToTopID = "STUDENT_SCROLL_TO_TOP"
@@ -21,17 +22,20 @@ struct MainView: View {
     private let studentDetailBuildable: any StudentDetailBuildable
     private let filterBuildable: any FilterBuildable
     private let myPageBuildable: any MyPageBuildable
+    private let gsmAuthenticatoinBuildable: any GSMAuthenticationBuildable
 
     init(
         container: MVIContainer<MainIntentProtocol, MainStateProtocol>,
         studentDetailBuildable: any StudentDetailBuildable,
         filterBuildable: any FilterBuildable,
-        myPageBuildable: any MyPageBuildable
+        myPageBuildable: any MyPageBuildable,
+        gsmAuthenticatoinBuildable: any GSMAuthenticationBuildable
     ) {
         self._container = StateObject(wrappedValue: container)
         self.studentDetailBuildable = studentDetailBuildable
         self.filterBuildable = filterBuildable
         self.myPageBuildable = myPageBuildable
+        self.gsmAuthenticatoinBuildable = gsmAuthenticatoinBuildable
     }
 
     var body: some View {
@@ -122,6 +126,13 @@ struct MainView: View {
                     set: { _ in intent.myPageDismissed() }
                 )
             )
+            .navigate(
+                to: gsmAuthenticatoinBuildable.makeView().eraseToAnyView(),
+                when: Binding(
+                    get: { state.isPresentedAuthentification },
+                    set: { _ in intent.authentificationPageIsDismissed() }
+                )
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -134,7 +145,7 @@ struct MainView: View {
                     SMSIcon(.profile, width: 32, height: 32)
                         .clipShape(Circle())
                         .onTapGesture {
-                            state.currentUserRole == .student ? intent.myPageIsRequired() : intent.exitIsRequired()
+                            state.currentUserRole == .student ? intent.myInfoBottomSheetIsRequired() : intent.exitIsRequired()
                         }
                 }
             }
@@ -160,6 +171,45 @@ struct MainView: View {
                     }
                 ]
             )
+            .smsBottomSheet(
+                isShowing: Binding(
+                    get: { state.isPresentedMyInfoBottomSheet },
+                    set: { _ in intent.myInfoBottomSheetIsDismissed() }
+                )
+            ) {
+                VStack(alignment: .leading, spacing: 32) {
+                    Button {
+                        intent.myInfoBottomSheetIsDismissed()
+                        intent.myPageIsRequired()
+                    } label: {
+                        HStack(spacing: 12) {
+                            SMSIcon(.person)
+
+                            SMSText("마이페이지", font: .title2)
+                                .foregroundStyle(Color.sms(.neutral(.n50)))
+
+                            Spacer()
+                        }
+                    }
+
+                    Button {
+                        intent.myInfoBottomSheetIsDismissed()
+                        intent.authentificationPageIsRequired()
+                    } label: {
+                        HStack(spacing: 12) {
+                            SMSIcon(.briefcases)
+
+                            SMSText("인증제", font: .title2)
+                                .foregroundStyle(Color.sms(.neutral(.n50)))
+
+                            Spacer()
+                        }
+                    }
+                }
+                .padding(.top, 12)
+                .padding(.horizontal, 20)
+            }
+            .animation(.default, value: state.isPresentedMyInfoBottomSheet)
         }
         .navigationViewStyle(.stack)
     }

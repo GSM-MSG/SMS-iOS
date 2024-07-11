@@ -9,6 +9,8 @@ protocol MainStateProtocol {
     var isPresentedFilterPage: Bool { get }
     var isPresentedMyPage: Bool { get }
     var isPresntedExit: Bool { get }
+    var isPresentedAuthentification: Bool { get }
+    var isPresentedMyInfoBottomSheet: Bool { get }
     var content: [SingleStudentEntity] { get }
     var selectedUserID: String? { get }
     var currentUserRole: UserRoleType { get }
@@ -22,6 +24,8 @@ protocol MainActionProtocol: AnyObject {
     func updateIsPresentedFilterPage(isPresented: Bool)
     func updateIsPresentedMypage(isPresented: Bool)
     func updateIsPresentedExitDialog(isPresented: Bool)
+    func updateIsPresentedMyInfoBottomSheet(isPresented: Bool)
+    func updateIsPresentedAuthentification(isPresented: Bool)
     func appendContent(content: [SingleStudentEntity])
     func updateContent(content: [SingleStudentEntity])
     func updateIsRefresh(isRefresh: Bool)
