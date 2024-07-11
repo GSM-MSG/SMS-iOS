@@ -67,6 +67,6 @@ final class InputInformationIntent: InputInformationIntentProtocol {
 extension InputInformationIntent: InputProfileDelegate {
     func completeToInputProfile(input: InputProfileInformationObject) {
         model?.updateInputProfileInformationObject(object: input)
-        inputInformationDelegate?.completeToInputInformation()
+        model?.updateIsCompleteToInputAllInfo(isComplete: true)
     }
 }
