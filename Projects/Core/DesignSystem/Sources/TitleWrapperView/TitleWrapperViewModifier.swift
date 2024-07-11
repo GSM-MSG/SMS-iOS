@@ -3,13 +3,19 @@ import SwiftUI
 public struct TitleWrapperViewModifier: ViewModifier {
     var text: String
     var titlePosition: TitlePosition
+    var font: Font.SMSFontSystem
+    var color: Color.SMSColorSystem
 
     public init(
         _ text: String,
-        position: TitlePosition = .top(.leading)
+        position: TitlePosition = .top(.leading),
+        font: Font.SMSFontSystem = .body2,
+        color: Color.SMSColorSystem = .neutral(.n40)
     ) {
         self.text = text
         self.titlePosition = position
+        self.font = font
+        self.color = color
     }
 
     public func body(content: Content) -> some View {
@@ -17,7 +23,7 @@ public struct TitleWrapperViewModifier: ViewModifier {
         case let .top(alignment):
             VStack(alignment: alignment.toSUI, spacing: 8) {
                 Text(text)
-                    .smsFont(.body2, color: .neutral(.n40))
+                    .smsFont(font, color: color)
 
                 content
             }
@@ -27,7 +33,7 @@ public struct TitleWrapperViewModifier: ViewModifier {
                 content
 
                 Text(text)
-                    .smsFont(.body2, color: .neutral(.n40))
+                    .smsFont(font, color: color)
             }
         }
     }
@@ -36,8 +42,10 @@ public struct TitleWrapperViewModifier: ViewModifier {
 public extension View {
     func titleWrapper(
         _ text: String,
-        position: TitlePosition = .top(.leading)
+        position: TitlePosition = .top(.leading),
+        font: Font.SMSFontSystem = .body2,
+        color: Color.SMSColorSystem = .neutral(.n40)
     ) -> some View {
-        modifier(TitleWrapperViewModifier(text, position: position))
+        modifier(TitleWrapperViewModifier(text, position: position, font: font, color: color))
     }
 }

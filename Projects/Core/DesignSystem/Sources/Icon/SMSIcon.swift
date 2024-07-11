@@ -20,6 +20,7 @@ public struct SMSIcon: View {
 
     public enum Icon: CaseIterable {
         case book
+        case briefcases
         case calendar
         case camera
         case check
@@ -27,9 +28,11 @@ public struct SMSIcon: View {
         case downChevron
         case file
         case filter
+        case folder
         case greenCheck
         case photo
         case plus
+        case person
         case profile
         case profileSmallPlus
         case redPerson
@@ -60,6 +63,9 @@ public struct SMSIcon: View {
         case .book:
             return DesignSystemAsset.Icons.book.swiftUIImage
 
+        case .briefcases:
+            return DesignSystemAsset.Icons.briefcases.swiftUIImage
+
         case .calendar:
             return DesignSystemAsset.Icons.calendar.swiftUIImage
 
@@ -81,6 +87,9 @@ public struct SMSIcon: View {
         case .filter:
             return DesignSystemAsset.Icons.filter.swiftUIImage
 
+        case .folder:
+            return DesignSystemAsset.Icons.folder.swiftUIImage
+
         case .greenCheck:
             return DesignSystemAsset.Icons.greenCheck.swiftUIImage
 
@@ -89,6 +98,9 @@ public struct SMSIcon: View {
 
         case .plus:
             return DesignSystemAsset.Icons.plus.swiftUIImage
+
+        case .person:
+            return DesignSystemAsset.Icons.person.swiftUIImage
 
         case .profile:
             return DesignSystemAsset.Icons.profile.swiftUIImage

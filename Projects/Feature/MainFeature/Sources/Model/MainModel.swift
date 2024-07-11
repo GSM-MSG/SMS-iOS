@@ -27,6 +27,8 @@ final class MainModel: ObservableObject, MainStateProtocol {
     @Published var _content: [SingleStudentEntity] = []
     @Published var isPresentedFilterPage: Bool = false
     @Published var isPresentedMyPage: Bool = false
+    @Published var isPresentedMyInfoBottomSheet: Bool = false
+    @Published var isPresentedAuthentification: Bool = false
     @Published var isPresntedExit: Bool = false
     @Published var selectedUserID: String?
     @Published var currentUserRole: UserRoleType = .guest
@@ -57,6 +59,14 @@ extension MainModel: MainActionProtocol {
 
     func updateIsPresentedExitDialog(isPresented: Bool) {
         self.isPresntedExit = isPresented
+    }
+
+    func updateIsPresentedMyInfoBottomSheet(isPresented: Bool) {
+        self.isPresentedMyInfoBottomSheet = isPresented
+    }
+
+    func updateIsPresentedAuthentification(isPresented: Bool) {
+        self.isPresentedAuthentification = isPresented
     }
 
     func appendContent(content: [SingleStudentEntity]) {

@@ -40,7 +40,7 @@ public struct SMSFileField: View {
         )
         .disabled(true)
         .overlay(alignment: .trailing) {
-            SMSIcon(.file)
+            SMSIcon(.folder)
                 .padding(.trailing, 12)
         }
         .simultaneousGesture(
