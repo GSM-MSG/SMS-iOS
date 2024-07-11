@@ -22,7 +22,7 @@ struct FormBuilderAreaView: View {
             Spacer()
 
             SMSIcon(.downChevron)
-                .rotationEffect(isCollapsed == false ? .degrees(90) : .degrees(0))
+                .rotationEffect(isCollapsed == false ? .degrees(0) : .degrees(90))
                 .buttonWrapper {
                     isCollapsed.toggle()
                 }
