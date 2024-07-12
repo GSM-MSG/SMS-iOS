@@ -83,7 +83,19 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
         }
     }
 
-    func saveButtonDidTap(state: any GSMAuthenticationFormStateProtocol) {
+    func saveButtonDidTap() {
+        model?.updateIsPresentedSubmitDialog(isPresentedSubmitDialog: true)
+    }
+
+    func toastDismissed() {
+        model?.updateIsSubmitting(isSubmitting: false)
+    }
+
+    func dialogDismissed() {
+        model?.updateIsPresentedSubmitDialog(isPresentedSubmitDialog: false)
+    }
+
+    func submitButtonDidTap(state: any GSMAuthenticationFormStateProtocol) {
         Task {
             do {
                 guard let authenticationEntity = state.authenticationEntity else { return }
@@ -93,6 +105,8 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
                         entity: authenticationEntity
                     )
                 )
+                dialogDismissed()
+                model?.updateIsSubmitting(isSubmitting: true)
             }
         }
     }

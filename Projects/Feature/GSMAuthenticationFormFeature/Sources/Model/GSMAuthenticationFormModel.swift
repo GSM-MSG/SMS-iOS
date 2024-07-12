@@ -5,8 +5,10 @@ import FoundationUtil
 final class GSMAuthenticationFormModel: ObservableObject, GSMAuthenticationFormStateProtocol {
     @Published var uiModel: GSMAuthenticationFormUIModel = .init(areas: [], files: [])
     @Published var fieldContents: [GSMAuthenticationFormFieldModel] = []
-    @Published var stateModel: GSMAuthenticationStateModel = .init(name: "", score: 0, markingBoardType: .notSubmitted)
+    @Published var stateModel: GSMAuthenticationStateModel = .init(name: "", score: 0, markingBoardType: .underReview)
     @Published var isLoading: Bool = false
+    @Published var isSubmitting: Bool = false
+    @Published var isPresentedSubmitDialog: Bool = false
     var authenticationEntity: AuthenticationFormEntity?
     var authenticationStateEntity: AuthenticationStateEntity?
 }
@@ -101,9 +103,16 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
         uiModel.areas[area].sections[sectionIndex].groups.remove(at: groupIndex)
     }
 
-
     func updateIsLoading(isLoading: Bool) {
         self.isLoading = isLoading
+    }
+
+    func updateIsSubmitting(isSubmitting: Bool) {
+        self.isSubmitting = isSubmitting
+    }
+
+    func updateIsPresentedSubmitDialog(isPresentedSubmitDialog: Bool) {
+        self.isPresentedSubmitDialog = isPresentedSubmitDialog
     }
 }
 

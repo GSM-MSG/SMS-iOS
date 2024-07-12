@@ -43,6 +43,10 @@ internal final class OptionPickerPresenter {
         optionSelectSubject.send(option)
         isPresentedSubject.send(false)
     }
+
+    func cancleSelectedOption() {
+        isPresentedSubject.send(false)
+    }
 }
 
 internal extension EnvironmentValues {

@@ -7,6 +7,8 @@ protocol GSMAuthenticationFormStateProtocol {
     var authenticationStateEntity: AuthenticationStateEntity? { get }
     var stateModel: GSMAuthenticationStateModel { get }
     var isLoading: Bool { get }
+    var isSubmitting: Bool { get }
+    var isPresentedSubmitDialog: Bool { get }
 }
 
 protocol GSMAuthenticationFormActionProtocol: AnyObject {
@@ -68,4 +70,8 @@ protocol GSMAuthenticationFormActionProtocol: AnyObject {
     )
 
     func updateIsLoading(isLoading: Bool)
+
+    func updateIsSubmitting(isSubmitting: Bool)
+
+    func updateIsPresentedSubmitDialog(isPresentedSubmitDialog: Bool)
 }

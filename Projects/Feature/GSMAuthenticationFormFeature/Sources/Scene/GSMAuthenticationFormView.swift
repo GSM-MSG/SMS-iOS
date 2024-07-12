@@ -27,7 +27,8 @@ struct GSMAuthenticationFormView: View {
             case .notSubmitted:
                 authenticationView()
             case .underReview:
-                underReview()
+                //                underReview()
+                authenticationView()
             case .pendingReview:
                 pendingView()
             case .completed:
@@ -37,6 +38,7 @@ struct GSMAuthenticationFormView: View {
         .onAppear {
             intent.viewOnAppear()
         }
+        .hideKeyboardWhenTap()
         .navigationTitle("인증제")
         .smsBackButton(
             dismiss: dismiss
@@ -44,16 +46,38 @@ struct GSMAuthenticationFormView: View {
         .smsBottomSheet(
             isShowing: Binding(
                 get: { isPresented },
-                set: { _ in }
+                set: { _ in optionPickerPresenter.cancleSelectedOption() }
             )
         ) {
             valueListView()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .edgesIgnoringSafeArea([.bottom])
+        .ignoresSafeArea(.keyboard)
         .onAppear {
             subscribeToIsPresentedPublisher()
         }
         .smsLoading(isLoading: state.isLoading)
+        .smsDialog(title: "정말로 인증제를 제출하시겠습니까?", isShowing: Binding(get: { state.isPresentedSubmitDialog }, set: { _ in
+            intent.dialogDismissed()
+        }), dialogActions: [
+            .init(text: "취소", style: .outline, action: {
+                intent.dialogDismissed()
+            }),
+            .init(text: "확인", style: .default, action: {
+                intent.submitButtonDidTap(state: state)
+                dismiss()
+            })
+        ])
+        .animation(.easeIn, value: state.isPresentedSubmitDialog)
+        .smsToast(
+            text: "인증제 제출이 완료되었습니다",
+            isShowing: Binding(
+                get: { state.isSubmitting },
+                set: { _ in intent.toastDismissed() })
+        ) {
+            SMSIcon(.greenCheck)
+        }
     }
 
     func subscribeToIsPresentedPublisher() {
@@ -150,34 +174,40 @@ struct GSMAuthenticationFormView: View {
 
     @ViewBuilder
     func authenticationView() -> some View {
-        GSMAuthenticationFormBuilderView(intent: intent, uiModel: state.uiModel) { field in
-            switch field {
-            case let .fieldChanges(area, section, group, field, fieldChanges):
-                switch fieldChanges {
-                case let .text(text):
-                    intent.updateTextField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, text: text)
-                case let .number(number):
-                    intent.updateNumberField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, number: number)
-                case let .boolean(select):
-                    intent.updateBoolField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
-                case let .file(file, fileName):
-                    intent.updateFileField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, file: file, fileName: fileName)
-                case let .select(select):
-                    intent.updateSelectField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
+        VStack {
+            Spacer()
+                .frame(height: 1)
+            GSMAuthenticationFormBuilderView(intent: intent, uiModel: state.uiModel) { field in
+                switch field {
+                case let .fieldChanges(area, section, group, field, fieldChanges):
+                    switch fieldChanges {
+                    case let .text(text):
+                        intent.updateTextField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, text: text)
+                    case let .number(number):
+                        intent.updateNumberField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, number: number)
+                    case let .boolean(select):
+                        intent.updateBoolField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
+                    case let .file(file, fileName):
+                        intent.updateFileField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, file: file, fileName: fileName)
+                    case let .select(select):
+                        intent.updateSelectField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
+                    }
+                case let .groupAdd(area, section, group):
+                    intent.appendField(area: area, sectionIndex: section, groupIndex: group)
+                case let .groupRemove(area, section, group):
+                    intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
                 }
-            case let .groupAdd(area, section, group):
-                intent.appendField(area: area, sectionIndex: section, groupIndex: group)
-            case let .groupRemove(area, section, group):
-                intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
             }
-        }
-        .padding(.bottom, safeAreaInsets.bottom + 16)
-        .overlay(alignment: .bottom) {
+
             CTAButton(text: "저장") {
-                intent.saveButtonDidTap(state: state)
+                intent.saveButtonDidTap()
             }
-            .frame(maxWidth: .infinity)
             .padding(.horizontal, 20)
+            .padding(.bottom, safeAreaInsets.bottom + 16)
+            .background {
+                Color.sms(.system(.white))
+            }
+            .ignoresSafeArea()
         }
         .onAppear {
             intent.formOnAppear()
