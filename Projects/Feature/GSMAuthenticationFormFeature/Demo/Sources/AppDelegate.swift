@@ -5,11 +5,9 @@ import FileDomainTesting
 
 @main
 struct GSMAuthenticationFormDemoApp: App {
-    let make: DemoMakable = DemoMakable()
-
     var body: some Scene {
         WindowGroup {
-            let uiModel = GSMAuthenticationFormUIModel(
+            FormBuilderAreaListView(
                 areas: [
                     GSMAuthenticationFormUIModel.Area(
                         title: "Area 1",
@@ -66,29 +64,8 @@ struct GSMAuthenticationFormDemoApp: App {
                             )
                         ]
                     )
-                ],
-                files: [
-                    GSMAuthenticationFormUIModel.File(name: "File 1", url: "http://example.com/file1"),
-                    GSMAuthenticationFormUIModel.File(name: "File 2", url: "http://example.com/file2")
                 ]
-            )
-
-            make.makeView(uiModel: uiModel)
-        }
-    }
-}
-
-final class DemoMakable {
-    func makeView(uiModel: GSMAuthenticationFormUIModel) -> GSMAuthenticationFormBuilderView {
-        return GSMAuthenticationFormBuilderView(
-            intent: GSMAuthenticationFormIntent(
-                model: GSMAuthenticationFormModel(),
-                fetchAuthenticationFormUseCase: FetchAuthenticationFormUseCaseSpy(),
-                inputAuthenticationUseCase: InputAuthenticationUseCaseSpy(),
-                fileUploadUseCase: FileUploadUseCaseSpy(), fetchAuthenticationStateUseCase: FetchAuthenticationStateUseCaseSpy()
-            ),
-            uiModel: uiModel
-        ) { _ in
+            ) { _ in }
         }
     }
 }
