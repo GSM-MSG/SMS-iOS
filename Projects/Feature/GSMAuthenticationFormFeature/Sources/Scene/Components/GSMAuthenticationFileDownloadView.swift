@@ -4,18 +4,18 @@ import SwiftUI
 
 struct GSMAuthenticationFileDownloadView: View {
     @Environment(\.openURL) var openURL
+    private let files: [GSMAuthenticationFormUIModel.File]
     @State private var isCollapsed = false
-    private let uiModel: [GSMAuthenticationFormUIModel.File]
     private typealias File = GSMAuthenticationFormUIModel.File
 
     init(
-        uiModel: [GSMAuthenticationFormUIModel.File]
+        files: [GSMAuthenticationFormUIModel.File]
     ) {
-        self.uiModel = uiModel
+        self.files = files
     }
 
     var body: some View {
-        fileAreaView(files: uiModel)
+        fileAreaView(files: files)
     }
 
     @ViewBuilder

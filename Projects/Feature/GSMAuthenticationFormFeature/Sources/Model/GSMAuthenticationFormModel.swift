@@ -11,11 +11,15 @@ final class GSMAuthenticationFormModel: ObservableObject, GSMAuthenticationFormS
     @Published var isPresentedSubmitDialog: Bool = false
     var authenticationEntity: AuthenticationFormEntity?
     var authenticationStateEntity: AuthenticationStateEntity?
+    @Published var areas: [GSMAuthenticationFormUIModel.Area] = []
+    @Published var files: [GSMAuthenticationFormUIModel.File] = []
 }
 
 extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
     func updateGSMAuthenticationFormUIModel(uiModel: GSMAuthenticationFormUIModel) {
         self.uiModel = uiModel
+        self.areas = uiModel.areas
+        self.files = uiModel.files
     }
 
     func updateAuthenticationEntity(authenticationEntity: AuthenticationFormEntity) {
@@ -63,7 +67,7 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
             )
         }
 
-        uiModel.areas[area].sections[sectionIndex].groups.insert(
+        areas[area].sections[sectionIndex].groups.insert(
             .init(
                 groupId: selectedGroup.groupId,
                 maxScore: selectedGroup.maxScore,
@@ -74,25 +78,25 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
     }
 
     func updateTextField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, text: String) {
-        uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type = .text(value: text)
+        areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type = .text(value: text)
     }
 
     func updateNumberField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, number: Int) {
-        uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type = .number(value: number)
+        areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type = .number(value: number)
     }
 
     func updateBoolField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, select: String) {
-        uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type =
-            .boolean(selectedValue: select, values: uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].findFieldTypeValue())
+        areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type =
+            .boolean(selectedValue: select, values: areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].findFieldTypeValue())
     }
 
     func updateFileField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, file: String) {
-        uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type = .file(fileName: file)
+        areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type = .file(fileName: file)
     }
 
     func updateSelectField(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, select: String) {
-        uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type =
-            .select(selectedValue: select, values: uiModel.areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].findFieldTypeValue())
+        areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].type =
+            .select(selectedValue: select, values: areas[area].sections[sectionIndex].groups[groupIndex].fields[fieldIndex].findFieldTypeValue())
     }
 
     func deleteField(
@@ -100,7 +104,7 @@ extension GSMAuthenticationFormModel: GSMAuthenticationFormActionProtocol {
         sectionIndex: Int,
         groupIndex: Int
     ) {
-        uiModel.areas[area].sections[sectionIndex].groups.remove(at: groupIndex)
+        areas[area].sections[sectionIndex].groups.remove(at: groupIndex)
     }
 
     func updateIsLoading(isLoading: Bool) {

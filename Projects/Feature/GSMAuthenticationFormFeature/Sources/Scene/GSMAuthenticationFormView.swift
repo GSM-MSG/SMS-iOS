@@ -22,18 +22,78 @@ struct GSMAuthenticationFormView: View {
     }
 
     var body: some View {
-        ZStack {
-            switch state.stateModel.markingBoardType {
-            case .notSubmitted:
-                authenticationView()
-            case .underReview:
-                //                underReview()
-                authenticationView()
-            case .pendingReview:
-                pendingView()
-            case .completed:
-                completed()
+        ScrollView {
+            GSMAuthenticationFileDownloadView(files: state.files)
+
+            FormBuilderAreaListView(areas: state.areas) { fieldInteraction in
+                switch fieldInteraction {
+                case let .fieldChanges(area, section, group, field, fieldChanges):
+                    switch fieldChanges {
+                    case let .text(text):
+                        intent.updateTextField(
+                            area: area,
+                            sectionIndex: section,
+                            groupIndex: group,
+                            fieldIndex: field,
+                            text: text
+                        )
+                    case let .number(number):
+                        intent.updateNumberField(
+                            area: area,
+                            sectionIndex: section,
+                            groupIndex: group,
+                            fieldIndex: field,
+                            number: number
+                        )
+                    case let .boolean(select):
+                        intent.updateBoolField(
+                            area: area,
+                            sectionIndex: section,
+                            groupIndex: group,
+                            fieldIndex: field,
+                            select: select
+                        )
+                    case let .file(file, fileName):
+                        intent.updateFileField(
+                            area: area,
+                            sectionIndex: section,
+                            groupIndex: group,
+                            fieldIndex: field,
+                            file: file,
+                            fileName: fileName
+                        )
+                    case let .select(select):
+                        intent.updateSelectField(
+                            area: area,
+                            sectionIndex: section,
+                            groupIndex: group,
+                            fieldIndex: field,
+                            select: select
+                        )
+                    }
+                case let .groupAdd(area, section, group):
+                    intent.appendField(area: area, sectionIndex: section, groupIndex: group)
+                case let .groupRemove(area, section, group):
+                    intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
+                }
             }
+
+            Spacer()
+                .frame(height: 120)
+        }
+        .overlay(alignment: .bottom) {
+            CTAButton(text: "저장") {
+                intent.saveButtonDidTap()
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, safeAreaInsets.bottom + 16)
+            .background {
+                Color.sms(.system(.white))
+            }
+            .ignoresSafeArea()
+        }
+        .onAppear {
+            intent.formOnAppear()
         }
         .onAppear {
             intent.viewOnAppear()
@@ -177,25 +237,60 @@ struct GSMAuthenticationFormView: View {
         VStack {
             Spacer()
                 .frame(height: 1)
-            GSMAuthenticationFormBuilderView(intent: intent, uiModel: state.uiModel) { field in
-                switch field {
-                case let .fieldChanges(area, section, group, field, fieldChanges):
-                    switch fieldChanges {
-                    case let .text(text):
-                        intent.updateTextField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, text: text)
-                    case let .number(number):
-                        intent.updateNumberField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, number: number)
-                    case let .boolean(select):
-                        intent.updateBoolField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
-                    case let .file(file, fileName):
-                        intent.updateFileField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, file: file, fileName: fileName)
-                    case let .select(select):
-                        intent.updateSelectField(area: area, sectionIndex: section, groupIndex: group, fieldIndex: field, select: select)
+            ScrollView {
+                GSMAuthenticationFileDownloadView(files: state.files)
+
+                FormBuilderAreaListView(areas: state.areas) { fieldInteraction in
+                    switch fieldInteraction {
+                    case let .fieldChanges(area, section, group, field, fieldChanges):
+                        switch fieldChanges {
+                        case let .text(text):
+                            intent.updateTextField(
+                                area: area,
+                                sectionIndex: section,
+                                groupIndex: group,
+                                fieldIndex: field,
+                                text: text
+                            )
+                        case let .number(number):
+                            intent.updateNumberField(
+                                area: area,
+                                sectionIndex: section,
+                                groupIndex: group,
+                                fieldIndex: field,
+                                number: number
+                            )
+                        case let .boolean(select):
+                            intent.updateBoolField(
+                                area: area,
+                                sectionIndex: section,
+                                groupIndex: group,
+                                fieldIndex: field,
+                                select: select
+                            )
+                        case let .file(file, fileName):
+                            intent.updateFileField(
+                                area: area,
+                                sectionIndex: section,
+                                groupIndex: group,
+                                fieldIndex: field,
+                                file: file,
+                                fileName: fileName
+                            )
+                        case let .select(select):
+                            intent.updateSelectField(
+                                area: area,
+                                sectionIndex: section,
+                                groupIndex: group,
+                                fieldIndex: field,
+                                select: select
+                            )
+                        }
+                    case let .groupAdd(area, section, group):
+                        intent.appendField(area: area, sectionIndex: section, groupIndex: group)
+                    case let .groupRemove(area, section, group):
+                        intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
                     }
-                case let .groupAdd(area, section, group):
-                    intent.appendField(area: area, sectionIndex: section, groupIndex: group)
-                case let .groupRemove(area, section, group):
-                    intent.deleteField(area: area, sectionIndex: section, groupIndex: group)
                 }
             }
 

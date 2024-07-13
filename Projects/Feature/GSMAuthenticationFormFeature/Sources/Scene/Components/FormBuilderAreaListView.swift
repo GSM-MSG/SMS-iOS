@@ -2,6 +2,20 @@ import DesignSystem
 import SwiftUI
 import ViewUtil
 
+enum FieldChanges {
+    case text(String)
+    case number(Int)
+    case boolean(String)
+    case file(Data, String)
+    case select(String)
+}
+
+enum FieldInteraction {
+    case fieldChanges(area: Int, sectionIndex: Int, groupIndex: Int, fieldIndex: Int, fieldChanges: FieldChanges)
+    case groupAdd(area: Int, section: Int, group: Int)
+    case groupRemove(area: Int, section: Int, group: Int)
+}
+
 struct FormBuilderAreaListView: View {
     private typealias Area = GSMAuthenticationFormUIModel.Area
     private typealias Section = Area.Section

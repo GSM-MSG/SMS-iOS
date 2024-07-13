@@ -3,6 +3,8 @@ import Foundation
 
 protocol GSMAuthenticationFormStateProtocol {
     var uiModel: GSMAuthenticationFormUIModel { get }
+    var areas: [GSMAuthenticationFormUIModel.Area] { get }
+    var files: [GSMAuthenticationFormUIModel.File] { get }
     var authenticationEntity: AuthenticationFormEntity? { get }
     var authenticationStateEntity: AuthenticationStateEntity? { get }
     var stateModel: GSMAuthenticationStateModel { get }

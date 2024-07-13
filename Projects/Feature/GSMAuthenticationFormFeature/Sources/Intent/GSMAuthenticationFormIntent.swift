@@ -34,13 +34,12 @@ final class GSMAuthenticationFormIntent: GSMAuthenticationFormIntentProtocol {
                 model?.updateAuthenticationStateEntity(authenticationStateEntity: authenticationStateEntity)
 
                 model?.updateAuthenticationStateModel(
-                    stateModel:
-                            .init(
-                                name: authenticationStateEntity.name,
-                                score: authenticationStateEntity.score,
-                                grader: authenticationStateEntity.grader,
-                                markingBoardType: authenticationStateEntity.markingBoardType
-                            )
+                    stateModel: .init(
+                        name: authenticationStateEntity.name,
+                        score: authenticationStateEntity.score,
+                        grader: authenticationStateEntity.grader,
+                        markingBoardType: authenticationStateEntity.markingBoardType
+                    )
                 )
                 if authenticationStateEntity.markingBoardType != .notSubmitted {
                     model?.updateIsLoading(isLoading: false)
