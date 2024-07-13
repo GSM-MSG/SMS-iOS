@@ -3,10 +3,14 @@ import Foundation
 
 protocol GSMAuthenticationFormStateProtocol {
     var uiModel: GSMAuthenticationFormUIModel { get }
+    var areas: [GSMAuthenticationFormUIModel.Area] { get }
+    var files: [GSMAuthenticationFormUIModel.File] { get }
     var authenticationEntity: AuthenticationFormEntity? { get }
     var authenticationStateEntity: AuthenticationStateEntity? { get }
     var stateModel: GSMAuthenticationStateModel { get }
     var isLoading: Bool { get }
+    var isSubmitting: Bool { get }
+    var isPresentedSubmitDialog: Bool { get }
 }
 
 protocol GSMAuthenticationFormActionProtocol: AnyObject {
@@ -68,4 +72,8 @@ protocol GSMAuthenticationFormActionProtocol: AnyObject {
     )
 
     func updateIsLoading(isLoading: Bool)
+
+    func updateIsSubmitting(isSubmitting: Bool)
+
+    func updateIsPresentedSubmitDialog(isPresentedSubmitDialog: Bool)
 }

@@ -3,7 +3,10 @@ import Foundation
 protocol GSMAuthenticationFormIntentProtocol {
     func viewOnAppear()
     func formOnAppear()
-    func saveButtonDidTap(state: any GSMAuthenticationFormStateProtocol)
+    func saveButtonDidTap()
+    func toastDismissed()
+    func dialogDismissed()
+    func submitButtonDidTap(state: any GSMAuthenticationFormStateProtocol)
     func appendField(
         area: Int,
         sectionIndex: Int,
@@ -43,7 +46,6 @@ protocol GSMAuthenticationFormIntentProtocol {
         file: Data,
         fileName: String
     )
-
     func updateSelectField(
         area: Int,
         sectionIndex: Int,

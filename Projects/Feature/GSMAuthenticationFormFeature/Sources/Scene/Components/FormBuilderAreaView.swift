@@ -231,6 +231,7 @@ struct FormBuilderAreaView: View {
                 }
             )
         )
+        .keyboardType(.numberPad)
     }
 
     @ViewBuilder
